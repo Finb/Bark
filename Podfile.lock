@@ -1,0 +1,38 @@
+PODS:
+  - Alamofire (4.6.0)
+  - DeviceKit (1.5.0)
+  - FDFullscreenPopGesture (1.1)
+  - KVOController (1.2.0)
+  - MJRefresh (3.1.15.3)
+  - Moya/Core (11.0.0):
+    - Alamofire (~> 4.1)
+    - Result (~> 3.0)
+  - Moya/RxSwift (11.0.0):
+    - Moya/Core
+    - RxSwift (~> 4.0)
+  - Result (3.2.4)
+  - RxSwift (4.1.2)
+  - SVProgressHUD (2.2.5)
+
+DEPENDENCIES:
+  - DeviceKit
+  - FDFullscreenPopGesture
+  - KVOController
+  - MJRefresh
+  - Moya/RxSwift
+  - SVProgressHUD
+
+SPEC CHECKSUMS:
+  Alamofire: f41a599bd63041760b26d393ec1069d9d7b917f4
+  DeviceKit: 883552d64028056216e913a88f892e7e29678e75
+  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
+  MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
+  Moya: be29766339783963a70d1279d69c891ab3a1393c
+  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
+  RxSwift: e49536837d9901277638493ea537394d4b55f570
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+
+PODFILE CHECKSUM: aff58c4e14741124f994b6d0084c6bf1a2384835
+
+COCOAPODS: 1.4.0
