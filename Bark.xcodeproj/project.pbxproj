@@ -7,22 +7,51 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0603706720E1E31600F4CA05 /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706620E1E31600F4CA05 /* Defines.swift */; };
+		0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706820E1F89500F4CA05 /* PreviewCardCell.swift */; };
+		0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
+		0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */; };
+		0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604F7DE20620D4900B32F09 /* ServerManager.swift */; };
+		0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7720E0926D00E80174 /* BarkTargetType.swift */; };
+		0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7920E092B300E80174 /* Observable+Extension.swift */; };
+		0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7B20E0930E00E80174 /* BarkApi.swift */; };
+		0637FA7E20E0969800E80174 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7D20E0969800E80174 /* Client.swift */; };
+		0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7F20E0981E00E80174 /* BarkSettings.swift */; };
+		0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8120E09C4B00E80174 /* BarkNavigationController.swift */; };
+		0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */; };
+		0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8920E0D58800E80174 /* NewServerViewController.swift */; };
+		0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8B20E0D7A700E80174 /* BaseViewController.swift */; };
 		0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A542204FDA4100965E4E /* AppDelegate.swift */; };
-		0661A545204FDA4100965E4E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* ViewController.swift */; };
-		0661A548204FDA4100965E4E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A546204FDA4100965E4E /* Main.storyboard */; };
+		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
 		4A97FDFB8C102B8A492ED65A /* Pods_Bark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D155DFC7B804DC5518C01D75 /* Pods_Bark.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0603706620E1E31600F4CA05 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
+		0603706820E1F89500F4CA05 /* PreviewCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardCell.swift; sourceTree = "<group>"; };
+		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
+		0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSFSafariViewController.swift; sourceTree = "<group>"; };
+		0604F7DE20620D4900B32F09 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		0637FA7720E0926D00E80174 /* BarkTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTargetType.swift; sourceTree = "<group>"; };
+		0637FA7920E092B300E80174 /* Observable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
+		0637FA7B20E0930E00E80174 /* BarkApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkApi.swift; sourceTree = "<group>"; };
+		0637FA7D20E0969800E80174 /* Client.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		0637FA7F20E0981E00E80174 /* BarkSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSettings.swift; sourceTree = "<group>"; };
+		0637FA8120E09C4B00E80174 /* BarkNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkNavigationController.swift; sourceTree = "<group>"; };
+		0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		0637FA8920E0D58800E80174 /* NewServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServerViewController.swift; sourceTree = "<group>"; };
+		0637FA8B20E0D7A700E80174 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		0661A53F204FDA4100965E4E /* Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0661A542204FDA4100965E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0661A544204FDA4100965E4E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		0661A547204FDA4100965E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		0661A544204FDA4100965E4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0661A549204FDA4100965E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0661A54C204FDA4100965E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0661A54E204FDA4100965E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
+		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
 		87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
 		D155DFC7B804DC5518C01D75 /* Pods_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -40,9 +69,48 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0604F7DB20620D2700B32F09 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0637FA8B20E0D7A700E80174 /* BaseViewController.swift */,
+				0637FA8120E09C4B00E80174 /* BarkNavigationController.swift */,
+				0661A544204FDA4100965E4E /* HomeViewController.swift */,
+				0637FA8920E0D58800E80174 /* NewServerViewController.swift */,
+				0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		0604F7DC20620D3400B32F09 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0604F7DD20620D3800B32F09 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0603706620E1E31600F4CA05 /* Defines.swift */,
+				0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */,
+				0603706A20E20A7C00F4CA05 /* String+Extension.swift */,
+				0637FA7F20E0981E00E80174 /* BarkSettings.swift */,
+				0604F7DE20620D4900B32F09 /* ServerManager.swift */,
+				0637FA7720E0926D00E80174 /* BarkTargetType.swift */,
+				0637FA7920E092B300E80174 /* Observable+Extension.swift */,
+				0637FA7B20E0930E00E80174 /* BarkApi.swift */,
+				0637FA7D20E0969800E80174 /* Client.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		0661A536204FDA4100965E4E = {
 			isa = PBXGroup;
 			children = (
+				0604F7DD20620D3800B32F09 /* Model */,
+				0604F7DC20620D3400B32F09 /* View */,
+				0604F7DB20620D2700B32F09 /* Controller */,
 				0661A541204FDA4100965E4E /* Bark */,
 				0661A540204FDA4100965E4E /* Products */,
 				9563D0DB71FE280909AB1C63 /* Pods */,
@@ -61,9 +129,8 @@
 		0661A541204FDA4100965E4E /* Bark */ = {
 			isa = PBXGroup;
 			children = (
+				0683486A2050F1310024B6DA /* Bark.entitlements */,
 				0661A542204FDA4100965E4E /* AppDelegate.swift */,
-				0661A544204FDA4100965E4E /* ViewController.swift */,
-				0661A546204FDA4100965E4E /* Main.storyboard */,
 				0661A549204FDA4100965E4E /* Assets.xcassets */,
 				0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */,
 				0661A54E204FDA4100965E4E /* Info.plist */,
@@ -84,6 +151,8 @@
 			isa = PBXGroup;
 			children = (
 				D155DFC7B804DC5518C01D75 /* Pods_Bark.framework */,
+				0683487020510FB20024B6DA /* UserNotifications.framework */,
+				0683487220510FB20024B6DA /* UserNotificationsUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -118,12 +187,17 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Fin;
 				TargetAttributes = {
 					0661A53E204FDA4100965E4E = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -152,7 +226,6 @@
 			files = (
 				0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */,
 				0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */,
-				0661A548204FDA4100965E4E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,26 +273,36 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Bark/Pods-Bark-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/DefaultsKit/DefaultsKit.framework",
 				"${BUILT_PRODUCTS_DIR}/DeviceKit/DeviceKit.framework",
 				"${BUILT_PRODUCTS_DIR}/FDFullscreenPopGesture/FDFullscreenPopGesture.framework",
 				"${BUILT_PRODUCTS_DIR}/KVOController/KVOController.framework",
-				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Material/Material.framework",
+				"${BUILT_PRODUCTS_DIR}/Motion/Motion.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DefaultsKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DeviceKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FDFullscreenPopGesture.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KVOController.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Material.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Motion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SnapKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -233,7 +316,21 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0661A545204FDA4100965E4E /* ViewController.swift in Sources */,
+				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
+				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
+				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
+				0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */,
+				0637FA7E20E0969800E80174 /* Client.swift in Sources */,
+				0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */,
+				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
+				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
+				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
+				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,
+				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
+				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
+				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
+				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
+				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -241,14 +338,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		0661A546204FDA4100965E4E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				0661A547204FDA4100965E4E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -274,6 +363,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -281,6 +371,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -331,6 +422,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -338,6 +430,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -372,11 +465,13 @@
 			baseConfigurationReference = 87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.Bark;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -388,11 +483,13 @@
 			baseConfigurationReference = 1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.Bark;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;

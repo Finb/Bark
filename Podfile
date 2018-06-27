@@ -3,12 +3,16 @@ inhibit_all_warnings!
 use_frameworks!
 
 def pods
+    pod 'SnapKit'
+    pod 'Material'
     pod 'KVOController'
     pod 'SVProgressHUD'
-    pod 'MJRefresh'
     pod 'FDFullscreenPopGesture'
     pod 'Moya/RxSwift'
+    pod 'ObjectMapper'
+    pod 'SwiftyJSON'
     pod 'DeviceKit'
+    pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
 end
 
 target 'Bark' do
