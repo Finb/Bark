@@ -17,7 +17,7 @@ class HomeViewController: BaseViewController {
         return btn
     }()
     
-    let startButton = FABButton(title: "注册设备")
+    let startButton = FABButton(title: NSLocalizedString("RegisterDevice"))
     
     let statusButton = IconButton(image: UIImage(named: "baseline_https_black_24pt"), tintColor: .white)
     
@@ -32,12 +32,12 @@ class HomeViewController: BaseViewController {
     var dataSource:[PreviewModel] = {
         return [
             PreviewModel(
-                body:"这里改成你自己的推送内容",
-                notice: "点击右上角按钮可以复制测试URL、预览推送效果\nSafari有缓存，没收到推送时请刷新页面"),
+                body: NSLocalizedString("CustomedNotifictionContent"),
+                notice: NSLocalizedString("Notice1")),
             PreviewModel(
-                title: "推送标题",
-                body:"这里改成你自己的推送内容",
-                notice: "推送标题的字号比推送内容粗一点")
+                title: NSLocalizedString("CustomedNotifictionTitle"),
+                body: NSLocalizedString("CustomedNotifictionContent"),
+                notice: NSLocalizedString("Notice2"))
         ]
     }()
     
@@ -98,7 +98,7 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
         let cell = self.tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)", for: indexPath) as! PreviewCardCell
         cell.bind(model: dataSource[indexPath.row])
         cell.copyHandler = {[weak self] in
-            self?.showSnackbar(text: "复制成功")
+            self?.showSnackbar(text: NSLocalizedString("Copy"))
         }
         return cell
     }
@@ -127,7 +127,7 @@ extension HomeViewController {
                         self.startButton.removeFromSuperview()
                     }
                     else{
-                        self.showSnackbar(text: "绑定设备需要推送。请打开推送后重试")
+                        self.showSnackbar(text: NSLocalizedString("AllowNotifications"))
                         self.startButton.titleColor = Color.blue.base
                         self.startButton.isEnabled = true
                     }
@@ -142,19 +142,19 @@ extension HomeViewController {
         case .ok:
             if let url = URL(string: ServerManager.shared.currentAddress) {
                 if url.scheme?.lowercased() == "https" {
-                    navigationItem.detailLabel.text = "HTTPS安全连接"
+                    navigationItem.detailLabel.text = NSLocalizedString("SecureConnection")
                     statusButton.image = UIImage(named: "baseline_https_black_24pt")
                 }
                 else {
-                    navigationItem.detailLabel.text = "连接不安全，请使用HTTPS安全连接"
+                    navigationItem.detailLabel.text = NSLocalizedString("InsecureConnection")
                     statusButton.image = UIImage(named: "baseline_http_black_24pt")
                 }
                 self.tableView.reloadData()
             }
         case .unRegister:
-            navigationItem.detailLabel.text = "设备未注册，不能使用推送服务"
+            navigationItem.detailLabel.text = NSLocalizedString("UnregisteredDevice")
         case .serverError:
-            navigationItem.detailLabel.text = "服务器错误，不能使用推送服务"
+            navigationItem.detailLabel.text = NSLocalizedString("ServerError")
         }
     }
 }

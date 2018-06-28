@@ -1,0 +1,40 @@
+/* 
+  Localizable.strings
+  Bark
+
+  Created by huangfeng on 2018/6/27.
+  Copyright © 2018 Fin. All rights reserved.
+*/
+
+
+SecureConnection = "Secure Connection (HTTPS)";
+InsecureConnection = "Insecure Connection (HTTP)";
+RegisterDevice = "Register Device";
+
+CustomedNotifictionContent = "Customed Notifiction Content";
+CustomedNotifictionTitle = "Customed Notifiction Title";
+
+Notice1 = "Click on the buttons in the upper right corner \nto copy or preview test URL";
+Notice2 = "";
+
+Copy = "Copied!";
+
+AllowNotifications = "Notifications have been turned off, Please allow notifications and try again";
+
+UnregisteredDevice = "Unregistered Device";
+
+ServerError = "Server Error";
+
+ServerAddress = "Server Address";
+
+ServerExample = "Enter the server address, for example: https://api.day.app";
+
+DeploymentDocuments = "Deployment Documentation";
+
+AddServer = "Add Customed Server";
+
+AddedSuccessfully = "Added Successfully!";
+
+InvalidServer = "Invalid server! please try again.";
+
+InvalidURL = "Invalid URL!";

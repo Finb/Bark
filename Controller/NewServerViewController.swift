@@ -15,8 +15,8 @@ class NewServerViewController: BaseViewController {
     let addressTextField : TextField = {
         let textField = TextField()
         textField.keyboardType = .URL
-        textField.placeholder = "服务器地址"
-        textField.detail = "输入服务器地址，例如: https://api.day.app"
+        textField.placeholder = NSLocalizedString("ServerAddress")
+        textField.detail = NSLocalizedString("ServerExample")
         textField.transition([ .scale(0.85) , .opacity(0)] )
         textField.detailLabel.transition([ .scale(0.85) , .opacity(0)] )
         return textField
@@ -24,7 +24,7 @@ class NewServerViewController: BaseViewController {
     
     let noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = "查看服务端部署教程"
+        label.text = NSLocalizedString("DeploymentDocuments")
         label.textColor = Color.blue.base
         label.font = UIFont.systemFont(ofSize: 12)
         label.transition([ .scale(0.85) , .opacity(0), .translate(x: 50)] )
@@ -35,7 +35,7 @@ class NewServerViewController: BaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleLabel.text = "添加私有服务器"
+        navigationItem.titleLabel.text = NSLocalizedString("AddServer")
         
         doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
         navigationItem.rightViews = [doneButton]
@@ -64,15 +64,15 @@ class NewServerViewController: BaseViewController {
                 .subscribe(onNext: {[weak self] (_) in
                     self?.navigationController?.popViewController(animated: true)
                     ServerManager.shared.currentAddress = text
-                    self?.showSnackbar(text: "修改成功!")
+                    self?.showSnackbar(text: NSLocalizedString("AddedSuccessfully"))
                     Client.shared.bindDeviceToken()
                     
                 }, onError: {[weak self] (error) in
-                    self?.showSnackbar(text: "填写的服务器无效，请重试!\(error.localizedDescription)")
+                    self?.showSnackbar(text: "\(NSLocalizedString("InvalidServer"))\(error.localizedDescription)")
                 })
         }
         else{
-            self.showSnackbar(text: "输入的URL好像不对劲!")
+            self.showSnackbar(text: NSLocalizedString("InvalidURL"))
         }
     }
     

@@ -26,3 +26,7 @@ extension UIViewController {
         self.snackbarController?.animate(snackbar: .hidden, delay: 3)
     }
 }
+
+func NSLocalizedString( _ key:String ) -> String {
+    return NSLocalizedString(key, comment: "")
+}
