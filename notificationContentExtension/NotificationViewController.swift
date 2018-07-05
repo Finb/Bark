@@ -15,7 +15,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     let noticeLabel:UILabel = {
         let label = UILabel()
         label.textColor = UIColor.black
-        label.text = "复制完成!"
+        label.text = NSLocalizedString("Copy", comment: "")
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
         return label
@@ -26,8 +26,13 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         self.view.addSubview(self.noticeLabel)
         self.preferredContentSize = CGSize(width: 0, height: 1)
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.preferredContentSize = CGSize(width: 0, height: 1)
+    }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        self.preferredContentSize = CGSize(width: 0, height: 1)
     }
     
     func didReceive(_ notification: UNNotification) {

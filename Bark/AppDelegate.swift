@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNUserNotificationCenter.current().setNotificationCategories([
             UNNotificationCategory(identifier: "myNotificationCategory", actions: [
-                UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.init(rawValue: 0))
+                UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.foreground)
                 ], intentIdentifiers: [], options: .customDismissAction)
             ])
 
