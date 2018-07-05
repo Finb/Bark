@@ -14,12 +14,16 @@ class PreviewModel: NSObject {
     var body:String?
     var category:String?
     var notice:String?
+    var queryParameter:String?
+    var image:UIImage?
     
-    init(title:String? = nil, body:String? = nil, category:String? = nil, notice:String? = nil) {
+    init(title:String? = nil, body:String? = nil, category:String? = nil, notice:String? = nil, queryParameter:String? = nil, image:UIImage? = nil) {
         self.title = title
         self.body = body
         self.category = category
         self.notice = notice
+        self.queryParameter = queryParameter
+        self.image = image
     }
 }
 
@@ -39,7 +43,7 @@ class PreviewCardCell: UITableViewCell {
 
     let bottomBar = Bar()
     
-    let card = Card()
+    let card = PresenterCard()
     
     var copyHandler: (() -> Void)?
     
@@ -50,7 +54,7 @@ class PreviewCardCell: UITableViewCell {
         return label
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    init(style: UITableViewCellStyle, reuseIdentifier: String?, model:PreviewModel) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.backgroundColor = Color.grey.lighten3
@@ -78,7 +82,8 @@ class PreviewCardCell: UITableViewCell {
         card.bottomBar = bottomBar
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
     
-        self.layout(card).horizontally(left: 10, right: 10).top(40)
+        self.bind(model: model)
+        self.contentView.layout(card).horizontally(left: 10, right: 10).center()
         
         previewButton.addTarget(self, action: #selector(preview), for: .touchUpInside)
         copyButton.addTarget(self, action: #selector(copyURL), for: .touchUpInside)
@@ -149,8 +154,26 @@ class PreviewCardCell: UITableViewCell {
                 self.toolbar.detail = body
             }
         }
+        if let queryParameter = model.queryParameter {
+            attrStr.append(NSAttributedString(string: "?\(queryParameter)", attributes: [
+                NSAttributedStringKey.foregroundColor: Color.grey.lighten1,
+                NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
+                ]))
+        }
         self.contentLabel.attributedText = attrStr
         self.noticeLabel.text = model.notice
+        
+        if let image = model.image {
+            let imageView = UIImageView(image: image)
+            imageView.backgroundColor = UIColor.red
+            imageView.contentMode = .scaleAspectFit
+            let width = UIScreen.main.bounds.size.width - 20
+            imageView.frame = CGRect(x: 0, y: 0, width: 0, height: width / image.width  * image.height)
+            
+            
+            card.presenterView = imageView
+            card.presenterViewEdgeInsetsPreset = .none
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -22,6 +22,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = BarkSnackbarController(rootViewController: BarkNavigationController(rootViewController: HomeViewController()))
         self.window?.makeKeyAndVisible()
         
+        UNUserNotificationCenter.current().setNotificationCategories([
+            UNNotificationCategory(identifier: "myNotificationCategory", actions: [
+                UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.init(rawValue: 0))
+                ], intentIdentifiers: [], options: .customDismissAction)
+            ])
+
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             dispatch_sync_safely_main_queue {
                 if settings.authorizationStatus == .authorized {
@@ -45,6 +51,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //注册设备
         Client.shared.bindDeviceToken()
+    }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let urlStr = userInfo["url"] as? String{
+            if let url = URL(string: urlStr) {
+                if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
+                    ((self.window?.rootViewController as? BarkSnackbarController)?
+                        .rootViewController as? BarkNavigationController)?
+                        .present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                }
+                else{
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+            }
+            else{
+                (self.window?.rootViewController as? BarkSnackbarController)?.rootViewController.showSnackbar(text: "URL好像不对劲！")
+            }
+        }
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

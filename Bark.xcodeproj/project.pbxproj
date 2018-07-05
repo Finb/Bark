@@ -12,6 +12,11 @@
 		0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
 		0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */; };
 		0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604F7DE20620D4900B32F09 /* ServerManager.swift */; };
+		0632CE1F20EC9098003FDF46 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0683487020510FB20024B6DA /* UserNotifications.framework */; };
+		0632CE2020EC9098003FDF46 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0683487220510FB20024B6DA /* UserNotificationsUI.framework */; };
+		0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0632CE2220EC9098003FDF46 /* NotificationViewController.swift */; };
+		0632CE2620EC9098003FDF46 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0632CE2420EC9098003FDF46 /* MainInterface.storyboard */; };
+		0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7720E0926D00E80174 /* BarkTargetType.swift */; };
 		0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7920E092B300E80174 /* Observable+Extension.swift */; };
 		0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7B20E0930E00E80174 /* BarkApi.swift */; };
@@ -26,8 +31,33 @@
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
+		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		4A97FDFB8C102B8A492ED65A /* Pods_Bark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D155DFC7B804DC5518C01D75 /* Pods_Bark.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		0632CE2820EC9098003FDF46 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0661A537204FDA4100965E4E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 0632CE1D20EC9098003FDF46;
+			remoteInfo = NotificationContentExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		0632CE2E20EC9098003FDF46 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		0603706620E1E31600F4CA05 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
@@ -35,6 +65,10 @@
 		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSFSafariViewController.swift; sourceTree = "<group>"; };
 		0604F7DE20620D4900B32F09 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContentExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		0632CE2220EC9098003FDF46 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		0632CE2520EC9098003FDF46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		0632CE2720EC9098003FDF46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0637FA7720E0926D00E80174 /* BarkTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTargetType.swift; sourceTree = "<group>"; };
 		0637FA7920E092B300E80174 /* Observable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		0637FA7B20E0930E00E80174 /* BarkApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkApi.swift; sourceTree = "<group>"; };
@@ -55,12 +89,22 @@
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		14F0F73EC45A35FC2482F967 /* Pods_NotificationContentExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationContentExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
 		87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
 		D155DFC7B804DC5518C01D75 /* Pods_Bark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0632CE1B20EC9098003FDF46 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0632CE2020EC9098003FDF46 /* UserNotificationsUI.framework in Frameworks */,
+				0632CE1F20EC9098003FDF46 /* UserNotifications.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0661A53C204FDA4100965E4E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -108,6 +152,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0632CE2120EC9098003FDF46 /* NotificationContentExtension */ = {
+			isa = PBXGroup;
+			children = (
+				0632CE2220EC9098003FDF46 /* NotificationViewController.swift */,
+				0632CE2420EC9098003FDF46 /* MainInterface.storyboard */,
+				0632CE2720EC9098003FDF46 /* Info.plist */,
+			);
+			path = NotificationContentExtension;
+			sourceTree = "<group>";
+		};
 		0661A536204FDA4100965E4E = {
 			isa = PBXGroup;
 			children = (
@@ -115,6 +169,7 @@
 				0604F7DC20620D3400B32F09 /* View */,
 				0604F7DB20620D2700B32F09 /* Controller */,
 				0661A541204FDA4100965E4E /* Bark */,
+				0632CE2120EC9098003FDF46 /* NotificationContentExtension */,
 				0661A540204FDA4100965E4E /* Products */,
 				9563D0DB71FE280909AB1C63 /* Pods */,
 				99BD309BDB7F62B5DC0CECE1 /* Frameworks */,
@@ -125,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				0661A53F204FDA4100965E4E /* Bark.app */,
+				0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -157,6 +213,7 @@
 				D155DFC7B804DC5518C01D75 /* Pods_Bark.framework */,
 				0683487020510FB20024B6DA /* UserNotifications.framework */,
 				0683487220510FB20024B6DA /* UserNotificationsUI.framework */,
+				14F0F73EC45A35FC2482F967 /* Pods_NotificationContentExtension.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -164,6 +221,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0632CE1D20EC9098003FDF46 /* NotificationContentExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0632CE2D20EC9098003FDF46 /* Build configuration list for PBXNativeTarget "NotificationContentExtension" */;
+			buildPhases = (
+				0632CE1A20EC9098003FDF46 /* Sources */,
+				0632CE1B20EC9098003FDF46 /* Frameworks */,
+				0632CE1C20EC9098003FDF46 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NotificationContentExtension;
+			productName = NotificationContentExtension;
+			productReference = 0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		0661A53E204FDA4100965E4E /* Bark */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0661A551204FDA4100965E4E /* Build configuration list for PBXNativeTarget "Bark" */;
@@ -174,10 +248,12 @@
 				0661A53D204FDA4100965E4E /* Resources */,
 				CFBB713B64655C7E71F4587A /* [CP] Embed Pods Frameworks */,
 				BDEDA44DC34CE9C81E76AECC /* [CP] Copy Pods Resources */,
+				0632CE2E20EC9098003FDF46 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				0632CE2920EC9098003FDF46 /* PBXTargetDependency */,
 			);
 			name = Bark;
 			productName = Bark;
@@ -190,10 +266,14 @@
 		0661A537204FDA4100965E4E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0920;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = Fin;
 				TargetAttributes = {
+					0632CE1D20EC9098003FDF46 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+					};
 					0661A53E204FDA4100965E4E = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Automatic;
@@ -220,11 +300,21 @@
 			projectRoot = "";
 			targets = (
 				0661A53E204FDA4100965E4E /* Bark */,
+				0632CE1D20EC9098003FDF46 /* NotificationContentExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0632CE1C20EC9098003FDF46 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				06802E5320ECC40C00767047 /* Assets.xcassets in Resources */,
+				0632CE2620EC9098003FDF46 /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0661A53D204FDA4100965E4E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -318,6 +408,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0632CE1A20EC9098003FDF46 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		0661A53B204FDA4100965E4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -343,7 +441,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0632CE2920EC9098003FDF46 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 0632CE1D20EC9098003FDF46 /* NotificationContentExtension */;
+			targetProxy = 0632CE2820EC9098003FDF46 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		0632CE2420EC9098003FDF46 /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0632CE2520EC9098003FDF46 /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		063C499720E36BF9001BCA35 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -364,6 +478,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0632CE2B20EC9098003FDF46 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
+				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContentExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		0632CE2C20EC9098003FDF46 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
+				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContentExtension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		0661A54F204FDA4100965E4E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -481,6 +629,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -499,6 +648,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -516,6 +666,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0632CE2D20EC9098003FDF46 /* Build configuration list for PBXNativeTarget "NotificationContentExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0632CE2B20EC9098003FDF46 /* Debug */,
+				0632CE2C20EC9098003FDF46 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		0661A53A204FDA4100965E4E /* Build configuration list for PBXProject "Bark" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

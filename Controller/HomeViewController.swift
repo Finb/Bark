@@ -32,12 +32,23 @@ class HomeViewController: BaseViewController {
     var dataSource:[PreviewModel] = {
         return [
             PreviewModel(
-                body: NSLocalizedString("CustomedNotifictionContent"),
+                body: NSLocalizedString("CustomedNotificationContent"),
                 notice: NSLocalizedString("Notice1")),
             PreviewModel(
-                title: NSLocalizedString("CustomedNotifictionTitle"),
-                body: NSLocalizedString("CustomedNotifictionContent"),
-                notice: NSLocalizedString("Notice2"))
+                title: NSLocalizedString("CustomedNotificationTitle"),
+                body: NSLocalizedString("CustomedNotificationContent"),
+                notice: NSLocalizedString("Notice2")),
+            PreviewModel(
+                body: "URL Test",
+                notice: NSLocalizedString("urlParameter"),
+                queryParameter: "url=https://www.baidu.com"
+                ),
+            PreviewModel(
+                body: "Copy Test",
+                notice: NSLocalizedString("copyParameter"),
+                queryParameter: "copy=test",
+                image: UIImage(named: "copyTest")
+                )
         ]
     }()
     
@@ -85,6 +96,20 @@ class HomeViewController: BaseViewController {
             refreshState()
         }
     }
+    
+    let rowheight:[CGFloat] = {
+        let screenWidth = UIScreen.main.bounds.width
+        if screenWidth <= 320 {
+            return [170,170,170,320]
+        }
+        if screenWidth <= 375 {
+            return [205,205,205,380]
+        }
+        if screenWidth <= 414 {
+            return [195,195,195,390]
+        }
+        return [205,205,205,380]
+    }()
 }
 
 extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
@@ -92,11 +117,13 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
         return dataSource.count
     }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return rowheight[indexPath.row]
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = self.tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)", for: indexPath) as! PreviewCardCell
-        cell.bind(model: dataSource[indexPath.row])
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(indexPath.row)") {
+            return cell
+        }
+        let cell = PreviewCardCell(style: .default, reuseIdentifier: "\(indexPath.row)", model:dataSource[indexPath.row])
         cell.copyHandler = {[weak self] in
             self?.showSnackbar(text: NSLocalizedString("Copy"))
         }

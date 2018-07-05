@@ -11,13 +11,14 @@ SecureConnection = "Secure Connection (HTTPS)";
 InsecureConnection = "Insecure Connection (HTTP)";
 RegisterDevice = "Register Device";
 
-CustomedNotifictionContent = "Customed Notifiction Content";
-CustomedNotifictionTitle = "Customed Notifiction Title";
+CustomedNotificationContent = "Customed Notification Content";
+CustomedNotificationTitle = "Customed Notification Title";
 
 Notice1 = "Click on the buttons in the upper right corner \nto copy or preview test URL";
-Notice2 = "";
+Notice2 = "Customed notification content and title";
 
 Copy = "Copied!";
+Copy2 = "Copy";
 
 AllowNotifications = "Notifications have been turned off, Please allow notifications and try again";
 
@@ -38,3 +39,7 @@ AddedSuccessfully = "Added Successfully!";
 InvalidServer = "Invalid server! please try again.";
 
 InvalidURL = "Invalid URL!";
+
+urlParameter = "Clicking on the notification will jump \nto this URL in the parameter";
+
+copyParameter = "If the URL has a copy parameter then the value of the copy \nparameter will be copied";
