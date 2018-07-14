@@ -48,23 +48,15 @@ extension Observable where Element: Moya.Response {
     /// 过滤逻辑错误，例如协议里返回 错误CODE
     func filterResponseError() -> Observable<JSON> {
         return filterHttpError().map({ (response) -> JSON in
-            
-            let json = try JSON(data: response.data)
-            var code = 400
-            var msg:String?
-            if let codeStr = json["code"].rawString(), let c = Int(codeStr)  {
-                code = c
-            }
+             let json = try JSON(data: response.data)
+             var msg:String?
             if json["message"].exists() {
                 msg = json["message"].rawString()!
             }
-            if (code == 200){
-                return json
+            if response.statusCode != 200 {
+                 throw ApiError.Error(info: msg ?? "未知错误")
             }
-            
-            switch code {
-            default: throw ApiError.Error(info: msg ?? "未知错误")
-            }
+            return json
         })
     }
     
