@@ -7,10 +7,12 @@
 //
 
 import UIKit
+import Moya
+import Alamofire
 
 enum BarkApi {
     case ping(baseURL:String?)
-    case register(key:String? , devicetoken:String) //注册设备
+    case register(key:String? , device_token:String) //注册设备
 }
 
 extension BarkApi: BarkTargetType {
@@ -20,10 +22,32 @@ extension BarkApi: BarkTargetType {
         }
         return URL(string: ServerManager.shared.currentAddress)!
     }
+    var method: Moya.Method {
+        switch self {
+        case .register:
+            return .post
+        default:
+            return .get
+        }
+    }
+    
+    var headers: [String: String]? {
+        return ["Content-Type": "application/json"]
+    }
+    
+    var task: Task {
+        switch self {
+        case .register(let _, let device_token):
+            return .requestParameters(parameters: ["device_token": device_token], encoding: Alamofire.JSONEncoding.default)
+        default:
+            return .requestParameters(parameters: [:], encoding: URLEncoding.default)
+        }
+    }
+
     var parameters: [String : Any]? {
         switch self {
-        case let .register(key, devicetoken):
-            var params = ["devicetoken":devicetoken]
+        case let .register(key, device_token):
+            var params = ["device_token":device_token]
             if let key = key {
                 params["key"] = key
             }

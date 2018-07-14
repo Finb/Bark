@@ -60,7 +60,6 @@ class NewServerViewController: BaseViewController {
         self.addressTextField.resignFirstResponder()
         if let text = addressTextField.text, let _ = URL(string: text) {
             _ = BarkApi.provider.request(.ping(baseURL: text))
-                .filterResponseError()
                 .subscribe(onNext: {[weak self] (_) in
                     self?.navigationController?.popViewController(animated: true)
                     ServerManager.shared.currentAddress = text

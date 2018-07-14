@@ -51,9 +51,11 @@ class Client: NSObject {
     }
     
     func bindDeviceToken(){
-        if let token = Settings[.deviceToken] , token.count > 0{
-            _ = BarkApi.provider.request(.register(key: key, devicetoken: token)).filterResponseError().subscribe(onNext: { (json) in
-                if let key = json["data","key"].rawString() {
+//         token = Settings[.deviceToken]
+        let token = "ac086ba534f5a51988ebb1be4cbb79f252787801fd451c0b2b561d4468d31d3e"
+        if token.count > 0 {
+            _ = BarkApi.provider.request(.register(key: key, device_token: token)).filterResponseError().subscribe(onNext: { (json) in
+                if let key = json["token"].rawString() {
                     Client.shared.key = key
                     self.state = .ok
                 }

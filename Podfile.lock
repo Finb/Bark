@@ -36,6 +36,22 @@ DEPENDENCIES:
   - SVProgressHUD
   - SwiftyJSON
 
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - Alamofire
+    - DeviceKit
+    - FDFullscreenPopGesture
+    - KVOController
+    - Material
+    - Motion
+    - Moya
+    - ObjectMapper
+    - Result
+    - RxSwift
+    - SnapKit
+    - SVProgressHUD
+    - SwiftyJSON
+
 EXTERNAL SOURCES:
   DefaultsKit:
     :git: https://github.com/nmdias/DefaultsKit
@@ -63,4 +79,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: 9fe640283f4a4f35eff4a390df2c42a64be57c18
 
-COCOAPODS: 1.4.0
+COCOAPODS: 1.5.3
