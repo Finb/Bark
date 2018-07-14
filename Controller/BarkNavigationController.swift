@@ -25,7 +25,6 @@ class BarkNavigationController: NavigationController{
         navigationBar.backgroundColor = Color.blue.darken2
         
         statusBarStyle = .lightContent
-        
     }
     
     override var childViewControllerForStatusBarStyle: UIViewController?{

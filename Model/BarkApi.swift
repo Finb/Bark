@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import Moya
 
 enum BarkApi {
     case ping(baseURL:String?)
-    case register(key:String? , devicetoken:String) //注册设备
+    case register(key:String? , device_token:String) //注册设备
 }
 
 extension BarkApi: BarkTargetType {
@@ -20,10 +21,32 @@ extension BarkApi: BarkTargetType {
         }
         return URL(string: ServerManager.shared.currentAddress)!
     }
+    var method: Moya.Method {
+        switch self {
+        case .register:
+            return .post
+        default:
+            return .get
+        }
+    }
+    
+    var headers: [String: String]? {
+        return ["Content-Type": "application/json"]
+    }
+
+    var parameterEncoding: Moya.ParameterEncoding {
+        switch self {
+        case .register:
+            return URLEncoding.httpBody
+        default:
+            return URLEncoding.default
+        }
+    }
+
     var parameters: [String : Any]? {
         switch self {
-        case let .register(key, devicetoken):
-            var params = ["devicetoken":devicetoken]
+        case let .register(key, device_token):
+            var params = ["device_token":device_token]
             if let key = key {
                 params["key"] = key
             }
