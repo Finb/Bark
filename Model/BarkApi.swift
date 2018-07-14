@@ -8,6 +8,7 @@
 
 import UIKit
 import Moya
+import Alamofire
 
 enum BarkApi {
     case ping(baseURL:String?)
@@ -33,13 +34,13 @@ extension BarkApi: BarkTargetType {
     var headers: [String: String]? {
         return ["Content-Type": "application/json"]
     }
-
-    var parameterEncoding: Moya.ParameterEncoding {
+    
+    var task: Task {
         switch self {
-        case .register:
-            return URLEncoding.httpBody
+        case .register(let _, let device_token):
+            return .requestParameters(parameters: ["device_token": device_token], encoding: Alamofire.JSONEncoding.default)
         default:
-            return URLEncoding.default
+            return .requestParameters(parameters: [:], encoding: URLEncoding.default)
         }
     }
 
