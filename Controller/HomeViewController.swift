@@ -52,6 +52,19 @@ class HomeViewController: BaseViewController {
         ]
     }()
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        _ = BarkApi.provider.request(.ping(baseURL: ServerManager.shared.currentAddress))
+            .filterResponseError()
+            .subscribe(
+                onNext: { _ in
+                    Client.shared.state = .ok
+                },
+                onError: { _ in
+                    Client.shared.state = .serverError
+            })
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Color.grey.lighten3

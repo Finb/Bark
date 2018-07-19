@@ -33,9 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 if settings.authorizationStatus == .authorized {
                     Client.shared.registerForRemoteNotifications()
                 }
-                else{
-                    Client.shared.state = .unRegister
-                }
             }
         }
         return true
@@ -81,7 +78,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if Client.shared.state == .serverError{
+        if (Client.shared.key?.count ?? 0) <= 0{
             Client.shared.bindDeviceToken()
         }
     }

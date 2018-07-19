@@ -130,7 +130,7 @@ class PreviewCardCell: UITableViewCell {
             NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
             ]))
         
-        attrStr.append(NSAttributedString(string: "/\(Client.shared.key ?? "")", attributes: [
+        attrStr.append(NSAttributedString(string: "/\(Client.shared.key ?? "Your Key")", attributes: [
             NSAttributedStringKey.foregroundColor: Color.grey.darken3,
             NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
             ]))
