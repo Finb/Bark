@@ -133,7 +133,8 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
         return rowheight[indexPath.row]
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(indexPath.row)") {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(indexPath.row)") as? PreviewCardCell{
+            cell.bind(model: dataSource[indexPath.row])
             return cell
         }
         let cell = PreviewCardCell(style: .default, reuseIdentifier: "\(indexPath.row)", model:dataSource[indexPath.row])
