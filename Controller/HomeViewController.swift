@@ -48,7 +48,12 @@ class HomeViewController: BaseViewController {
                 notice: NSLocalizedString("copyParameter"),
                 queryParameter: "copy=test",
                 image: UIImage(named: "copyTest")
-                )
+            ),
+            PreviewModel(
+                body: NSLocalizedString("automaticallyCopyTitle"),
+                notice: NSLocalizedString("automaticallyCopy"),
+                queryParameter: "automaticallyCopy=1&copy=optional"
+            )
         ]
     }()
     
@@ -113,15 +118,15 @@ class HomeViewController: BaseViewController {
     let rowheight:[CGFloat] = {
         let screenWidth = UIScreen.main.bounds.width
         if screenWidth <= 320 {
-            return [170,170,170,320]
+            return [170,170,170,320,170]
         }
         if screenWidth <= 375 {
-            return [205,205,205,380]
+            return [205,205,205,380,205]
         }
         if screenWidth <= 414 {
-            return [195,195,195,390]
+            return [195,195,195,390,195]
         }
-        return [205,205,205,380]
+        return [205,205,205,380,205]
     }()
 }
 

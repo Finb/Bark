@@ -43,3 +43,6 @@ InvalidURL = "Invalid URL!";
 urlParameter = "Clicking on the notification will jump \nto this URL in the parameter";
 
 copyParameter = "If the URL has a copy parameter then the value of the copy \nparameter will be copied";
+
+automaticallyCopyTitle = "Automatically copy push content";
+automaticallyCopy = "Automatically copy push content \nwhen a push is received";

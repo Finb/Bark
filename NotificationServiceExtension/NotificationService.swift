@@ -20,7 +20,7 @@ class NotificationService: UNNotificationServiceExtension {
         
         if let bestAttemptContent = bestAttemptContent {
             let userInfo = bestAttemptContent.userInfo
-            if userInfo["AutomaticallyCopy"] as? Bool == true{
+            if userInfo["automaticallyCopy"] as? Bool == true{
                 if let copy = userInfo["copy"] as? String {
                     UIPasteboard.general.string = copy
                 }
