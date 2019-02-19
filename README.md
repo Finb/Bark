@@ -48,3 +48,18 @@ https://api.day.app/yourkey/验证码是9527?automaticallyCopy=1&copy=9527
 //点击推送将跳转到url的地址（发送时，URL参数需要编码）
 https://api.day.app/yourkey/百度网址?url=https://www.baidu.com 
 ```
+
+## Chrome 插件
+[Bark-Chrome-Extension](https://github.com/xlvecle/Bark-Chrome-Extension)
+>这是一款chrome插件能帮你方便地把网页上的文本或者网址推送到Bark手机端。
+
+[Bark-Chrome-Extension 自动复制版](https://github.com/xlvecle/Bark-Chrome-Extension)
+>上面插件的修改版，iPhone会自动推送内容
+
+效果展示
+
+![](http://wx4.sinaimg.cn/mw690/0060lm7Tly1fyaqyhzdnxg30660dcu0h.gif)
+
+
+## 在线定时发送
+[https://api.ihint.me/bark.html](https://api.ihint.me/bark.html)
