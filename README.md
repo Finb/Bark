@@ -54,7 +54,7 @@ https://api.day.app/yourkey/百度网址?url=https://www.baidu.com
 >这是一款chrome插件能帮你方便地把网页上的文本或者网址推送到Bark手机端。
 
 [Bark-Chrome-Extension 自动复制版](https://github.com/xlvecle/Bark-Chrome-Extension)
->上面插件的修改版，iPhone会自动推送内容
+>上面插件的修改版，iPhone会自动复制推送内容
 
 效果展示
 
