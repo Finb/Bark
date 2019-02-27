@@ -13,7 +13,7 @@ URL 组成: 第一个部分是 key , 之后有三个匹配
 /:key/:category/:title/:body 
 
 title 推送标题 比 body 字号粗一点 
-body 推送内容 
+body 推送内容 换行请使用换行符 '\n'
 category 另外的功能占用的字段，还没开放 忽略就行 
 post 请求 参数名也是上面这些
 ```
@@ -63,3 +63,6 @@ https://api.day.app/yourkey/百度网址?url=https://www.baidu.com
 
 ## 在线定时发送
 [https://api.ihint.me/bark.html](https://api.ihint.me/bark.html)
+
+## Windows推送客户端
+[https://github.com/HsuDan/BarkHelper](https://github.com/HsuDan/BarkHelper)
