@@ -48,6 +48,9 @@ https://api.day.app/yourkey/验证码是9527?automaticallyCopy=1&copy=9527
 //点击推送将跳转到url的地址（发送时，URL参数需要编码）
 https://api.day.app/yourkey/百度网址?url=https://www.baidu.com 
 ```
+## 后端代码
+[bark-server](https://github.com/Finb/bark-server)
+>将后端代码部署在你自己的服务器上。支持Docker
 
 ## Chrome 插件
 [Bark-Chrome-Extension](https://github.com/xlvecle/Bark-Chrome-Extension)
