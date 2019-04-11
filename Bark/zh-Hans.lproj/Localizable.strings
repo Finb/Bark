@@ -45,4 +45,4 @@ urlParameter = "携带url参数时，点击推送会跳转到这个URL";
 copyParameter = "下拉推送、锁屏界面左滑查看推送时，可以选择复制推送内容\n携带copy参数时，将只复制copy参数的值";
 
 automaticallyCopyTitle = "自动复制推送内容";
-automaticallyCopy = "收到推送时，自动复制推送内容。\n携带copy参数时，将只复制copy参数的值";
+automaticallyCopy = "携带automaticallyCopy参数时，将自动复制推送内容。\n携带copy参数时，将只复制copy参数的值";
