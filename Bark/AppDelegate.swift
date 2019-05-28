@@ -77,13 +77,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "复制内容", style: .default, handler: { (_) in
-            if userInfo["automaticallycopy"] as? String == "1"{
-                if let copy = userInfo["copy"] as? String {
-                    UIPasteboard.general.string = copy
-                }
-                else{
-                    UIPasteboard.general.string = body
-                }
+            if let copy = userInfo["copy"] as? String {
+                UIPasteboard.general.string = copy
+            }
+            else{
+                UIPasteboard.general.string = body
             }
         }))
         alertController.addAction(UIAlertAction(title: "更多操作", style: .default, handler: { (_) in
