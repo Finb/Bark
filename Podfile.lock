@@ -1,33 +1,39 @@
 PODS:
-  - Alamofire (4.7.2)
-  - DefaultsKit (0.0.9)
-  - DeviceKit (1.7.0)
+  - Alamofire (5.2.0)
+  - DefaultsKit (0.2.0)
+  - DeviceKit (3.2.0)
   - FDFullscreenPopGesture (1.1)
+  - IceCream (1.13.1):
+    - RealmSwift
   - KVOController (1.2.0)
-  - Material (2.15.0):
-    - Material/Core (= 2.15.0)
-  - Material/Core (2.15.0):
-    - Motion (~> 1.3.0)
-  - Motion (1.3.5):
-    - Motion/Core (= 1.3.5)
-  - Motion/Core (1.3.5)
-  - Moya/Core (11.0.2):
-    - Alamofire (~> 4.1)
-    - Result (~> 3.0)
-  - Moya/RxSwift (11.0.2):
+  - Material (3.1.8):
+    - Material/Core (= 3.1.8)
+  - Material/Core (3.1.8):
+    - Motion (~> 3.1.1)
+  - Motion (3.1.3):
+    - Motion/Core (= 3.1.3)
+  - Motion/Core (3.1.3)
+  - Moya/Core (14.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (14.0.0):
     - Moya/Core
-    - RxSwift (~> 4.0)
-  - ObjectMapper (3.3.0)
-  - Result (3.2.4)
-  - RxSwift (4.2.0)
-  - SnapKit (4.0.0)
+    - RxSwift (~> 5.0)
+  - ObjectMapper (4.2.0)
+  - Realm (5.0.0):
+    - Realm/Headers (= 5.0.0)
+  - Realm/Headers (5.0.0)
+  - RealmSwift (5.0.0):
+    - Realm (= 5.0.0)
+  - RxSwift (5.1.1)
+  - SnapKit (5.0.1)
   - SVProgressHUD (2.2.5)
-  - SwiftyJSON (4.1.0)
+  - SwiftyJSON (5.0.0)
 
 DEPENDENCIES:
   - DefaultsKit (from `https://github.com/nmdias/DefaultsKit`)
   - DeviceKit
   - FDFullscreenPopGesture
+  - IceCream
   - KVOController
   - Material
   - Moya/RxSwift
@@ -37,16 +43,18 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - Alamofire
     - DeviceKit
     - FDFullscreenPopGesture
+    - IceCream
     - KVOController
     - Material
     - Motion
     - Moya
     - ObjectMapper
-    - Result
+    - Realm
+    - RealmSwift
     - RxSwift
     - SnapKit
     - SVProgressHUD
@@ -58,25 +66,27 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   DefaultsKit:
-    :commit: d0ec9bf0e0aa1b44759122c2faf76eb46e1f847f
+    :commit: 8078b01a5bd19d4c8f7465ba36e1639c420607a9
     :git: https://github.com/nmdias/DefaultsKit
 
 SPEC CHECKSUMS:
-  Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
-  DefaultsKit: e47d11c54a53c66f9e5c65a1992dead90bc7144f
-  DeviceKit: 6a5bdeb103c03757bb94aef1ccb01e08bc8ef4ee
+  Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
+  DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
+  DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
+  IceCream: 0447d87b55df85651dd60b15712cef64dbe1cb54
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
-  Material: 00e32bb5e61b3f749044897b2d93acd8bf33faa4
-  Motion: 9f74d115d7f72bb5380a8e3cde2f8a1fc898ac36
-  Moya: a725035953bc1c0eb1be505ab903984501d82440
-  ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
-  Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
-  RxSwift: 99e10317ddfcc7fbe01356aafd118fde4a0be104
-  SnapKit: a42d492c16e80209130a3379f73596c3454b7694
+  Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
+  Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
+  Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
+  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  Realm: 76066d333de26f97e9caedaa85ee3ff4a62ca265
+  RealmSwift: c1bdff09b422569dc6881410d9ccf712bcdb79b0
+  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyJSON: c29297daf073d2aa016295d5809cdd68045c39b3
+  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
 
-PODFILE CHECKSUM: 1b2615370f6547626d5249effba27e4cadcea226
+PODFILE CHECKSUM: 993d19d838d6d55da4b65c5a2e5e68bce37c8097
 
-COCOAPODS: 1.6.1
+COCOAPODS: 1.8.4

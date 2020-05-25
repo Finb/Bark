@@ -54,7 +54,7 @@ class PreviewCardCell: UITableViewCell {
         return label
     }()
     
-    init(style: UITableViewCellStyle, reuseIdentifier: String?, model:PreviewModel) {
+    init(style: UITableViewCell.CellStyle, reuseIdentifier: String?, model:PreviewModel) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.backgroundColor = Color.grey.lighten3
@@ -83,7 +83,7 @@ class PreviewCardCell: UITableViewCell {
         card.bottomBarEdgeInsetsPreset = .wideRectangle2
     
         self.bind(model: model)
-        self.contentView.layout(card).horizontally(left: 10, right: 10).center()
+        self.contentView.layout(card).leftRight(left: 10, right: 10).center()
         
         previewButton.addTarget(self, action: #selector(preview), for: .touchUpInside)
         copyButton.addTarget(self, action: #selector(copyURL), for: .touchUpInside)
@@ -126,26 +126,26 @@ class PreviewCardCell: UITableViewCell {
         
         let attrStr = NSMutableAttributedString(string: "")
         attrStr.append(NSAttributedString(string: serverUrl.absoluteString, attributes: [
-            NSAttributedStringKey.foregroundColor: Color.grey.darken4,
-            NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
+            NSAttributedString.Key.foregroundColor: Color.grey.darken4,
+            NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
             ]))
         
         attrStr.append(NSAttributedString(string: "/\(Client.shared.key ?? "Your Key")", attributes: [
-            NSAttributedStringKey.foregroundColor: Color.grey.darken3,
-            NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
+            NSAttributedString.Key.foregroundColor: Color.grey.darken3,
+            NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
             ]))
         
         if let title = model.title {
             attrStr.append(NSAttributedString(string: "/\(title)", attributes: [
-                NSAttributedStringKey.foregroundColor: Color.grey.darken1,
-                NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
+                NSAttributedString.Key.foregroundColor: Color.grey.darken1,
+                NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
             self.toolbar.title = title
         }
         if let body = model.body {
             attrStr.append(NSAttributedString(string: "/\(body)", attributes: [
-                NSAttributedStringKey.foregroundColor: Color.grey.base,
-                NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
+                NSAttributedString.Key.foregroundColor: Color.grey.base,
+                NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
             if model.title == nil {
                 self.toolbar.title = body
@@ -156,8 +156,8 @@ class PreviewCardCell: UITableViewCell {
         }
         if let queryParameter = model.queryParameter {
             attrStr.append(NSAttributedString(string: "?\(queryParameter)", attributes: [
-                NSAttributedStringKey.foregroundColor: Color.grey.lighten1,
-                NSAttributedStringKey.font : RobotoFont.regular(with: fontSize)
+                NSAttributedString.Key.foregroundColor: Color.grey.lighten1,
+                NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
         }
         self.contentLabel.attributedText = attrStr

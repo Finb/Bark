@@ -28,7 +28,7 @@ class BarkNavigationController: NavigationController{
         
     }
     
-    override var childViewControllerForStatusBarStyle: UIViewController?{
+    override var childForStatusBarStyle: UIViewController?{
         get {
             return self.topViewController
         }
@@ -36,7 +36,7 @@ class BarkNavigationController: NavigationController{
 }
 
 class BarkSnackbarController: SnackbarController {
-    override var childViewControllerForStatusBarStyle: UIViewController?{
+    override var childForStatusBarStyle: UIViewController?{
         return self.rootViewController
     }
 }

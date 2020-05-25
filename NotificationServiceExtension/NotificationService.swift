@@ -8,7 +8,7 @@
 
 import UIKit
 import UserNotifications
-
+import RealmSwift
 class NotificationService: UNNotificationServiceExtension {
     
     var contentHandler: ((UNNotificationContent) -> Void)?

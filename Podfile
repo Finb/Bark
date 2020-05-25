@@ -1,4 +1,4 @@
-platform:ios,'9.0'
+platform:ios,'10.0'
 inhibit_all_warnings!
 use_modular_headers!
 
@@ -13,8 +13,14 @@ def pods
     pod 'SwiftyJSON'
     pod 'DeviceKit'
     pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
+    pod 'IceCream'
 end
 
 target 'Bark' do
     pods
+end
+
+
+target 'NotificationServiceExtension' do
+    pod 'IceCream'
 end
