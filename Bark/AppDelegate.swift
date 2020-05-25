@@ -13,7 +13,7 @@ import RealmSwift
 import IceCream
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
     var syncEngine: SyncEngine?
@@ -38,14 +38,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        
+        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
+        let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
         let config = Realm.Configuration(
-            // Set the new schema version. This must be greater than the previously used
-            // version (if you've never set a schema version before, the version is 0).
+            fileURL: fileUrl,
             schemaVersion: 12,
-            
-            // Set the block which will be called automatically when opening a Realm with
-            // a schema version lower than the one set above
             migrationBlock: { migration, oldSchemaVersion in
                 // We haven’t migrated anything yet, so oldSchemaVersion == 0
                 if (oldSchemaVersion < 1) {
@@ -54,14 +51,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     // And will update the schema on disk automatically
                 }
         })
-        
         // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
-        
+
         //iCloud 同步
         syncEngine = SyncEngine(objects: [
             SyncObject<Message>()
         ], databaseScope: .private)
+
+
+        let realm = try? Realm()
+        print("message count: \(realm?.objects(Message.self).count ?? 0)")
         
         return true
     }

@@ -14,7 +14,30 @@ class NotificationService: UNNotificationServiceExtension {
     var contentHandler: ((UNNotificationContent) -> Void)?
     var bestAttemptContent: UNMutableNotificationContent?
     
+    lazy var realm:Realm? = {
+        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
+        let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
+        let config = Realm.Configuration(
+            fileURL: fileUrl,
+            schemaVersion: 12,
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
+
+
+        return try? Realm()
+    }()
+    
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+        
         self.contentHandler = contentHandler
         bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
         
@@ -28,8 +51,19 @@ class NotificationService: UNNotificationServiceExtension {
                     UIPasteboard.general.string = bestAttemptContent.body
                 }
             }
+            
+            try? realm?.write{
+                let message = Message()
+                message.title = userInfo["title"] as? String
+                message.body = userInfo["body"] as? String
+                message.createDate = Date()
+                realm?.add(message)
+            }
+
             contentHandler(bestAttemptContent)
         }
+        
+        
     }
     
 }

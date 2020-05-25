@@ -17,6 +17,10 @@ class Message: Object {
     
     // 设置为 true 后，将被IceCream自动清理
     @objc dynamic var isDeleted = false
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 }
 
 extension Message: CKRecordConvertible {}

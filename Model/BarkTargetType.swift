@@ -59,9 +59,13 @@ extension BarkTargetType {
         return NetworkActivityPlugin { (change, type) in
             switch change {
             case .began:
-                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                dispatch_sync_safely_main_queue {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                }
             case .ended:
-                UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                dispatch_sync_safely_main_queue {
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
+                }
             }
         }
     }
