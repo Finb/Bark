@@ -12,10 +12,9 @@ class BaseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backButton.tintColor = UIColor.white
         self.view.backgroundColor = Color.grey.lighten5
-        navigationItem.titleLabel.textColor = .white
-        navigationItem.titleLabel.font = UIFont.systemFont(ofSize: 16)
+        self.navigationItem.leftMargin = 8
+        self.navigationItem.rightMargin = 8
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{

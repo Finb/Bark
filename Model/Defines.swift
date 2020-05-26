@@ -1,4 +1,4 @@
-//
+    //
 //  Defines.swift
 //  Bark
 //
@@ -30,3 +30,19 @@ extension UIViewController {
 func NSLocalizedString( _ key:String ) -> String {
     return NSLocalizedString(key, comment: "")
 }
+
+let kNavigationHeight: CGFloat = {
+    return kSafeAreaInsets.top + 44
+}()
+
+let kSafeAreaInsets:UIEdgeInsets = {
+    if #available(iOS 12.0, *){
+        return UIWindow().safeAreaInsets
+    }
+    else if #available(iOS 11.0, *){
+        let inset = UIWindow().safeAreaInsets
+        if inset.top > 0 { return inset}
+        //iOS 11下，不是全面屏的手机 safeAreaInsets.top 是 0，与iOS12 不一致，这里强行让他们保持一致，方便开发
+    }
+    return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+}()

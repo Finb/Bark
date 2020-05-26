@@ -8,30 +8,12 @@
 
 import UIKit
 import Material
-
-class BarkNavigationController: NavigationController{
-    override func prepare() {
-        super.prepare()
-        isMotionEnabled = true
-        motionNavigationTransitionType = .autoReverse(presenting: .fade)
-        
-        guard let v = navigationBar as? NavigationBar else {
-            return
-        }
-        
-        v.depthPreset = .none
-        v.dividerColor = Color.grey.lighten2
-        
-        navigationBar.backgroundColor = Color.blue.darken2
-        
-        statusBarStyle = .lightContent
-        
-    }
-    
-    override var childForStatusBarStyle: UIViewController?{
-        get {
-            return self.topViewController
-        }
+import UINavigationItem_Margin
+class BarkNavigationController: UINavigationController{
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.leftMargin = 8
+        self.navigationItem.rightMargin = 8
     }
 }
 

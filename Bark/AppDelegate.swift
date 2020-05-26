@@ -39,6 +39,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
             }
         }
+        
+        //调整返回按钮样式
+        let bar = UINavigationBar.appearance(whenContainedInInstancesOf: [BarkNavigationController.self])
+        bar.backIndicatorImage = UIImage(named: "back")
+        bar.backIndicatorTransitionMaskImage = UIImage(named: "back")
+        bar.tintColor = Color.darkText.primary
+        
+        let buttonItem = UIBarButtonItem.appearance(whenContainedInInstancesOf: [BarkNavigationController.self])
+        buttonItem.setTitleTextAttributes([NSAttributedString.Key.font: RobotoFont.regular(with: 0)], for: .normal)
+        buttonItem.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: 0), for: .default)
+        
         let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
         let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
         let config = Realm.Configuration(

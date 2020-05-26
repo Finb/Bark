@@ -28,6 +28,7 @@ PODS:
   - SnapKit (5.0.1)
   - SVProgressHUD (2.2.5)
   - SwiftyJSON (5.0.0)
+  - "UINavigationItem+Margin (2.1.1)"
 
 DEPENDENCIES:
   - DefaultsKit (from `https://github.com/nmdias/DefaultsKit`)
@@ -41,8 +42,11 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - SwiftyJSON
+  - "UINavigationItem+Margin"
 
 SPEC REPOS:
+  https://github.com/CocoaPods/Specs.git:
+    - "UINavigationItem+Margin"
   trunk:
     - Alamofire
     - DeviceKit
@@ -86,7 +90,8 @@ SPEC CHECKSUMS:
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  "UINavigationItem+Margin": 7368d506fb2f7daa0c0489846cc8c2384ab1ab6d
 
-PODFILE CHECKSUM: 993d19d838d6d55da4b65c5a2e5e68bce37c8097
+PODFILE CHECKSUM: 179f10f903da643b7f8bb2079d8f88b0f8e32323
 
 COCOAPODS: 1.8.4

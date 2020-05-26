@@ -31,16 +31,18 @@ class NewServerViewController: BaseViewController {
         return label
     }()
     
-    let doneButton = IconButton(image: Icon.check, tintColor: .white)
+    let doneButton = IconButton(image: Icon.check, tintColor: .black)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.titleLabel.text = NSLocalizedString("AddServer")
         
+        navigationItem.title = NSLocalizedString("AddServer")
+        
+        doneButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
-        navigationItem.rightViews = [doneButton]
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: doneButton)
         
-        self.view.layout(addressTextField).top(40).left(10).right(10)
+        self.view.layout(addressTextField).top(kNavigationHeight + 40).left(10).right(10)
         
         self.view.addSubview(noticeLabel)
         noticeLabel.snp.makeConstraints { (make) in
@@ -52,8 +54,10 @@ class NewServerViewController: BaseViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        _ = self.addressTextField.becomeFirstResponder()
-        addressTextField.text = "https://"
+        if (addressTextField.text?.count ?? 0) <= 0 {
+            _ = self.addressTextField.becomeFirstResponder()
+            addressTextField.text = "https://"
+        }
     }
 
     @objc func done(){
