@@ -51,13 +51,23 @@ class NotificationService: UNNotificationServiceExtension {
                     UIPasteboard.general.string = bestAttemptContent.body
                 }
             }
-            
-            try? realm?.write{
-                let message = Message()
-                message.title = userInfo["title"] as? String
-                message.body = userInfo["body"] as? String
-                message.createDate = Date()
-                realm?.add(message)
+
+            var isArchive:Bool?
+            if let archive = userInfo["isarchive"] as? String{
+                isArchive = archive == "1" ? true : false
+            }
+            if isArchive == nil {
+                let defaults = UserDefaults.init(suiteName: "group.bark")
+                isArchive = defaults?.bool(forKey: "isArchive") ?? false
+            }
+            if (isArchive == true){
+                try? realm?.write{
+                    let message = Message()
+                    message.title = userInfo["title"] as? String
+                    message.body = userInfo["body"] as? String
+                    message.createDate = Date()
+                    realm?.add(message)
+                }
             }
 
             contentHandler(bestAttemptContent)
