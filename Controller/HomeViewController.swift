@@ -78,6 +78,7 @@ class HomeViewController: BaseViewController {
         
         let messageBtn = IconButton(image: Icon.history, tintColor: .black)
         messageBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        messageBtn.addTarget(self, action: #selector(history), for: .touchUpInside)
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: messageBtn)
 
         self.view.addSubview(self.tableView)
@@ -108,7 +109,6 @@ class HomeViewController: BaseViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         if let url = URL(string: ServerManager.shared.currentAddress) {
-//            navigationItem.titleLabel.text = url.host
             navigationItem.title = url.host
             refreshState()
         }
@@ -181,7 +181,9 @@ extension HomeViewController {
             
         })
     }
-    
+    @objc func history(){
+        self.navigationController?.pushViewController(MessageListViewController(), animated: true)
+    }
     @objc func refreshState() {
         switch Client.shared.state {
         case .ok:

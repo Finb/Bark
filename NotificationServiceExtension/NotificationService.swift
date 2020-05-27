@@ -60,11 +60,18 @@ class NotificationService: UNNotificationServiceExtension {
                 let defaults = UserDefaults.init(suiteName: "group.bark")
                 isArchive = defaults?.bool(forKey: "isArchive") ?? false
             }
+            let alert = (userInfo["aps"] as? [String:Any])?["alert"] as? [String:Any]
+            let title = alert?["title"] as? String
+            let body = alert?["body"] as? String
+            
+            let url = userInfo["url"] as? String
+            
             if (isArchive == true){
                 try? realm?.write{
                     let message = Message()
-                    message.title = userInfo["title"] as? String
-                    message.body = userInfo["body"] as? String
+                    message.title = title
+                    message.body = body
+                    message.url = url
                     message.createDate = Date()
                     realm?.add(message)
                 }

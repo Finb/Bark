@@ -46,3 +46,5 @@ copyParameter = "下拉推送、锁屏界面左滑查看推送时，可以选择
 
 automaticallyCopyTitle = "自动复制推送内容";
 automaticallyCopy = "携带automaticallyCopy参数时，将自动复制推送内容。\n携带copy参数时，将只复制copy参数的值";
+
+historyMessage = "历史消息";

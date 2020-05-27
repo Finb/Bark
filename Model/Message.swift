@@ -13,6 +13,7 @@ class Message: Object {
     @objc dynamic var id = NSUUID().uuidString
     @objc dynamic var title:String?
     @objc dynamic var body:String?
+    @objc dynamic var url:String?
     @objc dynamic var createDate:Date?
     
     // 设置为 true 后，将被IceCream自动清理
@@ -20,6 +21,9 @@ class Message: Object {
     
     override class func primaryKey() -> String? {
         return "id"
+    }
+    override class func indexedProperties() -> [String] {
+        return ["createDate"]
     }
 }
 

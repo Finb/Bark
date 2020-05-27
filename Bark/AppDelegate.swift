@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     var syncEngine: SyncEngine?
 
-    internal func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = Color.grey.lighten5
@@ -47,7 +47,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         bar.tintColor = Color.darkText.primary
         
         let buttonItem = UIBarButtonItem.appearance(whenContainedInInstancesOf: [BarkNavigationController.self])
-        buttonItem.setTitleTextAttributes([NSAttributedString.Key.font: RobotoFont.regular(with: 0)], for: .normal)
+        buttonItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 0)], for: .normal)
         buttonItem.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: 0), for: .default)
         
         let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")

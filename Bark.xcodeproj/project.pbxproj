@@ -32,6 +32,8 @@
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
+		0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D191247D162C005DE2ED /* MessageTableViewCell.swift */; };
+		0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D193247D1BA0005DE2ED /* Date+Extension.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
@@ -102,6 +104,8 @@
 		0661A549204FDA4100965E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0661A54C204FDA4100965E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0661A54E204FDA4100965E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0667D191247D162C005DE2ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
+		0667D193247D1BA0005DE2ED /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -168,6 +172,7 @@
 			isa = PBXGroup;
 			children = (
 				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
+				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -185,6 +190,7 @@
 				0637FA7B20E0930E00E80174 /* BarkApi.swift */,
 				0637FA7D20E0969800E80174 /* Client.swift */,
 				06B1158E247BB1FB006D91FB /* Message.swift */,
+				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -500,7 +506,9 @@
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
 				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,
+				0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */,
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
+				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
@@ -570,7 +578,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContentExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -587,7 +595,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContentExtension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -720,7 +728,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -739,7 +747,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -757,7 +765,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -778,7 +786,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationServiceExtension;

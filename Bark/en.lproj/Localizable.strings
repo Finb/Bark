@@ -46,3 +46,5 @@ copyParameter = "If the URL has a copy parameter then the value of the copy \npa
 
 automaticallyCopyTitle = "Automatically copy push content";
 automaticallyCopy = "Automatically copy push content \nwhen a push is received";
+
+historyMessage = "History Message";
