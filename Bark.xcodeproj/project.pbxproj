@@ -35,10 +35,17 @@
 		0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D191247D162C005DE2ED /* MessageTableViewCell.swift */; };
 		0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D193247D1BA0005DE2ED /* Date+Extension.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
+		06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
+		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
+		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
+		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
+		06C5953324811505006B98F3 /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
+		06C5953424811505006B98F3 /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
+		06C595362481160F006B98F3 /* BKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C595352481160F006B98F3 /* BKLabel.swift */; };
 		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
 		6AF9CC9B5F6CD2BF86509897 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */; };
@@ -109,10 +116,16 @@
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewController.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		06B1158C247BA6D5006D91FB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		06B1158E247BB1FB006D91FB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
+		06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudStatusCell.swift; sourceTree = "<group>"; };
+		06C5953024811392006B98F3 /* ArchiveSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCell.swift; sourceTree = "<group>"; };
+		06C5953224811505006B98F3 /* ArchiveSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingManager.swift; sourceTree = "<group>"; };
+		06C595352481160F006B98F3 /* BKLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLabel.swift; sourceTree = "<group>"; };
 		06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		06CF784421C7A50300A052D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06CF784B21C7A51200A052D7 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
@@ -164,6 +177,7 @@
 				0637FA8920E0D58800E80174 /* NewServerViewController.swift */,
 				0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */,
 				068F66B2247BD84C00DAD25A /* MessageListViewController.swift */,
+				06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -173,6 +187,10 @@
 			children = (
 				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
 				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
+				06C5952C2480E3F8006B98F3 /* LabelCell.swift */,
+				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
+				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
+				06C595352481160F006B98F3 /* BKLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -191,6 +209,7 @@
 				0637FA7D20E0969800E80174 /* Client.swift */,
 				06B1158E247BB1FB006D91FB /* Message.swift */,
 				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
+				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -498,10 +517,13 @@
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
 				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
+				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
+				06C595362481160F006B98F3 /* BKLabel.swift in Sources */,
 				0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */,
 				0637FA7E20E0969800E80174 /* Client.swift in Sources */,
 				0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */,
+				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
@@ -510,6 +532,9 @@
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
+				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
+				06C5953324811505006B98F3 /* ArchiveSettingManager.swift in Sources */,
+				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
@@ -523,6 +548,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */,
+				06C5953424811505006B98F3 /* ArchiveSettingManager.swift in Sources */,
 				06B11591247BC132006D91FB /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -48,3 +48,14 @@ automaticallyCopyTitle = "Automatically copy push content";
 automaticallyCopy = "Automatically copy push content \nwhen a push is received";
 
 historyMessage = "History Message";
+
+unknown = "Unknown";
+available = "Available";
+restricted = "Restricted";
+settings = "Settings";
+
+iCloudSatatus = "iCloud sync";
+iCloudSync = "Notification messages will be synced when iCloud is available";
+
+defaultArchiveSettings = "Archive by default";
+archiveNote = "When the isArchive parameter is not specified in the push request URL, whether to archive the notification message will be decided according to this setting";

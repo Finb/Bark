@@ -12,7 +12,7 @@ class MessageTableViewCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = RobotoFont.regular(with: 16)
+        label.font = RobotoFont.medium(with: 16)
         label.textColor = Color.darkText.primary
         label.numberOfLines = 0
         return label
@@ -20,13 +20,15 @@ class MessageTableViewCell: UITableViewCell {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.darkText.secondary
+        label.textColor = Color.darkText.primary
         label.numberOfLines = 0
         return label
     }()
     
     let urlLabel: UILabel = {
-        let label = UILabel()
+        let label = BKLabel()
+        label.hitTestSlop = UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20)
+        label.isUserInteractionEnabled = true
         label.font = RobotoFont.regular(with: 14)
         label.textColor = Color.blue.darken1
         label.numberOfLines = 0
@@ -56,6 +58,8 @@ class MessageTableViewCell: UITableViewCell {
         addSubview(urlLabel)
         addSubview(dateLabel)
         addSubview(separatorLine)
+        
+        self.urlLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(urlTap)))
     }
     func layoutView(){
         titleLabel.snp.remakeConstraints { (make) in
@@ -79,18 +83,18 @@ class MessageTableViewCell: UITableViewCell {
         
         urlLabel.snp.makeConstraints { (make) in
             make.left.equalTo(bodyLabel)
-            make.top.equalTo(bodyLabel.snp.bottom).offset(6)
+            make.top.equalTo(bodyLabel.snp.bottom).offset(12)
         }
         if (message?.url?.count ?? 0) > 0{
             dateLabel.snp.remakeConstraints { (make) in
                 make.left.equalTo(urlLabel)
-                make.top.equalTo(urlLabel.snp.bottom).offset(6)
+                make.top.equalTo(urlLabel.snp.bottom).offset(12)
             }
         }
         else{
             dateLabel.snp.remakeConstraints { (make) in
                 make.left.equalTo(bodyLabel)
-                make.top.equalTo(bodyLabel.snp.bottom).offset(6)
+                make.top.equalTo(bodyLabel.snp.bottom).offset(12)
             }
         }
 
@@ -107,13 +111,29 @@ class MessageTableViewCell: UITableViewCell {
     }
     var message:Message? {
         didSet{
-            self.titleLabel.text = message?.title
-            self.bodyLabel.text = message?.body
+            setupTextValue(label: self.titleLabel, text: message?.title)
+            setupTextValue(label: self.bodyLabel, text: message?.body)
+            
             self.urlLabel.text = message?.url
             self.dateLabel.text = (message?.createDate ?? Date()).agoFormatString()
             layoutView()
             
         }
     }
+    func setupTextValue(label:UILabel, text:String?){
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = 3
+        
+        let attrStr = NSAttributedString(string: text ?? "",
+                                         attributes: [
+                                            .paragraphStyle: style,
+                                            .font: label.font!,
+                                            .foregroundColor: label.textColor!])
+        label.attributedText = attrStr
+    }
     
+    @objc func urlTap(){
+        if let urlStr = self.message?.url, let url = URL(string: urlStr){ Client.shared.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+        }
+    }
 }

@@ -13,6 +13,13 @@ class Client: NSObject {
     private override init() {
         super.init()
     }
+    var currentNavigationController:UINavigationController? {
+        get {
+            let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
+            let nav = controller?.rootViewController as? UINavigationController
+            return nav
+        }
+    }
     
     let appVersion:String = {
         var version = "0.0.0"

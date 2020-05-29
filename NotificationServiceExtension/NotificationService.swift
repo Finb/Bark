@@ -57,8 +57,7 @@ class NotificationService: UNNotificationServiceExtension {
                 isArchive = archive == "1" ? true : false
             }
             if isArchive == nil {
-                let defaults = UserDefaults.init(suiteName: "group.bark")
-                isArchive = defaults?.bool(forKey: "isArchive") ?? false
+                isArchive = ArchiveSettingManager.shared.isArchive
             }
             let alert = (userInfo["aps"] as? [String:Any])?["alert"] as? [String:Any]
             let title = alert?["title"] as? String

@@ -48,3 +48,14 @@ automaticallyCopyTitle = "自动复制推送内容";
 automaticallyCopy = "携带automaticallyCopy参数时，将自动复制推送内容。\n携带copy参数时，将只复制copy参数的值";
 
 historyMessage = "历史消息";
+
+unknown = "未知";
+available = "已开启";
+restricted = "未开启";
+settings = "设置";
+
+iCloudSatatus = "iCloud 同步";
+iCloudSync = "通知消息将在iCloud可用时同步";
+
+defaultArchiveSettings = "默认保存";
+archiveNote = "当推送请求URL没有指定 isArchive 参数时，将按照此设置来决定是否保存通知消息";
