@@ -19,6 +19,7 @@ Notice2 = "Customed notification content and title";
 
 Copy = "Copied!";
 Copy2 = "Copy";
+Cancel = "Cancel";
 
 AllowNotifications = "Notifications have been turned off, Please allow notifications and try again";
 

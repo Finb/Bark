@@ -13,7 +13,7 @@ class ArchiveSettingManager: NSObject {
     let defaults = UserDefaults.init(suiteName: "group.bark")
     var isArchive: Bool {
         get {
-            return defaults?.bool(forKey: "isArchive") ?? true
+           return defaults?.value(forKey: "isArchive") as? Bool ?? true
             
         }
         set{

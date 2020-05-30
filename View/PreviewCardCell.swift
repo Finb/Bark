@@ -166,6 +166,10 @@ class PreviewCardCell: UITableViewCell {
             ]))
         
         if let title = model.title {
+            attrStr.append(NSAttributedString(string: "/\(title)", attributes: [
+                NSAttributedString.Key.foregroundColor: Color.grey.darken1,
+                NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
+                ]))
             self.titleLabel.text = title
         }
         if let body = model.body {

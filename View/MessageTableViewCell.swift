@@ -82,7 +82,7 @@ class MessageTableViewCell: UITableViewCell {
         }
         
         urlLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(bodyLabel)
+            make.left.right.equalTo(bodyLabel)
             make.top.equalTo(bodyLabel.snp.bottom).offset(12)
         }
         if (message?.url?.count ?? 0) > 0{
@@ -133,7 +133,13 @@ class MessageTableViewCell: UITableViewCell {
     }
     
     @objc func urlTap(){
-        if let urlStr = self.message?.url, let url = URL(string: urlStr){ Client.shared.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+        if let urlStr = self.message?.url, let url = URL(string: urlStr){
+            if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
+                  Client.shared.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+              }
+              else{
+                  UIApplication.shared.open(url, options: [:], completionHandler: nil)
+              }
         }
     }
 }

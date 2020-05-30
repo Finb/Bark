@@ -14,6 +14,7 @@ class MessageListViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
+        tableView.backgroundColor = Color.grey.lighten5
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "cell")
         return tableView
     }()
@@ -91,5 +92,36 @@ extension MessageListViewController: UITableViewDataSource,UITableViewDelegate {
         
         let configuration = UISwipeActionsConfiguration(actions: [action])
         return configuration
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        let copyAction = UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: {[weak self]
+            (alert: UIAlertAction) -> Void in
+            if let message = self?.results?[indexPath.row] {
+                var str:String = ""
+                if let title = message.title {
+                    str += "\(title)\n"
+                }
+                if let body = message.body {
+                    str += "\(body)\n"
+                }
+                if let url = message.url {
+                    str += "\(url)"
+                }
+                str = String(str.prefix(str.count - 1))
+                
+                UIPasteboard.general.string = str
+                self?.showSnackbar(text: NSLocalizedString("Copy"))
+            }
+        })
+        
+        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: {
+            (alert: UIAlertAction) -> Void in
+        })
+        
+        alertController.addAction(copyAction)
+        alertController.addAction(cancelAction)
+        
+        Client.shared.currentNavigationController?.present(alertController, animated: true, completion: nil)
     }
 }
