@@ -31,7 +31,21 @@ class PreviewCardCell: UITableViewCell {
 
     let previewButton = IconButton(image: Icon.cm.skipForward, tintColor: Color.grey.base)
     let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: Color.grey.base)
-    let toolbar = Toolbar()
+    
+    let titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = RobotoFont.regular(with: 14)
+        label.textColor = Color.grey.darken1
+        label.numberOfLines = 0
+        return label
+    }()
+    let bodyLabel: UILabel = {
+        let label = UILabel()
+        label.font = RobotoFont.regular(with: 14)
+        label.textColor = Color.grey.base
+        label.numberOfLines = 0
+        return label
+    }()
     
     let noticeLabel: UILabel = {
         let label = UILabel()
@@ -40,15 +54,25 @@ class PreviewCardCell: UITableViewCell {
         label.numberOfLines = 0
         return label
     }()
-
-    let bottomBar = Bar()
-    
-    let card = PresenterCard()
+    let contentImageView:UIImageView = {
+        let imageView = UIImageView()
+        imageView.backgroundColor = UIColor.red
+        imageView.contentMode = .scaleAspectFit
+        return imageView
+    }()
+    let card:UIView = {
+        let view = UIView()
+        view.backgroundColor = Color.white
+        view.layer.cornerRadius = 2
+        view.clipsToBounds = true
+        return view
+    }()
     
     var copyHandler: (() -> Void)?
     
     let contentLabel: UILabel = {
         let label = UILabel()
+        label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
         label.font = RobotoFont.regular(with: 14)
         return label
@@ -59,44 +83,50 @@ class PreviewCardCell: UITableViewCell {
         self.selectionStyle = .none
         self.backgroundColor = Color.grey.lighten3
         
-        self.transition([ .scale(0.75) , .opacity(0)] )
+        addSubview(card)
+        card.snp.makeConstraints { (make) in
+            make.left.top.equalToSuperview().offset(10)
+            make.right.equalToSuperview().offset(-10)
+            make.bottom.equalToSuperview()
+        }
         
-        self.toolbar.rightViews = [copyButton,previewButton]
-        self.bottomBar.leftViews = [noticeLabel]
+        card.addSubview(titleLabel)
+        card.addSubview(bodyLabel)
+        card.addSubview(copyButton)
+        card.addSubview(previewButton)
+        card.addSubview(contentLabel)
+        card.addSubview(contentImageView)
+        card.addSubview(noticeLabel)
+
+        bodyLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(titleLabel)
+            make.top.equalTo(titleLabel.snp.bottom).offset(5)
+        }
+        previewButton.snp.makeConstraints { (make) in
+            make.right.equalToSuperview().offset(-10)
+            make.centerY.equalTo(card.snp.top).offset(40)
+            make.width.height.equalTo(40)
+        }
+        copyButton.snp.makeConstraints { (make) in
+            make.right.equalTo(previewButton.snp.left).offset(-10)
+            make.centerY.equalTo(previewButton)
+            make.width.height.equalTo(40)
+        }
+        noticeLabel.snp.makeConstraints { (make) in
+            make.left.equalTo(10)
+            make.right.equalTo(-10)
+            make.top.equalTo(contentLabel.snp.bottom).offset(20)
+            make.bottom.equalToSuperview().offset(-15)
+        }
         
-        toolbar.titleLabel.font = RobotoFont.regular(with: 14)
-        toolbar.titleLabel.textColor = Color.grey.darken4
-        toolbar.titleLabel.textAlignment = .left
-        
-        toolbar.detailLabel.textAlignment = .left
-        toolbar.detailLabel.textColor = Color.grey.darken2
-        
-        card.toolbar = toolbar
-        card.toolbarEdgeInsetsPreset = .square3
-        card.toolbarEdgeInsets.bottom = 0
-        card.toolbarEdgeInsets.right = 8
-        
-        card.contentView = contentLabel
-        card.contentViewEdgeInsetsPreset = .wideRectangle3
-        
-        card.bottomBar = bottomBar
-        card.bottomBarEdgeInsetsPreset = .wideRectangle2
+
     
         self.bind(model: model)
-        self.contentView.layout(card).leftRight(left: 10, right: 10).center()
+
         
         previewButton.addTarget(self, action: #selector(preview), for: .touchUpInside)
         copyButton.addTarget(self, action: #selector(copyURL), for: .touchUpInside)
         
-        //小屏幕兼容
-        if UIScreen.main.bounds.size.width <= 320 {
-            card.contentViewEdgeInsetsPreset = .wideRectangle2
-            card.bottomBarEdgeInsetsPreset = .wideRectangle1
-            toolbar.titleLabel.font = RobotoFont.regular(with: 12)
-            toolbar.detailLabel.font = RobotoFont.regular(with: 10)
-            contentLabel.font = RobotoFont.regular(with: 10)
-            noticeLabel.font = RobotoFont.regular(with: 10)
-        }
     }
     
     @objc func copyURL(){
@@ -136,11 +166,7 @@ class PreviewCardCell: UITableViewCell {
             ]))
         
         if let title = model.title {
-            attrStr.append(NSAttributedString(string: "/\(title)", attributes: [
-                NSAttributedString.Key.foregroundColor: Color.grey.darken1,
-                NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
-                ]))
-            self.toolbar.title = title
+            self.titleLabel.text = title
         }
         if let body = model.body {
             attrStr.append(NSAttributedString(string: "/\(body)", attributes: [
@@ -148,10 +174,22 @@ class PreviewCardCell: UITableViewCell {
                 NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
             if model.title == nil {
-                self.toolbar.title = body
+                self.titleLabel.text = body
             }
             else{
-                self.toolbar.detail = body
+                self.bodyLabel.text = body
+            }
+        }
+        if self.bodyLabel.text?.count ?? 0 <= 0 {
+            titleLabel.snp.remakeConstraints { (make) in
+                make.left.equalToSuperview().offset(15)
+                make.centerY.equalTo(copyButton)
+            }
+        }
+        else{
+            titleLabel.snp.remakeConstraints { (make) in
+                make.left.equalToSuperview().offset(15)
+                make.top.equalToSuperview().offset(20)
             }
         }
         if let queryParameter = model.queryParameter {
@@ -164,15 +202,27 @@ class PreviewCardCell: UITableViewCell {
         self.noticeLabel.text = model.notice
         
         if let image = model.image {
-            let imageView = UIImageView(image: image)
-            imageView.backgroundColor = UIColor.red
-            imageView.contentMode = .scaleAspectFit
+            self.contentImageView.image = image
             let width = UIScreen.main.bounds.size.width - 20
-            imageView.frame = CGRect(x: 0, y: 0, width: 0, height: width / image.width  * image.height)
+            let height = width / image.width  * image.height
             
-            
-            card.presenterView = imageView
-            card.presenterViewEdgeInsetsPreset = .none
+            contentImageView.snp.remakeConstraints { (make) in
+                make.left.right.equalToSuperview()
+                make.top.equalTo(previewButton.snp.bottom).offset(15)
+                make.height.equalTo(height)
+            }
+            contentLabel.snp.remakeConstraints { (make) in
+                make.left.equalToSuperview().offset(12)
+                make.right.equalToSuperview().offset(-12)
+                make.top.equalTo(contentImageView.snp.bottom).offset(15)
+            }
+        }
+        else{
+            contentLabel.snp.remakeConstraints { (make) in
+                make.left.equalToSuperview().offset(12)
+                make.right.equalToSuperview().offset(-12)
+                make.top.equalTo(previewButton.snp.bottom).offset(20)
+            }
         }
     }
     

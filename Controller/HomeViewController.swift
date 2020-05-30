@@ -38,6 +38,11 @@ class HomeViewController: BaseViewController {
                 body: NSLocalizedString("CustomedNotificationContent"),
                 notice: NSLocalizedString("Notice2")),
             PreviewModel(
+                body: NSLocalizedString("archiveNotificationMessageTitle"),
+                notice: NSLocalizedString("archiveNotificationMessage"),
+                queryParameter: "isArchive=1"
+                ),
+            PreviewModel(
                 body: "URL Test",
                 notice: NSLocalizedString("urlParameter"),
                 queryParameter: "url=https://www.baidu.com"
@@ -114,28 +119,13 @@ class HomeViewController: BaseViewController {
         }
     }
     
-    let rowheight:[CGFloat] = {
-        let screenWidth = UIScreen.main.bounds.width
-        if screenWidth <= 320 {
-            return [170,170,170,320,170]
-        }
-        if screenWidth <= 375 {
-            return [205,205,205,380,205]
-        }
-        if screenWidth <= 414 {
-            return [195,195,195,390,195]
-        }
-        return [205,205,205,380,205]
-    }()
 }
 
 extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataSource.count
     }
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return rowheight[indexPath.row]
-    }
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "\(indexPath.row)") as? PreviewCardCell{
             cell.bind(model: dataSource[indexPath.row])
