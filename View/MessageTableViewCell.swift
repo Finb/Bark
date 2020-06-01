@@ -86,12 +86,14 @@ class MessageTableViewCell: UITableViewCell {
             make.top.equalTo(bodyLabel.snp.bottom).offset(12)
         }
         if (message?.url?.count ?? 0) > 0{
+            urlLabel.isUserInteractionEnabled = true
             dateLabel.snp.remakeConstraints { (make) in
                 make.left.equalTo(urlLabel)
                 make.top.equalTo(urlLabel.snp.bottom).offset(12)
             }
         }
         else{
+            urlLabel.isUserInteractionEnabled = false
             dateLabel.snp.remakeConstraints { (make) in
                 make.left.equalTo(bodyLabel)
                 make.top.equalTo(bodyLabel.snp.bottom).offset(12)
