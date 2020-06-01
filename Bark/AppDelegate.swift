@@ -21,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
+        if #available(iOS 13.0, *) {
+            self.window?.overrideUserInterfaceStyle = .light
+        }
         self.window?.backgroundColor = Color.grey.lighten5
         self.window?.rootViewController = BarkSnackbarController(rootViewController: BarkNavigationController(rootViewController: HomeViewController()))
         self.window?.makeKeyAndVisible()
