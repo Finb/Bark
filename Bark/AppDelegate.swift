@@ -27,7 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.backgroundColor = Color.grey.lighten5
         self.window?.rootViewController = BarkSnackbarController(rootViewController: BarkNavigationController(rootViewController: HomeViewController()))
         self.window?.makeKeyAndVisible()
-        
+
+        UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().setNotificationCategories([
             UNNotificationCategory(identifier: "myNotificationCategory", actions: [
                 UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.foreground)
@@ -37,7 +38,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().getNotificationSettings { (settings) in
             dispatch_sync_safely_main_queue {
                 if settings.authorizationStatus == .authorized {
-                    UNUserNotificationCenter.current().delegate = self
                     Client.shared.registerForRemoteNotifications()
                 }
             }
@@ -99,78 +99,78 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         notificatonHandler(userInfo: response.notification.request.content.userInfo)
     }
     private func notificatonHandler(userInfo:[AnyHashable:Any]){
-
+        
         let navigationController = ((self.window?.rootViewController as? BarkSnackbarController)?
-                   .rootViewController as? BarkNavigationController)
-               func presentController(){
-                   let alert = (userInfo["aps"] as? [String:Any])?["alert"] as? [String:Any]
-                   let title = alert?["title"] as? String
-                   let body = alert?["body"] as? String
-                   let url:URL? = {
-                       if let url = userInfo["url"] as? String {
-                           return URL(string: url)
-                       }
-                       return nil
-                   }()
-                   
-                   //URL 直接打开
-                   if let url = url {
-                       if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
-                           navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
-                       }
-                       else{
-                           UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                       }
-                       return
-                   }
-                   
-                   
-                   let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
-                   alertController.addAction(UIAlertAction(title: "复制内容", style: .default, handler: { (_) in
-                       if let copy = userInfo["copy"] as? String {
-                           UIPasteboard.general.string = copy
-                       }
-                       else{
-                           UIPasteboard.general.string = body
-                       }
-                   }))
-                   alertController.addAction(UIAlertAction(title: "更多操作", style: .default, handler: { (_) in
-                       var shareContent = ""
-                       if let title = title {
-                           shareContent += "\(title)\n"
-                       }
-                       if let body = body {
-                           shareContent += "\(body)\n"
-                       }
-                       for (key,value) in userInfo {
-                           if ["aps","title","body","url"].contains((key as? String) ?? "") {
-                               continue
-                           }
-                           shareContent += "\(key): \(value) \n"
-                       }
-                       var items:[Any] = []
-                       items.append(shareContent)
-                       if let url = url{
-                           items.append(url)
-                       }
-                       let controller = UIApplication.shared.keyWindow?.rootViewController
-                       let activityController = UIActivityViewController(activityItems: items,
-                                                                         applicationActivities: nil)
-                       controller?.present(activityController, animated: true, completion: nil)
-                   }))
-                   alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
-                   
-                   navigationController?.present(alertController, animated: true, completion: nil)
-               }
-               
-               if let presentedController = navigationController?.presentedViewController {
-                   presentedController.dismiss(animated: false) {
-                       presentController()
-                   }
-               }
-               else{
-                   presentController()
-               }
+            .rootViewController as? BarkNavigationController)
+        func presentController(){
+            let alert = (userInfo["aps"] as? [String:Any])?["alert"] as? [String:Any]
+            let title = alert?["title"] as? String
+            let body = alert?["body"] as? String
+            let url:URL? = {
+                if let url = userInfo["url"] as? String {
+                    return URL(string: url)
+                }
+                return nil
+            }()
+            
+            //URL 直接打开
+            if let url = url {
+                if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
+                    navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                }
+                else{
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                }
+                return
+            }
+            
+            
+            let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "复制内容", style: .default, handler: { (_) in
+                if let copy = userInfo["copy"] as? String {
+                    UIPasteboard.general.string = copy
+                }
+                else{
+                    UIPasteboard.general.string = body
+                }
+            }))
+            alertController.addAction(UIAlertAction(title: "更多操作", style: .default, handler: { (_) in
+                var shareContent = ""
+                if let title = title {
+                    shareContent += "\(title)\n"
+                }
+                if let body = body {
+                    shareContent += "\(body)\n"
+                }
+                for (key,value) in userInfo {
+                    if ["aps","title","body","url"].contains((key as? String) ?? "") {
+                        continue
+                    }
+                    shareContent += "\(key): \(value) \n"
+                }
+                var items:[Any] = []
+                items.append(shareContent)
+                if let url = url{
+                    items.append(url)
+                }
+                let controller = UIApplication.shared.keyWindow?.rootViewController
+                let activityController = UIActivityViewController(activityItems: items,
+                                                                  applicationActivities: nil)
+                controller?.present(activityController, animated: true, completion: nil)
+            }))
+            alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            
+            navigationController?.present(alertController, animated: true, completion: nil)
+        }
+        
+        if let presentedController = navigationController?.presentedViewController {
+            presentedController.dismiss(animated: false) {
+                presentController()
+            }
+        }
+        else{
+            presentController()
+        }
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
