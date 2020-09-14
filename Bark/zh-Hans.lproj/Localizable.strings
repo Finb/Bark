@@ -63,3 +63,8 @@ archiveNote = "当推送请求URL没有指定 isArchive 参数时，将按照此
 
 archiveNotificationMessageTitle = "自动保存通知消息";
 archiveNotificationMessage = "当设置 isArchive 值为 1 时，则会自动保存这条推送消息，设置为其他值时，则不会保存。\n如果不指定 isArchive 参数时，则按照默认设置保存消息，可以在 消息->设置->默认保存消息 更改默认保存设置";
+
+notificationSound = "推送铃声";
+previewSound = "点击可预览";
+setSounds = "可以为推送设置不同的铃声";
+viewAllSounds = "查看所有铃声";

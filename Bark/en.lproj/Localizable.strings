@@ -63,3 +63,8 @@ archiveNote = "When the isArchive parameter is not specified in the push request
 
 archiveNotificationMessageTitle = "Archive notification message";
 archiveNotificationMessage = "Notification message will be archived when isArchive value is 1, and will not be archived when the value is 0.\nIf the isArchive parameter is not specified, the notification message will be archived according to the default settings";
+
+notificationSound = "Notification sound";
+previewSound = "Click to preview";
+setSounds = "You can set different sounds for push notifications";
+viewAllSounds = "View all sounds";

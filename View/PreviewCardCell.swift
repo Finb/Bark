@@ -16,14 +16,26 @@ class PreviewModel: NSObject {
     var notice:String?
     var queryParameter:String?
     var image:UIImage?
+    var moreInfo:String?
+    var moreViewController:UIViewController?
     
-    init(title:String? = nil, body:String? = nil, category:String? = nil, notice:String? = nil, queryParameter:String? = nil, image:UIImage? = nil) {
+    init(title:String? = nil,
+         body:String? = nil,
+         category:String? = nil,
+         notice:String? = nil,
+         queryParameter:String? = nil,
+         image:UIImage? = nil,
+        moreInfo:String? = nil,
+        moreViewController:UIViewController? = nil
+    ) {
         self.title = title
         self.body = body
         self.category = category
         self.notice = notice
         self.queryParameter = queryParameter
         self.image = image
+        self.moreInfo = moreInfo
+        self.moreViewController = moreViewController
     }
 }
 
@@ -126,9 +138,14 @@ class PreviewCardCell: UITableViewCell {
         
         previewButton.addTarget(self, action: #selector(preview), for: .touchUpInside)
         copyButton.addTarget(self, action: #selector(copyURL), for: .touchUpInside)
+        noticeLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(noticeTap)))
         
     }
-    
+    @objc func noticeTap(){
+        if let controller = self.previewModel?.moreViewController{
+            Client.shared.currentNavigationController?.pushViewController(controller, animated: true)
+        }
+    }
     @objc func copyURL(){
         if let urlStr = self.contentLabel.text{
             UIPasteboard.general.string = urlStr
@@ -203,8 +220,27 @@ class PreviewCardCell: UITableViewCell {
                 ]))
         }
         self.contentLabel.attributedText = attrStr
-        self.noticeLabel.text = model.notice
         
+        if let moreInfo = model.moreInfo {
+            let noticeStr = "\(model.notice ?? "")  \(moreInfo)"
+            let noticeAttrStr = NSMutableAttributedString(string: noticeStr, attributes: [
+                NSAttributedString.Key.foregroundColor: Color.grey.base,
+                NSAttributedString.Key.font : RobotoFont.regular(with: 12)
+            ])
+            noticeAttrStr.setAttributes([
+                NSAttributedString.Key.foregroundColor: Color.blue.base,
+                NSAttributedString.Key.font : RobotoFont.regular(with: 12)
+            ], range: NSRange(location: noticeStr.count - moreInfo.count, length: moreInfo.count))
+            self.noticeLabel.text = nil
+            self.noticeLabel.attributedText = noticeAttrStr
+            self.noticeLabel.isUserInteractionEnabled = true
+        }
+        else{
+            self.noticeLabel.isUserInteractionEnabled = false
+            self.noticeLabel.attributedText = nil
+            self.noticeLabel.text = model.notice
+        }
+
         if let image = model.image {
             self.contentImageView.image = image
             let width = UIScreen.main.bounds.size.width - 20

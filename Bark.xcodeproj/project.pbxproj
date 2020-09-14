@@ -11,7 +11,40 @@
 		0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706820E1F89500F4CA05 /* PreviewCardCell.swift */; };
 		0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
 		0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */; };
+		060481EE250F404500BC9799 /* SoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060481ED250F404500BC9799 /* SoundsViewController.swift */; };
+		060481F0250F51CA00BC9799 /* SoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060481EF250F51CA00BC9799 /* SoundCell.swift */; };
 		0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604F7DE20620D4900B32F09 /* ServerManager.swift */; };
+		0632050F250B6DD4001561EC /* gotosleep.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F0250B6DD1001561EC /* gotosleep.caf */; };
+		06320510250B6DD4001561EC /* paymentsuccess.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F1250B6DD1001561EC /* paymentsuccess.caf */; };
+		06320511250B6DD4001561EC /* shake.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F2250B6DD1001561EC /* shake.caf */; };
+		06320512250B6DD4001561EC /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F3250B6DD1001561EC /* alarm.caf */; };
+		06320513250B6DD4001561EC /* bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F4250B6DD1001561EC /* bloom.caf */; };
+		06320514250B6DD4001561EC /* sherwoodforest.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F5250B6DD2001561EC /* sherwoodforest.caf */; };
+		06320515250B6DD4001561EC /* healthnotification.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F6250B6DD2001561EC /* healthnotification.caf */; };
+		06320516250B6DD4001561EC /* calypso.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F7250B6DD2001561EC /* calypso.caf */; };
+		06320517250B6DD4001561EC /* descent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F8250B6DD2001561EC /* descent.caf */; };
+		06320518250B6DD4001561EC /* ladder.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F9250B6DD2001561EC /* ladder.caf */; };
+		06320519250B6DD4001561EC /* tiptoes.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FA250B6DD2001561EC /* tiptoes.caf */; };
+		0632051A250B6DD4001561EC /* fanfare.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FB250B6DD2001561EC /* fanfare.caf */; };
+		0632051B250B6DD4001561EC /* birdsong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FC250B6DD2001561EC /* birdsong.caf */; };
+		0632051C250B6DD4001561EC /* typewriters.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FD250B6DD2001561EC /* typewriters.caf */; };
+		0632051D250B6DD4001561EC /* anticipate.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FE250B6DD2001561EC /* anticipate.caf */; };
+		0632051E250B6DD4001561EC /* choo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FF250B6DD3001561EC /* choo.caf */; };
+		0632051F250B6DD4001561EC /* glass.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320500250B6DD3001561EC /* glass.caf */; };
+		06320520250B6DD4001561EC /* telegraph.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320501250B6DD3001561EC /* telegraph.caf */; };
+		06320521250B6DD4001561EC /* multiwayinvitation.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320502250B6DD3001561EC /* multiwayinvitation.caf */; };
+		06320522250B6DD4001561EC /* newmail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320503250B6DD3001561EC /* newmail.caf */; };
+		06320523250B6DD4001561EC /* update.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320504250B6DD3001561EC /* update.caf */; };
+		06320524250B6DD4001561EC /* minuet.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320505250B6DD3001561EC /* minuet.caf */; };
+		06320525250B6DD4001561EC /* suspense.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320506250B6DD3001561EC /* suspense.caf */; };
+		06320526250B6DD4001561EC /* mailsent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320507250B6DD3001561EC /* mailsent.caf */; };
+		06320527250B6DD4001561EC /* noir.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320508250B6DD3001561EC /* noir.caf */; };
+		06320528250B6DD4001561EC /* chime.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320509250B6DD4001561EC /* chime.caf */; };
+		06320529250B6DD4001561EC /* spell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050A250B6DD4001561EC /* spell.caf */; };
+		0632052A250B6DD4001561EC /* electronic.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050B250B6DD4001561EC /* electronic.caf */; };
+		0632052B250B6DD4001561EC /* bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050C250B6DD4001561EC /* bell.caf */; };
+		0632052C250B6DD4001561EC /* horn.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050D250B6DD4001561EC /* horn.caf */; };
+		0632052D250B6DD4001561EC /* newsflash.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050E250B6DD4001561EC /* newsflash.caf */; };
 		0632CE1F20EC9098003FDF46 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0683487020510FB20024B6DA /* UserNotifications.framework */; };
 		0632CE2020EC9098003FDF46 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0683487220510FB20024B6DA /* UserNotificationsUI.framework */; };
 		0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0632CE2220EC9098003FDF46 /* NotificationViewController.swift */; };
@@ -89,7 +122,40 @@
 		0603706820E1F89500F4CA05 /* PreviewCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardCell.swift; sourceTree = "<group>"; };
 		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSFSafariViewController.swift; sourceTree = "<group>"; };
+		060481ED250F404500BC9799 /* SoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewController.swift; sourceTree = "<group>"; };
+		060481EF250F51CA00BC9799 /* SoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCell.swift; sourceTree = "<group>"; };
 		0604F7DE20620D4900B32F09 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
+		063204F0250B6DD1001561EC /* gotosleep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gotosleep.caf; sourceTree = "<group>"; };
+		063204F1250B6DD1001561EC /* paymentsuccess.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = paymentsuccess.caf; sourceTree = "<group>"; };
+		063204F2250B6DD1001561EC /* shake.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shake.caf; sourceTree = "<group>"; };
+		063204F3250B6DD1001561EC /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
+		063204F4250B6DD1001561EC /* bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bloom.caf; sourceTree = "<group>"; };
+		063204F5250B6DD2001561EC /* sherwoodforest.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sherwoodforest.caf; sourceTree = "<group>"; };
+		063204F6250B6DD2001561EC /* healthnotification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = healthnotification.caf; sourceTree = "<group>"; };
+		063204F7250B6DD2001561EC /* calypso.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = calypso.caf; sourceTree = "<group>"; };
+		063204F8250B6DD2001561EC /* descent.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = descent.caf; sourceTree = "<group>"; };
+		063204F9250B6DD2001561EC /* ladder.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ladder.caf; sourceTree = "<group>"; };
+		063204FA250B6DD2001561EC /* tiptoes.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tiptoes.caf; sourceTree = "<group>"; };
+		063204FB250B6DD2001561EC /* fanfare.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fanfare.caf; sourceTree = "<group>"; };
+		063204FC250B6DD2001561EC /* birdsong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = birdsong.caf; sourceTree = "<group>"; };
+		063204FD250B6DD2001561EC /* typewriters.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = typewriters.caf; sourceTree = "<group>"; };
+		063204FE250B6DD2001561EC /* anticipate.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = anticipate.caf; sourceTree = "<group>"; };
+		063204FF250B6DD3001561EC /* choo.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = choo.caf; sourceTree = "<group>"; };
+		06320500250B6DD3001561EC /* glass.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = glass.caf; sourceTree = "<group>"; };
+		06320501250B6DD3001561EC /* telegraph.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = telegraph.caf; sourceTree = "<group>"; };
+		06320502250B6DD3001561EC /* multiwayinvitation.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = multiwayinvitation.caf; sourceTree = "<group>"; };
+		06320503250B6DD3001561EC /* newmail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newmail.caf; sourceTree = "<group>"; };
+		06320504250B6DD3001561EC /* update.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = update.caf; sourceTree = "<group>"; };
+		06320505250B6DD3001561EC /* minuet.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = minuet.caf; sourceTree = "<group>"; };
+		06320506250B6DD3001561EC /* suspense.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = suspense.caf; sourceTree = "<group>"; };
+		06320507250B6DD3001561EC /* mailsent.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mailsent.caf; sourceTree = "<group>"; };
+		06320508250B6DD3001561EC /* noir.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = noir.caf; sourceTree = "<group>"; };
+		06320509250B6DD4001561EC /* chime.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = chime.caf; sourceTree = "<group>"; };
+		0632050A250B6DD4001561EC /* spell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spell.caf; sourceTree = "<group>"; };
+		0632050B250B6DD4001561EC /* electronic.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = electronic.caf; sourceTree = "<group>"; };
+		0632050C250B6DD4001561EC /* bell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bell.caf; sourceTree = "<group>"; };
+		0632050D250B6DD4001561EC /* horn.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = horn.caf; sourceTree = "<group>"; };
+		0632050E250B6DD4001561EC /* newsflash.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newsflash.caf; sourceTree = "<group>"; };
 		0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationContentExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0632CE2220EC9098003FDF46 /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		0632CE2520EC9098003FDF46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -178,6 +244,7 @@
 				0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */,
 				068F66B2247BD84C00DAD25A /* MessageListViewController.swift */,
 				06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */,
+				060481ED250F404500BC9799 /* SoundsViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +258,7 @@
 				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
 				06C595352481160F006B98F3 /* BKLabel.swift */,
+				060481EF250F51CA00BC9799 /* SoundCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -214,6 +282,44 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		063204EF250B6DC2001561EC /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				063204F3250B6DD1001561EC /* alarm.caf */,
+				063204FE250B6DD2001561EC /* anticipate.caf */,
+				0632050C250B6DD4001561EC /* bell.caf */,
+				063204FC250B6DD2001561EC /* birdsong.caf */,
+				063204F4250B6DD1001561EC /* bloom.caf */,
+				063204F7250B6DD2001561EC /* calypso.caf */,
+				06320509250B6DD4001561EC /* chime.caf */,
+				063204FF250B6DD3001561EC /* choo.caf */,
+				063204F8250B6DD2001561EC /* descent.caf */,
+				0632050B250B6DD4001561EC /* electronic.caf */,
+				063204FB250B6DD2001561EC /* fanfare.caf */,
+				06320500250B6DD3001561EC /* glass.caf */,
+				063204F0250B6DD1001561EC /* gotosleep.caf */,
+				063204F6250B6DD2001561EC /* healthnotification.caf */,
+				0632050D250B6DD4001561EC /* horn.caf */,
+				063204F9250B6DD2001561EC /* ladder.caf */,
+				06320507250B6DD3001561EC /* mailsent.caf */,
+				06320505250B6DD3001561EC /* minuet.caf */,
+				06320502250B6DD3001561EC /* multiwayinvitation.caf */,
+				06320503250B6DD3001561EC /* newmail.caf */,
+				0632050E250B6DD4001561EC /* newsflash.caf */,
+				06320508250B6DD3001561EC /* noir.caf */,
+				063204F1250B6DD1001561EC /* paymentsuccess.caf */,
+				063204F2250B6DD1001561EC /* shake.caf */,
+				063204F5250B6DD2001561EC /* sherwoodforest.caf */,
+				0632050A250B6DD4001561EC /* spell.caf */,
+				06320506250B6DD3001561EC /* suspense.caf */,
+				06320501250B6DD3001561EC /* telegraph.caf */,
+				063204FA250B6DD2001561EC /* tiptoes.caf */,
+				063204FD250B6DD2001561EC /* typewriters.caf */,
+				06320504250B6DD3001561EC /* update.caf */,
+			);
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		0632CE2120EC9098003FDF46 /* NotificationContentExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -227,6 +333,7 @@
 		0661A536204FDA4100965E4E = {
 			isa = PBXGroup;
 			children = (
+				063204EF250B6DC2001561EC /* Sounds */,
 				0604F7DD20620D3800B32F09 /* Model */,
 				0604F7DC20620D3400B32F09 /* View */,
 				0604F7DB20620D2700B32F09 /* Controller */,
@@ -421,9 +528,40 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06320525250B6DD4001561EC /* suspense.caf in Resources */,
+				06320529250B6DD4001561EC /* spell.caf in Resources */,
+				0632051D250B6DD4001561EC /* anticipate.caf in Resources */,
+				06320521250B6DD4001561EC /* multiwayinvitation.caf in Resources */,
+				06320528250B6DD4001561EC /* chime.caf in Resources */,
+				06320510250B6DD4001561EC /* paymentsuccess.caf in Resources */,
+				06320527250B6DD4001561EC /* noir.caf in Resources */,
+				06320520250B6DD4001561EC /* telegraph.caf in Resources */,
+				06320518250B6DD4001561EC /* ladder.caf in Resources */,
+				06320526250B6DD4001561EC /* mailsent.caf in Resources */,
+				06320523250B6DD4001561EC /* update.caf in Resources */,
+				06320515250B6DD4001561EC /* healthnotification.caf in Resources */,
+				06320511250B6DD4001561EC /* shake.caf in Resources */,
+				06320513250B6DD4001561EC /* bloom.caf in Resources */,
+				0632050F250B6DD4001561EC /* gotosleep.caf in Resources */,
+				06320512250B6DD4001561EC /* alarm.caf in Resources */,
+				06320522250B6DD4001561EC /* newmail.caf in Resources */,
 				0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */,
+				0632051E250B6DD4001561EC /* choo.caf in Resources */,
+				06320516250B6DD4001561EC /* calypso.caf in Resources */,
+				0632052D250B6DD4001561EC /* newsflash.caf in Resources */,
+				06320514250B6DD4001561EC /* sherwoodforest.caf in Resources */,
+				0632051A250B6DD4001561EC /* fanfare.caf in Resources */,
+				06320517250B6DD4001561EC /* descent.caf in Resources */,
+				0632051B250B6DD4001561EC /* birdsong.caf in Resources */,
+				0632051F250B6DD4001561EC /* glass.caf in Resources */,
+				06320524250B6DD4001561EC /* minuet.caf in Resources */,
 				063C499520E36BF9001BCA35 /* Localizable.strings in Resources */,
 				0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */,
+				06320519250B6DD4001561EC /* tiptoes.caf in Resources */,
+				0632052A250B6DD4001561EC /* electronic.caf in Resources */,
+				0632052C250B6DD4001561EC /* horn.caf in Resources */,
+				0632051C250B6DD4001561EC /* typewriters.caf in Resources */,
+				0632052B250B6DD4001561EC /* bell.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,6 +654,7 @@
 			files = (
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
 				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
+				060481EE250F404500BC9799 /* SoundsViewController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
 				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
@@ -528,6 +667,7 @@
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
 				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,
+				060481F0250F51CA00BC9799 /* SoundCell.swift in Sources */,
 				0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */,
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,

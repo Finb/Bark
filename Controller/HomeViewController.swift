@@ -38,6 +38,13 @@ class HomeViewController: BaseViewController {
                 body: NSLocalizedString("CustomedNotificationContent"),
                 notice: NSLocalizedString("Notice2")),
             PreviewModel(
+                body: NSLocalizedString("notificationSound"),
+                notice: NSLocalizedString("setSounds"),
+                queryParameter: "sound=minuet",
+                moreInfo:NSLocalizedString("viewAllSounds"),
+                moreViewController: SoundsViewController()
+            ),
+            PreviewModel(
                 body: NSLocalizedString("archiveNotificationMessageTitle"),
                 notice: NSLocalizedString("archiveNotificationMessage"),
                 queryParameter: "isArchive=1"
