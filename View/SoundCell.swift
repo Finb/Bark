@@ -50,7 +50,7 @@ class SoundCell: UITableViewCell {
     }
     @objc func copyName(){
         if let urlStr = self.nameLabel.text{
-            UIPasteboard.general.string = urlStr
+            UIPasteboard.general.string = urlStr.trimmingCharacters(in: .whitespacesAndNewlines)
             Client.shared.currentNavigationController?.showSnackbar(text: NSLocalizedString("Copy"))
         }
     }
