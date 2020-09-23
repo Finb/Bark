@@ -11,9 +11,9 @@ import UserNotifications
 import Material
 class HomeViewController: BaseViewController {
     
-    let newButton: IconButton = {
-        let btn = IconButton(image: Icon.add, tintColor: .black)
-        btn.pulseColor = .black
+    let newButton: BKButton = {
+        let btn = BKButton()
+        btn.setImage(Icon.add, for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         return btn
     }()
@@ -86,12 +86,13 @@ class HomeViewController: BaseViewController {
         self.view.backgroundColor = Color.grey.lighten3
 
         newButton.addTarget(self, action: #selector(new), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: newButton)
+        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: newButton))
         
-        let messageBtn = IconButton(image: Icon.history, tintColor: .black)
+        let messageBtn = BKButton()
+        messageBtn.setImage(Icon.history, for: .normal)
         messageBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         messageBtn.addTarget(self, action: #selector(history), for: .touchUpInside)
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: messageBtn)
+        navigationItem.setLeftBarButtonItem(item: UIBarButtonItem(customView: messageBtn))
 
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make ) in

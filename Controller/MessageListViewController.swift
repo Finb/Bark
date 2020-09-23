@@ -26,10 +26,11 @@ class MessageListViewController: BaseViewController {
         super.viewDidLoad()
         self.title = NSLocalizedString("historyMessage")
         
-        let settingButton = IconButton(image: Icon.settings, tintColor: .black)
+        let settingButton = BKButton()
+        settingButton.setImage(Icon.settings, for: .normal)
         settingButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         settingButton.addTarget(self, action: #selector(settingClick), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: settingButton)
+        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: settingButton))
         
         self.view.addSubview(tableView)
         tableView.dataSource = self

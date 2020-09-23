@@ -31,16 +31,17 @@ class NewServerViewController: BaseViewController {
         return label
     }()
     
-    let doneButton = IconButton(image: Icon.check, tintColor: .black)
+    let doneButton = BKButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         navigationItem.title = NSLocalizedString("AddServer")
         
+        doneButton.setImage(Icon.check, for: .normal)
         doneButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
-        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: doneButton)
+        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: doneButton))
         
         self.view.layout(addressTextField).top(kNavigationHeight + 40).left(10).right(10)
         
