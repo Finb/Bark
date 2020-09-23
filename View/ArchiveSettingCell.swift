@@ -19,7 +19,7 @@ class ArchiveSettingCell: UITableViewCell {
         
         self.textLabel?.text = NSLocalizedString("defaultArchiveSettings")
         
-        addSubview(switchButton)
+        contentView.addSubview(switchButton)
         switchButton.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()

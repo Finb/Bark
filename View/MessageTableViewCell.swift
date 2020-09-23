@@ -53,11 +53,11 @@ class MessageTableViewCell: UITableViewCell {
         
         self.backgroundColor = Color.white
         
-        addSubview(titleLabel)
-        addSubview(bodyLabel)
-        addSubview(urlLabel)
-        addSubview(dateLabel)
-        addSubview(separatorLine)
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(bodyLabel)
+        contentView.addSubview(urlLabel)
+        contentView.addSubview(dateLabel)
+        contentView.addSubview(separatorLine)
         
         self.urlLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(urlTap)))
     }

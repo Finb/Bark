@@ -95,7 +95,7 @@ class PreviewCardCell: UITableViewCell {
         self.selectionStyle = .none
         self.backgroundColor = Color.grey.lighten3
         
-        addSubview(card)
+        contentView.addSubview(card)
         card.snp.makeConstraints { (make) in
             make.left.top.equalToSuperview().offset(10)
             make.right.equalToSuperview().offset(-10)
