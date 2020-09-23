@@ -15,7 +15,6 @@ def pods
     pod 'DeviceKit'
     pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
     pod 'IceCream'
-    pod 'UINavigationItem+Margin'
 end
 
 target 'Bark' do

@@ -8,12 +8,9 @@
 
 import UIKit
 import Material
-import UINavigationItem_Margin
 class BarkNavigationController: UINavigationController{
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.leftMargin = 8
-        self.navigationItem.rightMargin = 8
     }
 }
 

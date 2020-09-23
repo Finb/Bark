@@ -13,8 +13,6 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Color.grey.lighten5
-        self.navigationItem.leftMargin = 8
-        self.navigationItem.rightMargin = 8
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
