@@ -10,7 +10,7 @@ import UIKit
 import Material
 import SnapKit
 import SafariServices
-class NewServerViewController: BaseViewController {
+class NewServerViewController: UIViewController {
 
     let addressTextField : TextField = {
         let textField = TextField()

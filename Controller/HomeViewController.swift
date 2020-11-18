@@ -9,7 +9,7 @@
 import UIKit
 import UserNotifications
 import Material
-class HomeViewController: BaseViewController {
+class HomeViewController: UIViewController {
     
     let newButton: BKButton = {
         let btn = BKButton()
@@ -42,7 +42,7 @@ class HomeViewController: BaseViewController {
                 notice: NSLocalizedString("setSounds"),
                 queryParameter: "sound=minuet",
                 moreInfo:NSLocalizedString("viewAllSounds"),
-                moreViewController: SoundsViewController()
+                moreViewController: SoundsViewController(viewModel: SoundsViewModel())
             ),
             PreviewModel(
                 body: NSLocalizedString("archiveNotificationMessageTitle"),

@@ -8,7 +8,7 @@
 
 import UIKit
 import Material
-class MessageSettingsViewController: BaseViewController {
+class MessageSettingsViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none

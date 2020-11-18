@@ -8,6 +8,7 @@
 
 import UIKit
 import Material
+import AVKit
 
 class SoundCell: UITableViewCell {
     let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: Color.grey.base)
@@ -29,6 +30,8 @@ class SoundCell: UITableViewCell {
         
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(durationLabel)
+        self.contentView.addSubview(copyButton)
+        
         nameLabel.snp.makeConstraints { (make) in
             make.left.top.equalToSuperview().offset(15)
         }
@@ -37,21 +40,34 @@ class SoundCell: UITableViewCell {
             make.top.equalTo(nameLabel.snp.bottom).offset(5)
             make.bottom.equalToSuperview().offset(-15)
         }
-        self.contentView.addSubview(copyButton)
         copyButton.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-15)
             make.centerY.equalToSuperview()
             make.width.height.equalTo(40)
         }
-        copyButton.addTarget(self, action: #selector(copyName), for: .touchUpInside)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    @objc func copyName(){
-        if let urlStr = self.nameLabel.text{
-            UIPasteboard.general.string = urlStr.trimmingCharacters(in: .whitespacesAndNewlines)
-            Client.shared.currentNavigationController?.showSnackbar(text: NSLocalizedString("Copy"))
+    
+    var viewModel:ViewModel?
+    func bindViewModel(model:ViewModel){
+        guard let viewModel = model as? SoundCellViewModel else {
+            return
         }
+        self.viewModel = model
+        
+        viewModel.name
+            .bind(to: nameLabel.rx.text)
+            .disposed(by: rx.reuseBag)
+        viewModel.duration
+            .map { String(format: "%.2f", CMTimeGetSeconds($0) ) }
+            .bind(to: durationLabel.rx.text)
+            .disposed(by: rx.reuseBag)
+        
+        copyButton.rx.tap
+            .map{ viewModel.name.value }
+            .bind(to: viewModel.copyNameAction)
+            .disposed(by: rx.reuseBag)
     }
 }

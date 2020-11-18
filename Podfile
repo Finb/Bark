@@ -15,6 +15,13 @@ def pods
     pod 'DeviceKit'
     pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
     pod 'IceCream'
+    
+    pod 'RxSwift'
+    pod 'RxCocoa'
+    pod 'RxGesture'
+    pod 'RxDataSources'
+    pod 'NSObject+Rx'
+    
 end
 
 target 'Bark' do

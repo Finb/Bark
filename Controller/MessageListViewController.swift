@@ -10,7 +10,7 @@ import UIKit
 import Material
 import RealmSwift
 
-class MessageListViewController: BaseViewController {
+class MessageListViewController: UIViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none

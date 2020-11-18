@@ -63,6 +63,10 @@
 		0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8B20E0D7A700E80174 /* BaseViewController.swift */; };
 		063C499520E36BF9001BCA35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
 		065A4D4220EE1A31002EB2DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
+		065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */; };
+		065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4452563D7E5002A8CA4 /* ViewModelType.swift */; };
+		065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44A2563D8E1002A8CA4 /* Reusable.swift */; };
+		065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */; };
 		0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A542204FDA4100965E4E /* AppDelegate.swift */; };
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
@@ -175,6 +179,10 @@
 		0637FA8B20E0D7A700E80174 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		063C499620E36BF9001BCA35 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		063C499820E36C15001BCA35 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewModel.swift; sourceTree = "<group>"; };
+		065BE4452563D7E5002A8CA4 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		065BE44A2563D8E1002A8CA4 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCellViewModel.swift; sourceTree = "<group>"; };
 		0661A53F204FDA4100965E4E /* Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0661A542204FDA4100965E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0661A544204FDA4100965E4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -249,6 +257,7 @@
 				068F66B2247BD84C00DAD25A /* MessageListViewController.swift */,
 				06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */,
 				060481ED250F404500BC9799 /* SoundsViewController.swift */,
+				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -263,6 +272,7 @@
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
 				06C595352481160F006B98F3 /* BKLabel.swift */,
 				060481EF250F51CA00BC9799 /* SoundCell.swift */,
+				065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */,
 				062B98C2251B2762004562E7 /* BKButton.swift */,
 				062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */,
 			);
@@ -336,10 +346,20 @@
 			path = NotificationContentExtension;
 			sourceTree = "<group>";
 		};
+		065BE4442563D7AA002A8CA4 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				065BE4452563D7E5002A8CA4 /* ViewModelType.swift */,
+				065BE44A2563D8E1002A8CA4 /* Reusable.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		0661A536204FDA4100965E4E = {
 			isa = PBXGroup;
 			children = (
 				063204EF250B6DC2001561EC /* Sounds */,
+				065BE4442563D7AA002A8CA4 /* Common */,
 				0604F7DD20620D3800B32F09 /* Model */,
 				0604F7DC20620D3400B32F09 /* View */,
 				0604F7DB20620D2700B32F09 /* Controller */,
@@ -664,12 +684,14 @@
 				060481EE250F404500BC9799 /* SoundsViewController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
 				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
+				065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
 				06C595362481160F006B98F3 /* BKLabel.swift in Sources */,
 				0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */,
 				0637FA7E20E0969800E80174 /* Client.swift in Sources */,
 				0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */,
 				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
+				065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
@@ -685,6 +707,8 @@
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
+				065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */,
+				065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */,
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
