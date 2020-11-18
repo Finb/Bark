@@ -70,15 +70,18 @@ class HomeViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        _ = BarkApi.provider.request(.ping(baseURL: ServerManager.shared.currentAddress))
+        BarkApi.provider
+            .request(.ping(baseURL: ServerManager.shared.currentAddress))
             .filterResponseError()
             .subscribe(
-                onNext: { _ in
-                    Client.shared.state = .ok
-                },
-                onError: { _ in
-                    Client.shared.state = .serverError
-            })
+                onNext: { response in
+                    switch response {
+                    case .success:
+                        Client.shared.state = .ok
+                    case .failure:
+                        Client.shared.state = .serverError
+                    }
+                }).disposed(by: rx.disposeBag)
     }
     
     override func viewDidLoad() {

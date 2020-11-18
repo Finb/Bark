@@ -64,17 +64,21 @@ class NewServerViewController: UIViewController {
     @objc func done(){
         self.addressTextField.resignFirstResponder()
         if let text = addressTextField.text, let _ = URL(string: text) {
-            _ = BarkApi.provider.request(.ping(baseURL: text))
+            BarkApi.provider
+                .request(.ping(baseURL: text))
                 .filterResponseError()
-                .subscribe(onNext: {[weak self] (_) in
-                    self?.navigationController?.popViewController(animated: true)
-                    ServerManager.shared.currentAddress = text
-                    self?.showSnackbar(text: NSLocalizedString("AddedSuccessfully"))
-                    Client.shared.bindDeviceToken()
+                .subscribe(onNext: {[weak self] (response) in
+                    switch response {
+                    case .success:
+                        self?.navigationController?.popViewController(animated: true)
+                        ServerManager.shared.currentAddress = text
+                        self?.showSnackbar(text: NSLocalizedString("AddedSuccessfully"))
+                        Client.shared.bindDeviceToken()
+                    case .failure(let error):
+                        self?.showSnackbar(text: "\(NSLocalizedString("InvalidServer"))\(error.rawString())")
+                    }
                     
-                }, onError: {[weak self] (error) in
-                    self?.showSnackbar(text: "\(NSLocalizedString("InvalidServer"))\(error.localizedDescription)")
-                })
+                }).disposed(by: rx.disposeBag)
         }
         else{
             self.showSnackbar(text: NSLocalizedString("InvalidURL"))
