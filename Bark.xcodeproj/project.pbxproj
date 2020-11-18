@@ -67,6 +67,7 @@
 		065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4452563D7E5002A8CA4 /* ViewModelType.swift */; };
 		065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44A2563D8E1002A8CA4 /* Reusable.swift */; };
 		065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */; };
+		065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4542565055F002A8CA4 /* HomeViewModel.swift */; };
 		0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A542204FDA4100965E4E /* AppDelegate.swift */; };
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
@@ -79,11 +80,11 @@
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
+		06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
+		06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
 		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
 		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
-		06C5953324811505006B98F3 /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
-		06C5953424811505006B98F3 /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
 		06C595362481160F006B98F3 /* BKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C595352481160F006B98F3 /* BKLabel.swift */; };
 		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
@@ -183,6 +184,7 @@
 		065BE4452563D7E5002A8CA4 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		065BE44A2563D8E1002A8CA4 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCellViewModel.swift; sourceTree = "<group>"; };
+		065BE4542565055F002A8CA4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		0661A53F204FDA4100965E4E /* Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0661A542204FDA4100965E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0661A544204FDA4100965E4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +254,7 @@
 				0637FA8B20E0D7A700E80174 /* BaseViewController.swift */,
 				0637FA8120E09C4B00E80174 /* BarkNavigationController.swift */,
 				0661A544204FDA4100965E4E /* HomeViewController.swift */,
+				065BE4542565055F002A8CA4 /* HomeViewModel.swift */,
 				0637FA8920E0D58800E80174 /* NewServerViewController.swift */,
 				0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */,
 				068F66B2247BD84C00DAD25A /* MessageListViewController.swift */,
@@ -282,18 +285,7 @@
 		0604F7DD20620D3800B32F09 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0603706620E1E31600F4CA05 /* Defines.swift */,
-				0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */,
-				0603706A20E20A7C00F4CA05 /* String+Extension.swift */,
-				0637FA7F20E0981E00E80174 /* BarkSettings.swift */,
-				0604F7DE20620D4900B32F09 /* ServerManager.swift */,
-				0637FA7720E0926D00E80174 /* BarkTargetType.swift */,
-				0637FA7920E092B300E80174 /* Observable+Extension.swift */,
-				0637FA7B20E0930E00E80174 /* BarkApi.swift */,
-				0637FA7D20E0969800E80174 /* Client.swift */,
 				06B1158E247BB1FB006D91FB /* Message.swift */,
-				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
-				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -349,10 +341,29 @@
 		065BE4442563D7AA002A8CA4 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				065BE45C256507DA002A8CA4 /* Moya */,
 				065BE4452563D7E5002A8CA4 /* ViewModelType.swift */,
 				065BE44A2563D8E1002A8CA4 /* Reusable.swift */,
+				0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */,
+				0603706620E1E31600F4CA05 /* Defines.swift */,
+				0603706A20E20A7C00F4CA05 /* String+Extension.swift */,
+				0637FA7F20E0981E00E80174 /* BarkSettings.swift */,
+				0604F7DE20620D4900B32F09 /* ServerManager.swift */,
+				0637FA7D20E0969800E80174 /* Client.swift */,
+				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
+				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
 			);
 			path = Common;
+			sourceTree = "<group>";
+		};
+		065BE45C256507DA002A8CA4 /* Moya */ = {
+			isa = PBXGroup;
+			children = (
+				0637FA7720E0926D00E80174 /* BarkTargetType.swift */,
+				0637FA7920E092B300E80174 /* Observable+Extension.swift */,
+				0637FA7B20E0930E00E80174 /* BarkApi.swift */,
+			);
+			path = Moya;
 			sourceTree = "<group>";
 		};
 		0661A536204FDA4100965E4E = {
@@ -691,6 +702,7 @@
 				0637FA7E20E0969800E80174 /* Client.swift in Sources */,
 				0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */,
 				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
+				06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */,
 				065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
@@ -701,9 +713,9 @@
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
+				065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */,
 				062B98C3251B2762004562E7 /* BKButton.swift in Sources */,
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
-				06C5953324811505006B98F3 /* ArchiveSettingManager.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
@@ -720,7 +732,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */,
-				06C5953424811505006B98F3 /* ArchiveSettingManager.swift in Sources */,
+				06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */,
 				06B11591247BC132006D91FB /* Message.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
