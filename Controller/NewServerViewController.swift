@@ -10,8 +10,11 @@ import UIKit
 import Material
 import SnapKit
 import SafariServices
-class NewServerViewController: UIViewController {
+import RxSwift
+import RxCocoa
 
+class NewServerViewController: BaseViewController {
+    
     let addressTextField : TextField = {
         let textField = TextField()
         textField.keyboardType = .URL
@@ -28,65 +31,92 @@ class NewServerViewController: UIViewController {
         label.textColor = Color.blue.base
         label.font = UIFont.systemFont(ofSize: 12)
         label.transition([ .scale(0.85) , .opacity(0), .translate(x: 50)] )
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer())
         return label
     }()
     
-    let doneButton = BKButton()
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        navigationItem.title = NSLocalizedString("AddServer")
-        
+    lazy var doneButton: BKButton = {
+        let doneButton = BKButton()
         doneButton.setImage(Icon.check, for: .normal)
         doneButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        doneButton.addTarget(self, action: #selector(done), for: .touchUpInside)
         navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: doneButton))
+        return doneButton
+    }()
+    
+    override func makeUI() {
+        navigationItem.title = NSLocalizedString("AddServer")
         
-        self.view.layout(addressTextField).top(kNavigationHeight + 40).left(10).right(10)
+        self.view.layout(addressTextField)
+            .top(kNavigationHeight + 40).left(10).right(10)
         
         self.view.addSubview(noticeLabel)
         noticeLabel.snp.makeConstraints { (make) in
             make.top.equalTo(self.addressTextField.snp.bottom).offset(40)
             make.left.equalTo(self.addressTextField)
         }
-        noticeLabel.isUserInteractionEnabled = true
-        noticeLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(noticeClick)))
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        if (addressTextField.text?.count ?? 0) <= 0 {
-            _ = self.addressTextField.becomeFirstResponder()
-            addressTextField.text = "https://"
+    override func bindViewModel() {
+        guard let viewModel = self.viewModel as? NewServerViewModel else {
+            return
         }
+        let noticeTap = noticeLabel.gestureRecognizers!.first!.rx
+            .event
+            .map({ (_) -> () in
+                return ()
+            })
+            .asDriver(onErrorJustReturn: ())
+        
+        let done = doneButton.rx.tap
+            .map({[weak self] in
+                return self?.addressTextField.text ?? ""
+            })
+            .asDriver(onErrorDriveWith: .empty())
+        
+        let viewDidAppear = rx
+            .methodInvoked(#selector(viewDidAppear(_:)))
+            .map{ _ in () }
+            .asDriver(onErrorDriveWith: .empty())
+        
+        
+        
+        let output = viewModel.transform(
+            input: NewServerViewModel.Input(
+                noticeClick: noticeTap,
+                done: done,
+                viewDidAppear: viewDidAppear
+            ))
+        
+        //键盘显示与隐藏
+        output.showKeyboard.drive(onNext: { [weak self] show in
+            if show {
+                _ = self?.addressTextField.becomeFirstResponder()
+            }
+            else{
+                self?.addressTextField.resignFirstResponder()
+            }
+        }).disposed(by: rx.disposeBag)
+        
+        //点击教程
+        output.notice.drive(onNext: {[weak self] url in
+            self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+        }).disposed(by: rx.disposeBag)
+        
+        //URL文本框文本
+        output.urlText
+            .drive(self.addressTextField.rx.text)
+            .disposed(by: rx.disposeBag)
+        
+        //退出页面
+        output.pop.drive(onNext: {[weak self] in
+            self?.navigationController?.popViewController(animated: true)
+        }).disposed(by: rx.disposeBag)
+        
+        //弹出提示文本
+        output.showSnackbar.drive(onNext: {[weak self] text in
+            self?.showSnackbar(text: text)
+        }).disposed(by: rx.disposeBag)
+
     }
 
-    @objc func done(){
-        self.addressTextField.resignFirstResponder()
-        if let text = addressTextField.text, let _ = URL(string: text) {
-            BarkApi.provider
-                .request(.ping(baseURL: text))
-                .filterResponseError()
-                .subscribe(onNext: {[weak self] (response) in
-                    switch response {
-                    case .success:
-                        self?.navigationController?.popViewController(animated: true)
-                        ServerManager.shared.currentAddress = text
-                        self?.showSnackbar(text: NSLocalizedString("AddedSuccessfully"))
-                        Client.shared.bindDeviceToken()
-                    case .failure(let error):
-                        self?.showSnackbar(text: "\(NSLocalizedString("InvalidServer"))\(error.rawString())")
-                    }
-                    
-                }).disposed(by: rx.disposeBag)
-        }
-        else{
-            self.showSnackbar(text: NSLocalizedString("InvalidURL"))
-        }
-    }
-    
-
-    @objc func noticeClick(){
-        self.navigationController?.present(BarkSFSafariViewController(url: URL(string: "https://day.app/2018/06/bark-server-document/")!), animated: true, completion: nil)
-    }
 }

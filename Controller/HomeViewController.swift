@@ -152,7 +152,7 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
 
 extension HomeViewController {
     @objc func new(){
-        self.navigationController?.pushViewController(NewServerViewController(), animated: true)
+        self.navigationController?.pushViewController(NewServerViewController(viewModel: NewServerViewModel()), animated: true)
     }
     
     @objc func start(){

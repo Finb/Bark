@@ -82,6 +82,7 @@
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
 		06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
+		06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB895256518760076F63E /* NewServerViewModel.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
 		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
 		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
@@ -201,6 +202,7 @@
 		06B1158C247BA6D5006D91FB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		06B1158E247BB1FB006D91FB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
+		06BBB895256518760076F63E /* NewServerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServerViewModel.swift; sourceTree = "<group>"; };
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudStatusCell.swift; sourceTree = "<group>"; };
 		06C5953024811392006B98F3 /* ArchiveSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCell.swift; sourceTree = "<group>"; };
@@ -256,6 +258,7 @@
 				0661A544204FDA4100965E4E /* HomeViewController.swift */,
 				065BE4542565055F002A8CA4 /* HomeViewModel.swift */,
 				0637FA8920E0D58800E80174 /* NewServerViewController.swift */,
+				06BBB895256518760076F63E /* NewServerViewModel.swift */,
 				0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */,
 				068F66B2247BD84C00DAD25A /* MessageListViewController.swift */,
 				06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */,
@@ -689,6 +692,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */,
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
 				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
 				062B98C8251B27AE004562E7 /* UINavigationItem+Extension.swift in Sources */,
