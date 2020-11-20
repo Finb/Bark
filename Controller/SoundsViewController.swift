@@ -59,7 +59,6 @@ class SoundsViewController: BaseViewController {
         }
         
         output.audios
-            .map{ [SectionModel(model: "model", items: $0)] }
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
         

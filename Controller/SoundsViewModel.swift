@@ -10,6 +10,7 @@ import Foundation
 import RxSwift
 import RxCocoa
 import AVKit
+import RxDataSources
 
 class SoundsViewModel:ViewModel,ViewModelType {
     
@@ -17,7 +18,7 @@ class SoundsViewModel:ViewModel,ViewModelType {
         var soundSelected:Driver<SoundCellViewModel>
     }
     struct Output {
-        var audios:Observable<[SoundCellViewModel]>
+        var audios:Observable<[ SectionModel<String, SoundCellViewModel>]>
         var copyNameAction: Driver<String>
         var playAction: Driver<CFURL>
     }
@@ -40,7 +41,7 @@ class SoundsViewModel:ViewModel,ViewModelType {
         ).asDriver()
         
         return Output(
-            audios: Observable.just(models),
+            audios: Observable.just([SectionModel(model: "model", items: models)]),
             copyNameAction: copyAction,
             playAction: input.soundSelected.map{ $0.model.url as CFURL }
         )
