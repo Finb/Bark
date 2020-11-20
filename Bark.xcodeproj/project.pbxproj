@@ -87,6 +87,7 @@
 		06BBB8BC2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */; };
 		06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */; };
 		06BBB8C92567B6730076F63E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C82567B6730076F63E /* Operators.swift */; };
+		06BBB8CE2567B8E60076F63E /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06BBB8CD2567B8E60076F63E /* silence.caf */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
 		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
 		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
@@ -211,6 +212,7 @@
 		06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCellViewModel.swift; sourceTree = "<group>"; };
 		06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		06BBB8C82567B6730076F63E /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
+		06BBB8CD2567B8E60076F63E /* silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = silence.caf; sourceTree = "<group>"; };
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudStatusCell.swift; sourceTree = "<group>"; };
 		06C5953024811392006B98F3 /* ArchiveSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCell.swift; sourceTree = "<group>"; };
@@ -307,6 +309,7 @@
 		063204EF250B6DC2001561EC /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				06BBB8CD2567B8E60076F63E /* silence.caf */,
 				063204F3250B6DD1001561EC /* alarm.caf */,
 				063204FE250B6DD2001561EC /* anticipate.caf */,
 				0632050C250B6DD4001561EC /* bell.caf */,
@@ -584,6 +587,7 @@
 				06320529250B6DD4001561EC /* spell.caf in Resources */,
 				0632051D250B6DD4001561EC /* anticipate.caf in Resources */,
 				06320521250B6DD4001561EC /* multiwayinvitation.caf in Resources */,
+				06BBB8CE2567B8E60076F63E /* silence.caf in Resources */,
 				06320528250B6DD4001561EC /* chime.caf in Resources */,
 				06320510250B6DD4001561EC /* paymentsuccess.caf in Resources */,
 				06320527250B6DD4001561EC /* noir.caf in Resources */,
