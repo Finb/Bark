@@ -44,7 +44,7 @@ class MessageListViewController: UIViewController {
     }
     
     @objc func settingClick (){
-        self.navigationController?.pushViewController(MessageSettingsViewController(), animated: true)
+        self.navigationController?.pushViewController(MessageSettingsViewController(viewModel: MessageSettingsViewModel()), animated: true)
     }
     
     func refresh() {

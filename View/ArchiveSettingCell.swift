@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArchiveSettingCell: UITableViewCell {
+class ArchiveSettingCell: BaseTableViewCell {
     let switchButton: UISwitch = {
         let btn = UISwitch()
         return btn
@@ -24,17 +24,18 @@ class ArchiveSettingCell: UITableViewCell {
             make.right.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
         }
-        
-        switchButton.isOn = ArchiveSettingManager.shared.isArchive
-        switchButton.addTarget(self, action: #selector(switchToggle(sender:)), for: .valueChanged)
-        
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func switchToggle(sender:UISwitch) {
-        ArchiveSettingManager.shared.isArchive = sender.isOn
+    override func bindViewModel(model: ViewModel) {
+        super.bindViewModel(model: model)
+        guard let viewModel = model as? ArchiveSettingCellViewModel else {
+            return
+        }
+        (self.switchButton.rx.isOn <-> viewModel.on)
+            .disposed(by: rx.reuseBag)
     }
-
 }
+

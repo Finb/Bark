@@ -10,7 +10,7 @@ import UIKit
 import Material
 import AVKit
 
-class SoundCell: UITableViewCell {
+class SoundCell: BaseTableViewCell {
     let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: Color.grey.base)
     let nameLabel:UILabel = {
         let label = UILabel()
@@ -50,12 +50,11 @@ class SoundCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    var viewModel:ViewModel?
-    func bindViewModel(model:ViewModel){
+    override func bindViewModel(model:ViewModel){
+        super.bindViewModel(model: model)
         guard let viewModel = model as? SoundCellViewModel else {
             return
         }
-        self.viewModel = model
         
         viewModel.name
             .bind(to: nameLabel.rx.text)

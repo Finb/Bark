@@ -83,6 +83,10 @@
 		06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
 		06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
 		06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB895256518760076F63E /* NewServerViewModel.swift */; };
+		06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8B62567AC140076F63E /* MessageSettingsViewModel.swift */; };
+		06BBB8BC2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */; };
+		06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */; };
+		06BBB8C92567B6730076F63E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C82567B6730076F63E /* Operators.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
 		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
 		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
@@ -203,6 +207,10 @@
 		06B1158E247BB1FB006D91FB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
 		06BBB895256518760076F63E /* NewServerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServerViewModel.swift; sourceTree = "<group>"; };
+		06BBB8B62567AC140076F63E /* MessageSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewModel.swift; sourceTree = "<group>"; };
+		06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCellViewModel.swift; sourceTree = "<group>"; };
+		06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
+		06BBB8C82567B6730076F63E /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudStatusCell.swift; sourceTree = "<group>"; };
 		06C5953024811392006B98F3 /* ArchiveSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCell.swift; sourceTree = "<group>"; };
@@ -262,6 +270,7 @@
 				0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */,
 				068F66B2247BD84C00DAD25A /* MessageListViewController.swift */,
 				06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */,
+				06BBB8B62567AC140076F63E /* MessageSettingsViewModel.swift */,
 				060481ED250F404500BC9799 /* SoundsViewController.swift */,
 				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
 			);
@@ -271,11 +280,13 @@
 		0604F7DC20620D3400B32F09 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */,
 				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
 				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
 				06C5952C2480E3F8006B98F3 /* LabelCell.swift */,
 				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
+				06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */,
 				06C595352481160F006B98F3 /* BKLabel.swift */,
 				060481EF250F51CA00BC9799 /* SoundCell.swift */,
 				065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */,
@@ -355,6 +366,7 @@
 				0637FA7D20E0969800E80174 /* Client.swift */,
 				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
 				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
+				06BBB8C82567B6730076F63E /* Operators.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -693,6 +705,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */,
+				06BBB8C92567B6730076F63E /* Operators.swift in Sources */,
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
 				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
 				062B98C8251B27AE004562E7 /* UINavigationItem+Extension.swift in Sources */,
@@ -722,11 +735,14 @@
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
+				06BBB8BC2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
 				065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */,
 				065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */,
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */,
+				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,
+				06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
