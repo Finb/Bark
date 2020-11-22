@@ -22,6 +22,7 @@ def pods
     pod 'RxDataSources'
     pod 'NSObject+Rx'
     
+    pod 'MJRefresh'
 end
 
 target 'Bark' do

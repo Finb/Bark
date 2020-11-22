@@ -183,7 +183,7 @@ extension HomeViewController {
         })
     }
     @objc func history(){
-        self.navigationController?.pushViewController(MessageListViewController(), animated: true)
+        self.navigationController?.pushViewController(MessageListViewController(viewModel: MessageListViewModel()), animated: true)
     }
     @objc func refreshState() {
         switch Client.shared.state {
