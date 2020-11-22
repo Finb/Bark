@@ -8,7 +8,7 @@
 
 import UIKit
 import Material
-class MessageTableViewCell: UITableViewCell {
+class MessageTableViewCell: BaseTableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
@@ -41,6 +41,11 @@ class MessageTableViewCell: UITableViewCell {
         label.textColor = Color.darkText.others
         return label
     }()
+    let bodyStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        return stackView
+    }()
     let separatorLine:UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Color.grey.lighten5
@@ -53,54 +58,43 @@ class MessageTableViewCell: UITableViewCell {
         
         self.backgroundColor = Color.white
         
-        contentView.addSubview(titleLabel)
-        contentView.addSubview(bodyLabel)
-        contentView.addSubview(urlLabel)
+        contentView.addSubview(bodyStackView)
+        
+        bodyStackView.addArrangedSubview(titleLabel)
+        bodyStackView.addArrangedSubview(bodyLabel)
+        bodyStackView.addArrangedSubview(urlLabel)
+        bodyStackView.spacing = 6
+        bodyStackView.setCustomSpacing(12, after: bodyLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(separatorLine)
         
-        self.urlLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(urlTap)))
+        self.urlLabel.addGestureRecognizer(UITapGestureRecognizer())
+        
+        layoutView()
     }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func layoutView(){
+        bodyStackView.snp.makeConstraints { (make) in
+            make.left.top.equalToSuperview().offset(12)
+            make.right.equalToSuperview().offset(-12)
+        }
         titleLabel.snp.remakeConstraints { (make) in
             make.left.equalTo(12)
-            make.top.equalTo(12)
             make.right.equalTo(-12)
         }
-        if (message?.title?.count ?? 0) > 0 {
-            bodyLabel.snp.remakeConstraints { (make) in
-                make.left.right.equalTo(titleLabel)
-                make.top.equalTo(titleLabel.snp.bottom).offset(6)
-            }
+        bodyLabel.snp.remakeConstraints { (make) in
+            make.left.right.equalTo(titleLabel)
         }
-        else{
-            bodyLabel.snp.remakeConstraints { (make) in
-                make.left.equalTo(12)
-                make.top.equalTo(12)
-                make.right.equalTo(-12)
-            }
-        }
-        
         urlLabel.snp.makeConstraints { (make) in
             make.left.right.equalTo(bodyLabel)
-            make.top.equalTo(bodyLabel.snp.bottom).offset(12)
         }
-        if (message?.url?.count ?? 0) > 0{
-            urlLabel.isUserInteractionEnabled = true
-            dateLabel.snp.remakeConstraints { (make) in
-                make.left.equalTo(urlLabel)
-                make.top.equalTo(urlLabel.snp.bottom).offset(12)
-            }
+        dateLabel.snp.remakeConstraints { (make) in
+            make.left.equalTo(bodyLabel)
+            make.top.equalTo(bodyStackView.snp.bottom).offset(12)
         }
-        else{
-            urlLabel.isUserInteractionEnabled = false
-            dateLabel.snp.remakeConstraints { (make) in
-                make.left.equalTo(bodyLabel)
-                make.top.equalTo(bodyLabel.snp.bottom).offset(12)
-            }
-        }
-
-        
         separatorLine.snp.remakeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
@@ -108,40 +102,23 @@ class MessageTableViewCell: UITableViewCell {
         }
         
     }
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    var message:Message? {
-        didSet{
-            setupTextValue(label: self.titleLabel, text: message?.title)
-            setupTextValue(label: self.bodyLabel, text: message?.body)
-            
-            self.urlLabel.text = message?.url
-            self.dateLabel.text = (message?.createDate ?? Date()).agoFormatString()
-            layoutView()
-            
+
+    override func bindViewModel(model: ViewModel) {
+        super.bindViewModel(model: model)
+        guard let viewModel = model as? MessageTableViewCellViewModel else {
+            return
         }
-    }
-    func setupTextValue(label:UILabel, text:String?){
-        let style = NSMutableParagraphStyle()
-        style.lineSpacing = 3
+        viewModel.title.bind(to: self.titleLabel.rx.text).disposed(by: rx.reuseBag)
+        viewModel.body.bind(to: self.bodyLabel.rx.text).disposed(by: rx.reuseBag)
+        viewModel.url.bind(to: self.urlLabel.rx.text).disposed(by: rx.reuseBag)
+        viewModel.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
         
-        let attrStr = NSAttributedString(string: text ?? "",
-                                         attributes: [
-                                            .paragraphStyle: style,
-                                            .font: label.font!,
-                                            .foregroundColor: label.textColor!])
-        label.attributedText = attrStr
-    }
-    
-    @objc func urlTap(){
-        if let urlStr = self.message?.url, let url = URL(string: urlStr){
-            if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
-                  Client.shared.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
-              }
-              else{
-                  UIApplication.shared.open(url, options: [:], completionHandler: nil)
-              }
-        }
+        viewModel.title.map{ $0.count <= 0}.bind(to: self.titleLabel.rx.isHidden).disposed(by: rx.reuseBag)
+        viewModel.url.map{ $0.count <= 0}.bind(to: self.urlLabel.rx.isHidden).disposed(by: rx.reuseBag)
+        
+        self.urlLabel.gestureRecognizers?.first?.rx.event
+            .map{[weak self] _ in self?.urlLabel.text ?? "" }
+            .bind(to: viewModel.urlTap).disposed(by: rx.reuseBag)
+        
     }
 }
