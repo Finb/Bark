@@ -9,37 +9,7 @@
 import UIKit
 import Material
 
-class PreviewModel: NSObject {
-    var title:String?
-    var body:String?
-    var category:String?
-    var notice:String?
-    var queryParameter:String?
-    var image:UIImage?
-    var moreInfo:String?
-    var moreViewController:UIViewController?
-    
-    init(title:String? = nil,
-         body:String? = nil,
-         category:String? = nil,
-         notice:String? = nil,
-         queryParameter:String? = nil,
-         image:UIImage? = nil,
-        moreInfo:String? = nil,
-        moreViewController:UIViewController? = nil
-    ) {
-        self.title = title
-        self.body = body
-        self.category = category
-        self.notice = notice
-        self.queryParameter = queryParameter
-        self.image = image
-        self.moreInfo = moreInfo
-        self.moreViewController = moreViewController
-    }
-}
-
-class PreviewCardCell: UITableViewCell {
+class PreviewCardCell: BaseTableViewCell {
 
     let previewButton = IconButton(image: Icon.cm.skipForward, tintColor: Color.grey.base)
     let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: Color.grey.base)
@@ -102,18 +72,29 @@ class PreviewCardCell: UITableViewCell {
             make.bottom.equalToSuperview()
         }
         
-        card.addSubview(titleLabel)
-        card.addSubview(bodyLabel)
+        let titleStackView = UIStackView()
+        titleStackView.axis = .vertical
+        titleStackView.addArrangedSubview(titleLabel)
+        titleStackView.addArrangedSubview(bodyLabel)
+        
+        card.addSubview(titleStackView)
+
+        titleLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(15)
+        }
+        bodyLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(15)
+        }
+        
+        titleStackView.snp.makeConstraints { (make) in
+            make.centerY.equalTo(copyButton)
+            make.left.equalToSuperview()
+            make.right.equalTo(copyButton.snp.left)
+        }
+        
         card.addSubview(copyButton)
         card.addSubview(previewButton)
-        card.addSubview(contentLabel)
-        card.addSubview(contentImageView)
-        card.addSubview(noticeLabel)
-
-        bodyLabel.snp.makeConstraints { (make) in
-            make.left.equalTo(titleLabel)
-            make.top.equalTo(titleLabel.snp.bottom).offset(5)
-        }
+    
         previewButton.snp.makeConstraints { (make) in
             make.right.equalToSuperview().offset(-10)
             make.centerY.equalTo(card.snp.top).offset(40)
@@ -124,11 +105,25 @@ class PreviewCardCell: UITableViewCell {
             make.centerY.equalTo(previewButton)
             make.width.height.equalTo(40)
         }
+        
+        let contentStackView = UIStackView()
+        
+        
+        contentStackView.addArrangedSubview(contentLabel)
+        contentStackView.addArrangedSubview(contentImageView)
+        contentStackView.addArrangedSubview(noticeLabel)
+        
+        contentLabel.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(12)
+            make.right.equalToSuperview().offset(-12)
+        }
+        contentImageView.snp.remakeConstraints { (make) in
+            make.left.right.equalToSuperview()
+            make.height.equalTo(100)
+        }
         noticeLabel.snp.makeConstraints { (make) in
             make.left.equalTo(10)
             make.right.equalTo(-10)
-            make.top.equalTo(contentLabel.snp.bottom).offset(20)
-            make.bottom.equalToSuperview().offset(-15)
         }
         
 
@@ -142,9 +137,9 @@ class PreviewCardCell: UITableViewCell {
         
     }
     @objc func noticeTap(){
-        if let controller = self.previewModel?.moreViewController{
-            Client.shared.currentNavigationController?.pushViewController(controller, animated: true)
-        }
+//        if let controller = self.previewModel?.moreViewController{
+//            Client.shared.currentNavigationController?.pushViewController(controller, animated: true)
+//        }
     }
     @objc func copyURL(){
         if let urlStr = self.contentLabel.text{
