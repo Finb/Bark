@@ -63,6 +63,8 @@
 		0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8920E0D58800E80174 /* NewServerViewController.swift */; };
 		0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8B20E0D7A700E80174 /* BaseViewController.swift */; };
 		063C499520E36BF9001BCA35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
+		064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */; };
+		064CABA6256BE9510018155C /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CABA5256BE9510018155C /* PreviewModel.swift */; };
 		065A4D4220EE1A31002EB2DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
 		065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */; };
 		065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4452563D7E5002A8CA4 /* ViewModelType.swift */; };
@@ -190,6 +192,8 @@
 		0637FA8B20E0D7A700E80174 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		063C499620E36BF9001BCA35 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		063C499820E36C15001BCA35 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardCellViewModel.swift; sourceTree = "<group>"; };
+		064CABA5256BE9510018155C /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
 		065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewModel.swift; sourceTree = "<group>"; };
 		065BE4452563D7E5002A8CA4 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
 		065BE44A2563D8E1002A8CA4 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
@@ -291,16 +295,17 @@
 			children = (
 				06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */,
 				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
+				064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */,
 				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
 				067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */,
 				06C5952C2480E3F8006B98F3 /* LabelCell.swift */,
 				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
 				06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */,
-				06C595352481160F006B98F3 /* BKLabel.swift */,
 				060481EF250F51CA00BC9799 /* SoundCell.swift */,
 				065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */,
 				062B98C2251B2762004562E7 /* BKButton.swift */,
+				06C595352481160F006B98F3 /* BKLabel.swift */,
 				062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */,
 			);
 			path = View;
@@ -310,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				06B1158E247BB1FB006D91FB /* Message.swift */,
+				064CABA5256BE9510018155C /* PreviewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -733,6 +739,7 @@
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
 				06C595362481160F006B98F3 /* BKLabel.swift in Sources */,
 				0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */,
+				064CABA6256BE9510018155C /* PreviewModel.swift in Sources */,
 				0637FA7E20E0969800E80174 /* Client.swift in Sources */,
 				0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */,
 				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
@@ -748,6 +755,7 @@
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
+				064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */,
 				065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */,
 				062B98C3251B2762004562E7 /* BKButton.swift in Sources */,
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,

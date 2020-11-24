@@ -42,7 +42,7 @@ class HomeViewController: UIViewController {
                 notice: NSLocalizedString("setSounds"),
                 queryParameter: "sound=minuet",
                 moreInfo:NSLocalizedString("viewAllSounds"),
-                moreViewController: SoundsViewController(viewModel: SoundsViewModel())
+                moreViewModel: SoundsViewModel()
             ),
             PreviewModel(
                 body: NSLocalizedString("archiveNotificationMessageTitle"),
@@ -138,15 +138,11 @@ extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(indexPath.row)") as? PreviewCardCell{
-            cell.bind(model: dataSource[indexPath.row])
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)") as? PreviewCardCell{
+            cell.bindViewModel(model: PreviewCardCellViewModel(previewModel: dataSource[indexPath.row]))
             return cell
         }
-        let cell = PreviewCardCell(style: .default, reuseIdentifier: "\(indexPath.row)", model:dataSource[indexPath.row])
-        cell.copyHandler = {[weak self] in
-            self?.showSnackbar(text: NSLocalizedString("Copy"))
-        }
-        return cell
+        return UITableViewCell()
     }
 }
 
