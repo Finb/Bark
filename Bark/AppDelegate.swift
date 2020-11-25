@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             self.window?.overrideUserInterfaceStyle = .light
         }
         self.window?.backgroundColor = Color.grey.lighten5
-        self.window?.rootViewController = BarkSnackbarController(rootViewController: BarkNavigationController(rootViewController: HomeViewController()))
+        self.window?.rootViewController = BarkSnackbarController(rootViewController: BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel())))
         self.window?.makeKeyAndVisible()
 
         UNUserNotificationCenter.current().delegate = self

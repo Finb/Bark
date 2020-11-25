@@ -34,6 +34,7 @@ class PreviewCardCell: BaseTableViewCell {
         label.font = RobotoFont.regular(with: 12)
         label.textColor = Color.grey.base
         label.numberOfLines = 0
+        label.isUserInteractionEnabled = true
         return label
     }()
     let contentImageView:UIImageView = {

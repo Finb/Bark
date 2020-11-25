@@ -9,7 +9,10 @@
 import UIKit
 import UserNotifications
 import Material
-class HomeViewController: UIViewController {
+import RxCocoa
+import RxDataSources
+
+class HomeViewController: BaseViewController {
     
     let newButton: BKButton = {
         let btn = BKButton()
@@ -18,8 +21,20 @@ class HomeViewController: UIViewController {
         return btn
     }()
     
-    lazy var startButton = FABButton(title: NSLocalizedString("RegisterDevice"))
+    let historyMessageButton: BKButton = {
+        let btn = BKButton()
+        btn.setImage(Icon.history, for: .normal)
+        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        return btn
+    }()
     
+    let startButton: FABButton = {
+        let button = FABButton(title: NSLocalizedString("RegisterDevice"))
+        button.backgroundColor = Color.white
+        button.transition([ .scale(0.75) , .opacity(0)] )
+        return button
+    }()
+        
     let tableView :UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -28,159 +43,120 @@ class HomeViewController: UIViewController {
         return tableView
     }()
     
-    var dataSource:[PreviewModel] = {
-        return [
-            PreviewModel(
-                body: NSLocalizedString("CustomedNotificationContent"),
-                notice: NSLocalizedString("Notice1")),
-            PreviewModel(
-                title: NSLocalizedString("CustomedNotificationTitle"),
-                body: NSLocalizedString("CustomedNotificationContent"),
-                notice: NSLocalizedString("Notice2")),
-            PreviewModel(
-                body: NSLocalizedString("notificationSound"),
-                notice: NSLocalizedString("setSounds"),
-                queryParameter: "sound=minuet",
-                moreInfo:NSLocalizedString("viewAllSounds"),
-                moreViewModel: SoundsViewModel()
-            ),
-            PreviewModel(
-                body: NSLocalizedString("archiveNotificationMessageTitle"),
-                notice: NSLocalizedString("archiveNotificationMessage"),
-                queryParameter: "isArchive=1"
-                ),
-            PreviewModel(
-                body: "URL Test",
-                notice: NSLocalizedString("urlParameter"),
-                queryParameter: "url=https://www.baidu.com"
-                ),
-            PreviewModel(
-                body: "Copy Test",
-                notice: NSLocalizedString("copyParameter"),
-                queryParameter: "copy=test",
-                image: UIImage(named: "copyTest")
-            ),
-            PreviewModel(
-                body: NSLocalizedString("automaticallyCopyTitle"),
-                notice: NSLocalizedString("automaticallyCopy"),
-                queryParameter: "automaticallyCopy=1&copy=optional"
-            )
-        ]
-    }()
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        BarkApi.provider
-            .request(.ping(baseURL: ServerManager.shared.currentAddress))
-            .filterResponseError()
-            .subscribe(
-                onNext: { response in
-                    switch response {
-                    case .success:
-                        Client.shared.state = .ok
-                    case .failure:
-                        Client.shared.state = .serverError
-                    }
-                }).disposed(by: rx.disposeBag)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func makeUI() {
         self.view.backgroundColor = Color.grey.lighten3
-
-        newButton.addTarget(self, action: #selector(new), for: .touchUpInside)
-        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: newButton))
         
-        let messageBtn = BKButton()
-        messageBtn.setImage(Icon.history, for: .normal)
-        messageBtn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        messageBtn.addTarget(self, action: #selector(history), for: .touchUpInside)
-        navigationItem.setLeftBarButtonItem(item: UIBarButtonItem(customView: messageBtn))
-
+        navigationItem.setRightBarButtonItem(
+            item: UIBarButtonItem(customView: newButton))
+        navigationItem.setLeftBarButtonItem(
+            item: UIBarButtonItem(customView: historyMessageButton))
+        
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make ) in
             make.top.right.bottom.left.equalToSuperview()
         }
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
         
-        UNUserNotificationCenter.current().getNotificationSettings { (settings) in
-            if settings.authorizationStatus != .authorized {
-                dispatch_sync_safely_main_queue {
-                    self.startButton.backgroundColor = Color.white
-                    self.startButton.transition([ .scale(0.75) , .opacity(0)] )
-                    self.startButton.addTarget(self, action: #selector(self.start), for: .touchUpInside)
-                    self.view.addSubview(self.startButton)
-                    self.startButton.snp.makeConstraints { (make) in
-                        make.width.height.equalTo(150)
-                        make.centerX.equalToSuperview()
-                        make.top.equalTo(150)
-                    }
-                    self.tableView.isHidden = true
-                }
-            }
+        self.view.addSubview(self.startButton)
+        self.startButton.snp.makeConstraints { (make) in
+            make.width.height.equalTo(150)
+            make.centerX.equalToSuperview()
+            make.top.equalTo(150)
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(refreshState), name: Notification.Name(rawValue: "ClientStateChangeds"), object: nil)
     }
-    override func viewWillAppear(_ animated: Bool) {
-        if let url = URL(string: ServerManager.shared.currentAddress) {
-            navigationItem.title = url.host
-            refreshState()
+    override func bindViewModel() {
+        guard let viewModel = self.viewModel as? HomeViewModel else {
+            return
+        }
+            
+        let output = viewModel.transform(
+            input: HomeViewModel.Input(
+                addCustomServerTap: newButton.rx.tap.asDriver(),
+                historyMessageTap: historyMessageButton.rx.tap.asDriver(),
+
+                viewDidAppear: self.rx.methodInvoked(#selector(viewDidAppear(_:)))
+                    .map{ _ in () }
+                    .asDriver(onErrorDriveWith: .empty()),
+                start: self.startButton.rx.tap.asDriver()
+            )
+        )
+        
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,PreviewCardCellViewModel>> { (source, tableView, indexPath, item) -> UITableViewCell in
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)") as? PreviewCardCell{
+                cell.bindViewModel(model: item)
+                return cell
+            }
+            return UITableViewCell()
+        }
+        
+        output.title
+            .drive(self.navigationItem.rx.title)
+            .disposed(by: rx.disposeBag)
+        
+        output.previews
+            .drive(self.tableView.rx.items(dataSource: dataSource))
+            .disposed(by: rx.disposeBag)
+        
+        output.push.drive(onNext: {[weak self] viewModel in
+            self?.pushViewModel(viewModel: viewModel)
+        }).disposed(by: rx.disposeBag)
+        
+        output.clienState.drive(onNext: {[weak self] state in
+            Client.shared.state = state
+            self?.refreshState()
+        }).disposed(by: rx.disposeBag)
+        
+        output.tableViewHidden
+            .map{ !$0 }
+            .drive(self.tableView.rx.isHidden)
+            .disposed(by: rx.disposeBag)
+        output.tableViewHidden
+            .drive(self.startButton.rx.isHidden)
+            .disposed(by: rx.disposeBag)
+        
+        output.showSnackbar
+            .drive(onNext: {[weak self] text in
+                self?.showSnackbar(text: text)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        output.startButtonEnable
+            .drive(self.startButton.rx.isEnabled)
+            .disposed(by: rx.disposeBag)
+        
+        output.copy.drive(onNext: {[weak self] text in
+            UIPasteboard.general.string = text
+            self?.showSnackbar(text: NSLocalizedString("Copy"))
+        })
+        .disposed(by: rx.disposeBag)
+        
+        output.preview.drive(onNext: { url in
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        })
+        .disposed(by: rx.disposeBag)
+        
+    }
+    
+    func pushViewModel(viewModel:ViewModel) {
+        var viewController:UIViewController?
+        if let viewModel = viewModel as? NewServerViewModel {
+            viewController = NewServerViewController(viewModel: viewModel)
+        }
+        else if let viewModel = viewModel as? MessageListViewModel {
+            viewController = MessageListViewController(viewModel: viewModel)
+        }
+        else if let viewModel = viewModel as? SoundsViewModel {
+            viewController = SoundsViewController(viewModel: viewModel)
+        }
+        
+        if let viewController = viewController {
+            self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
     
-}
-
-extension HomeViewController : UITableViewDataSource, UITableViewDelegate {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)") as? PreviewCardCell{
-            cell.bindViewModel(model: PreviewCardCellViewModel(previewModel: dataSource[indexPath.row]))
-            return cell
-        }
-        return UITableViewCell()
-    }
 }
 
 extension HomeViewController {
-    @objc func new(){
-        self.navigationController?.pushViewController(NewServerViewController(viewModel: NewServerViewModel()), animated: true)
-    }
-    
-    @objc func start(){
-        startButton.titleColor = Color.grey.base
-        startButton.isEnabled = false
-        
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert , .sound , .badge], completionHandler: {(_ granted: Bool, _ error: Error?) -> Void in
-            
-            // 兼容 iOS 12 BUG，不这样写会UI卡死
-            DispatchQueue.global(qos: .default).async {
-                DispatchQueue.main.sync {
-                    if granted {
-                        UIApplication.shared.registerForRemoteNotifications()
-                        if self.tableView.isHidden{
-                            self.tableView.isHidden = false
-                        }
-                        self.startButton.removeFromSuperview()
-                    }
-                    else{
-                        self.showSnackbar(text: NSLocalizedString("AllowNotifications"))
-                        self.startButton.titleColor = Color.blue.base
-                        self.startButton.isEnabled = true
-                    }
-                }
-            }
-            
-        })
-    }
-    @objc func history(){
-        self.navigationController?.pushViewController(MessageListViewController(viewModel: MessageListViewModel()), animated: true)
-    }
     @objc func refreshState() {
         switch Client.shared.state {
         case .ok:
