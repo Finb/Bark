@@ -108,7 +108,7 @@ class NewServerViewController: BaseViewController {
             .disposed(by: rx.disposeBag)
         
         //退出页面
-        output.pop.drive(onNext: {[weak self] in
+        output.pop.drive(onNext: {[weak self] _ in
             self?.navigationController?.popViewController(animated: true)
         }).disposed(by: rx.disposeBag)
         

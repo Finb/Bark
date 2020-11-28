@@ -24,18 +24,20 @@ class NewServerViewModel: ViewModel, ViewModelType {
         var notice: Driver<URL>
         var urlText: Driver<String>
         var showSnackbar: Driver<String>
-        var pop: Driver<Void>
+        var pop: Driver<String>
     }
     
     
     private var url: String = ""
+    
+    let pop = PublishRelay<String>()
     
     func transform(input: Input) -> Output {
         
         let showKeyboard = PublishRelay<Bool>()
         let urlText = PublishRelay<String>()
         let showSnackbar = PublishRelay<String>()
-        let pop = PublishRelay<Void>()
+
         let notice = input.noticeClick
             .map{ URL(string: "https://day.app/2018/06/bark-server-document/")! }
             .asDriver()
@@ -72,7 +74,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
                     ServerManager.shared.currentAddress = strongSelf.url
                     Client.shared.bindDeviceToken()
                     
-                    pop.accept(())
+                    strongSelf.pop.accept(strongSelf.url)
                     showSnackbar.accept(NSLocalizedString("AddedSuccessfully"))
                 case .failure(let error):
                     showSnackbar.accept("\(NSLocalizedString("InvalidServer"))\(error.rawString())")

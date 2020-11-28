@@ -77,12 +77,25 @@ class HomeViewModel: ViewModel, ViewModelType {
     var currentState = Client.ClienState.ok
     
     func transform(input: Input) -> Output {
+        
+        let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentAddress)?.host ?? "")
+        
         let sectionModel = SectionModel(
             model: "previews",
             items: previews.map { PreviewCardCellViewModel(previewModel: $0) })
         
+        
         //点击跳转到添加自定义服务器
-        let customServer = input.addCustomServerTap.map{ NewServerViewModel() as ViewModel}
+        let customServer = input.addCustomServerTap.map{ NewServerViewModel() as ViewModel }
+        
+        //如果更改了服务器地址，返回时也需更改 title
+        customServer
+            .flatMapLatest({ (model) -> Driver<String> in
+                return (model as! NewServerViewModel).pop.asDriver(onErrorJustReturn: "")
+            })
+            .drive(title)
+            .disposed(by: rx.disposeBag)
+
         //点击跳转到历史通知
         let messageHistory = input.historyMessageTap.map{ MessageListViewModel() as ViewModel}
         //点击preview中的notice ，跳转到对应的页面
@@ -181,7 +194,7 @@ class HomeViewModel: ViewModel, ViewModelType {
         return Output(
             previews:Driver.just([sectionModel]),
             push: Driver<ViewModel>.merge(customServer,messageHistory,noticeTap),
-            title: Driver.of(URL(string: ServerManager.shared.currentAddress)?.host ?? ""),
+            title: title.asDriver(),
             clienStateChanged: clienState.asDriver(onErrorDriveWith: .empty()),
             tableViewHidden: tableViewHidden,
             showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty()),
