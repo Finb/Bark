@@ -77,7 +77,8 @@ class HomeViewController: BaseViewController {
                 viewDidAppear: self.rx.methodInvoked(#selector(viewDidAppear(_:)))
                     .map{ _ in () }
                     .asDriver(onErrorDriveWith: .empty()),
-                start: self.startButton.rx.tap.asDriver()
+                start: self.startButton.rx.tap.asDriver(),
+                clientState: Client.shared.state.asDriver()
             )
         )
         
@@ -89,23 +90,29 @@ class HomeViewController: BaseViewController {
             return UITableViewCell()
         }
         
+        //标题
         output.title
             .drive(self.navigationItem.rx.title)
             .disposed(by: rx.disposeBag)
         
+        //TableView数据源
         output.previews
             .drive(self.tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
         
-        output.push.drive(onNext: {[weak self] viewModel in
-            self?.pushViewModel(viewModel: viewModel)
-        }).disposed(by: rx.disposeBag)
+        //跳转到对应页面
+        output.push
+            .drive(onNext: {[weak self] viewModel in
+                self?.pushViewModel(viewModel: viewModel)
+            })
+            .disposed(by: rx.disposeBag)
         
-        output.clienState.drive(onNext: {[weak self] state in
-            Client.shared.state = state
-            self?.refreshState()
-        }).disposed(by: rx.disposeBag)
+        //通过ping服务器，判断 clienState
+        output.clienStateChanged
+            .drive(Client.shared.state)
+            .disposed(by: rx.disposeBag)
         
+        //根据通知权限，设置是否隐藏注册按钮、显示示例预览列表
         output.tableViewHidden
             .map{ !$0 }
             .drive(self.tableView.rx.isHidden)
@@ -114,26 +121,39 @@ class HomeViewController: BaseViewController {
             .drive(self.startButton.rx.isHidden)
             .disposed(by: rx.disposeBag)
         
+        //弹出提示
         output.showSnackbar
             .drive(onNext: {[weak self] text in
                 self?.showSnackbar(text: text)
             })
             .disposed(by: rx.disposeBag)
         
+        //startButton是否可点击
         output.startButtonEnable
             .drive(self.startButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
         
-        output.copy.drive(onNext: {[weak self] text in
-            UIPasteboard.general.string = text
-            self?.showSnackbar(text: NSLocalizedString("Copy"))
-        })
-        .disposed(by: rx.disposeBag)
+        //复制文本
+        output.copy
+            .drive(onNext: {[weak self] text in
+                UIPasteboard.general.string = text
+                self?.showSnackbar(text: NSLocalizedString("Copy"))
+            })
+            .disposed(by: rx.disposeBag)
         
-        output.preview.drive(onNext: { url in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        })
-        .disposed(by: rx.disposeBag)
+        //预览
+        output.preview
+            .drive(onNext: { url in
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            })
+            .disposed(by: rx.disposeBag)
+        
+        //原样刷新 TableView
+        output.reloadData
+            .drive(onNext: {[weak self] in
+                self?.tableView.reloadData()
+            })
+            .disposed(by: rx.disposeBag)
         
     }
     
@@ -154,21 +174,4 @@ class HomeViewController: BaseViewController {
         }
     }
     
-}
-
-extension HomeViewController {
-    @objc func refreshState() {
-        switch Client.shared.state {
-        case .ok:
-            if let url = URL(string: ServerManager.shared.currentAddress) {
-                if url.scheme?.lowercased() != "https" {
-                    self.showSnackbar(text: NSLocalizedString("InsecureConnection"))
-                }
-                self.tableView.reloadData()
-            }
-        case .serverError:
-            self.showSnackbar(text: NSLocalizedString("ServerError"))
-        default: break;
-        }
-    }
 }

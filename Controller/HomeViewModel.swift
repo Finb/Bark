@@ -15,21 +15,23 @@ import UserNotifications
 
 class HomeViewModel: ViewModel, ViewModelType {
     struct Input {
-        let addCustomServerTap:Driver<Void>
-        let historyMessageTap:Driver<Void>
-        let viewDidAppear:Driver<Void>
-        let start:Driver<Void>
+        let addCustomServerTap: Driver<Void>
+        let historyMessageTap: Driver<Void>
+        let viewDidAppear: Driver<Void>
+        let start: Driver<Void>
+        let clientState: Driver<Client.ClienState>
     }
     struct Output {
         let previews: Driver<[SectionModel<String,PreviewCardCellViewModel>]>
         let push: Driver<ViewModel>
-        let title:Driver<String>
-        let clienState: Driver<Client.ClienState>
+        let title: Driver<String>
+        let clienStateChanged: Driver<Client.ClienState>
         let tableViewHidden: Driver<Bool>
         let showSnackbar: Driver<String>
         let startButtonEnable: Driver<Bool>
         let copy: Driver<String>
         let preview: Driver<URL>
+        let reloadData: Driver<Void>
     }
     
     let previews:[PreviewModel] = {
@@ -71,6 +73,8 @@ class HomeViewModel: ViewModel, ViewModelType {
             )
         ]
     }()
+    
+    var currentState = Client.ClienState.ok
     
     func transform(input: Input) -> Output {
         let sectionModel = SectionModel(
@@ -143,16 +147,48 @@ class HomeViewModel: ViewModel, ViewModelType {
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
         
+        //client state 变化时，发出相应错误提醒
+        input.clientState.drive(onNext: { state in
+            switch state {
+            case .ok:
+                if let url = URL(string: ServerManager.shared.currentAddress) {
+                    if url.scheme?.lowercased() != "https" {
+                        showSnackbar.accept(NSLocalizedString("InsecureConnection"))
+                    }
+                }
+            case .serverError:
+                showSnackbar.accept(NSLocalizedString("ServerError"))
+            default: break;
+            }
+        })
+        .disposed(by: rx.disposeBag)
+        
+        //reloadData
+        let reloadData = input.clientState.filter {[weak self] (state) -> Bool in
+            if let strongSelf = self {
+                if state != strongSelf.currentState {
+                    strongSelf.currentState = state
+                    return true
+                }
+            }
+            return false
+        }
+        .map { _ in
+            ()
+        }
+        
+        
         return Output(
             previews:Driver.just([sectionModel]),
             push: Driver<ViewModel>.merge(customServer,messageHistory,noticeTap),
             title: Driver.of(URL(string: ServerManager.shared.currentAddress)?.host ?? ""),
-            clienState: clienState.asDriver(onErrorDriveWith: .empty()),
+            clienStateChanged: clienState.asDriver(onErrorDriveWith: .empty()),
             tableViewHidden: tableViewHidden,
             showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty()),
             startButtonEnable: Driver.just(true),
             copy: Driver.merge(sectionModel.items.map{ $0.copy.asDriver(onErrorDriveWith: .empty()) }),
-            preview: Driver.merge(sectionModel.items.map{ $0.preview.asDriver(onErrorDriveWith: .empty()) })
+            preview: Driver.merge(sectionModel.items.map{ $0.preview.asDriver(onErrorDriveWith: .empty()) }),
+            reloadData: reloadData
         )
     }
     
