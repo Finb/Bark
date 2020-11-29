@@ -73,16 +73,14 @@ class HomeViewModel: ViewModel, ViewModelType {
             )
         ]
     }()
-    
-    var currentState = Client.ClienState.ok
-    
+
     func transform(input: Input) -> Output {
         
         let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentAddress)?.host ?? "")
         
         let sectionModel = SectionModel(
             model: "previews",
-            items: previews.map { PreviewCardCellViewModel(previewModel: $0) })
+            items: previews.map { PreviewCardCellViewModel(previewModel: $0, clientState: input.clientState) })
         
         
         //点击跳转到添加自定义服务器
@@ -175,22 +173,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             }
         })
         .disposed(by: rx.disposeBag)
-        
-        //reloadData
-        let reloadData = input.clientState.filter {[weak self] (state) -> Bool in
-            if let strongSelf = self {
-                if state != strongSelf.currentState {
-                    strongSelf.currentState = state
-                    return true
-                }
-            }
-            return false
-        }
-        .map { _ in
-            ()
-        }
-        
-        
+       
         return Output(
             previews:Driver.just([sectionModel]),
             push: Driver<ViewModel>.merge(customServer,messageHistory,noticeTap),
@@ -201,7 +184,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             startButtonEnable: Driver.just(true),
             copy: Driver.merge(sectionModel.items.map{ $0.copy.asDriver(onErrorDriveWith: .empty()) }),
             preview: Driver.merge(sectionModel.items.map{ $0.preview.asDriver(onErrorDriveWith: .empty()) }),
-            reloadData: reloadData
+            reloadData: input.clientState.map{ _ in ()}
         )
     }
     

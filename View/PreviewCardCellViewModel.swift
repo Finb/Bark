@@ -21,9 +21,47 @@ class PreviewCardCellViewModel: ViewModel {
     let preview = PublishRelay<URL>()
     
     let previewModel:PreviewModel
-    init( previewModel:PreviewModel ) {
+    init( previewModel:PreviewModel, clientState: Driver<Client.ClienState> ) {
         self.previewModel = previewModel
+        contentImage = BehaviorRelay<UIImage?>(value: previewModel.image)
         
+        super.init()
+        
+        if let modelTitle = previewModel.title {
+            title.accept(modelTitle)
+        }
+        
+        if let modelBody = previewModel.body {
+            body.accept(modelBody)
+        }
+        
+        // client State 更改时，重新生成 content
+        // 因为这时可能 ServerManager.shared.currentAddress 或 Client.shared.key 发生了改变。
+        // 这不是一个好的写法，viewModel 应尽可能只依赖固定的 input ，而不应依赖不可预测的外部变量（ currentAddress 与 key ）。
+        // 但这个项目是由 MVC 临时重构为 MVVM ，之前是这样写的，所以懒得改动了。
+        clientState.compactMap({[weak self] (_) -> NSAttributedString? in
+            return self?.contentAttrStr()
+        })
+        .drive(content)
+        .disposed(by: rx.disposeBag)
+        
+        
+        let noticeStr = "\(previewModel.notice ?? "")"
+        let noticeAttrStr = NSMutableAttributedString(string: noticeStr, attributes: [
+            NSAttributedString.Key.foregroundColor: Color.grey.base,
+            NSAttributedString.Key.font : RobotoFont.regular(with: 12)
+        ])
+        
+        if let moreInfo = previewModel.moreInfo {
+            noticeAttrStr.append(NSMutableAttributedString(string: "   \(moreInfo)", attributes: [
+                NSAttributedString.Key.foregroundColor: Color.blue.base,
+                NSAttributedString.Key.font : RobotoFont.regular(with: 12)
+            ]))
+        }
+        notice.accept(noticeAttrStr)
+    }
+    
+    func contentAttrStr() -> NSAttributedString {
         var fontSize:CGFloat = 14
         if UIScreen.main.bounds.size.width <= 320 {
             fontSize = 11
@@ -45,14 +83,12 @@ class PreviewCardCellViewModel: ViewModel {
                 NSAttributedString.Key.foregroundColor: Color.grey.darken1,
                 NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
-            title.accept(modelTitle)
         }
         if let modelBody = previewModel.body {
             attrStr.append(NSAttributedString(string: "/\(modelBody)", attributes: [
                 NSAttributedString.Key.foregroundColor: Color.grey.base,
                 NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
-            body.accept(modelBody)
         }
         if let queryParameter = previewModel.queryParameter {
             attrStr.append(NSAttributedString(string: "?\(queryParameter)", attributes: [
@@ -60,32 +96,7 @@ class PreviewCardCellViewModel: ViewModel {
                 NSAttributedString.Key.font : RobotoFont.regular(with: fontSize)
                 ]))
         }
-        content.accept(attrStr)
         
-        if let moreInfo = previewModel.moreInfo {
-            let noticeStr = "\(previewModel.notice ?? "")  \(moreInfo)"
-            let noticeAttrStr = NSMutableAttributedString(string: noticeStr, attributes: [
-                NSAttributedString.Key.foregroundColor: Color.grey.base,
-                NSAttributedString.Key.font : RobotoFont.regular(with: 12)
-            ])
-            noticeAttrStr.setAttributes([
-                NSAttributedString.Key.foregroundColor: Color.blue.base,
-                NSAttributedString.Key.font : RobotoFont.regular(with: 12)
-            ], range: NSRange(location: noticeStr.count - moreInfo.count, length: moreInfo.count))
-            
-            notice.accept(noticeAttrStr)
-        }
-        else  {
-            let noticeStr = "\(previewModel.notice ?? "")"
-            let noticeAttrStr = NSMutableAttributedString(string: noticeStr, attributes: [
-                NSAttributedString.Key.foregroundColor: Color.grey.base,
-                NSAttributedString.Key.font : RobotoFont.regular(with: 12)
-            ])
-            notice.accept(noticeAttrStr)
-        }
-        
-        contentImage = BehaviorRelay<UIImage?>(value: previewModel.image)
-        
-        super.init()
+        return attrStr
     }
 }
