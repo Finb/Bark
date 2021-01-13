@@ -121,6 +121,12 @@ class HomeViewController: BaseViewController {
             .drive(self.startButton.rx.isHidden)
             .disposed(by: rx.disposeBag)
         
+        //注册推送
+        output.registerForRemoteNotifications.drive(onNext: {
+            UIApplication.shared.registerForRemoteNotifications()
+        })
+        .disposed(by: rx.disposeBag)
+        
         //弹出提示
         output.showSnackbar
             .drive(onNext: {[weak self] text in

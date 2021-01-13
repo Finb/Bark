@@ -32,6 +32,7 @@ class HomeViewModel: ViewModel, ViewModelType {
         let copy: Driver<String>
         let preview: Driver<URL>
         let reloadData: Driver<Void>
+        let registerForRemoteNotifications: Driver<Void>
     }
     
     let previews:[PreviewModel] = {
@@ -158,6 +159,12 @@ class HomeViewModel: ViewModel, ViewModelType {
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
         
+        //点击注册按钮，如果用户允许推送，则通知 viewController 注册推送
+        let registerForRemoteNotifications = tableViewHidden
+            .skip(1)
+            .filter{ $0 }
+            .map{ _ in () }
+
         //client state 变化时，发出相应错误提醒
         input.clientState.drive(onNext: { state in
             switch state {
@@ -184,7 +191,8 @@ class HomeViewModel: ViewModel, ViewModelType {
             startButtonEnable: Driver.just(true),
             copy: Driver.merge(sectionModel.items.map{ $0.copy.asDriver(onErrorDriveWith: .empty()) }),
             preview: Driver.merge(sectionModel.items.map{ $0.preview.asDriver(onErrorDriveWith: .empty()) }),
-            reloadData: input.clientState.map{ _ in ()}
+            reloadData: input.clientState.map{ _ in ()},
+            registerForRemoteNotifications: registerForRemoteNotifications
         )
     }
     
