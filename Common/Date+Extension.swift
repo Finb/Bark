@@ -26,8 +26,11 @@ extension Date {
         let hour = cps!.hour!
         let minute = cps!.minute!
         
-        if year > 0 || month > 0 || day > 0{
+        if year > 0 || month > 0 || day > 0 || hour > 12 {
             return formatString(format: "yyyy-MM-dd HH:mm")
+        }
+        if hour > 1 {
+            return formatString(format: "HH:mm")
         }
         if hour > 0 {
             return "\(hour)小时" + (minute > 0 ? "\(minute)分钟" : "") + "前"
