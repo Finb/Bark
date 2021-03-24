@@ -28,7 +28,7 @@ post 请求 参数名也是上面这些
 https://api.day.app/yourkey/验证码是9527
 ```
 
-携带参数 automaticallyCopy=1， 收到推送时，推送内容会自动复制到粘贴板
+携带参数 automaticallyCopy=1， 收到推送时，推送内容会自动复制到粘贴板（如发现不能自动复制，可尝试重启一下手机）
 ```objc
 //自动复制 “验证码是9527” 到粘贴板
 https://api.day.app/yourkey/验证码是9527?automaticallyCopy=1 
