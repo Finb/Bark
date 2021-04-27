@@ -71,7 +71,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         //iCloud 同步
         syncEngine = SyncEngine(objects: [
-            SyncObject<Message>()
+            SyncObject(type: Message.self)
         ], databaseScope: .private)
 
 

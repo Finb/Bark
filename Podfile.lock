@@ -1,10 +1,10 @@
 PODS:
-  - Alamofire (5.2.0)
+  - Alamofire (5.4.3)
   - DefaultsKit (0.2.0)
-  - DeviceKit (3.2.0)
+  - DeviceKit (4.3.0)
   - Differentiator (4.0.1)
   - FDFullscreenPopGesture (1.1)
-  - IceCream (1.13.1):
+  - IceCream (2.0.0):
     - RealmSwift
   - KVOController (1.2.0)
   - Material (3.1.8):
@@ -23,11 +23,11 @@ PODS:
   - "NSObject+Rx (5.1.0)":
     - RxSwift (~> 5.1)
   - ObjectMapper (4.2.0)
-  - Realm (5.0.0):
-    - Realm/Headers (= 5.0.0)
-  - Realm/Headers (5.0.0)
-  - RealmSwift (5.0.0):
-    - Realm (= 5.0.0)
+  - Realm (10.7.4):
+    - Realm/Headers (= 10.7.4)
+  - Realm/Headers (10.7.4)
+  - RealmSwift (10.7.4):
+    - Realm (= 10.7.4)
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
@@ -40,10 +40,10 @@ PODS:
     - RxSwift (~> 5.1)
   - RxRelay (5.1.1):
     - RxSwift (~> 5)
-  - RxSwift (5.1.1)
+  - RxSwift (5.1.2)
   - SnapKit (5.0.1)
   - SVProgressHUD (2.2.5)
-  - SwiftyJSON (5.0.0)
+  - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
   - DefaultsKit (from `https://github.com/nmdias/DefaultsKit`)
@@ -65,7 +65,7 @@ DEPENDENCIES:
   - SwiftyJSON
 
 SPEC REPOS:
-  https://github.com/CocoaPods/Specs.git:
+  trunk:
     - Alamofire
     - DeviceKit
     - Differentiator
@@ -95,16 +95,16 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   DefaultsKit:
-    :commit: 8078b01a5bd19d4c8f7465ba36e1639c420607a9
+    :commit: c51ad1d66c4a84f26330399046b72c76cd39ddfd
     :git: https://github.com/nmdias/DefaultsKit
 
 SPEC CHECKSUMS:
-  Alamofire: c1ca147559e730bfb2182c8c7aafbdd90a867987
+  Alamofire: e447a2774a40c996748296fa2c55112fdbbc42f9
   DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
-  DeviceKit: d081659419cce07c0b5239dbc9fb39ed7413c7fe
+  DeviceKit: 7decde449c308ac7e816e2184ded1c7c596fb885
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  IceCream: 0447d87b55df85651dd60b15712cef64dbe1cb54
+  IceCream: a7d6ffdef8e36ce1d089738e51d5e918c4862fd8
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
   MJRefresh: 6afc955813966afb08305477dd7a0d9ad5e79a16
@@ -112,17 +112,17 @@ SPEC CHECKSUMS:
   Moya: 5b45dacb75adb009f97fde91c204c1e565d31916
   "NSObject+Rx": fa6bbcc1ab1faa06b01466bc09b1e0692bbc5946
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  Realm: 76066d333de26f97e9caedaa85ee3ff4a62ca265
-  RealmSwift: c1bdff09b422569dc6881410d9ccf712bcdb79b0
+  Realm: f08ce1a85649a41303ecfe1cbd914c62e9e6d710
+  RealmSwift: 60ec49d165f23d040ab48811d8dd177e09baf4d3
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
   RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
   RxGesture: d6bd7447ca3a596c7a9702a6a2b6a2bb5d8bae54
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
-  RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
+  RxSwift: 1e2e1f9570186967f617e49128ed26ccf1bafc8e
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyJSON: 36413e04c44ee145039d332b4f4e2d3e8d6c4db7
+  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: d8fe9b628db96415f1c950df034b6353a4921da5
+PODFILE CHECKSUM: 2599db391f0d98d2d2a59b52455c89c9e9037bce
 
 COCOAPODS: 1.10.0
