@@ -45,7 +45,7 @@ urlParameter = "Clicking on the notification will jump \nto this URL in the para
 
 copyParameter = "If the URL has a copy parameter then the value of the copy \nparameter will be copied";
 
-automaticallyCopyTitle = "Automatically copy push content";
+automaticallyCopyTitle = "Automatically copy push content (No longer available after iOS14.5)";
 automaticallyCopy = "Automatically copy push content \nwhen a push is received";
 
 historyMessage = "History Message";
