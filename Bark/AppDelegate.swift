@@ -17,8 +17,37 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     var window: UIWindow?
     var syncEngine: SyncEngine?
+    func setupRealm() {
+        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
+        let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
+        let config = Realm.Configuration(
+            fileURL: fileUrl,
+            schemaVersion: 12,
+            migrationBlock: { migration, oldSchemaVersion in
+                // We haven’t migrated anything yet, so oldSchemaVersion == 0
+                if (oldSchemaVersion < 1) {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+        })
+        // Tell Realm to use this new configuration object for the default Realm
+        Realm.Configuration.defaultConfiguration = config
 
+        //iCloud 同步
+        syncEngine = SyncEngine(objects: [
+            SyncObject(type: Message.self)
+        ], databaseScope: .private)
+
+        #if DEBUG
+        let realm = try? Realm()
+        print("message count: \(realm?.objects(Message.self).count ?? 0)")
+        #endif
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        //必须在应用一开始就配置，否则应用可能提前在配置之前试用了 Realm() ，则会创建两个独立数据库。
+        setupRealm()
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         if #available(iOS 13.0, *) {
@@ -65,33 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         bar.backIndicatorImage = UIImage(named: "back")
         bar.backIndicatorTransitionMaskImage = UIImage(named: "back")
         bar.tintColor = Color.darkText.primary
-        
-        
-        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
-        let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
-        let config = Realm.Configuration(
-            fileURL: fileUrl,
-            schemaVersion: 12,
-            migrationBlock: { migration, oldSchemaVersion in
-                // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                if (oldSchemaVersion < 1) {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
-                }
-        })
-        // Tell Realm to use this new configuration object for the default Realm
-        Realm.Configuration.defaultConfiguration = config
 
-        //iCloud 同步
-        syncEngine = SyncEngine(objects: [
-            SyncObject(type: Message.self)
-        ], databaseScope: .private)
-
-
-        let realm = try? Realm()
-        print("message count: \(realm?.objects(Message.self).count ?? 0)")
-        
         return true
     }
 

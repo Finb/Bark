@@ -70,3 +70,9 @@ setSounds = "可以为推送设置不同的铃声";
 viewAllSounds = "查看所有铃声";
 
 service = "服务器";
+
+
+lastHour = "过去一小时";
+today = "今天";
+todayAndYesterday = "昨天和今天";
+allTime = "所有时间";

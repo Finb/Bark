@@ -13,7 +13,21 @@ import RxCocoa
 import RxDataSources
 import MJRefresh
 
+enum MessageDeleteType {
+    case lastHour
+    case today
+    case todayAndYesterday
+    case allTime
+}
+
 class MessageListViewController: BaseViewController {
+    let deleteButton: BKButton = {
+        let btn = BKButton()
+        btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
+        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        return btn
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -29,6 +43,8 @@ class MessageListViewController: BaseViewController {
     override func makeUI() {
         self.title = NSLocalizedString("historyMessage")
         
+        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: deleteButton))
+        
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
@@ -42,11 +58,37 @@ class MessageListViewController: BaseViewController {
             return
         }
         
-        let output = viewModel.transform(input: MessageListViewModel.Input(
-            loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
-            itemDelete: tableView.rx.itemDeleted.asDriver(),
-            itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver()
-        ))
+        let batchDelete = deleteButton.rx
+            .tap
+            .flatMapLatest { Void -> PublishRelay<MessageDeleteType> in
+                let relay = PublishRelay<MessageDeleteType>()
+
+                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("lastHour"), style: .default, handler: { _ in
+                    relay.accept(.lastHour)
+                }))
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("today"), style: .default, handler: { _ in
+                    relay.accept(.today)
+                }))
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("todayAndYesterday"), style: .default, handler: { _ in
+                    relay.accept(.todayAndYesterday)
+                }))
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("allTime"), style: .default, handler: { _ in
+                    relay.accept(.allTime)
+                }))
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel"), style: .cancel, handler: nil))
+                self.navigationController?.present(alertController, animated: true, completion: nil)
+                
+                return relay
+            }
+        
+        let output = viewModel.transform(
+            input: MessageListViewModel.Input(
+                loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
+                itemDelete: tableView.rx.itemDeleted.asDriver(),
+                itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
+                delete:batchDelete.asDriver(onErrorDriveWith: .empty())
+            ))
         
         //tableView 刷新状态
         output.refreshAction

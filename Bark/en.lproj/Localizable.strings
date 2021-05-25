@@ -70,3 +70,8 @@ setSounds = "You can set different sounds for push notifications";
 viewAllSounds = "View all sounds";
 
 service = "Service";
+
+lastHour = "The last hour";
+today = "Today";
+todayAndYesterday = "Today and yesterday";
+allTime = "All time";

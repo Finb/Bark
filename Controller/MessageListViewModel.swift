@@ -17,6 +17,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
         var loadMore: Driver<Void>
         var itemDelete: Driver<IndexPath>
         var itemSelected: Driver<MessageTableViewCellViewModel>
+        var delete: Driver<MessageDeleteType>
     }
     
     struct Output {
@@ -124,7 +125,40 @@ class MessageListViewModel: ViewModel,ViewModelType {
         }
         .compactMap { URL(string: $0) } //只处理正确的url
         
+        //批量删除
+        input.delete.drive(onNext: {[weak self] type in
+            guard let strongSelf = self else { return }
+            
+            var date = Date()
+            switch type {
+            case .allTime:
+                date = Date(timeIntervalSince1970: 0)
+            case .todayAndYesterday:
+                date = Date.yesterday
+            case .today:
+                date = Date().noon
+            case .lastHour:
+                date = Date.lastHour
+            }
+            
+            if let realm = try? Realm() {
+                let messages = realm.objects(Message.self).filter("createDate >= %@", date)
+                try? realm.write{
+                    for msg in messages{
+                        msg.isDeleted = true
+                    }
+                }
+            }
+            
+            strongSelf.page = 0
+            let messages = strongSelf.getNextPage()
+            let cellViewModels =  messages.map({ (message) -> MessageTableViewCellViewModel in
+                return MessageTableViewCellViewModel(message: message)
+            })
+            messagesRelay.accept([MessageSection(header: "model", messages: cellViewModels)])
         
+            
+        }).disposed(by: rx.disposeBag)
         
         return Output(
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
