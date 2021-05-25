@@ -45,6 +45,7 @@ class NewServerViewController: BaseViewController {
     }()
     
     override func makeUI() {
+        self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = NSLocalizedString("AddServer")
         
         self.view.layout(addressTextField)

@@ -30,8 +30,16 @@ class BaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.largeTitleDisplayMode = .automatic
         makeUI()
-        bindViewModel()
+    }
+    var isViewModelBinded = false
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if !isViewModelBinded {
+            isViewModelBinded = true
+            self.bindViewModel()
+        }
     }
     
     func makeUI() {

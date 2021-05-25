@@ -22,20 +22,12 @@ class MessageListViewController: BaseViewController {
         return tableView
     }()
     
-    let settingButton: BKButton = {
-        let settingButton = BKButton()
-        settingButton.setImage(Icon.settings, for: .normal)
-        settingButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return settingButton
-    }()
-    
     deinit {
         print("message list deinit")
     }
     
     override func makeUI() {
         self.title = NSLocalizedString("historyMessage")
-        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: settingButton))
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
@@ -51,20 +43,10 @@ class MessageListViewController: BaseViewController {
         }
         
         let output = viewModel.transform(input: MessageListViewModel.Input(
-            settingClick: self.settingButton.rx.tap.asDriver(),
             loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
             itemDelete: tableView.rx.itemDeleted.asDriver(),
             itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver()
         ))
-        
-        //跳转到设置界面
-        output.settingClick
-            .drive(onNext: {[weak self] viewModel in
-                self?.navigationController?
-                    .pushViewController(MessageSettingsViewController(viewModel: viewModel),
-                                        animated: true)
-            })
-            .disposed(by: rx.disposeBag)
         
         //tableView 刷新状态
         output.refreshAction

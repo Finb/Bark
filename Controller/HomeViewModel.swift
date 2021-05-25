@@ -16,7 +16,6 @@ import UserNotifications
 class HomeViewModel: ViewModel, ViewModelType {
     struct Input {
         let addCustomServerTap: Driver<Void>
-        let historyMessageTap: Driver<Void>
         let viewDidAppear: Driver<Void>
         let start: Driver<Void>
         let clientState: Driver<Client.ClienState>
@@ -95,8 +94,6 @@ class HomeViewModel: ViewModel, ViewModelType {
             .drive(title)
             .disposed(by: rx.disposeBag)
 
-        //点击跳转到历史通知
-        let messageHistory = input.historyMessageTap.map{ MessageListViewModel() as ViewModel}
         //点击preview中的notice ，跳转到对应的页面
         let noticeTap = Driver.merge(sectionModel.items.map{ $0.noticeTap.asDriver(onErrorDriveWith: .empty()) })
         
@@ -183,7 +180,7 @@ class HomeViewModel: ViewModel, ViewModelType {
        
         return Output(
             previews:Driver.just([sectionModel]),
-            push: Driver<ViewModel>.merge(customServer,messageHistory,noticeTap),
+            push: Driver<ViewModel>.merge(customServer,noticeTap),
             title: title.asDriver(),
             clienStateChanged: clienState.asDriver(onErrorDriveWith: .empty()),
             tableViewHidden: tableViewHidden,

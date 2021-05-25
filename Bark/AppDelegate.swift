@@ -24,8 +24,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if #available(iOS 13.0, *) {
             self.window?.overrideUserInterfaceStyle = .light
         }
+        let tabBarController = UITabBarController()
+        tabBarController.tabBar.tintColor = UIColor.black
+        tabBarController.viewControllers = [
+            BarkNavigationController(rootViewController:HomeViewController(viewModel: HomeViewModel())),
+            BarkNavigationController(rootViewController:MessageListViewController(viewModel: MessageListViewModel())),
+            BarkNavigationController(rootViewController:MessageSettingsViewController(viewModel: MessageSettingsViewModel())),
+        ]
+        
+        let tabBarItems = [UITabBarItem(title: NSLocalizedString("service"), image: UIImage(named: "baseline_gite_black_24pt"), tag: 0),
+                           UITabBarItem(title: NSLocalizedString("historyMessage"), image: Icon.history, tag: 1),
+                           UITabBarItem(title: NSLocalizedString("settings"), image: UIImage(named: "baseline_manage_accounts_black_24pt"), tag: 2)]
+        for (index , viewController) in tabBarController.viewControllers!.enumerated() {
+            viewController.tabBarItem = tabBarItems[index]
+        }
+        
         self.window?.backgroundColor = Color.grey.lighten5
-        self.window?.rootViewController = BarkSnackbarController(rootViewController: BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel())))
+        self.window?.rootViewController = BarkSnackbarController(
+            rootViewController: tabBarController
+        )
         self.window?.makeKeyAndVisible()
 
         UNUserNotificationCenter.current().delegate = self
@@ -49,9 +66,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         bar.backIndicatorTransitionMaskImage = UIImage(named: "back")
         bar.tintColor = Color.darkText.primary
         
-        let buttonItem = UIBarButtonItem.appearance(whenContainedInInstancesOf: [BarkNavigationController.self])
-        buttonItem.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 0)], for: .normal)
-        buttonItem.setBackButtonTitlePositionAdjustment(UIOffset(horizontal: -1000, vertical: 0), for: .default)
         
         let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
         let fileUrl = groupUrl?.appendingPathComponent("bark.realm")

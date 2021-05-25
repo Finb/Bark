@@ -68,3 +68,5 @@ notificationSound = "推送铃声";
 previewSound = "点击可预览";
 setSounds = "可以为推送设置不同的铃声";
 viewAllSounds = "查看所有铃声";
+
+service = "服务器";

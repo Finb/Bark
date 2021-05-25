@@ -21,13 +21,6 @@ class HomeViewController: BaseViewController {
         return btn
     }()
     
-    let historyMessageButton: BKButton = {
-        let btn = BKButton()
-        btn.setImage(Icon.history, for: .normal)
-        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return btn
-    }()
-    
     let startButton: FABButton = {
         let button = FABButton(title: NSLocalizedString("RegisterDevice"))
         button.backgroundColor = Color.white
@@ -48,8 +41,6 @@ class HomeViewController: BaseViewController {
         
         navigationItem.setRightBarButtonItem(
             item: UIBarButtonItem(customView: newButton))
-        navigationItem.setLeftBarButtonItem(
-            item: UIBarButtonItem(customView: historyMessageButton))
         
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { (make ) in
@@ -72,8 +63,6 @@ class HomeViewController: BaseViewController {
         let output = viewModel.transform(
             input: HomeViewModel.Input(
                 addCustomServerTap: newButton.rx.tap.asDriver(),
-                historyMessageTap: historyMessageButton.rx.tap.asDriver(),
-
                 viewDidAppear: self.rx.methodInvoked(#selector(viewDidAppear(_:)))
                     .map{ _ in () }
                     .asDriver(onErrorDriveWith: .empty()),
@@ -167,9 +156,6 @@ class HomeViewController: BaseViewController {
         var viewController:UIViewController?
         if let viewModel = viewModel as? NewServerViewModel {
             viewController = NewServerViewController(viewModel: viewModel)
-        }
-        else if let viewModel = viewModel as? MessageListViewModel {
-            viewController = MessageListViewController(viewModel: viewModel)
         }
         else if let viewModel = viewModel as? SoundsViewModel {
             viewController = SoundsViewController(viewModel: viewModel)

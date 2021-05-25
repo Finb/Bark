@@ -11,6 +11,7 @@ import Material
 class BarkNavigationController: UINavigationController{
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationBar.prefersLargeTitles = true
     }
 }
 

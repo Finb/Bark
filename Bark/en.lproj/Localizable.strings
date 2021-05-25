@@ -68,3 +68,5 @@ notificationSound = "Notification sound";
 previewSound = "Click to preview";
 setSounds = "You can set different sounds for push notifications";
 viewAllSounds = "View all sounds";
+
+service = "Service";

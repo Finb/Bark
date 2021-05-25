@@ -14,7 +14,6 @@ import RealmSwift
 
 class MessageListViewModel: ViewModel,ViewModelType {
     struct Input {
-        var settingClick: Driver<Void>
         var loadMore: Driver<Void>
         var itemDelete: Driver<IndexPath>
         var itemSelected: Driver<MessageTableViewCellViewModel>
@@ -22,7 +21,6 @@ class MessageListViewModel: ViewModel,ViewModelType {
     
     struct Output {
         var messages:Driver<[MessageSection]>
-        var settingClick: Driver<MessageSettingsViewModel>
         var refreshAction:Driver<MJRefreshAction>
         var alertMessage:Driver<String>
         var urlTap:Driver<URL>
@@ -58,12 +56,6 @@ class MessageListViewModel: ViewModel,ViewModelType {
     
     
     func transform(input: Input) -> Output {
-        let settingClick = input.settingClick
-            .map{
-                MessageSettingsViewModel()
-            }
-            .asDriver()
-        
         let alertMessage = input.itemSelected.map { (model) -> String in
             let message = model.message
             
@@ -136,7 +128,6 @@ class MessageListViewModel: ViewModel,ViewModelType {
         
         return Output(
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
-            settingClick: settingClick,
             refreshAction: refreshAction.asDriver(),
             alertMessage: alertMessage,
             urlTap: urlTap.asDriver(onErrorDriveWith: .empty())
