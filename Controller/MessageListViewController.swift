@@ -144,7 +144,7 @@ class MessageListViewController: BaseViewController {
         //点击message中的URL
         output.urlTap.drive(onNext: { url in
             if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
-                  Client.shared.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                self.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
               }
               else{
                   UIApplication.shared.open(url, options: [:], completionHandler: nil)
@@ -166,7 +166,7 @@ class MessageListViewController: BaseViewController {
         alertController.addAction(copyAction)
         alertController.addAction(cancelAction)
         
-        Client.shared.currentNavigationController?.present(alertController, animated: true, completion: nil)
+        self.navigationController?.present(alertController, animated: true, completion: nil)
     }
 
 }

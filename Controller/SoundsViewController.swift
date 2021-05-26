@@ -64,7 +64,7 @@ class SoundsViewController: BaseViewController {
         
         output.copyNameAction.drive(onNext: { name in
             UIPasteboard.general.string = name.trimmingCharacters(in: .whitespacesAndNewlines)
-            Client.shared.currentNavigationController?.showSnackbar(text: NSLocalizedString("Copy"))
+            self.navigationController?.showSnackbar(text: NSLocalizedString("Copy"))
         }).disposed(by: rx.disposeBag)
         
         output.playAction.drive(onNext: { url in

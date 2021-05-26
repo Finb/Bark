@@ -19,7 +19,7 @@ class Client: NSObject {
     var currentNavigationController:UINavigationController? {
         get {
             let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-            let nav = controller?.rootViewController as? UINavigationController
+            let nav = (controller?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
             return nav
         }
     }
