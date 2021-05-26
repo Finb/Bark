@@ -117,8 +117,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     private func notificatonHandler(userInfo:[AnyHashable:Any]){
         
-        let navigationController = ((self.window?.rootViewController as? BarkSnackbarController)?
-            .rootViewController as? BarkNavigationController)
+        let navigationController = Client.shared.currentNavigationController
         func presentController(){
             let alert = (userInfo["aps"] as? [String:Any])?["alert"] as? [String:Any]
             let title = alert?["title"] as? String
