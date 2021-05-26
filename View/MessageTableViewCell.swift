@@ -10,6 +10,14 @@ import UIKit
 import Material
 class MessageTableViewCell: BaseTableViewCell {
     
+    let backgroundPanel: UIView = {
+        let view = UIView()
+        view.layer.cornerRadius = 3
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor.white
+        return view
+    }()
+    
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.medium(with: 16)
@@ -56,8 +64,8 @@ class MessageTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
-        self.backgroundColor = Color.white
-        
+        self.backgroundColor = Color.grey.lighten5
+        contentView.addSubview(backgroundPanel)
         contentView.addSubview(bodyStackView)
         
         bodyStackView.addArrangedSubview(titleLabel)
@@ -78,8 +86,8 @@ class MessageTableViewCell: BaseTableViewCell {
     
     func layoutView(){
         bodyStackView.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(12)
-            make.right.equalToSuperview().offset(-12)
+            make.left.top.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
         }
         titleLabel.snp.remakeConstraints { (make) in
             make.left.equalTo(12)
@@ -98,9 +106,15 @@ class MessageTableViewCell: BaseTableViewCell {
         separatorLine.snp.remakeConstraints { (make) in
             make.left.right.bottom.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
-            make.height.equalTo(8)
+            make.height.equalTo(10)
         }
         
+        backgroundPanel.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
+            make.top.equalToSuperview()
+            make.bottom.equalTo(separatorLine.snp.top)
+        }
     }
 
     override func bindViewModel(model: ViewModel) {
