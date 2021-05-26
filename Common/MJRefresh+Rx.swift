@@ -57,12 +57,13 @@ extension Reactive where Base:UIScrollView {
             
             switch action{
             case .begainRefresh:
-                if let header =  target.mj_header {
-                    header.beginRefreshing()
+                //下拉刷新使用 UIRefreshControl
+                if let control = target.refreshControl {
+                    control.beginRefreshing()
                 }
             case .endRefresh:
-                if let header =  target.mj_header {
-                    header.endRefreshing()
+                if let control = target.refreshControl {
+                    control.endRefreshing()
                 }
             case .begainLoadmore:
                 if let footer =  target.mj_footer {

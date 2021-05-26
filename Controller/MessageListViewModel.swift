@@ -14,6 +14,7 @@ import RealmSwift
 
 class MessageListViewModel: ViewModel,ViewModelType {
     struct Input {
+        var refresh: Driver<Void>
         var loadMore: Driver<Void>
         var itemDelete: Driver<IndexPath>
         var itemSelected: Driver<MessageTableViewCellViewModel>
@@ -79,6 +80,20 @@ class MessageListViewModel: ViewModel,ViewModelType {
         //数据源
         let messagesRelay = BehaviorRelay<[MessageSection]>(value: [])
         let refreshAction = BehaviorRelay<MJRefreshAction>(value: .none)
+        
+        func messagesToMessageSection(messages:[Message]) -> [MessageSection] {
+            let cellViewModels = messages.map({ (message) -> MessageTableViewCellViewModel in
+                return MessageTableViewCellViewModel(message: message)
+            })
+            return [MessageSection(header: "model", messages: cellViewModels)]
+        }
+        
+        input.refresh.drive(onNext: {[weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.page = 0
+            messagesRelay.accept(messagesToMessageSection(messages: strongSelf.getNextPage()))
+            refreshAction.accept(.endRefresh)
+        }).disposed(by: rx.disposeBag)
         
         Observable<Void>.just(())
             .concat(input.loadMore)
@@ -151,12 +166,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
             }
             
             strongSelf.page = 0
-            let messages = strongSelf.getNextPage()
-            let cellViewModels =  messages.map({ (message) -> MessageTableViewCellViewModel in
-                return MessageTableViewCellViewModel(message: message)
-            })
-            messagesRelay.accept([MessageSection(header: "model", messages: cellViewModels)])
-        
+            messagesRelay.accept(messagesToMessageSection(messages: strongSelf.getNextPage()))
             
         }).disposed(by: rx.disposeBag)
         

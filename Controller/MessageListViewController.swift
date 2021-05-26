@@ -63,6 +63,7 @@ class MessageListViewController: BaseViewController {
         }
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         tableView.mj_footer = MJRefreshAutoFooter()
+        tableView.refreshControl = UIRefreshControl()
     }
     
     override func bindViewModel() {
@@ -105,6 +106,7 @@ class MessageListViewController: BaseViewController {
         
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
+                refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.itemDeleted.asDriver(),
                 itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
