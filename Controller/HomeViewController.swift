@@ -33,6 +33,7 @@ class HomeViewController: BaseViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = Color.grey.lighten3
         tableView.register(PreviewCardCell.self, forCellReuseIdentifier: "\(PreviewCardCell.self)")
+        tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         return tableView
     }()
     

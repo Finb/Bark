@@ -74,8 +74,8 @@ class PreviewCardCell: BaseTableViewCell {
         card.addSubview(previewButton)
         
         card.snp.makeConstraints { (make) in
-            make.left.top.equalToSuperview().offset(10)
-            make.right.equalToSuperview().offset(-10)
+            make.left.top.equalToSuperview().offset(16)
+            make.right.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
         }
         previewButton.snp.makeConstraints { (make) in
