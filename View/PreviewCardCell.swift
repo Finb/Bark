@@ -67,7 +67,7 @@ class PreviewCardCell: BaseTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.backgroundColor = Color.grey.lighten3
+        self.backgroundColor = Color.grey.lighten4
         
         contentView.addSubview(card)
         card.addSubview(copyButton)

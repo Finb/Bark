@@ -20,3 +20,20 @@ class BarkSnackbarController: SnackbarController {
         return self.rootViewController
     }
 }
+
+class StateStorageTabBarController: UITabBarController, UITabBarControllerDelegate {
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if self.delegate == nil {
+            if let index:Int = Settings[.selectedViewControllerIndex] {
+                self.selectedIndex = index
+            }
+            self.delegate = self
+        }
+    }
+    
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        Settings[.selectedViewControllerIndex] = self.selectedIndex
+    }
+}

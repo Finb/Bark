@@ -31,14 +31,14 @@ class HomeViewController: BaseViewController {
     let tableView :UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.backgroundColor = Color.grey.lighten3
+        tableView.backgroundColor = Color.grey.lighten4
         tableView.register(PreviewCardCell.self, forCellReuseIdentifier: "\(PreviewCardCell.self)")
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         return tableView
     }()
     
     override func makeUI() {
-        self.view.backgroundColor = Color.grey.lighten3
+        self.view.backgroundColor = Color.grey.lighten4
         
         navigationItem.setRightBarButtonItem(
             item: UIBarButtonItem(customView: newButton))

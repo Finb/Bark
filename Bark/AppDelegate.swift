@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if #available(iOS 13.0, *) {
             self.window?.overrideUserInterfaceStyle = .light
         }
-        let tabBarController = UITabBarController()
+        let tabBarController = StateStorageTabBarController()
         tabBarController.tabBar.tintColor = UIColor.black
         tabBarController.viewControllers = [
             BarkNavigationController(rootViewController:HomeViewController(viewModel: HomeViewModel())),
