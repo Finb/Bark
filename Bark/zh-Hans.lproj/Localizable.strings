@@ -76,3 +76,7 @@ lastHour = "过去一小时";
 today = "今天";
 todayAndYesterday = "昨天和今天";
 allTime = "所有时间";
+
+clearFrom = "清除以下时间段的历史消息:";
+
+clear = "清除";

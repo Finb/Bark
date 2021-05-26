@@ -75,3 +75,6 @@ lastHour = "The last hour";
 today = "Today";
 todayAndYesterday = "Today and yesterday";
 allTime = "All time";
+
+clearFrom = "Clear from:";
+clear = "Clear";

@@ -13,11 +13,22 @@ import RxCocoa
 import RxDataSources
 import MJRefresh
 
-enum MessageDeleteType {
-    case lastHour
+enum MessageDeleteType: Int{
+    case lastHour = 0
     case today
     case todayAndYesterday
     case allTime
+    
+    var string: String{
+        get {
+            return [
+                NSLocalizedString("lastHour"),
+                NSLocalizedString("today"),
+                NSLocalizedString("todayAndYesterday"),
+                NSLocalizedString("allTime"),
+            ][self.rawValue]
+        }
+    }
 }
 
 class MessageListViewController: BaseViewController {
@@ -33,6 +44,7 @@ class MessageListViewController: BaseViewController {
         tableView.separatorStyle = .none
         tableView.backgroundColor = Color.grey.lighten5
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "\(MessageTableViewCell.self)")
+        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 20, right: 0)
         return tableView
     }()
     
@@ -62,21 +74,30 @@ class MessageListViewController: BaseViewController {
             .tap
             .flatMapLatest { Void -> PublishRelay<MessageDeleteType> in
                 let relay = PublishRelay<MessageDeleteType>()
-
-                let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                
+                func alert(_ type:MessageDeleteType){
+                    let alertController = UIAlertController(title: nil, message: "\(NSLocalizedString("clearFrom"))\n\(type.string)", preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("clear"), style: .destructive, handler: { _ in
+                        relay.accept(type)
+                    }))
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                    self.navigationController?.present(alertController, animated: true, completion: nil)
+                }
+                
+                let alertController = UIAlertController(title: nil, message: NSLocalizedString("clearFrom"), preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("lastHour"), style: .default, handler: { _ in
-                    relay.accept(.lastHour)
+                    alert(.lastHour)
                 }))
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("today"), style: .default, handler: { _ in
-                    relay.accept(.today)
+                    alert(.today)
                 }))
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("todayAndYesterday"), style: .default, handler: { _ in
-                    relay.accept(.todayAndYesterday)
+                    alert(.todayAndYesterday)
                 }))
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("allTime"), style: .default, handler: { _ in
-                    relay.accept(.allTime)
+                    alert(.allTime)
                 }))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel"), style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
                 self.navigationController?.present(alertController, animated: true, completion: nil)
                 
                 return relay
