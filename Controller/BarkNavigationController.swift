@@ -47,7 +47,7 @@ class StateStorageTabBarController: UITabBarController, UITabBarControllerDelega
                     return Disposables.create()
                 }
                 return single
-            }
+            }.share()
     }()
 
     var isFirstAppear = true
@@ -59,6 +59,7 @@ class StateStorageTabBarController: UITabBarController, UITabBarControllerDelega
             //开启APP时，默认选择上次打开的页面
             if let index:Int = Settings[.selectedViewControllerIndex] {
                 self.selectedIndex = index
+                self.currentSelectedIndex = index
             }
             //保存打开的页面Index
             self.rx.didSelect.subscribe(onNext: {_ in

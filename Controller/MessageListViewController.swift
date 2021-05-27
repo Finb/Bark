@@ -64,6 +64,15 @@ class MessageListViewController: BaseViewController {
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         tableView.mj_footer = MJRefreshAutoFooter()
         tableView.refreshControl = UIRefreshControl()
+
+        Client.shared.currentTabBarController?
+            .tabBarItemDidClick
+            .filter{ $0 == .messageHistory }
+            .subscribe(onNext: {[weak self] index in
+                if (self?.tableView.visibleCells.count ?? 0) > 0 {
+                    self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+                }
+            }).disposed(by: self.rx.disposeBag)
     }
     
     override func bindViewModel() {
