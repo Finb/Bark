@@ -12,6 +12,7 @@ import RealmSwift
 import RxCocoa
 import RxDataSources
 import MJRefresh
+import RxSwift
 
 enum MessageDeleteType: Int{
     case lastHour = 0
@@ -65,14 +66,32 @@ class MessageListViewController: BaseViewController {
         tableView.mj_footer = MJRefreshAutoFooter()
         tableView.refreshControl = UIRefreshControl()
 
+        // 点击tab按钮，回到顶部
         Client.shared.currentTabBarController?
             .tabBarItemDidClick
             .filter{ $0 == .messageHistory }
             .subscribe(onNext: {[weak self] index in
-                if (self?.tableView.visibleCells.count ?? 0) > 0 {
-                    self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
-                }
+                self?.scrollToTop()
             }).disposed(by: self.rx.disposeBag)
+        
+        
+        //打开APP时，历史消息列表距离上次刷新超过1小时，则自动刷新一下
+        var lastAutoRefreshdate = Date()
+        NotificationCenter.default.rx
+            .notification(UIApplication.willEnterForegroundNotification)
+            .filter { _ in
+                let now = Date()
+                if now.timeIntervalSince1970 - lastAutoRefreshdate.timeIntervalSince1970 > 60 * 60 {
+                    lastAutoRefreshdate = now
+                    return true
+                }
+                return false
+            }
+            .subscribe(onNext: {[weak self] _ in
+                self?.tableView.refreshControl?.sendActions(for: .valueChanged)
+                self?.scrollToTop()
+            }).disposed(by: rx.disposeBag)
+        
     }
     
     override func bindViewModel() {
@@ -179,7 +198,12 @@ class MessageListViewController: BaseViewController {
         
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }
-
+    
+    private func scrollToTop(){
+        if self.tableView.visibleCells.count > 0 {
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
+    }
 }
 
 extension MessageListViewController: UITableViewDelegate {
