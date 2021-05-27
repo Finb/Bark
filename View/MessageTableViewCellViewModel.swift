@@ -65,4 +65,10 @@ extension MessageTableViewCellViewModel: IdentifiableType {
     var identity: String{
         return self.message.id
     }
+    override func isEqual(_ object: Any?) -> Bool {
+        if let obj = object as? MessageTableViewCellViewModel {
+            return self.identity == obj.identity
+        }
+        return super.isEqual(object)
+    }
 }
