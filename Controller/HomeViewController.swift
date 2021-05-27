@@ -55,6 +55,13 @@ class HomeViewController: BaseViewController {
             make.top.equalTo(150)
         }
         
+        Client.shared.currentTabBarController?
+            .tabBarItemDidClick
+            .filter{ $0 == .service }
+            .subscribe(onNext: {[weak self] index in
+                self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+            }).disposed(by: self.rx.disposeBag)
+        
     }
     override func bindViewModel() {
         guard let viewModel = self.viewModel as? HomeViewModel else {

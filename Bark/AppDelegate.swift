@@ -55,6 +55,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         let tabBarController = StateStorageTabBarController()
         tabBarController.tabBar.tintColor = UIColor.black
+        
+        self.window?.backgroundColor = Color.grey.lighten5
+        self.window?.rootViewController = BarkSnackbarController(
+            rootViewController: tabBarController
+        )
+        
         tabBarController.viewControllers = [
             BarkNavigationController(rootViewController:HomeViewController(viewModel: HomeViewModel())),
             BarkNavigationController(rootViewController:MessageListViewController(viewModel: MessageListViewModel())),
@@ -68,10 +74,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             viewController.tabBarItem = tabBarItems[index]
         }
         
-        self.window?.backgroundColor = Color.grey.lighten5
-        self.window?.rootViewController = BarkSnackbarController(
-            rootViewController: tabBarController
-        )
         self.window?.makeKeyAndVisible()
 
         UNUserNotificationCenter.current().delegate = self

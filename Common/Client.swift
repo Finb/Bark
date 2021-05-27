@@ -23,6 +23,12 @@ class Client: NSObject {
             return nav
         }
     }
+    var currentTabBarController:StateStorageTabBarController? {
+        get {
+            let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
+            return controller?.rootViewController as? StateStorageTabBarController
+        }
+    }
     
     let appVersion:String = {
         var version = "0.0.0"

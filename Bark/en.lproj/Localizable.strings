@@ -48,7 +48,7 @@ copyParameter = "If the URL has a copy parameter then the value of the copy \npa
 automaticallyCopyTitle = "Automatically copy push content (No longer available after iOS14.5)";
 automaticallyCopy = "Automatically copy push content \nwhen a push is received";
 
-historyMessage = "History Message";
+historyMessage = "Message History";
 
 unknown = "Unknown";
 available = "Available";
