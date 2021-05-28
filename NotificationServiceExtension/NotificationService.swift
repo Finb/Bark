@@ -64,6 +64,7 @@ class NotificationService: UNNotificationServiceExtension {
             let body = alert?["body"] as? String
             
             let url = userInfo["url"] as? String
+            let group = userInfo["group"] as? String
             
             if (isArchive == true){
                 try? realm?.write{
@@ -71,6 +72,7 @@ class NotificationService: UNNotificationServiceExtension {
                     message.title = title
                     message.body = body
                     message.url = url
+                    message.group = group
                     message.createDate = Date()
                     realm?.add(message)
                 }
