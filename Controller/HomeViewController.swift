@@ -52,7 +52,7 @@ class HomeViewController: BaseViewController {
         self.startButton.snp.makeConstraints { (make) in
             make.width.height.equalTo(150)
             make.centerX.equalToSuperview()
-            make.top.equalTo(150)
+            make.centerY.equalToSuperview().offset(-50)
         }
         
         Client.shared.currentTabBarController?
