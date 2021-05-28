@@ -40,6 +40,13 @@ class MessageListViewController: BaseViewController {
         return btn
     }()
     
+    let groupButton: BKButton = {
+        let btn = BKButton()
+        btn.setImage(UIImage(named: "baseline_folder_open_black_24pt"), for: .normal)
+        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        return btn
+    }()
+    
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -56,7 +63,7 @@ class MessageListViewController: BaseViewController {
     override func makeUI() {
         self.title = NSLocalizedString("historyMessage")
         
-        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: deleteButton))
+        navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], left: false)
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
