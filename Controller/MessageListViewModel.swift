@@ -19,6 +19,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
         var itemDelete: Driver<IndexPath>
         var itemSelected: Driver<MessageTableViewCellViewModel>
         var delete: Driver<MessageDeleteType>
+        var groupTap: Driver<Void>
     }
     
     struct Output {
@@ -26,6 +27,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
         var refreshAction:Driver<MJRefreshAction>
         var alertMessage:Driver<String>
         var urlTap:Driver<URL>
+        var groupFilter: Driver<GroupFilterViewModel>
     }
     
     let results:Results<Message>? = {
@@ -170,11 +172,30 @@ class MessageListViewModel: ViewModel,ViewModelType {
             
         }).disposed(by: rx.disposeBag)
         
+        //群组筛选
+        let groupFilter = input.groupTap.compactMap { () -> GroupFilterViewModel? in
+            if let realm = try? Realm() {
+                let groups = realm.objects(Message.self)
+                    .distinct(by: ["group"])
+                    .value(forKeyPath: "group") as? [String?]
+                
+                let groupModels = groups?.compactMap({ groupName in
+                    return GroupFilterModel(name: groupName, checked: false)
+                })
+                
+                if let models = groupModels {
+                    return GroupFilterViewModel(groups: models)
+                }
+            }
+            return nil
+        }
+        
         return Output(
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
             refreshAction: refreshAction.asDriver(),
             alertMessage: alertMessage,
-            urlTap: urlTap.asDriver(onErrorDriveWith: .empty())
+            urlTap: urlTap.asDriver(onErrorDriveWith: .empty()),
+            groupFilter: groupFilter.asDriver()
         )
     }
 }

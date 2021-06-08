@@ -145,7 +145,8 @@ class MessageListViewController: BaseViewController {
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.itemDeleted.asDriver(),
                 itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
-                delete:batchDelete.asDriver(onErrorDriveWith: .empty())
+                delete:batchDelete.asDriver(onErrorDriveWith: .empty()),
+                groupTap: groupButton.rx.tap.asDriver()
             ))
         
         //tableView 刷新状态
@@ -186,6 +187,11 @@ class MessageListViewController: BaseViewController {
               else{
                   UIApplication.shared.open(url, options: [:], completionHandler: nil)
               }
+        }).disposed(by: rx.disposeBag)
+        
+        //选择群组
+        output.groupFilter.drive(onNext: {[weak self] groupModel in
+            self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
         }).disposed(by: rx.disposeBag)
         
     }

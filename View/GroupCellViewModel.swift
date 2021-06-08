@@ -7,7 +7,16 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+import RxDataSources
 
-class GroupCellViewModel: NSObject {
+class GroupCellViewModel:ViewModel {
+    let name = BehaviorRelay<String?>(value: nil)
+    let checked = BehaviorRelay<Bool>(value: false)
 
+    init(groupFilterModel:GroupFilterModel) {
+        self.name.accept(groupFilterModel.name)
+        self.checked.accept(groupFilterModel.checked)
+    }
 }
