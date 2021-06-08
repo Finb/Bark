@@ -82,6 +82,10 @@
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
+		06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */; };
+		06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */; };
+		06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */; };
+		06AE311E266F54CC00B39FBB /* GroupCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE311D266F54CC00B39FBB /* GroupCellViewModel.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
@@ -214,6 +218,10 @@
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewController.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
+		06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewController.swift; sourceTree = "<group>"; };
+		06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewModel.swift; sourceTree = "<group>"; };
+		06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
+		06AE311D266F54CC00B39FBB /* GroupCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCellViewModel.swift; sourceTree = "<group>"; };
 		06B1158C247BA6D5006D91FB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		06B1158E247BB1FB006D91FB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
@@ -286,6 +294,8 @@
 				06BBB8B62567AC140076F63E /* MessageSettingsViewModel.swift */,
 				060481ED250F404500BC9799 /* SoundsViewController.swift */,
 				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
+				06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */,
+				06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -307,6 +317,8 @@
 				062B98C2251B2762004562E7 /* BKButton.swift */,
 				06C595352481160F006B98F3 /* BKLabel.swift */,
 				062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */,
+				06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */,
+				06AE311D266F54CC00B39FBB /* GroupCellViewModel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -728,12 +740,14 @@
 				06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */,
 				06BBB8C92567B6730076F63E /* Operators.swift in Sources */,
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
+				06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */,
 				0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */,
 				0633E80A256A091B00ED0680 /* MJRefresh+Rx.swift in Sources */,
 				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
 				062B98C8251B27AE004562E7 /* UINavigationItem+Extension.swift in Sources */,
 				060481EE250F404500BC9799 /* SoundsViewController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
+				06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */,
 				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
 				065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
@@ -745,10 +759,12 @@
 				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
 				06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */,
 				065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */,
+				06AE311E266F54CC00B39FBB /* GroupCellViewModel.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
 				067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
+				06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */,
 				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,
 				060481F0250F51CA00BC9799 /* SoundCell.swift in Sources */,
 				0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */,
@@ -835,7 +851,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContent;
@@ -854,7 +870,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContent;
@@ -989,7 +1005,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
@@ -1010,7 +1026,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MARKETING_VERSION = 1.1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
@@ -1030,7 +1046,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.1.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -1053,7 +1069,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
 				MARKETING_VERSION = 1.1.4;
 				MTL_FAST_MATH = YES;

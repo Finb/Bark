@@ -8,10 +8,10 @@
 
 import UIKit
 
-protocol AlignmentRectInsetsOverridable:class {
+protocol AlignmentRectInsetsOverridable:AnyObject {
     var alignmentRectInsetsOverride: UIEdgeInsets? {get set}
 }
-protocol HitTestSlopable:class {
+protocol HitTestSlopable:AnyObject {
     var hitTestSlop: UIEdgeInsets {get set}
 }
 

@@ -56,7 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let tabBarController = StateStorageTabBarController()
         tabBarController.tabBar.tintColor = UIColor.black
         
-        self.window?.backgroundColor = Color.grey.lighten5
+        self.window?.backgroundColor = UIColor.black
         self.window?.rootViewController = BarkSnackbarController(
             rootViewController: tabBarController
         )

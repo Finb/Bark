@@ -80,3 +80,6 @@ allTime = "所有时间";
 clearFrom = "清除以下时间段的历史消息:";
 
 clear = "清除";
+
+group = "群组";
+done = "完成";

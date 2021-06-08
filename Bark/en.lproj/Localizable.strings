@@ -78,3 +78,6 @@ allTime = "All time";
 
 clearFrom = "Clear from:";
 clear = "Clear";
+
+group = "Group";
+done = "Done";
