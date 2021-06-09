@@ -30,18 +30,27 @@ class MessageListViewModel: ViewModel,ViewModelType {
         var groupFilter: Driver<GroupFilterViewModel>
     }
     
-    let results:Results<Message>? = {
-        if let realm = try? Realm() {
-            return realm.objects(Message.self)
-                .filter("isDeleted != true")
-                .sorted(byKeyPath: "createDate", ascending: false)
-        }
-        return nil
+    private lazy var results:Results<Message>? = {
+        return getResults(filterGroups: [])
     }()
     
-    var page = 0
-    let pageCount = 20
-    func getNextPage() -> [Message] {
+    //根据群组获取消息
+    private func getResults(filterGroups:[String?]) -> Results<Message>? {
+        if let realm = try? Realm() {
+            var results = realm.objects(Message.self)
+                .filter("isDeleted != true")
+                .sorted(byKeyPath: "createDate", ascending: false)
+            if filterGroups.count > 0 {
+                results = results.filter("group in %@", filterGroups)
+            }
+            return results
+        }
+        return nil
+    }
+    
+    private var page = 0
+    private let pageCount = 20
+    private func getNextPage() -> [Message] {
         if let result = results {
             let startIndex = page * pageCount
             let endIndex = min(startIndex + pageCount, result.count)
@@ -79,26 +88,48 @@ class MessageListViewModel: ViewModel,ViewModelType {
         }
         
         
-        //数据源
+        // 数据源
         let messagesRelay = BehaviorRelay<[MessageSection]>(value: [])
+        // 刷新操作
         let refreshAction = BehaviorRelay<MJRefreshAction>(value: .none)
+        // 切换群组
+        let filterGroups: BehaviorRelay<[String?]> = {
+            if let groups:[String?] = Settings["me.fin.filterGroups"] {
+                return BehaviorRelay<[String?]>(value: groups)
+            }
+            return BehaviorRelay<[String?]>(value: [])
+        }()
         
+        // Message 转 MessageSection
         func messagesToMessageSection(messages:[Message]) -> [MessageSection] {
             let cellViewModels = messages.map({ (message) -> MessageTableViewCellViewModel in
                 return MessageTableViewCellViewModel(message: message)
             })
             return [MessageSection(header: "model", messages: cellViewModels)]
         }
+        //切换分组时，更换数据源
+        filterGroups
+            .subscribe(onNext: { [weak self] filterGroups in
+                Settings["me.fin.filterGroups"] = filterGroups
+                self?.results = self?.getResults(filterGroups: filterGroups)
+            }).disposed(by: rx.disposeBag)
         
-        input.refresh.drive(onNext: {[weak self] in
-            guard let strongSelf = self else { return }
-            strongSelf.page = 0
-            messagesRelay.accept(messagesToMessageSection(messages: strongSelf.getNextPage()))
-            refreshAction.accept(.endRefresh)
-        }).disposed(by: rx.disposeBag)
+        //切换分组和下拉刷新时，重新刷新列表
+        Observable
+            .merge(input.refresh.asObservable().map{ () },filterGroups.map{ _ in () })
+            .subscribe(onNext: {[weak self]  in
+                guard let strongSelf = self else { return }
+                strongSelf.page = 0
+                messagesRelay.accept(
+                    messagesToMessageSection(
+                        messages: strongSelf.getNextPage()
+                    )
+                )
+                refreshAction.accept(.endRefresh)
+            }).disposed(by: rx.disposeBag)
         
-        Observable<Void>.just(())
-            .concat(input.loadMore)
+        //加载更多
+        input.loadMore.asObservable()
             .subscribe(onNext: {[weak self] in
                 guard let strongSelf = self else { return }
                 let messages = strongSelf.getNextPage()
@@ -173,18 +204,26 @@ class MessageListViewModel: ViewModel,ViewModelType {
         }).disposed(by: rx.disposeBag)
         
         //群组筛选
-        let groupFilter = input.groupTap.compactMap { () -> GroupFilterViewModel? in
+        let groupFilter = input.groupTap.compactMap {() -> GroupFilterViewModel? in
             if let realm = try? Realm() {
                 let groups = realm.objects(Message.self)
                     .distinct(by: ["group"])
                     .value(forKeyPath: "group") as? [String?]
                 
-                let groupModels = groups?.compactMap({ groupName in
-                    return GroupFilterModel(name: groupName, checked: false)
+                let groupModels = groups?.compactMap({ groupName -> GroupFilterModel in
+                    var check = true
+                    if filterGroups.value.count > 0 {
+                        check = filterGroups.value.contains(groupName)
+                    }
+                    return GroupFilterModel(name: groupName, checked: check)
                 })
                 
                 if let models = groupModels {
-                    return GroupFilterViewModel(groups: models)
+                    let viewModel = GroupFilterViewModel(groups: models)
+                    viewModel.done
+                        .bind(to: filterGroups)
+                        .disposed(by: viewModel.rx.disposeBag)
+                    return viewModel
                 }
             }
             return nil

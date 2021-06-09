@@ -55,11 +55,7 @@ class MessageListViewController: BaseViewController {
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         return tableView
     }()
-    
-    deinit {
-        print("message list deinit")
-    }
-    
+        
     override func makeUI() {
         self.title = NSLocalizedString("historyMessage")
         

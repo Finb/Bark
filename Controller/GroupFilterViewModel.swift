@@ -23,12 +23,16 @@ class GroupFilterViewModel: ViewModel,ViewModelType {
     
     struct Input {
         var showAllGroups:Driver<Bool>
+        var doneTap:Driver<Void>
     }
     
     struct Output {
         var groups:Driver<[ SectionModel<String, GroupCellViewModel>]>
         var isShowAllGroups:Driver<Bool>
+        var dismiss:Driver<Void>
     }
+    
+    var done = PublishRelay<[String?]>()
     
     func transform(input: Input) -> Output {
         
@@ -57,10 +61,26 @@ class GroupFilterViewModel: ViewModel,ViewModelType {
                     return viewModel.checked.value
                 }.count >= groupCellModels.count
             }
-
+        input.doneTap.map { () -> [String?] in
+            return groupCellModels
+                .filter { $0.checked.value}
+                .map { $0.name.value }
+        }
+        .asObservable()
+        .bind(to: self.done)
+        .disposed(by: rx.disposeBag);
+        
+        
+        let dismiss = PublishRelay<Void>()
+        input.doneTap.map{ _ in () }
+            .asObservable()
+            .bind(to: dismiss)
+            .disposed(by: rx.disposeBag)
+        
         return Output(
             groups: Driver.just([ SectionModel(model: "header", items: groupCellModels) ]),
-            isShowAllGroups: isShowAllGroups.asDriver(onErrorDriveWith: .empty())
+            isShowAllGroups: isShowAllGroups.asDriver(onErrorDriveWith: .empty()),
+            dismiss: dismiss.asDriver(onErrorDriveWith: .empty())
         )
     }
     

@@ -74,7 +74,8 @@ class GroupFilterViewController: BaseViewController {
                         guard let strongSelf = self else {return nil}
                         return !strongSelf.showAllGroupsButton.isSelected
                     })
-                    .asDriver(onErrorDriveWith: .empty())
+                    .asDriver(onErrorDriveWith: .empty()),
+                doneTap: self.doneButton.rx.tap.asDriver()
             ))
         
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, GroupCellViewModel>> { (source, tableView, indexPath, item) -> UITableViewCell in
@@ -93,6 +94,10 @@ class GroupFilterViewController: BaseViewController {
             .drive(self.showAllGroupsButton.rx.isSelected)
             .disposed(by: rx.disposeBag)
         
+        output.dismiss.drive(onNext: {
+            self.dismiss(animated: true, completion: nil)
+        })
+        .disposed(by: rx.disposeBag)
     }
 }
 
