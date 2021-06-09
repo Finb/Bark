@@ -62,6 +62,12 @@ class GroupFilterViewModel: ViewModel,ViewModelType {
                 }.count >= groupCellModels.count
             }
         input.doneTap.map { () -> [String?] in
+            let isShowAllGroups = groupCellModels.filter { viewModel in
+                return viewModel.checked.value
+            }.count >= groupCellModels.count
+            if isShowAllGroups {
+                return []
+            }
             return groupCellModels
                 .filter { $0.checked.value}
                 .map { $0.name.value }

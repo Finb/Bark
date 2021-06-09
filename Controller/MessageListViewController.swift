@@ -57,8 +57,7 @@ class MessageListViewController: BaseViewController {
     }()
         
     override func makeUI() {
-        self.title = NSLocalizedString("historyMessage")
-        
+
         navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], left: false)
         
         self.view.addSubview(tableView)
@@ -186,9 +185,14 @@ class MessageListViewController: BaseViewController {
         }).disposed(by: rx.disposeBag)
         
         //选择群组
-        output.groupFilter.drive(onNext: {[weak self] groupModel in
-            self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
-        }).disposed(by: rx.disposeBag)
+        output.groupFilter
+            .drive(onNext: {[weak self] groupModel in
+                self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
+            }).disposed(by: rx.disposeBag)
+        
+        //标题
+        output.title
+            .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
         
     }
     

@@ -23,16 +23,15 @@ class MessageListViewModel: ViewModel,ViewModelType {
     }
     
     struct Output {
-        var messages:Driver<[MessageSection]>
-        var refreshAction:Driver<MJRefreshAction>
-        var alertMessage:Driver<String>
-        var urlTap:Driver<URL>
+        var messages: Driver<[MessageSection]>
+        var refreshAction: Driver<MJRefreshAction>
+        var alertMessage: Driver<String>
+        var urlTap: Driver<URL>
         var groupFilter: Driver<GroupFilterViewModel>
+        var title: Driver<String>
     }
     
-    private lazy var results:Results<Message>? = {
-        return getResults(filterGroups: [])
-    }()
+    private var results:Results<Message>?
     
     //根据群组获取消息
     private func getResults(filterGroups:[String?]) -> Results<Message>? {
@@ -86,8 +85,8 @@ class MessageListViewModel: ViewModel,ViewModelType {
             
             return copyContent
         }
-        
-        
+        //标题
+        let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
         // 数据源
         let messagesRelay = BehaviorRelay<[MessageSection]>(value: [])
         // 刷新操作
@@ -110,7 +109,12 @@ class MessageListViewModel: ViewModel,ViewModelType {
         //切换分组时，更换数据源
         filterGroups
             .subscribe(onNext: { [weak self] filterGroups in
-                Settings["me.fin.filterGroups"] = filterGroups
+                if filterGroups.count <= 0 {
+                    titleRelay.accept(NSLocalizedString("historyMessage"))
+                }
+                else{
+                    titleRelay.accept(filterGroups.map { $0 ?? NSLocalizedString("default") }.joined(separator: " , "))
+                }
                 self?.results = self?.getResults(filterGroups: filterGroups)
             }).disposed(by: rx.disposeBag)
         
@@ -220,6 +224,13 @@ class MessageListViewModel: ViewModel,ViewModelType {
                 
                 if let models = groupModels {
                     let viewModel = GroupFilterViewModel(groups: models)
+                    
+                    //保存选择的 group
+                    viewModel.done.subscribe(onNext: { filterGroups in
+                        Settings["me.fin.filterGroups"] = filterGroups
+                    }).disposed(by: viewModel.rx.disposeBag)
+                    
+                    //将选择绑定到当前页面
                     viewModel.done
                         .bind(to: filterGroups)
                         .disposed(by: viewModel.rx.disposeBag)
@@ -234,7 +245,8 @@ class MessageListViewModel: ViewModel,ViewModelType {
             refreshAction: refreshAction.asDriver(),
             alertMessage: alertMessage,
             urlTap: urlTap.asDriver(onErrorDriveWith: .empty()),
-            groupFilter: groupFilter.asDriver()
+            groupFilter: groupFilter.asDriver(),
+            title: titleRelay.asDriver()
         )
     }
 }
