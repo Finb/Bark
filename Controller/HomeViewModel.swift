@@ -170,12 +170,7 @@ class HomeViewModel: ViewModel, ViewModelType {
         //client state 变化时，发出相应错误提醒
         input.clientState.drive(onNext: { state in
             switch state {
-            case .ok:
-                if let url = URL(string: ServerManager.shared.currentAddress) {
-                    if url.scheme?.lowercased() != "https" {
-                        showSnackbar.accept(NSLocalizedString("InsecureConnection"))
-                    }
-                }
+            case .ok: break;
             case .serverError:
                 showSnackbar.accept(NSLocalizedString("ServerError"))
             default: break;
