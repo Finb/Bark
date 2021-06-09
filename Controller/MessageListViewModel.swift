@@ -213,6 +213,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
         let groupFilter = input.groupTap.compactMap {() -> GroupFilterViewModel? in
             if let realm = try? Realm() {
                 let groups = realm.objects(Message.self)
+                    .filter("isDeleted != true")
                     .distinct(by: ["group"])
                     .value(forKeyPath: "group") as? [String?]
                 

@@ -37,6 +37,7 @@ class GroupFilterViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView:UITableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.separatorStyle = .singleLine
+        tableView.separatorColor = Color.grey.lighten3
         tableView.backgroundColor = Color.grey.lighten5
         tableView.register(GroupTableViewCell.self, forCellReuseIdentifier: "\(GroupTableViewCell.self)")
         return tableView

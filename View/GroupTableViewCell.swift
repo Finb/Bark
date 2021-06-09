@@ -21,7 +21,7 @@ class GroupTableViewCell: BaseTableViewCell {
         btn.setImage(UIImage(named: "baseline_radio_button_unchecked_black_24pt"), for: .normal)
         btn.setImage(UIImage(named: "baseline_check_circle_outline_black_24pt"), for: .selected)
         btn.tintColor = Color.lightGray
-        btn.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
+        btn.isUserInteractionEnabled = false
         return btn
     }()
     
@@ -42,7 +42,9 @@ class GroupTableViewCell: BaseTableViewCell {
             make.top.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().offset(-15)
         }
-        checkButton.rx.tap.subscribe(onNext: {[weak self] in
+        let tap = UITapGestureRecognizer()
+        self.contentView.addGestureRecognizer(tap)
+        tap.rx.event.subscribe(onNext: {[weak self] _ in
             (self?.viewModel as? GroupCellViewModel)?.checked.accept(!self!.checkButton.isSelected)
         }).disposed(by: rx.disposeBag)
     }
