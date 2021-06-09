@@ -84,3 +84,5 @@ done = "Done";
 default = "Default";
 hideAllGroups = "Unselect All Groups";
 showAllGroups = "Select All Groups";
+groupMessagesNotice = "Grouping of messages allows you to view messages by group.";
+messageGroup = "Message grouping";

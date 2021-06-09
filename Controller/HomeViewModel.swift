@@ -56,6 +56,11 @@ class HomeViewModel: ViewModel, ViewModelType {
                 queryParameter: "isArchive=1"
                 ),
             PreviewModel(
+                body: NSLocalizedString("messageGroup"),
+                notice: NSLocalizedString("groupMessagesNotice"),
+                queryParameter: "group=groupName"
+                ),
+            PreviewModel(
                 body: "URL Test",
                 notice: NSLocalizedString("urlParameter"),
                 queryParameter: "url=https://www.baidu.com"
