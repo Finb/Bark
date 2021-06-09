@@ -95,8 +95,8 @@ class GroupFilterViewController: BaseViewController {
             .drive(self.showAllGroupsButton.rx.isSelected)
             .disposed(by: rx.disposeBag)
         
-        output.dismiss.drive(onNext: {
-            self.dismiss(animated: true, completion: nil)
+        output.dismiss.drive(onNext: {[weak self] in
+            self?.dismiss(animated: true, completion: nil)
         })
         .disposed(by: rx.disposeBag)
     }
