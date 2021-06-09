@@ -82,5 +82,5 @@ clear = "Clear";
 group = "Group";
 done = "Done";
 default = "Default";
-hideAllGroups = "Hide All Groups";
-showAllGroups = "Show All Groups";
+hideAllGroups = "Unselect All Groups";
+showAllGroups = "Select All Groups";

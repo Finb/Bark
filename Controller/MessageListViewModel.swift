@@ -85,7 +85,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
             
             return copyContent
         }
-        //标题
+        // 标题
         let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
         // 数据源
         let messagesRelay = BehaviorRelay<[MessageSection]>(value: [])
@@ -194,9 +194,11 @@ class MessageListViewModel: ViewModel,ViewModelType {
             }
             
             if let realm = try? Realm() {
-                let messages = realm.objects(Message.self).filter("createDate >= %@", date)
+                guard let messages = strongSelf.getResults(filterGroups: filterGroups.value)?.filter("createDate >= %@", date) else {
+                    return
+                }
                 try? realm.write{
-                    for msg in messages{
+                    for msg in messages {
                         msg.isDeleted = true
                     }
                 }

@@ -84,5 +84,5 @@ clear = "清除";
 group = "群组";
 done = "完成";
 default = "默认";
-hideAllGroups = "隐藏所有群组";
-showAllGroups = "显示所有群组";
+hideAllGroups = "取消所有选择";
+showAllGroups = "选择所有群组";
