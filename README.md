@@ -4,7 +4,7 @@
 ## 发送推送
 1. 打开APP，复制测试URL 
 
-<img src="http://wx3.sinaimg.cn/mw690/0060lm7Tly1g0bu1cv28lj30om0j6gng.jpg" width=365 />
+<img src="https://wx4.sinaimg.cn/mw2000/003rYfqply1grd1meqrvcj60bi08zt9i02.jpg" width=365 />
 
 2. 修改内容，请求这个URL
 ```
@@ -56,6 +56,11 @@ https://api.day.app/yourkey/百度网址?url=https://www.baidu.com
 //指定是否需要保存推送信息到历史记录，1 为保存，其他值为不保存。
 //如果不指定这个参数，推送信息将按照APP内设置来决定是否保存。
 https://api.day.app/yourkey/需要保存的推送?isArchive=1
+```
+* group
+```
+//指定推送消息分组，可在历史记录中按分组查看推送。
+https://api.day.app/yourkey/需要分组的推送?group=groupName
 ```
 ## 后端代码
 [bark-server](https://github.com/Finb/bark-server)
