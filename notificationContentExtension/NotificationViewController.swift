@@ -36,8 +36,18 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
     
     func didReceive(_ notification: UNNotification) {
-        
+        guard notification.request.content.userInfo["automaticallycopy"] as? String == "1" else {
+            return
+        }
+        if let copy = notification.request.content.userInfo["copy"] as? String
+        {
+            UIPasteboard.general.string = copy
+        }
+        else{
+            UIPasteboard.general.string = notification.request.content.body
+        }
     }
+    
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         
         let userInfo = response.notification.request.content.userInfo
