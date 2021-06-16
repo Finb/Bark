@@ -74,7 +74,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             PreviewModel(
                 body: NSLocalizedString("automaticallyCopyTitle"),
                 notice: NSLocalizedString("automaticallyCopy"),
-                queryParameter: "automaticallyCopy=1&copy=optional"
+                queryParameter: "autoCopy=1&copy=optional"
             )
         ]
     }()
