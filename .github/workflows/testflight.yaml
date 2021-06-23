@@ -2,7 +2,7 @@ name: Deploy to Testflight
 
 on:
   workflow_dispatch
-  inputs:
+    inputs:
       buildNumber:
         description: 'Build Number'
         required: false
