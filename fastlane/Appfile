@@ -1,0 +1,8 @@
+app_identifier("me.fin.bark") # The bundle identifier of your app
+apple_id("finuuid@gmail.com") # Your Apple email address
+
+itc_team_id("118137723") # App Store Connect Team ID
+team_id("5U8LBRXG3A") # Developer Portal Team ID
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

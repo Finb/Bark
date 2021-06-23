@@ -1,0 +1,42 @@
+name: Deploy to Testflight 
+
+on:
+  workflow_dispatch
+  inputs:
+      buildNumber:
+        description: 'Build Number'
+        required: false
+        default: ""
+
+jobs:
+  deploy:
+    runs-on: macos-latest
+
+    steps:      
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Select Xcode Version
+      uses: maxim-lobanov/setup-xcode@v1
+      with:
+        xcode-version: latest-stable
+
+    - name: Setup ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 2.7.2
+        bundler-cache: true
+
+    - name: Install Pods
+      run: pod install
+
+    - name: Build & Distribute to Testflight
+      run: |
+        export LC_ALL=en_US.UTF-8
+        export LANG=en_US.UTF-8
+        bundle exec fastlane beta
+      env:
+        APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_ISSUER_ID }}
+        APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_KEY_CONTENT }}
+        BARK_KEY: ${{ secrets.BARK_KEY }}
+        BUILD_NUMBER: ${{ github.event.inputs.buildNumber }}
