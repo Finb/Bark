@@ -33,7 +33,7 @@ platform :ios do
       increment_build_number(build_number: build.to_i)
     end
     
-    match(type: "appstore", readonly: is_ci, keychain_name: "login.keychain-db", keychain_password: "bark")
+    match(type: "appstore", readonly: is_ci, keychain_name: "login.keychain-db", keychain_password: "Bark")
 
     build_app(workspace: "Bark.xcworkspace", scheme: "Bark")
 
