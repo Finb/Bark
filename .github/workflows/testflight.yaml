@@ -40,3 +40,4 @@ jobs:
         APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_KEY_CONTENT }}
         BARK_KEY: ${{ secrets.BARK_KEY }}
         BUILD_NUMBER: ${{ github.event.inputs.buildNumber }}
+        MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
