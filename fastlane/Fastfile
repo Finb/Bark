@@ -22,7 +22,7 @@ platform :ios do
     apple_intermediate_certificate_path = "/tmp/AppleWWDRCAG3.cer"
     `curl https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer --output #{apple_intermediate_certificate_path}`
 
-    other_action.import_certificate(
+    import_certificate(
       certificate_path: apple_intermediate_certificate_path,
       keychain_name: "login.keychain",
       keychain_password: "bark"
