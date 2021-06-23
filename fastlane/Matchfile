@@ -2,9 +2,9 @@ git_url("https://github.com/Finb/match.git")
 
 storage_mode("git")
 
-type("development") # The default type, can be: appstore, adhoc, enterprise or development
+type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
-# app_identifier(["tools.fastlane.app", "tools.fastlane.app2"])
+app_identifier(["me.fin.bark", "me.fin.bark.NotificationContent", "me.fin.bark.NotificationServiceExtension"])
 # username("user@fastlane.tools") # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`
