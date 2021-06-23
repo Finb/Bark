@@ -32,7 +32,7 @@ platform :ios do
     app_store_connect_api_key(
       key_id: "DX95H785DP",
       issuer_id: ENV["APP_STORE_CONNECT_ISSUER_ID"],
-      key_content: ENV("APP_STORE_CONNECT_KEY_CONTENT"),
+      key_content: ENV["APP_STORE_CONNECT_KEY_CONTENT"],
       duration: 1200, # optional (maximum 1200)
       in_house: false # optional but may be required if using match/sigh
     )    
