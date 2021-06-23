@@ -22,6 +22,8 @@ platform :ios do
     if !build.nil? && !build.empty?
       increment_build_number(build_number: build.to_i)
     end
+    
+    match(type: "appstore", readonly: is_ci, keychain_name: "login.keychain", keychain_password: "bark")
 
     build_app(workspace: "Bark.xcworkspace", scheme: "Bark")
 
