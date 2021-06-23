@@ -1,4 +1,4 @@
-git_url("git@github.com:Finb/match.git")
+git_url("https://github.com/Finb/match.git")
 
 storage_mode("git")
 
