@@ -18,22 +18,14 @@ default_platform(:ios)
 platform :ios do
   desc "Push a new beta build to TestFlight"
   lane :beta do
-
-    apple_intermediate_certificate_path = "/tmp/AppleWWDRCAG3.cer"
-    `curl https://www.apple.com/certificateauthority/AppleWWDRCAG3.cer --output #{apple_intermediate_certificate_path}`
-
-    import_certificate(
-      certificate_path: apple_intermediate_certificate_path,
-      keychain_name: "login.keychain-db",
-      keychain_password: "bark"
-    )
-
+    setup_ci
+    
     build = ENV["BUILD_NUMBER"]
     if !build.nil? && !build.empty?
       increment_build_number(build_number: build.to_i)
     end
     
-    match(type: "appstore", readonly: is_ci, keychain_name: "login.keychain-db", keychain_password: "Bark")
+    match(type: "appstore", readonly: is_ci)
 
     build_app(workspace: "Bark.xcworkspace", scheme: "Bark")
 
