@@ -27,7 +27,16 @@ jobs:
         ruby-version: 2.7.2
         bundler-cache: true
 
+    - uses: actions/cache@v2
+      id: pods-cache
+      with:
+        path: Pods
+        key: ${{ runner.os }}-pods-${{ hashFiles('**/Podfile.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-pods-
+
     - name: Install Pods
+      if: steps.pods-cache.outputs.cache-hit != 'true'
       run: pod install
 
     - name: Build & Distribute to Testflight
