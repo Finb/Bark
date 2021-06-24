@@ -36,7 +36,6 @@ jobs:
           ${{ runner.os }}-pods-
 
     - name: Install Pods
-      if: steps.pods-cache.outputs.cache-hit != 'true'
       run: pod install
 
     - name: Build & Distribute to Testflight
