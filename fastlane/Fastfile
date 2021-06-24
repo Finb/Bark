@@ -40,7 +40,11 @@ platform :ios do
     upload_to_testflight
 
     bark_key = ENV["BARK_KEY"]
-    %x( curl https://api.day.app/#{bark_key}/Bark%20has%20completed%20processing )
+    %x( curl https://api.day.app/#{bark_key}/Bark%20has%20completed%20processing?isArchive=0 )
     
+  end
+
+  lane :tests do
+    run_tests(scheme: "Bark.xcworkspace", scheme: "Bark")
   end
 end
