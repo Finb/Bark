@@ -41,7 +41,7 @@ platform :ios do
 
     bark_key = ENV["BARK_KEY"]
     run_id = ENV["GITHUB_RUN_ID"]
-    %x( curl https://api.day.app/#{bark_key}/Bark%20has%20completed%20processing?isArchive=0&url=https%3A%2F%2Fgithub.com%2FFinb%2FBark%2Factions%2Fruns%2F#{run_id} )
+    %x( 'curl' 'https://api.day.app/#{bark_key}/Bark%20has%20completed%20processing?isArchive=0&url=https%3A%2F%2Fgithub.com%2FFinb%2FBark%2Factions%2Fruns%2F#{run_id}' )
     
   end
 
