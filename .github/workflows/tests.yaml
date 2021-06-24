@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  deploy:
+  tests:
     runs-on: macos-latest
 
     steps:      
