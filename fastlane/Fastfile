@@ -17,12 +17,17 @@ default_platform(:ios)
 
 platform :ios do
   desc "Push a new beta build to TestFlight"
-  lane :beta do
+  lane :beta do | options |
     setup_ci
     
-    build = ENV["BUILD_NUMBER"]
+    build = options[:build_number]
     if !build.nil? && !build.empty?
       increment_build_number(build_number: build.to_i)
+    end
+    
+    run_id = ENV["GITHUB_RUN_ID"]
+    if !run_id.nil? && !run_id.empty?
+      set_info_plist_value(path: "./Bark/Info.plist", key: "GitHub Run Id", value: run_id)
     end
     
     match(type: "appstore", readonly: is_ci)
@@ -40,7 +45,6 @@ platform :ios do
     upload_to_testflight
 
     bark_key = ENV["BARK_KEY"]
-    run_id = ENV["GITHUB_RUN_ID"]
     %x( curl https://api.day.app/#{bark_key}/Bark%20has%20completed%20processing?isArchive=0&url=https%3A%2F%2Fgithub.com%2FFinb%2FBark%2Factions%2Fruns%2F#{run_id} )
     
   end

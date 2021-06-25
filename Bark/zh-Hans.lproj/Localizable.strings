@@ -88,3 +88,11 @@ hideAllGroups = "取消所有选择";
 showAllGroups = "选择所有群组";
 groupMessagesNotice = "对消息进行分组，可以选择查看不同的群组。";
 messageGroup = "推送消息分组";
+
+buildInfo = "构建信息";
+buildDesc = "Bark 由 GitHub Actions 构建后上传到 App Store，此信息可帮助你确认当前版本是由开源代码所构建，未经任何人修改。";
+
+other = "其他";
+faq = "常见问题";
+appSC = "App源代码";
+backendSC = "后端源代码";

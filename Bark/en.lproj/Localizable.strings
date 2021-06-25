@@ -86,3 +86,11 @@ hideAllGroups = "Unselect All Groups";
 showAllGroups = "Select All Groups";
 groupMessagesNotice = "Grouping of messages allows you to view messages by group.";
 messageGroup = "Message grouping";
+
+buildInfo = "Build Info";
+buildDesc = "Bark was uploaded to the App Store by Github Actions.";
+
+other = "Other";
+faq = "FAQ";
+appSC = "App Source Code";
+backendSC = "Backend Source Code";
