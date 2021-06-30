@@ -60,7 +60,7 @@ class SoundCell: BaseTableViewCell {
             .bind(to: nameLabel.rx.text)
             .disposed(by: rx.reuseBag)
         viewModel.duration
-            .map { String(format: "%.2f", CMTimeGetSeconds($0) ) }
+            .map { String(format: "%.2g second(s)", CMTimeGetSeconds($0) ) }
             .bind(to: durationLabel.rx.text)
             .disposed(by: rx.reuseBag)
         

@@ -20,6 +20,11 @@ platform :ios do
   lane :beta do | options |
     setup_ci
     
+    version = options[:store_version_number]
+    if !version.nil? && !version.empty?
+      increment_version_number(version_number: version)
+    end
+
     build = options[:build_number]
     if !build.nil? && !build.empty?
       increment_build_number(build_number: build.to_i)
