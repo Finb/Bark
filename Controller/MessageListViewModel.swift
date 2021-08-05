@@ -44,7 +44,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
                 results = results.filter("group in %@", filterGroups)
             }
             if let text = searchText, text.count > 0 {
-                results = results.filter("title contains '\(text)' or body contains '\(text)'")
+                results = results.filter("title contains[c] '\(text)' or body contains[c] '\(text)'")
             }
             return results
         }
