@@ -20,6 +20,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
         var itemSelected: Driver<MessageTableViewCellViewModel>
         var delete: Driver<MessageDeleteType>
         var groupTap: Driver<Void>
+        var searchText: Observable<String?>
     }
     
     struct Output {
@@ -34,13 +35,16 @@ class MessageListViewModel: ViewModel,ViewModelType {
     private var results:Results<Message>?
     
     //根据群组获取消息
-    private func getResults(filterGroups:[String?]) -> Results<Message>? {
+    private func getResults(filterGroups:[String?], searchText:String?) -> Results<Message>? {
         if let realm = try? Realm() {
             var results = realm.objects(Message.self)
                 .filter("isDeleted != true")
                 .sorted(byKeyPath: "createDate", ascending: false)
             if filterGroups.count > 0 {
                 results = results.filter("group in %@", filterGroups)
+            }
+            if let text = searchText, text.count > 0 {
+                results = results.filter("title contains '\(text)' or body contains '\(text)'")
             }
             return results
         }
@@ -106,21 +110,31 @@ class MessageListViewModel: ViewModel,ViewModelType {
             })
             return [MessageSection(header: "model", messages: cellViewModels)]
         }
-        //切换分组时，更换数据源
+        //切换分组时，更新分组名
         filterGroups
-            .subscribe(onNext: { [weak self] filterGroups in
+            .subscribe(onNext: {filterGroups in
                 if filterGroups.count <= 0 {
                     titleRelay.accept(NSLocalizedString("historyMessage"))
                 }
                 else{
                     titleRelay.accept(filterGroups.map { $0 ?? NSLocalizedString("default") }.joined(separator: " , "))
                 }
-                self?.results = self?.getResults(filterGroups: filterGroups)
             }).disposed(by: rx.disposeBag)
         
+        //切换分组和更改搜索词时，更新数据源
+        Observable
+            .combineLatest(filterGroups, input.searchText)
+            .subscribe(onNext: {[weak self] groups, searchText in
+                self?.results = self?.getResults(filterGroups: groups, searchText: searchText)
+            }).disposed(by: rx.disposeBag)
+
         //切换分组和下拉刷新时，重新刷新列表
         Observable
-            .merge(input.refresh.asObservable().map{ () },filterGroups.map{ _ in () })
+            .merge(
+                input.refresh.asObservable().map{ () },
+                filterGroups.map{ _ in () },
+                input.searchText.asObservable().map{ _ in () }
+            )
             .subscribe(onNext: {[weak self]  in
                 guard let strongSelf = self else { return }
                 strongSelf.page = 0
@@ -194,7 +208,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
             }
             
             if let realm = try? Realm() {
-                guard let messages = strongSelf.getResults(filterGroups: filterGroups.value)?.filter("createDate >= %@", date) else {
+                guard let messages = strongSelf.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@", date) else {
                     return
                 }
                 try? realm.write{

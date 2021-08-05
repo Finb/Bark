@@ -57,7 +57,9 @@ class MessageListViewController: BaseViewController {
     }()
         
     override func makeUI() {
-
+        navigationItem.searchController = UISearchController(searchResultsController: nil)
+        navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+        
         navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], left: false)
         
         self.view.addSubview(tableView)
@@ -141,7 +143,8 @@ class MessageListViewController: BaseViewController {
                 itemDelete: tableView.rx.itemDeleted.asDriver(),
                 itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
                 delete:batchDelete.asDriver(onErrorDriveWith: .empty()),
-                groupTap: groupButton.rx.tap.asDriver()
+                groupTap: groupButton.rx.tap.asDriver(),
+                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
             ))
         
         //tableView 刷新状态
