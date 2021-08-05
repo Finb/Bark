@@ -59,6 +59,7 @@ class MessageListViewController: BaseViewController {
     override func makeUI() {
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController?.delegate = self
         
         navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], left: false)
         
@@ -234,10 +235,25 @@ extension MessageListViewController: UITableViewDelegate {
     }
 }
 
-extension MessageListViewController {
+extension MessageListViewController: UISearchControllerDelegate{
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if self.navigationItem.searchController?.searchBar.isFirstResponder == true{
             self.navigationItem.searchController?.searchBar.resignFirstResponder()
+        }
+    }
+    func willDismissSearchController(_ searchController: UISearchController) {
+        if !searchController.searchBar.isFirstResponder{
+            /*
+             searchBar 不在焦点时，点击搜索框右边的取消按钮时，不会触发 searchBar.rx.text 更改事件
+             searchBar.rx.text 将一直保留为最后的文本
+             但我们预期是要更新为 nil 的，因为再次点击searchBar，searchBar.text 显示的是 nil
+             可能对用户造成困惑，搜索框里没有输入任何keyword，但消息列表却被错误的keyword过滤了
+             
+             另外直接给 text 赋值，并不能触发 searchBar.rx.text，
+             需要手动发送一下actions
+             */
+            searchController.searchBar.searchTextField.text = nil
+            searchController.searchBar.searchTextField.sendActions(for: .editingDidEnd)
         }
     }
 }
