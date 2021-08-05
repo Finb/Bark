@@ -233,3 +233,11 @@ extension MessageListViewController: UITableViewDelegate {
         return configuration
     }
 }
+
+extension MessageListViewController {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if self.navigationItem.searchController?.searchBar.isFirstResponder == true{
+            self.navigationItem.searchController?.searchBar.resignFirstResponder()
+        }
+    }
+}
