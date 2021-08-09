@@ -58,7 +58,8 @@ class HomeViewModel: ViewModel, ViewModelType {
             PreviewModel(
                 body: NSLocalizedString("messageGroup"),
                 notice: NSLocalizedString("groupMessagesNotice"),
-                queryParameter: "group=groupName"
+                queryParameter: "group=groupName",
+                image: UIImage(named: "group")
                 ),
             PreviewModel(
                 body: "URL Test",

@@ -86,7 +86,7 @@ done = "完成";
 default = "默认";
 hideAllGroups = "取消所有选择";
 showAllGroups = "选择所有群组";
-groupMessagesNotice = "对消息进行分组，可以选择查看不同的群组。";
+groupMessagesNotice = "对消息进行分组，推送将按group分组显示在通知中心中。\n也可在历史消息列表中选择查看不同的群组。";
 messageGroup = "推送消息分组";
 
 buildInfo = "构建信息";
