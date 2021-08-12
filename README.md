@@ -1,5 +1,5 @@
-## iOS14.5 不能复制推送的问题
-参数 automaticallyCopy 自动复制推送内容功能在 iOS14.5 失效，可暂时先下拉推送或在锁屏界面左滑推送点查看，点击复制按钮来复制推送内容。
+## 常见问题
+[https://day.app/2021/06/barkfaq/](https://day.app/2021/06/barkfaq/)
 
 ## 发送推送
 1. 打开APP，复制测试URL 
