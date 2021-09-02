@@ -2,7 +2,7 @@
 [https://day.app/2021/06/barkfaq/](https://day.app/2021/06/barkfaq/)
 
 ## 问题反馈 Telegram 群
-[joinchat](https://t.me/joinchat/OsCbLzovUAE0YjY1)
+[Bark反馈群](https://t.me/joinchat/OsCbLzovUAE0YjY1)
 
 ## 发送推送
 1. 打开APP，复制测试URL 
