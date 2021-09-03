@@ -90,7 +90,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
         .first?
         .on
         .subscribe(onNext: { (on) in
-            NotificationDismissSettingManager.shared.isArchive = on
+            NotificationDismissSettingManager.shared.willDismiss = on
         }).disposed(by: rx.disposeBag)
         
         let openUrl = input.itemSelected.compactMap { item -> URL? in
