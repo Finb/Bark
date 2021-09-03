@@ -63,12 +63,16 @@ extension MessageTableViewCellViewModel: IdentifiableType {
     typealias Identity = String
     
     var identity: String{
-        return self.message.id
+        return "\(self.message.id)"
     }
-    override func isEqual(_ object: Any?) -> Bool {
-        if let obj = object as? MessageTableViewCellViewModel {
-            return self.identity == obj.identity
-        }
-        return super.isEqual(object)
-    }
+    
+    // 移除掉，因会导致下拉刷新时，新的 MessageTableViewCellViewModel 没有绑定到 cell 上
+    // MessageListViewModel 监听了新的 MessageTableViewCellViewModel 的 urlTap ，但cell绑定的是旧的
+    // 导致 下拉刷新后， url 点击没反应。
+//    override func isEqual(_ object: Any?) -> Bool {
+//        if let obj = object as? MessageTableViewCellViewModel {
+//            return self.identity == obj.identity
+//        }
+//        return super.isEqual(object)
+//    }
 }
