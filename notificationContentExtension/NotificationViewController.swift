@@ -14,7 +14,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
 
     let noticeLabel:UILabel = {
         let label = UILabel()
-        label.textColor = UIColor.black
+        label.textColor = UIColor.init(named: "notification_copy_color")
         label.text = NSLocalizedString("Copy", comment: "")
         label.font = UIFont.systemFont(ofSize: 16)
         label.textAlignment = .center
