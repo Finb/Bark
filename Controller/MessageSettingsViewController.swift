@@ -17,6 +17,7 @@ class MessageSettingsViewController: BaseViewController {
         tableView.register(LabelCell.self, forCellReuseIdentifier: "\(LabelCell.self)")
         tableView.register(iCloudStatusCell.self, forCellReuseIdentifier: "\(iCloudStatusCell.self)")
         tableView.register(ArchiveSettingCell.self, forCellReuseIdentifier: "\(ArchiveSettingCell.self)")
+        tableView.register(NotificationSettingCell.self, forCellReuseIdentifier: "\(NotificationSettingCell.self)")
         tableView.register(DetailTextCell.self, forCellReuseIdentifier: "\(DetailTextCell.self)")
         tableView.register(SpacerCell.self, forCellReuseIdentifier: "\(SpacerCell.self)")
         
@@ -53,6 +54,11 @@ class MessageSettingsViewController: BaseViewController {
                 }
             case .archiveSetting(let viewModel):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ArchiveSettingCell.self)") as? ArchiveSettingCell {
+                    cell.bindViewModel(model: viewModel)
+                    return cell
+                }
+            case .notificationSetting(let viewModel):
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "\(NotificationSettingCell.self)") as? NotificationSettingCell {
                     cell.bindViewModel(model: viewModel)
                     return cell
                 }

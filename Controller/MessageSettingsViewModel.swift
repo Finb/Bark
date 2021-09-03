@@ -30,6 +30,9 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             settings.append(.label(text: NSLocalizedString("defaultArchiveSettings")))
             settings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: ArchiveSettingManager.shared.isArchive)))
             settings.append(.label(text: NSLocalizedString("archiveNote")))
+            settings.append(.notificationSetting(viewModel: NotificationSettingCellViewModel(on: NotificationDismissSettingManager.shared.willDismiss)))
+            settings.append(.label(text: NSLocalizedString("notificationNote")))
+            
             
             if let infoDict = Bundle.main.infoDictionary,
                let runId = infoDict["GitHub Run Id"] as? String{
@@ -77,7 +80,19 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
         .subscribe(onNext: { (on) in
             ArchiveSettingManager.shared.isArchive = on
         }).disposed(by: rx.disposeBag)
-
+        
+        settings.compactMap { (item) -> NotificationSettingCellViewModel? in
+            if case let MessageSettingItem.notificationSetting(viewModel) = item {
+                return viewModel
+            }
+            return nil
+        }
+        .first?
+        .on
+        .subscribe(onNext: { (on) in
+            NotificationDismissSettingManager.shared.isArchive = on
+        }).disposed(by: rx.disposeBag)
+        
         let openUrl = input.itemSelected.compactMap { item -> URL? in
             if case let MessageSettingItem.detail(_, _, _, url) = item {
                 return url
@@ -102,6 +117,8 @@ enum MessageSettingItem {
     case iCloudStatus
     // 默认保存
     case archiveSetting(viewModel:ArchiveSettingCellViewModel)
+    // 默认不收回
+    case notificationSetting(viewModel:NotificationSettingCellViewModel)
     // 带 详细按钮的 文本cell
     case detail(title:String?, text:String?, textColor:UIColor?, url:URL?)
     // 分隔线
