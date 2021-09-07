@@ -23,6 +23,7 @@ def pods
     pod 'NSObject+Rx'
     
     pod 'MJRefresh'
+    pod 'Kingfisher'
 end
 
 target 'Bark' do
@@ -32,4 +33,5 @@ end
 
 target 'NotificationServiceExtension' do
     pod 'IceCream'
+    pod 'Kingfisher'
 end
