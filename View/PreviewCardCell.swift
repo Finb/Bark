@@ -17,14 +17,14 @@ class PreviewCardCell: BaseTableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.grey.darken1
+        label.textColor = Color.grey.darken3
         label.numberOfLines = 0
         return label
     }()
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.grey.base
+        label.textColor = Color.grey.darken2
         label.numberOfLines = 0
         return label
     }()
