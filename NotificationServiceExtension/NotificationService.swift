@@ -104,53 +104,49 @@ class NotificationService: UNNotificationServiceExtension {
             return
         }
         
-        // 远程图片
-        if imageUrl.hasPrefix("http")
-        {
-            guard let imageResource = URL(string: imageUrl) else {
-                complection()
-                return
-            }
+        func finished(imageFileUrl: String){
+            let copyDestUrl = URL(fileURLWithPath: imageFileUrl).appendingPathExtension(".tmp")
+            // 将图片缓存复制一份，推送使用完后会自动删除，但图片缓存需要留着以后在历史记录里查看
+            try? FileManager.default.copyItem(
+                at: URL(fileURLWithPath: imageFileUrl),
+                to: copyDestUrl)
             
-            func finished(){
-                let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
-                let copyDestUrl = URL(fileURLWithPath: cacheFileUrl).appendingPathExtension(".tmp")
-                // 将图片缓存复制一份，推送使用完后会自动删除，但图片缓存需要留着以后在历史记录里查看
-                try? FileManager.default.copyItem(
-                    at: URL(fileURLWithPath: cacheFileUrl),
-                    to: copyDestUrl)
-                
-                if  let attachment  = try? UNNotificationAttachment(
-                        identifier: "image",
-                        url: copyDestUrl,
-                        options: [UNNotificationAttachmentOptionsTypeHintKey : kUTTypePNG]){
-                    bestAttemptContent.attachments = [ attachment ]
-                }
-                complection()
+            if  let attachment  = try? UNNotificationAttachment(
+                    identifier: "image",
+                    url: copyDestUrl,
+                    options: [UNNotificationAttachmentOptionsTypeHintKey : kUTTypePNG]){
+                bestAttemptContent.attachments = [ attachment ]
             }
-            
-            
-            // 先查看图片缓存
-            if cache.diskStorage.isCached(forKey: imageResource.cacheKey) {
-                finished()
-                return
-            }
-            
-            // 下载图片
-            Kingfisher.ImageDownloader.default.downloadImage(with: imageResource, options: nil) { result in
-                guard let result = try? result.get() else {
-                    complection()
-                    return
-                }
-                // 缓存图片
-                cache.storeToDisk(result.originalData, forKey: imageResource.cacheKey, expiration: StorageExpiration.never) { r in
-                    finished()
-                }
-            }
-        }
-        // 本地图片
-        else{
             complection()
+        }
+        
+        // 远程图片
+        guard let imageResource = URL(string: imageUrl) else {
+            complection()
+            return
+        }
+        
+        func downloadFinished(){
+            let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
+            finished(imageFileUrl: cacheFileUrl)
+        }
+
+        // 先查看图片缓存
+        if cache.diskStorage.isCached(forKey: imageResource.cacheKey) {
+            downloadFinished()
+            return
+        }
+        
+        // 下载图片
+        Kingfisher.ImageDownloader.default.downloadImage(with: imageResource, options: nil) { result in
+            guard let result = try? result.get() else {
+                complection()
+                return
+            }
+            // 缓存图片
+            cache.storeToDisk(result.originalData, forKey: imageResource.cacheKey, expiration: StorageExpiration.never) { r in
+                downloadFinished()
+            }
         }
     }
     
