@@ -4,7 +4,7 @@ storage_mode("git")
 
 type("appstore") # The default type, can be: appstore, adhoc, enterprise or development
 
-app_identifier(["me.fin.bark", "me.fin.bark.NotificationContent", "me.fin.bark.NotificationServiceExtension"])
+app_identifier(["me.fin.bark", "me.fin.bark.NotificationContent", "me.fin.bark.NotificationServiceExtension", "me.fin.bark.Intent"])
 # username("user@fastlane.tools") # Your Apple Developer Portal username
 
 # For all available options run `fastlane match --help`
