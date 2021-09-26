@@ -56,6 +56,12 @@ class HomeViewModel: ViewModel, ViewModelType {
                 queryParameter: "isArchive=1"
                 ),
             PreviewModel(
+                body: NSLocalizedString("notificationIcon"),
+                notice: NSLocalizedString("notificationIconNotice"),
+                queryParameter: "icon=https://day.app/assets/images/avatar.jpg",
+                image: UIImage(named: "icon")
+                ),
+            PreviewModel(
                 body: NSLocalizedString("messageGroup"),
                 notice: NSLocalizedString("groupMessagesNotice"),
                 queryParameter: "group=groupName",

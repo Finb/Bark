@@ -11,6 +11,7 @@ import UserNotifications
 import RealmSwift
 import Kingfisher
 import MobileCoreServices
+import Intents
 class NotificationService: UNNotificationServiceExtension {
     
     var contentHandler: ((UNNotificationContent) -> Void)?
@@ -94,17 +95,56 @@ class NotificationService: UNNotificationServiceExtension {
     ///   - userInfo: 推送参数
     ///   - bestAttemptContent: 推送content
     ///   - complection: 下载图片完毕后的回调函数
-    fileprivate func downloadImage(_ userInfo: [AnyHashable : Any], content bestAttemptContent: UNMutableNotificationContent, complection: @escaping () -> () ) {
-        
-        guard let imageUrl = userInfo["image"] as? String,
-              let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark"),
-              let cache = try? ImageCache(name: "shared",cacheDirectoryURL: groupUrl)
+    fileprivate func downloadImage(_ imageUrl:String, complection: @escaping (_ imageFileUrl:String?) -> () ) {
+        guard let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark"),
+              let cache = try? ImageCache(name: "shared",cacheDirectoryURL: groupUrl),
+              let imageResource = URL(string: imageUrl)
         else {
+            complection(nil)
+            return
+        }
+        
+        func downloadFinished(){
+            let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
+            complection(cacheFileUrl)
+        }
+
+        // 先查看图片缓存
+        if cache.diskStorage.isCached(forKey: imageResource.cacheKey) {
+            downloadFinished()
+            return
+        }
+        
+        // 下载图片
+        Kingfisher.ImageDownloader.default.downloadImage(with: imageResource, options: nil) { result in
+            guard let result = try? result.get() else {
+                complection(nil)
+                return
+            }
+            // 缓存图片
+            cache.storeToDisk(result.originalData, forKey: imageResource.cacheKey, expiration: StorageExpiration.never) { r in
+                downloadFinished()
+            }
+        }
+    }
+    
+    /// 下载推送图片
+    /// - Parameters:
+    ///   - userInfo: 推送参数
+    ///   - bestAttemptContent: 推送content
+    ///   - complection: 下载图片完毕后的回调函数
+    fileprivate func setImage(_ userInfo: [AnyHashable : Any], content bestAttemptContent: UNMutableNotificationContent, complection: @escaping () -> () ) {
+        
+        guard let imageUrl = userInfo["image"] as? String else {
             complection()
             return
         }
         
-        func finished(imageFileUrl: String){
+        func finished(_ imageFileUrl: String?){
+            guard let imageFileUrl = imageFileUrl else {
+                complection()
+                return
+            }
             let copyDestUrl = URL(fileURLWithPath: imageFileUrl).appendingPathExtension(".tmp")
             // 将图片缓存复制一份，推送使用完后会自动删除，但图片缓存需要留着以后在历史记录里查看
             try? FileManager.default.copyItem(
@@ -120,33 +160,78 @@ class NotificationService: UNNotificationServiceExtension {
             complection()
         }
         
-        // 远程图片
-        guard let imageResource = URL(string: imageUrl) else {
-            complection()
-            return
-        }
-        
-        func downloadFinished(){
-            let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
-            finished(imageFileUrl: cacheFileUrl)
-        }
-
-        // 先查看图片缓存
-        if cache.diskStorage.isCached(forKey: imageResource.cacheKey) {
-            downloadFinished()
-            return
-        }
-        
-        // 下载图片
-        Kingfisher.ImageDownloader.default.downloadImage(with: imageResource, options: nil) { result in
-            guard let result = try? result.get() else {
+        downloadImage(imageUrl, complection: finished)
+    }
+    
+    fileprivate func setIcon(_ userInfo: [AnyHashable : Any], content bestAttemptContent: UNMutableNotificationContent, complection: @escaping () -> () ) {
+        if #available(iOSApplicationExtension 15.0, *) {
+            guard let imageUrl = userInfo["icon"] as? String else {
                 complection()
                 return
             }
-            // 缓存图片
-            cache.storeToDisk(result.originalData, forKey: imageResource.cacheKey, expiration: StorageExpiration.never) { r in
-                downloadFinished()
+            
+            func finished(_ imageFileUrl: String?){
+                guard let imageFileUrl = imageFileUrl else {
+                    complection()
+                    return
+                }
+                var personNameComponents = PersonNameComponents()
+                personNameComponents.nickname = bestAttemptContent.title
+                
+                let avatar = INImage(imageData: NSData(contentsOfFile: imageFileUrl)! as Data)
+                let senderPerson = INPerson(
+                    personHandle: INPersonHandle(value: "", type: .unknown),
+                    nameComponents: personNameComponents,
+                    displayName: personNameComponents.nickname,
+                    image: avatar,
+                    contactIdentifier: nil,
+                    customIdentifier: nil,
+                    isMe: false,
+                    suggestionType: .none
+                )
+                let mePerson = INPerson(
+                    personHandle: INPersonHandle(value: "", type: .unknown),
+                    nameComponents: nil,
+                    displayName: nil,
+                    image: nil,
+                    contactIdentifier: nil,
+                    customIdentifier: nil,
+                    isMe: true,
+                    suggestionType: .none
+                )
+                
+                let intent = INSendMessageIntent(
+                    recipients: [mePerson],
+                    outgoingMessageType: .outgoingMessageText,
+                    content: bestAttemptContent.body,
+                    speakableGroupName: INSpeakableString(spokenPhrase: personNameComponents.nickname ?? ""),
+                    conversationIdentifier: "sampleConversationIdentifier",
+                    serviceName: nil,
+                    sender: senderPerson,
+                    attachments: nil
+                )
+                
+                intent.setImage(avatar, forParameterNamed: \.sender)
+                
+                let interaction = INInteraction(intent: intent, response: nil)
+                interaction.direction = .incoming
+                
+                interaction.donate(completion: nil)
+                
+                do {
+                    let content = try self.bestAttemptContent!.updating(from: intent) as! UNMutableNotificationContent
+                    self.bestAttemptContent = content
+                } catch {
+                    // Handle error
+                }
+                
+                complection()
             }
+            
+            downloadImage(imageUrl, complection: finished)
+        }
+        else{
+            complection()
         }
     }
     
@@ -162,10 +247,14 @@ class NotificationService: UNNotificationServiceExtension {
             autoCopy(userInfo, defaultCopy: bestAttemptContent.body)
             // 保存推送
             archive(userInfo)
-            // 下载图片，设置到推送中
-            downloadImage(userInfo, content: bestAttemptContent) {
-                contentHandler(bestAttemptContent)
+            // 设置推送图标
+            setIcon(userInfo, content: self.bestAttemptContent!) {
+                // 设置推送图片
+                self.setImage(userInfo, content: self.bestAttemptContent!) {
+                    contentHandler(self.bestAttemptContent!)
+                }
             }
+            
         }
         else{
             contentHandler(bestAttemptContent!)

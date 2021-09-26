@@ -94,3 +94,6 @@ other = "Other";
 faq = "FAQ";
 appSC = "App Source Code";
 backendSC = "Backend Source Code";
+
+notificationIcon = "Custom Icon";
+notificationIconNotice = "Set a custom icon for the push and the set icon will replace the default Bark icon. Icons are automatically cached locally.";
