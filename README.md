@@ -65,7 +65,13 @@ https://api.day.app/yourkey/需要保存的推送?isArchive=1
 //指定推送消息分组，可在历史记录中按分组查看推送。
 https://api.day.app/yourkey/需要分组的推送?group=groupName
 ```
-## 后端代码
+* icon (仅 iOS15 或以上支持）
+```
+//指定推送消息图标
+https://api.day.app/yourkey/需要自定义图标的推送?icon=http://day.app/assets/images/avatar.jpg
+```
+
+## 后端代码 
 [bark-server](https://github.com/Finb/bark-server)
 >将后端代码部署在你自己的服务器上。支持Docker
 
