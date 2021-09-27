@@ -62,8 +62,13 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
 
         self.preferredContentSize = CGSize(width: 0, height: 40)
         self.noticeLabel.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40)
+        if NotificationDismissSettingManager.shared.willDismiss {
+            completion(.dismiss)
+        }
+        else {
+            completion(.doNotDismiss)
+        }
         
-        completion(.doNotDismiss)
 
     }
 }

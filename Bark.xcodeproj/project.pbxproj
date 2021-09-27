@@ -110,6 +110,10 @@
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
 		06EE1FD326843E9300586708 /* BarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EE1FD226843E9300586708 /* BarkTests.swift */; };
 		6AF9CC9B5F6CD2BF86509897 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */; };
+		7AC5601E26E2ADDA0066AB40 /* NotificationDismissSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5601D26E2ADDA0066AB40 /* NotificationDismissSettingManager.swift */; };
+		7AC5602026E2AE300066AB40 /* NotificationSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5601F26E2AE300066AB40 /* NotificationSettingCell.swift */; };
+		7AC5602226E2AE400066AB40 /* NotificationSettingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5602126E2AE400066AB40 /* NotificationSettingCellViewModel.swift */; };
+		7AC5602426E2B2130066AB40 /* NotificationDismissSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AC5601D26E2ADDA0066AB40 /* NotificationDismissSettingManager.swift */; };
 		ACC117FABC6F8E44060B8D80 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */; };
 /* End PBXBuildFile section */
 
@@ -273,6 +277,9 @@
 		14F0F73EC45A35FC2482F967 /* Pods_NotificationContentExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationContentExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
 		68049930BAF79AFBD8B109B8 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		7AC5601D26E2ADDA0066AB40 /* NotificationDismissSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationDismissSettingManager.swift; sourceTree = "<group>"; };
+		7AC5601F26E2AE300066AB40 /* NotificationSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingCell.swift; sourceTree = "<group>"; };
+		7AC5602126E2AE400066AB40 /* NotificationSettingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSettingCellViewModel.swift; sourceTree = "<group>"; };
 		87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
 		A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -357,6 +364,8 @@
 				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
 				06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */,
+				7AC5601F26E2AE300066AB40 /* NotificationSettingCell.swift */,
+				7AC5602126E2AE400066AB40 /* NotificationSettingCellViewModel.swift */,
 				060481EF250F51CA00BC9799 /* SoundCell.swift */,
 				065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */,
 				062B98C2251B2762004562E7 /* BKButton.swift */,
@@ -442,6 +451,7 @@
 				0637FA7D20E0969800E80174 /* Client.swift */,
 				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
 				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
+				7AC5601D26E2ADDA0066AB40 /* NotificationDismissSettingManager.swift */,
 				06BBB8C82567B6730076F63E /* Operators.swift */,
 				0633E809256A091B00ED0680 /* MJRefresh+Rx.swift */,
 			);
@@ -860,6 +870,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7AC5602426E2B2130066AB40 /* NotificationDismissSettingManager.swift in Sources */,
 				0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -880,6 +891,7 @@
 				06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */,
 				06BBB8C92567B6730076F63E /* Operators.swift in Sources */,
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
+				7AC5602026E2AE300066AB40 /* NotificationSettingCell.swift in Sources */,
 				06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */,
 				0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */,
 				0633E80A256A091B00ED0680 /* MJRefresh+Rx.swift in Sources */,
@@ -902,6 +914,8 @@
 				06AE311E266F54CC00B39FBB /* GroupCellViewModel.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
+				7AC5602226E2AE400066AB40 /* NotificationSettingCellViewModel.swift in Sources */,
+				7AC5601E26E2ADDA0066AB40 /* NotificationDismissSettingManager.swift in Sources */,
 				067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
 				06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */,

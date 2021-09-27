@@ -61,6 +61,9 @@ iCloudSync = "Notification messages will be synced when iCloud is available";
 defaultArchiveSettings = "Archive by default";
 archiveNote = "When the isArchive parameter is not specified in the push request URL, whether to archive the notification message will be decided according to this setting";
 
+defaultNotificationSettings = "Do not dismiss by default";
+notificationNote = "Notification will not be dismissed after copy by default, change to dismiss notification after copy";
+
 archiveNotificationMessageTitle = "Archive notification message";
 archiveNotificationMessage = "Notification message will be archived when isArchive value is 1, and will not be archived when the value is 0.\nIf the isArchive parameter is not specified, the notification message will be archived according to the default settings";
 
