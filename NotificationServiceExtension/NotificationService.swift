@@ -15,7 +15,6 @@ import Intents
 class NotificationService: UNNotificationServiceExtension {
     
     var contentHandler: ((UNNotificationContent) -> Void)?
-    var bestAttemptContent: UNMutableNotificationContent?
     
     lazy var realm:Realm? = {
         let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
@@ -30,12 +29,10 @@ class NotificationService: UNNotificationServiceExtension {
                     // Realm will automatically detect new properties and removed properties
                     // And will update the schema on disk automatically
                 }
-        })
-
+            })
+        
         // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = config
-
-
         return try? Realm()
     }()
     
@@ -44,14 +41,14 @@ class NotificationService: UNNotificationServiceExtension {
     /// - Parameters:
     ///   - userInfo: 推送参数
     ///   - bestAttemptContentBody: 推送body，如果用户`没有指定要复制的值` ，默认复制 `推送正文`
-    fileprivate func autoCopy(_ userInfo: [AnyHashable : Any], defaultCopy  bestAttemptContentBody: String) {
+    fileprivate func autoCopy(_ userInfo: [AnyHashable : Any], defaultCopy: String) {
         if userInfo["autocopy"] as? String == "1"
             || userInfo["automaticallycopy"] as? String == "1"{
             if let copy = userInfo["copy"] as? String {
                 UIPasteboard.general.string = copy
             }
             else{
-                UIPasteboard.general.string = bestAttemptContentBody
+                UIPasteboard.general.string = defaultCopy
             }
         }
     }
@@ -108,7 +105,7 @@ class NotificationService: UNNotificationServiceExtension {
             let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
             complection(cacheFileUrl)
         }
-
+        
         // 先查看图片缓存
         if cache.diskStorage.isCached(forKey: imageResource.cacheKey) {
             downloadFinished()
@@ -128,21 +125,21 @@ class NotificationService: UNNotificationServiceExtension {
         }
     }
     
-    /// 下载推送图片
+    /// 设置推送图片
     /// - Parameters:
-    ///   - userInfo: 推送参数
     ///   - bestAttemptContent: 推送content
     ///   - complection: 下载图片完毕后的回调函数
-    fileprivate func setImage(_ userInfo: [AnyHashable : Any], content bestAttemptContent: UNMutableNotificationContent, complection: @escaping () -> () ) {
-        
+    fileprivate func setImage(content bestAttemptContent: UNMutableNotificationContent,
+                              complection: @escaping (_ content:UNMutableNotificationContent) -> () ) {
+        let userInfo = bestAttemptContent.userInfo
         guard let imageUrl = userInfo["image"] as? String else {
-            complection()
+            complection(bestAttemptContent)
             return
         }
         
         func finished(_ imageFileUrl: String?){
             guard let imageFileUrl = imageFileUrl else {
-                complection()
+                complection(bestAttemptContent)
                 return
             }
             let copyDestUrl = URL(fileURLWithPath: imageFileUrl).appendingPathExtension(".tmp")
@@ -152,27 +149,33 @@ class NotificationService: UNNotificationServiceExtension {
                 to: copyDestUrl)
             
             if  let attachment  = try? UNNotificationAttachment(
-                    identifier: "image",
-                    url: copyDestUrl,
-                    options: [UNNotificationAttachmentOptionsTypeHintKey : kUTTypePNG]){
+                identifier: "image",
+                url: copyDestUrl,
+                options: [UNNotificationAttachmentOptionsTypeHintKey : kUTTypePNG]){
                 bestAttemptContent.attachments = [ attachment ]
             }
-            complection()
+            complection(bestAttemptContent)
         }
         
         downloadImage(imageUrl, complection: finished)
     }
     
-    fileprivate func setIcon(_ userInfo: [AnyHashable : Any], content bestAttemptContent: UNMutableNotificationContent, complection: @escaping () -> () ) {
+    /// 设置推送 icon
+    /// - Parameters:
+    ///   - bestAttemptContent: 推送 content
+    ///   - complection: 设置完成后的回调参数
+    fileprivate func setIcon(content bestAttemptContent: UNMutableNotificationContent,
+                             complection: @escaping (_ content:UNMutableNotificationContent) -> () ) {
         if #available(iOSApplicationExtension 15.0, *) {
+            let userInfo = bestAttemptContent.userInfo
             guard let imageUrl = userInfo["icon"] as? String else {
-                complection()
+                complection(bestAttemptContent)
                 return
             }
             
             func finished(_ imageFileUrl: String?){
                 guard let imageFileUrl = imageFileUrl else {
-                    complection()
+                    complection(bestAttemptContent)
                     return
                 }
                 var personNameComponents = PersonNameComponents()
@@ -205,7 +208,7 @@ class NotificationService: UNNotificationServiceExtension {
                     outgoingMessageType: .outgoingMessageText,
                     content: bestAttemptContent.body,
                     speakableGroupName: INSpeakableString(spokenPhrase: personNameComponents.nickname ?? ""),
-                    conversationIdentifier: "sampleConversationIdentifier",
+                    conversationIdentifier: bestAttemptContent.threadIdentifier,
                     serviceName: nil,
                     sender: senderPerson,
                     attachments: nil
@@ -219,45 +222,42 @@ class NotificationService: UNNotificationServiceExtension {
                 interaction.donate(completion: nil)
                 
                 do {
-                    let content = try self.bestAttemptContent!.updating(from: intent) as! UNMutableNotificationContent
-                    self.bestAttemptContent = content
+                    let content = try bestAttemptContent.updating(from: intent) as! UNMutableNotificationContent
+                    complection(content)
                 } catch {
                     // Handle error
                 }
                 
-                complection()
+                complection(bestAttemptContent)
             }
             
             downloadImage(imageUrl, complection: finished)
         }
         else{
-            complection()
+            complection(bestAttemptContent)
         }
     }
     
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
         
         self.contentHandler = contentHandler
-        bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
-        
-        if let bestAttemptContent = bestAttemptContent {
-            let userInfo = bestAttemptContent.userInfo
-            
-            // 自动复制
-            autoCopy(userInfo, defaultCopy: bestAttemptContent.body)
-            // 保存推送
-            archive(userInfo)
-            // 设置推送图标
-            setIcon(userInfo, content: self.bestAttemptContent!) {
-                // 设置推送图片
-                self.setImage(userInfo, content: self.bestAttemptContent!) {
-                    contentHandler(self.bestAttemptContent!)
-                }
-            }
-            
+        guard let bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent) else {
+            contentHandler(request.content)
+            return
         }
-        else{
-            contentHandler(bestAttemptContent!)
+        
+        let userInfo = bestAttemptContent.userInfo
+        
+        // 自动复制
+        autoCopy(userInfo, defaultCopy: bestAttemptContent.body)
+        // 保存推送
+        archive(userInfo)
+        // 设置推送图标
+        setIcon(content: bestAttemptContent) { result in
+            // 设置推送图片
+            self.setImage(content: result) { result in
+                contentHandler(result)
+            }
         }
     }
 }
