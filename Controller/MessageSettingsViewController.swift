@@ -6,9 +6,9 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
 import RxDataSources
+import UIKit
 class MessageSettingsViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
@@ -22,14 +22,16 @@ class MessageSettingsViewController: BaseViewController {
         
         return tableView
     }()
+
     override func makeUI() {
         self.title = NSLocalizedString("settings")
         
         self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
+        tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
     }
+
     override func bindViewModel() {
         guard let viewModel = self.viewModel as? MessageSettingsViewModel else {
             return
@@ -40,9 +42,9 @@ class MessageSettingsViewController: BaseViewController {
             )
         )
         
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, MessageSettingItem>> { (source, tableView, indexPath, item) -> UITableViewCell in
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, MessageSettingItem>> { _, tableView, _, item -> UITableViewCell in
             switch item {
-            case .label(let text):
+            case let .label(text):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(LabelCell.self)") as? LabelCell {
                     cell.textLabel?.text = text
                     return cell
@@ -51,12 +53,12 @@ class MessageSettingsViewController: BaseViewController {
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(iCloudStatusCell.self)") {
                     return cell
                 }
-            case .archiveSetting(let viewModel):
+            case let .archiveSetting(viewModel):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ArchiveSettingCell.self)") as? ArchiveSettingCell {
                     cell.bindViewModel(model: viewModel)
                     return cell
                 }
-            case let .detail(title,text,textColor,_):
+            case let .detail(title, text, textColor, _):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailTextCell.self)") as? DetailTextCell {
                     cell.textLabel?.text = title
                     cell.detailTextLabel?.text = text
@@ -78,10 +80,8 @@ class MessageSettingsViewController: BaseViewController {
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
      
-        output.openUrl.drive {[weak self] url in
+        output.openUrl.drive { [weak self] url in
             self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
         }.disposed(by: rx.disposeBag)
-
     }
-
 }

@@ -6,19 +6,21 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
+import UIKit
 
 class LabelCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        
+
         self.backgroundColor = Color.grey.lighten5
         self.textLabel?.textColor = Color.darkText.secondary
         self.textLabel?.fontSize = 12
         self.textLabel?.numberOfLines = 0
     }
+
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

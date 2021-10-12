@@ -16,4 +16,4 @@ protocol ViewModelType {
     func transform(input: Input) -> Output
 }
 
-class ViewModel:NSObject{ }
+class ViewModel: NSObject {}

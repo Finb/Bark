@@ -6,29 +6,27 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
+import MJRefresh
 import RealmSwift
 import RxCocoa
 import RxDataSources
-import MJRefresh
 import RxSwift
+import UIKit
 
-enum MessageDeleteType: Int{
+enum MessageDeleteType: Int {
     case lastHour = 0
     case today
     case todayAndYesterday
     case allTime
     
-    var string: String{
-        get {
-            return [
-                NSLocalizedString("lastHour"),
-                NSLocalizedString("today"),
-                NSLocalizedString("todayAndYesterday"),
-                NSLocalizedString("allTime"),
-            ][self.rawValue]
-        }
+    var string: String {
+        return [
+            NSLocalizedString("lastHour"),
+            NSLocalizedString("today"),
+            NSLocalizedString("todayAndYesterday"),
+            NSLocalizedString("allTime"),
+        ][self.rawValue]
     }
 }
 
@@ -64,7 +62,7 @@ class MessageListViewController: BaseViewController {
         navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], left: false)
         
         self.view.addSubview(tableView)
-        tableView.snp.makeConstraints { (make) in
+        tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
@@ -74,13 +72,12 @@ class MessageListViewController: BaseViewController {
         // 点击tab按钮，回到顶部
         Client.shared.currentTabBarController?
             .tabBarItemDidClick
-            .filter{ $0 == .messageHistory }
-            .subscribe(onNext: {[weak self] index in
+            .filter { $0 == .messageHistory }
+            .subscribe(onNext: { [weak self] _ in
                 self?.scrollToTop()
             }).disposed(by: self.rx.disposeBag)
         
-        
-        //打开APP时，历史消息列表距离上次刷新超过1小时，则自动刷新一下
+        // 打开APP时，历史消息列表距离上次刷新超过1小时，则自动刷新一下
         var lastAutoRefreshdate = Date()
         NotificationCenter.default.rx
             .notification(UIApplication.willEnterForegroundNotification)
@@ -92,11 +89,10 @@ class MessageListViewController: BaseViewController {
                 }
                 return false
             }
-            .subscribe(onNext: {[weak self] _ in
+            .subscribe(onNext: { [weak self] _ in
                 self?.tableView.refreshControl?.sendActions(for: .valueChanged)
                 self?.scrollToTop()
             }).disposed(by: rx.disposeBag)
-        
     }
     
     override func bindViewModel() {
@@ -106,10 +102,10 @@ class MessageListViewController: BaseViewController {
         
         let batchDelete = deleteButton.rx
             .tap
-            .flatMapLatest { Void -> PublishRelay<MessageDeleteType> in
+            .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in
                 let relay = PublishRelay<MessageDeleteType>()
                 
-                func alert(_ type:MessageDeleteType){
+                func alert(_ type: MessageDeleteType) {
                     let alertController = UIAlertController(title: nil, message: "\(NSLocalizedString("clearFrom"))\n\(type.string)", preferredStyle: .alert)
                     alertController.addAction(UIAlertAction(title: NSLocalizedString("clear"), style: .destructive, handler: { _ in
                         relay.accept(type)
@@ -143,67 +139,65 @@ class MessageListViewController: BaseViewController {
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.itemDeleted.asDriver(),
                 itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
-                delete:batchDelete.asDriver(onErrorDriveWith: .empty()),
+                delete: batchDelete.asDriver(onErrorDriveWith: .empty()),
                 groupTap: groupButton.rx.tap.asDriver(),
-                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
-            ))
+                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()))
         
-        //tableView 刷新状态
+        // tableView 刷新状态
         output.refreshAction
             .drive(tableView.rx.refreshAction)
             .disposed(by: rx.disposeBag)
         
-        //tableView 数据源
+        // tableView 数据源
         let dataSource = RxTableViewSectionedAnimatedDataSource<MessageSection>(
             animationConfiguration: AnimationConfiguration(
                 insertAnimation: .none,
                 reloadAnimation: .none,
                 deleteAnimation: .left),
-            configureCell:{ (source, tableView, indexPath, item) -> UITableViewCell in
+            configureCell: { _, tableView, _, item -> UITableViewCell in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
-                    return UITableViewCell ()
+                    return UITableViewCell()
                 }
                 cell.bindViewModel(model: item)
                 return cell
             }, canEditRowAtIndexPath: { _, _ in
-                return true
+                true
             })
         
         output.messages
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
         
-        //message操作alert
-        output.alertMessage.drive(onNext: {[weak self] message in
+        // message操作alert
+        output.alertMessage.drive(onNext: { [weak self] message in
             self?.alertMessage(message: message)
         }).disposed(by: rx.disposeBag)
         
-        //点击message中的URL
+        // 点击message中的URL
         output.urlTap.drive(onNext: { url in
-            if ["http","https"].contains(url.scheme?.lowercased() ?? ""){
+            if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
                 self.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
-              }
-              else{
-                  UIApplication.shared.open(url, options: [:], completionHandler: nil)
-              }
+            }
+            else {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
         }).disposed(by: rx.disposeBag)
         
-        //选择群组
+        // 选择群组
         output.groupFilter
-            .drive(onNext: {[weak self] groupModel in
+            .drive(onNext: { [weak self] groupModel in
                 self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
             }).disposed(by: rx.disposeBag)
         
-        //标题
+        // 标题
         output.title
             .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
-        
     }
     
-    func alertMessage(message:String)  {
+    func alertMessage(message: String) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: {[weak self]
-            (alert: UIAlertAction) -> Void in
+        let copyAction = UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { [weak self]
+            (_: UIAlertAction) -> Void in
             UIPasteboard.general.string = message
             self?.showSnackbar(text: NSLocalizedString("Copy"))
         })
@@ -216,7 +210,7 @@ class MessageListViewController: BaseViewController {
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }
     
-    private func scrollToTop(){
+    private func scrollToTop() {
         if self.tableView.visibleCells.count > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
@@ -225,7 +219,7 @@ class MessageListViewController: BaseViewController {
 
 extension MessageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "删除") {[weak self] (action, sourceView, actionPerformed) in
+        let action = UIContextualAction(style: .destructive, title: "删除") { [weak self] _, _, actionPerformed in
             self?.tableView.dataSource?.tableView?(self!.tableView, commit: .delete, forRowAt: indexPath)
             actionPerformed(true)
         }
@@ -235,14 +229,15 @@ extension MessageListViewController: UITableViewDelegate {
     }
 }
 
-extension MessageListViewController: UISearchControllerDelegate{
+extension MessageListViewController: UISearchControllerDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if self.navigationItem.searchController?.searchBar.isFirstResponder == true{
+        if self.navigationItem.searchController?.searchBar.isFirstResponder == true {
             self.navigationItem.searchController?.searchBar.resignFirstResponder()
         }
     }
+
     func willDismissSearchController(_ searchController: UISearchController) {
-        if !searchController.searchBar.isFirstResponder{
+        if !searchController.searchBar.isFirstResponder {
             /*
              searchBar 不在焦点时，点击搜索框右边的取消按钮时，不会触发 searchBar.rx.text 更改事件
              searchBar.rx.text 将一直保留为最后的文本

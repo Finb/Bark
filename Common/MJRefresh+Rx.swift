@@ -7,14 +7,13 @@
 //
 
 import Foundation
+import MJRefresh
 import RxCocoa
 import RxSwift
-import MJRefresh
 
-extension Reactive where Base : MJRefreshComponent {
+extension Reactive where Base: MJRefreshComponent {
     var refresh: ControlEvent<Void> {
-        
-        let source = Observable<Void>.create {[weak control = self.base] (observer) -> Disposable in
+        let source = Observable<Void>.create { [weak control = self.base] observer -> Disposable in
             MainScheduler.ensureExecutingOnScheduler()
             guard let control = control else {
                 observer.onCompleted()
@@ -27,9 +26,7 @@ extension Reactive where Base : MJRefreshComponent {
         }
         return ControlEvent(events: source)
     }
-    
 }
-
 
 enum MJRefreshAction {
     /// 不做任何事情
@@ -48,16 +45,14 @@ enum MJRefreshAction {
     case resetNomoreData
 }
 
-extension Reactive where Base:UIScrollView {
-    
+extension Reactive where Base: UIScrollView {
     /// 执行的操作类型
-    var refreshAction:Binder<MJRefreshAction> {
-        
-        return Binder(base) { (target, action) in
-            
-            switch action{
+    var refreshAction: Binder<MJRefreshAction> {
+        return Binder(base) { target, action in
+
+            switch action {
             case .begainRefresh:
-                //下拉刷新使用 UIRefreshControl
+                // 下拉刷新使用 UIRefreshControl
                 if let control = target.refreshControl {
                     control.beginRefreshing()
                 }
@@ -66,26 +61,24 @@ extension Reactive where Base:UIScrollView {
                     control.endRefreshing()
                 }
             case .begainLoadmore:
-                if let footer =  target.mj_footer {
+                if let footer = target.mj_footer {
                     footer.beginRefreshing()
                 }
             case .endLoadmore:
-                if let footer =  target.mj_footer {
+                if let footer = target.mj_footer {
                     footer.endRefreshing()
                 }
             case .showNomoreData:
-                if let footer =  target.mj_footer {
+                if let footer = target.mj_footer {
                     footer.endRefreshingWithNoMoreData()
                 }
             case .resetNomoreData:
-                if let footer =  target.mj_footer {
+                if let footer = target.mj_footer {
                     footer.resetNoMoreData()
                 }
-                break
             case .none:
                 break
             }
         }
     }
-    
 }

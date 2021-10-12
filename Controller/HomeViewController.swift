@@ -6,14 +6,13 @@
 //  Copyright © 2018年 Fin. All rights reserved.
 //
 
-import UIKit
-import UserNotifications
 import Material
 import RxCocoa
 import RxDataSources
+import UIKit
+import UserNotifications
 
 class HomeViewController: BaseViewController {
-    
     let newButton: BKButton = {
         let btn = BKButton()
         btn.setImage(Icon.add, for: .normal)
@@ -24,11 +23,11 @@ class HomeViewController: BaseViewController {
     let startButton: FABButton = {
         let button = FABButton(title: NSLocalizedString("RegisterDevice"))
         button.backgroundColor = Color.white
-        button.transition([ .scale(0.75) , .opacity(0)] )
+        button.transition([.scale(0.75), .opacity(0)])
         return button
     }()
         
-    let tableView :UITableView = {
+    let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = Color.grey.lighten4
@@ -44,12 +43,12 @@ class HomeViewController: BaseViewController {
             item: UIBarButtonItem(customView: newButton))
         
         self.view.addSubview(self.tableView)
-        self.tableView.snp.makeConstraints { (make ) in
+        self.tableView.snp.makeConstraints { make in
             make.top.right.bottom.left.equalToSuperview()
         }
         
         self.view.addSubview(self.startButton)
-        self.startButton.snp.makeConstraints { (make) in
+        self.startButton.snp.makeConstraints { make in
             make.width.height.equalTo(150)
             make.centerX.equalToSuperview()
             make.centerY.equalToSuperview().offset(-50)
@@ -57,12 +56,12 @@ class HomeViewController: BaseViewController {
         
         Client.shared.currentTabBarController?
             .tabBarItemDidClick
-            .filter{ $0 == .service }
-            .subscribe(onNext: {[weak self] index in
+            .filter { $0 == .service }
+            .subscribe(onNext: { [weak self] _ in
                 self?.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
             }).disposed(by: self.rx.disposeBag)
-        
     }
+
     override func bindViewModel() {
         guard let viewModel = self.viewModel as? HomeViewModel else {
             return
@@ -72,96 +71,95 @@ class HomeViewController: BaseViewController {
             input: HomeViewModel.Input(
                 addCustomServerTap: newButton.rx.tap.asDriver(),
                 viewDidAppear: self.rx.methodInvoked(#selector(viewDidAppear(_:)))
-                    .map{ _ in () }
+                    .map { _ in () }
                     .asDriver(onErrorDriveWith: .empty()),
                 start: self.startButton.rx.tap.asDriver(),
                 clientState: Client.shared.state.asDriver()
             )
         )
         
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,PreviewCardCellViewModel>> { (source, tableView, indexPath, item) -> UITableViewCell in
-            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)") as? PreviewCardCell{
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, PreviewCardCellViewModel>> { _, tableView, _, item -> UITableViewCell in
+            if let cell = tableView.dequeueReusableCell(withIdentifier: "\(PreviewCardCell.self)") as? PreviewCardCell {
                 cell.bindViewModel(model: item)
                 return cell
             }
             return UITableViewCell()
         }
         
-        //标题
+        // 标题
         output.title
             .drive(self.navigationItem.rx.title)
             .disposed(by: rx.disposeBag)
         
-        //TableView数据源
+        // TableView数据源
         output.previews
             .drive(self.tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
         
-        //跳转到对应页面
+        // 跳转到对应页面
         output.push
-            .drive(onNext: {[weak self] viewModel in
+            .drive(onNext: { [weak self] viewModel in
                 self?.pushViewModel(viewModel: viewModel)
             })
             .disposed(by: rx.disposeBag)
         
-        //通过ping服务器，判断 clienState
+        // 通过ping服务器，判断 clienState
         output.clienStateChanged
             .drive(Client.shared.state)
             .disposed(by: rx.disposeBag)
         
-        //根据通知权限，设置是否隐藏注册按钮、显示示例预览列表
+        // 根据通知权限，设置是否隐藏注册按钮、显示示例预览列表
         output.tableViewHidden
-            .map{ !$0 }
+            .map { !$0 }
             .drive(self.tableView.rx.isHidden)
             .disposed(by: rx.disposeBag)
         output.tableViewHidden
             .drive(self.startButton.rx.isHidden)
             .disposed(by: rx.disposeBag)
         
-        //注册推送
+        // 注册推送
         output.registerForRemoteNotifications.drive(onNext: {
             UIApplication.shared.registerForRemoteNotifications()
         })
         .disposed(by: rx.disposeBag)
         
-        //弹出提示
+        // 弹出提示
         output.showSnackbar
-            .drive(onNext: {[weak self] text in
+            .drive(onNext: { [weak self] text in
                 self?.showSnackbar(text: text)
             })
             .disposed(by: rx.disposeBag)
         
-        //startButton是否可点击
+        // startButton是否可点击
         output.startButtonEnable
             .drive(self.startButton.rx.isEnabled)
             .disposed(by: rx.disposeBag)
         
-        //复制文本
+        // 复制文本
         output.copy
-            .drive(onNext: {[weak self] text in
+            .drive(onNext: { [weak self] text in
                 UIPasteboard.general.string = text
                 self?.showSnackbar(text: NSLocalizedString("Copy"))
             })
             .disposed(by: rx.disposeBag)
         
-        //预览
+        // 预览
         output.preview
             .drive(onNext: { url in
                 UIApplication.shared.open(url, options: [:], completionHandler: nil)
             })
             .disposed(by: rx.disposeBag)
         
-        //原样刷新 TableView
+        // 原样刷新 TableView
         output.reloadData
-            .drive(onNext: {[weak self] in
+            .drive(onNext: { [weak self] in
                 self?.tableView.reloadData()
             })
             .disposed(by: rx.disposeBag)
-        
     }
     
-    func pushViewModel(viewModel:ViewModel) {
-        var viewController:UIViewController?
+    func pushViewModel(viewModel: ViewModel) {
+        var viewController: UIViewController?
         if let viewModel = viewModel as? NewServerViewModel {
             viewController = NewServerViewController(viewModel: viewModel)
         }
@@ -173,5 +171,4 @@ class HomeViewController: BaseViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
-    
 }

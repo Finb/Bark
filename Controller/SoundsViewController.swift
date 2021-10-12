@@ -6,14 +6,14 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import UIKit
-import Material
 import AVKit
+import Material
+import UIKit
 
-import RxSwift
+import NSObject_Rx
 import RxCocoa
 import RxDataSources
-import NSObject_Rx
+import RxSwift
 
 class SoundsViewController: BaseViewController {
     let tableView: UITableView = {
@@ -22,12 +22,12 @@ class SoundsViewController: BaseViewController {
         tableView.register(SoundCell.self, forCellReuseIdentifier: "\(SoundCell.self)")
         return tableView
     }()
-    
+
     override func makeUI() {
         self.title = NSLocalizedString("notificationSound")
 
         self.view.addSubview(self.tableView)
-        self.tableView.snp.makeConstraints { (make) in
+        self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
@@ -40,35 +40,36 @@ class SoundsViewController: BaseViewController {
             return header
         }()
     }
+
     override func bindViewModel() {
         guard let viewModel = viewModel as? SoundsViewModel else {
             return
         }
-        
+
         let output = viewModel.transform(
             input: SoundsViewModel.Input(soundSelected: self.tableView.rx
-                                            .modelSelected(SoundCellViewModel.self)
-                                            .asDriver()))
-        
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String,SoundCellViewModel>> { (source, tableView, indexPath, item) -> UITableViewCell in
+                .modelSelected(SoundCellViewModel.self)
+                .asDriver()))
+
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, SoundCellViewModel>> { _, tableView, _, item -> UITableViewCell in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(SoundCell.self)") as? SoundCell else {
                 return UITableViewCell()
             }
             cell.bindViewModel(model: item)
             return cell
         }
-        
+
         output.audios
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
-        
+
         output.copyNameAction.drive(onNext: { name in
             UIPasteboard.general.string = name.trimmingCharacters(in: .whitespacesAndNewlines)
             self.navigationController?.showSnackbar(text: NSLocalizedString("Copy"))
         }).disposed(by: rx.disposeBag)
-        
+
         output.playAction.drive(onNext: { url in
-            var soundID:SystemSoundID = 0
+            var soundID: SystemSoundID = 0
             AudioServicesCreateSystemSoundID(url, &soundID)
             AudioServicesPlaySystemSoundWithCompletion(soundID) {
                 AudioServicesDisposeSystemSoundID(soundID)

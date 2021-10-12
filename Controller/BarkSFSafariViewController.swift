@@ -6,10 +6,9 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
-import UIKit
 import SafariServices
+import UIKit
 class BarkSFSafariViewController: SFSafariViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -20,11 +19,8 @@ class BarkSFSafariViewController: SFSafariViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        get {
-            return .default
-        }
-    }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .default
+    }
 }

@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import RxSwift
-import RxCocoa
-import SwiftyJSON
 import Moya
+import RxCocoa
+import RxSwift
+import SwiftyJSON
 
 class NewServerViewModel: ViewModel, ViewModelType {
     struct Input {
-        var noticeClick:Driver<Void>
+        var noticeClick: Driver<Void>
         var done: Driver<String>
         var viewDidAppear: Driver<Void>
     }
@@ -27,23 +27,21 @@ class NewServerViewModel: ViewModel, ViewModelType {
         var pop: Driver<String>
     }
     
-    
     private var url: String = ""
     
     let pop = PublishRelay<String>()
     
     func transform(input: Input) -> Output {
-        
         let showKeyboard = PublishRelay<Bool>()
         let urlText = PublishRelay<String>()
         let showSnackbar = PublishRelay<String>()
 
         let notice = input.noticeClick
-            .map{ URL(string: "https://day.app/2018/06/bark-server-document/")! }
+            .map { URL(string: "https://day.app/2018/06/bark-server-document/")! }
             .asDriver()
         
         input.viewDidAppear
-            .map{ "https://" }
+            .map { "https://" }
             .asObservable()
             .take(1)
             .subscribe(onNext: { text in
@@ -53,7 +51,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
         
         input.done
             .asObservable()
-            .flatMapLatest {[weak self] (url) -> Observable<Result<JSON,ApiError>> in
+            .flatMapLatest { [weak self] url -> Observable<Result<JSON, ApiError>> in
                 showKeyboard.accept(false)
                 if let _ = URL(string: url) {
                     guard let strongSelf = self else { return .empty() }
@@ -67,7 +65,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
                     return .empty()
                 }
             }
-            .subscribe(onNext: {[weak self] response in
+            .subscribe(onNext: { [weak self] response in
                 guard let strongSelf = self else { return }
                 switch response {
                 case .success:

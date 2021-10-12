@@ -6,10 +6,9 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
+import UIKit
 class MessageTableViewCell: BaseTableViewCell {
-    
     let backgroundPanel: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 3
@@ -25,6 +24,7 @@ class MessageTableViewCell: BaseTableViewCell {
         label.numberOfLines = 0
         return label
     }()
+
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
@@ -49,12 +49,14 @@ class MessageTableViewCell: BaseTableViewCell {
         label.textColor = Color.darkText.others
         return label
     }()
+
     let bodyStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         return stackView
     }()
-    let separatorLine:UIImageView = {
+
+    let separatorLine: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = Color.grey.lighten5
         return imageView
@@ -80,30 +82,32 @@ class MessageTableViewCell: BaseTableViewCell {
         
         layoutView()
     }
+
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func layoutView(){
-        bodyStackView.snp.makeConstraints { (make) in
+    func layoutView() {
+        bodyStackView.snp.makeConstraints { make in
             make.left.top.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
         }
-        titleLabel.snp.remakeConstraints { (make) in
+        titleLabel.snp.remakeConstraints { make in
             make.left.equalTo(12)
             make.right.equalTo(-12)
         }
-        bodyLabel.snp.remakeConstraints { (make) in
+        bodyLabel.snp.remakeConstraints { make in
             make.left.right.equalTo(titleLabel)
         }
-        urlLabel.snp.makeConstraints { (make) in
+        urlLabel.snp.makeConstraints { make in
             make.left.right.equalTo(bodyLabel)
         }
-        dateLabel.snp.remakeConstraints { (make) in
+        dateLabel.snp.remakeConstraints { make in
             make.left.equalTo(bodyLabel)
             make.top.equalTo(bodyStackView.snp.bottom).offset(12)
         }
-        separatorLine.snp.remakeConstraints { (make) in
+        separatorLine.snp.remakeConstraints { make in
             make.left.right.bottom.equalToSuperview()
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
             make.height.equalTo(10)
@@ -127,12 +131,11 @@ class MessageTableViewCell: BaseTableViewCell {
         viewModel.url.bind(to: self.urlLabel.rx.text).disposed(by: rx.reuseBag)
         viewModel.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
         
-        viewModel.title.map{ $0.count <= 0}.bind(to: self.titleLabel.rx.isHidden).disposed(by: rx.reuseBag)
-        viewModel.url.map{ $0.count <= 0}.bind(to: self.urlLabel.rx.isHidden).disposed(by: rx.reuseBag)
+        viewModel.title.map { $0.count <= 0 }.bind(to: self.titleLabel.rx.isHidden).disposed(by: rx.reuseBag)
+        viewModel.url.map { $0.count <= 0 }.bind(to: self.urlLabel.rx.isHidden).disposed(by: rx.reuseBag)
         
         self.urlLabel.gestureRecognizers?.first?.rx.event
-            .map{[weak self] _ in self?.urlLabel.text ?? "" }
+            .map { [weak self] _ in self?.urlLabel.text ?? "" }
             .bind(to: viewModel.urlTap).disposed(by: rx.reuseBag)
-        
     }
 }

@@ -6,16 +6,15 @@
 //  Copyright © 2021 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
+import MJRefresh
 import RealmSwift
 import RxCocoa
 import RxDataSources
-import MJRefresh
 import RxSwift
+import UIKit
 
 class GroupFilterViewController: BaseViewController {
-    
     let doneButton: BKButton = {
         let btn = BKButton()
         btn.setTitle(NSLocalizedString("done"), for: .normal)
@@ -35,7 +34,7 @@ class GroupFilterViewController: BaseViewController {
     }()
     
     let tableView: UITableView = {
-        let tableView:UITableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.separatorStyle = .singleLine
         tableView.separatorColor = Color.grey.lighten3
         tableView.backgroundColor = Color.grey.lighten5
@@ -49,9 +48,9 @@ class GroupFilterViewController: BaseViewController {
         
         self.view.addSubview(tableView)
         self.view.addSubview(showAllGroupsButton)
-        tableView.snp.makeConstraints { (make) in
+        tableView.snp.makeConstraints { make in
             make.top.equalToSuperview()
-            make.bottom.equalToSuperview().offset( (kSafeAreaInsets.bottom + 40) * -1)
+            make.bottom.equalToSuperview().offset((kSafeAreaInsets.bottom + 40) * -1)
             make.left.right.equalToSuperview()
         }
         showAllGroupsButton.snp.makeConstraints { make in
@@ -62,6 +61,7 @@ class GroupFilterViewController: BaseViewController {
         
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: self.view.bounds.size.width, height: 20))
     }
+
     override func bindViewModel() {
         guard let viewModel = self.viewModel as? GroupFilterViewModel else {
             return
@@ -71,15 +71,15 @@ class GroupFilterViewController: BaseViewController {
             input: GroupFilterViewModel.Input(
                 showAllGroups: self.showAllGroupsButton.rx
                     .tap
-                    .compactMap({[weak self] in
-                        guard let strongSelf = self else {return nil}
+                    .compactMap { [weak self] in
+                        guard let strongSelf = self else { return nil }
                         return !strongSelf.showAllGroupsButton.isSelected
-                    })
+                    }
                     .asDriver(onErrorDriveWith: .empty()),
                 doneTap: self.doneButton.rx.tap.asDriver()
             ))
         
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, GroupCellViewModel>> { (source, tableView, indexPath, item) -> UITableViewCell in
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, GroupCellViewModel>> { _, tableView, _, item -> UITableViewCell in
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(GroupTableViewCell.self)") as? GroupTableViewCell else {
                 return UITableViewCell()
             }
@@ -95,13 +95,11 @@ class GroupFilterViewController: BaseViewController {
             .drive(self.showAllGroupsButton.rx.isSelected)
             .disposed(by: rx.disposeBag)
         
-        output.dismiss.drive(onNext: {[weak self] in
+        output.dismiss.drive(onNext: { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         })
         .disposed(by: rx.disposeBag)
     }
 }
 
-extension GroupFilterViewController: UITableViewDelegate {
-    
-}
+extension GroupFilterViewController: UITableViewDelegate {}

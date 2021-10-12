@@ -9,8 +9,8 @@
 import UIKit
 
 class BaseTableViewCell: UITableViewCell {
-    var viewModel:ViewModel?
-    func bindViewModel(model:ViewModel){
+    var viewModel: ViewModel?
+    func bindViewModel(model: ViewModel) {
         self.viewModel = model
     }
 }

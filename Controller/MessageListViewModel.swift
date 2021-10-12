@@ -7,12 +7,12 @@
 //
 
 import Foundation
-import RxSwift
-import RxDataSources
-import RxCocoa
 import RealmSwift
+import RxCocoa
+import RxDataSources
+import RxSwift
 
-class MessageListViewModel: ViewModel,ViewModelType {
+class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         var refresh: Driver<Void>
         var loadMore: Driver<Void>
@@ -32,10 +32,10 @@ class MessageListViewModel: ViewModel,ViewModelType {
         var title: Driver<String>
     }
     
-    private var results:Results<Message>?
+    private var results: Results<Message>?
     
-    //根据群组获取消息
-    private func getResults(filterGroups:[String?], searchText:String?) -> Results<Message>? {
+    // 根据群组获取消息
+    private func getResults(filterGroups: [String?], searchText: String?) -> Results<Message>? {
         if let realm = try? Realm() {
             var results = realm.objects(Message.self)
                 .filter("isDeleted != true")
@@ -60,7 +60,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
             guard endIndex > startIndex else {
                 return []
             }
-            var messages:[Message] = []
+            var messages: [Message] = []
             for i in startIndex ..< endIndex {
                 messages.append(result[i])
             }
@@ -70,12 +70,11 @@ class MessageListViewModel: ViewModel,ViewModelType {
         return []
     }
     
-    
     func transform(input: Input) -> Output {
-        let alertMessage = input.itemSelected.map { (model) -> String in
+        let alertMessage = input.itemSelected.map { model -> String in
             let message = model.message
             
-            var copyContent:String = ""
+            var copyContent: String = ""
             if let title = message.title {
                 copyContent += "\(title)\n"
             }
@@ -97,45 +96,45 @@ class MessageListViewModel: ViewModel,ViewModelType {
         let refreshAction = BehaviorRelay<MJRefreshAction>(value: .none)
         // 切换群组
         let filterGroups: BehaviorRelay<[String?]> = {
-            if let groups:[String?] = Settings["me.fin.filterGroups"] {
+            if let groups: [String?] = Settings["me.fin.filterGroups"] {
                 return BehaviorRelay<[String?]>(value: groups)
             }
             return BehaviorRelay<[String?]>(value: [])
         }()
         
         // Message 转 MessageSection
-        func messagesToMessageSection(messages:[Message]) -> [MessageSection] {
-            let cellViewModels = messages.map({ (message) -> MessageTableViewCellViewModel in
-                return MessageTableViewCellViewModel(message: message)
-            })
+        func messagesToMessageSection(messages: [Message]) -> [MessageSection] {
+            let cellViewModels = messages.map { message -> MessageTableViewCellViewModel in
+                MessageTableViewCellViewModel(message: message)
+            }
             return [MessageSection(header: "model", messages: cellViewModels)]
         }
-        //切换分组时，更新分组名
+        // 切换分组时，更新分组名
         filterGroups
-            .subscribe(onNext: {filterGroups in
+            .subscribe(onNext: { filterGroups in
                 if filterGroups.count <= 0 {
                     titleRelay.accept(NSLocalizedString("historyMessage"))
                 }
-                else{
+                else {
                     titleRelay.accept(filterGroups.map { $0 ?? NSLocalizedString("default") }.joined(separator: " , "))
                 }
             }).disposed(by: rx.disposeBag)
         
-        //切换分组和更改搜索词时，更新数据源
+        // 切换分组和更改搜索词时，更新数据源
         Observable
             .combineLatest(filterGroups, input.searchText)
-            .subscribe(onNext: {[weak self] groups, searchText in
+            .subscribe(onNext: { [weak self] groups, searchText in
                 self?.results = self?.getResults(filterGroups: groups, searchText: searchText)
             }).disposed(by: rx.disposeBag)
 
-        //切换分组和下拉刷新时，重新刷新列表
+        // 切换分组和下拉刷新时，重新刷新列表
         Observable
             .merge(
-                input.refresh.asObservable().map{ () },
-                filterGroups.map{ _ in () },
-                input.searchText.asObservable().map{ _ in () }
+                input.refresh.asObservable().map { () },
+                filterGroups.map { _ in () },
+                input.searchText.asObservable().map { _ in () }
             )
-            .subscribe(onNext: {[weak self]  in
+            .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.page = 0
                 messagesRelay.accept(
@@ -146,27 +145,27 @@ class MessageListViewModel: ViewModel,ViewModelType {
                 refreshAction.accept(.endRefresh)
             }).disposed(by: rx.disposeBag)
         
-        //加载更多
+        // 加载更多
         input.loadMore.asObservable()
-            .subscribe(onNext: {[weak self] in
+            .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
                 let messages = strongSelf.getNextPage()
-                let cellViewModels =  messages.map({ (message) -> MessageTableViewCellViewModel in
-                    return MessageTableViewCellViewModel(message: message)
-                })
+                let cellViewModels = messages.map { message -> MessageTableViewCellViewModel in
+                    MessageTableViewCellViewModel(message: message)
+                }
                 
                 refreshAction.accept(.endLoadmore)
                 if var section = messagesRelay.value.first {
                     section.messages.append(contentsOf: cellViewModels)
                     messagesRelay.accept([section])
                 }
-                else{
+                else {
                     messagesRelay.accept([MessageSection(header: "model", messages: cellViewModels)])
                 }
             }).disposed(by: rx.disposeBag)
         
-        //删除message
-        input.itemDelete.drive(onNext: {[weak self] indexPath in
+        // 删除message
+        input.itemDelete.drive(onNext: { [weak self] indexPath in
             if var section = messagesRelay.value.first {
                 if let realm = try? Realm() {
                     try? realm.write {
@@ -180,19 +179,19 @@ class MessageListViewModel: ViewModel,ViewModelType {
         }).disposed(by: rx.disposeBag)
         
         // cell 中点击 url。
-        let urlTap = messagesRelay.flatMapLatest { (section) -> Observable<String> in
+        let urlTap = messagesRelay.flatMapLatest { section -> Observable<String> in
             if let section = section.first {
-                let taps = section.messages.compactMap { (model) -> Observable<String> in
-                    return model.urlTap.asObservable()
+                let taps = section.messages.compactMap { model -> Observable<String> in
+                    model.urlTap.asObservable()
                 }
                 return Observable.merge(taps)
             }
             return .empty()
         }
-        .compactMap { URL(string: $0) } //只处理正确的url
+        .compactMap { URL(string: $0) } // 只处理正确的url
         
-        //批量删除
-        input.delete.drive(onNext: {[weak self] type in
+        // 批量删除
+        input.delete.drive(onNext: { [weak self] type in
             guard let strongSelf = self else { return }
             
             var date = Date()
@@ -211,7 +210,7 @@ class MessageListViewModel: ViewModel,ViewModelType {
                 guard let messages = strongSelf.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@", date) else {
                     return
                 }
-                try? realm.write{
+                try? realm.write {
                     for msg in messages {
                         msg.isDeleted = true
                     }
@@ -223,31 +222,31 @@ class MessageListViewModel: ViewModel,ViewModelType {
             
         }).disposed(by: rx.disposeBag)
         
-        //群组筛选
-        let groupFilter = input.groupTap.compactMap {() -> GroupFilterViewModel? in
+        // 群组筛选
+        let groupFilter = input.groupTap.compactMap { () -> GroupFilterViewModel? in
             if let realm = try? Realm() {
                 let groups = realm.objects(Message.self)
                     .filter("isDeleted != true")
                     .distinct(by: ["group"])
                     .value(forKeyPath: "group") as? [String?]
                 
-                let groupModels = groups?.compactMap({ groupName -> GroupFilterModel in
+                let groupModels = groups?.compactMap { groupName -> GroupFilterModel in
                     var check = true
                     if filterGroups.value.count > 0 {
                         check = filterGroups.value.contains(groupName)
                     }
                     return GroupFilterModel(name: groupName, checked: check)
-                })
+                }
                 
                 if let models = groupModels {
                     let viewModel = GroupFilterViewModel(groups: models)
                     
-                    //保存选择的 group
+                    // 保存选择的 group
                     viewModel.done.subscribe(onNext: { filterGroups in
                         Settings["me.fin.filterGroups"] = filterGroups
                     }).disposed(by: viewModel.rx.disposeBag)
                     
-                    //将选择绑定到当前页面
+                    // 将选择绑定到当前页面
                     viewModel.done
                         .bind(to: filterGroups)
                         .disposed(by: viewModel.rx.disposeBag)

@@ -10,17 +10,17 @@ import UIKit
 
 class ArchiveSettingManager: NSObject {
     static let shared = ArchiveSettingManager()
-    let defaults = UserDefaults.init(suiteName: "group.bark")
+    let defaults = UserDefaults(suiteName: "group.bark")
     var isArchive: Bool {
         get {
-           return defaults?.value(forKey: "isArchive") as? Bool ?? true
-            
+            return defaults?.value(forKey: "isArchive") as? Bool ?? true
         }
-        set{
+        set {
             defaults?.set(newValue, forKey: "isArchive")
         }
     }
-    private override init(){
+
+    override private init() {
         super.init()
     }
 }

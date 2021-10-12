@@ -7,22 +7,23 @@
 //
 
 import Foundation
-import RxSwift
+import Material
 import RxCocoa
 import RxDataSources
-import Material
+import RxSwift
 
 class MessageSettingsViewModel: ViewModel, ViewModelType {
     struct Input {
         var itemSelected: Driver<MessageSettingItem>
     }
+
     struct Output {
-        var settings:Driver<[SectionModel<String, MessageSettingItem>]>
-        var openUrl:Driver<URL>
+        var settings: Driver<[SectionModel<String, MessageSettingItem>]>
+        var openUrl: Driver<URL>
     }
+
     func transform(input: Input) -> Output {
-        
-        let settings:[MessageSettingItem] = {
+        let settings: [MessageSettingItem] = {
             var settings = [MessageSettingItem]()
             settings.append(.label(text: "iCloud"))
             settings.append(.iCloudStatus)
@@ -32,41 +33,41 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             settings.append(.label(text: NSLocalizedString("archiveNote")))
             
             if let infoDict = Bundle.main.infoDictionary,
-               let runId = infoDict["GitHub Run Id"] as? String{
+               let runId = infoDict["GitHub Run Id"] as? String
+            {
                 settings.append(.label(text: NSLocalizedString("buildInfo")))
                 settings.append(.detail(
-                                    title: "Github Run Id",
-                                    text:"\(runId)",
-                                    textColor: Color.grey.darken2,
-                                    url: URL(string: "https://github.com/Finb/Bark/actions/runs/\(runId)")))
+                    title: "Github Run Id",
+                    text: "\(runId)",
+                    textColor: Color.grey.darken2,
+                    url: URL(string: "https://github.com/Finb/Bark/actions/runs/\(runId)")))
                 settings.append(.label(text: NSLocalizedString("buildDesc")))
             }
             
-            
             settings.append(.label(text: NSLocalizedString("other")))
             settings.append(.detail(
-                                title: NSLocalizedString("faq"),
-                                text: nil,
-                                textColor: nil,
-                                url: URL(string: "https://day.app/2021/06/barkfaq/")))
+                title: NSLocalizedString("faq"),
+                text: nil,
+                textColor: nil,
+                url: URL(string: "https://day.app/2021/06/barkfaq/")))
             
             settings.append(.spacer(height: 0.5, color: Color.grey.lighten4))
             settings.append(.detail(
-                                title: NSLocalizedString("appSC"),
-                                text: nil,
-                                textColor: nil,
-                                url: URL(string: "https://github.com/Finb/Bark")))
+                title: NSLocalizedString("appSC"),
+                text: nil,
+                textColor: nil,
+                url: URL(string: "https://github.com/Finb/Bark")))
             
             settings.append(.spacer(height: 0.5, color: Color.grey.lighten4))
             settings.append(.detail(
-                                title: NSLocalizedString("backendSC"),
-                                text: nil,
-                                textColor: nil,
-                                url: URL(string: "https://github.com/Finb/bark-server")))
+                title: NSLocalizedString("backendSC"),
+                text: nil,
+                textColor: nil,
+                url: URL(string: "https://github.com/Finb/bark-server")))
             return settings
         }()
         
-        settings.compactMap { (item) -> ArchiveSettingCellViewModel? in
+        settings.compactMap { item -> ArchiveSettingCellViewModel? in
             if case let MessageSettingItem.archiveSetting(viewModel) = item {
                 return viewModel
             }
@@ -74,7 +75,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
         }
         .first?
         .on
-        .subscribe(onNext: { (on) in
+        .subscribe(onNext: { on in
             ArchiveSettingManager.shared.isArchive = on
         }).disposed(by: rx.disposeBag)
 
@@ -85,25 +86,22 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             return nil
         }
         
-        
         return Output(
             settings: Driver<[SectionModel<String, MessageSettingItem>]>
-                        .just([SectionModel(model: "model", items: settings)]),
-            openUrl: openUrl
-        )
+                .just([SectionModel(model: "model", items: settings)]),
+            openUrl: openUrl)
     }
-    
 }
 
 enum MessageSettingItem {
     // 普通标题标签
-    case label(text:String)
+    case label(text: String)
     // iCloud 状态
     case iCloudStatus
     // 默认保存
-    case archiveSetting(viewModel:ArchiveSettingCellViewModel)
+    case archiveSetting(viewModel: ArchiveSettingCellViewModel)
     // 带 详细按钮的 文本cell
-    case detail(title:String?, text:String?, textColor:UIColor?, url:URL?)
+    case detail(title: String?, text: String?, textColor: UIColor?, url: URL?)
     // 分隔线
-    case spacer(height:CGFloat, color:UIColor?)
+    case spacer(height: CGFloat, color: UIColor?)
 }

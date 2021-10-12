@@ -9,21 +9,22 @@
 import UIKit
 
 enum BarkApi {
-    case ping(baseURL:String?)
-    case register(key:String? , devicetoken:String) //注册设备
+    case ping(baseURL: String?)
+    case register(key: String?, devicetoken: String) // 注册设备
 }
 
 extension BarkApi: BarkTargetType {
     var baseURL: URL {
-        if case let .ping(urlStr) = self, let url = URL(string: urlStr ?? "")  {
+        if case let .ping(urlStr) = self, let url = URL(string: urlStr ?? "") {
             return url
         }
         return URL(string: ServerManager.shared.currentAddress)!
     }
-    var parameters: [String : Any]? {
+
+    var parameters: [String: Any]? {
         switch self {
         case let .register(key, devicetoken):
-            var params = ["devicetoken":devicetoken]
+            var params = ["devicetoken": devicetoken]
             if let key = key {
                 params["key"] = key
             }
@@ -32,7 +33,7 @@ extension BarkApi: BarkTargetType {
             return nil
         }
     }
-    
+
     var path: String {
         switch self {
         case .ping:
@@ -41,6 +42,4 @@ extension BarkApi: BarkTargetType {
             return "/register"
         }
     }
-    
-    
 }

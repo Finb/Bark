@@ -6,31 +6,29 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
+import RxCocoa
+import RxSwift
 import UIKit
 import UserNotifications
-import RxSwift
-import RxCocoa
 
 class Client: NSObject {
     static let shared = Client()
-    private override init() {
+    override private init() {
         super.init()
     }
-    var currentNavigationController:UINavigationController? {
-        get {
-            let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-            let nav = (controller?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
-            return nav
-        }
+
+    var currentNavigationController: UINavigationController? {
+        let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
+        let nav = (controller?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
+        return nav
     }
-    var currentTabBarController:StateStorageTabBarController? {
-        get {
-            let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-            return controller?.rootViewController as? StateStorageTabBarController
-        }
+
+    var currentTabBarController: StateStorageTabBarController? {
+        let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
+        return controller?.rootViewController as? StateStorageTabBarController
     }
     
-    let appVersion:String = {
+    let appVersion: String = {
         var version = "0.0.0"
         if let infoDict = Bundle.main.infoDictionary {
             if let appVersion = infoDict["CFBundleVersion"] as? String {
@@ -40,10 +38,10 @@ class Client: NSObject {
         return version
     }()
     
-    private var _key:String?
-    var key:String? {
+    private var _key: String?
+    var key: String? {
         get {
-            if _key == nil, let aKey = Settings[.key]{
+            if _key == nil, let aKey = Settings[.key] {
                 _key = aKey
             }
             return _key
@@ -62,24 +60,24 @@ class Client: NSObject {
     
     var state = BehaviorRelay<ClienState>(value: .ok)
     
-    var dispose:Disposable?
-    func bindDeviceToken(){
-        if let token = Settings[.deviceToken] , token.count > 0{
+    var dispose: Disposable?
+    func bindDeviceToken() {
+        if let token = Settings[.deviceToken], token.count > 0 {
             dispose?.dispose()
             
             dispose = BarkApi.provider
                 .request(.register(
-                            key: key,
-                            devicetoken: token))
+                    key: key,
+                    devicetoken: token))
                 .filterResponseError()
-                .map { (json) -> ClienState in
+                .map { json -> ClienState in
                     switch json {
                     case .success(let json):
-                        if let key = json["data","key"].rawString() {
+                        if let key = json["data", "key"].rawString() {
                             Client.shared.key = key
                             return .ok
                         }
-                        else{
+                        else {
                             return .serverError
                         }
                     case .failure:
@@ -92,13 +90,13 @@ class Client: NSObject {
     
     func registerForRemoteNotifications() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert , .sound , .badge], completionHandler: {(_ granted: Bool, _ error: Error?) -> Void in
+        center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
             if granted {
                 dispatch_sync_safely_main_queue {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
             }
-            else{
+            else {
                 print("没有打开推送")
             }
         })

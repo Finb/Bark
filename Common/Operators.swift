@@ -5,8 +5,8 @@
 //  Created by Krunoslav Zaher on 12/6/15.
 //  Copyright © 2015 Krunoslav Zaher. All rights reserved.
 //
-import RxSwift
 import RxCocoa
+import RxSwift
 #if os(iOS)
 import UIKit
 #elseif os(macOS)
@@ -14,7 +14,7 @@ import AppKit
 #endif
 
 // Two way binding operator between control property and relay, that's all it takes.
-infix operator <-> : DefaultPrecedence
+infix operator <->: DefaultPrecedence
 
 #if os(iOS)
 func nonMarkedText(_ textInput: UITextInput) -> String? {
@@ -22,8 +22,9 @@ func nonMarkedText(_ textInput: UITextInput) -> String? {
     let end = textInput.endOfDocument
 
     guard let rangeAll = textInput.textRange(from: start, to: end),
-        let text = textInput.text(in: rangeAll) else {
-            return nil
+          let text = textInput.text(in: rangeAll)
+    else {
+        return nil
     }
 
     guard let markedTextRange = textInput.markedTextRange else {
@@ -31,7 +32,8 @@ func nonMarkedText(_ textInput: UITextInput) -> String? {
     }
 
     guard let startRange = textInput.textRange(from: start, to: markedTextRange.start),
-          let endRange = textInput.textRange(from: markedTextRange.end, to: end) else {
+          let endRange = textInput.textRange(from: markedTextRange.end, to: end)
+    else {
         return text
     }
 
@@ -42,7 +44,7 @@ func <-> <Base>(textInput: TextInput<Base>, relay: BehaviorRelay<String>) -> Dis
     let bindToUIDisposable = relay.bind(to: textInput.text)
 
     let bindToRelay = textInput.text
-        .subscribe(onNext: { [weak base = textInput.base] n in
+        .subscribe(onNext: { [weak base = textInput.base] _ in
             guard let base = base else {
                 return
             }
@@ -53,7 +55,7 @@ func <-> <Base>(textInput: TextInput<Base>, relay: BehaviorRelay<String>) -> Dis
              In some cases `textInput.textRangeFromPosition(start, toPosition: end)` will return nil even though the underlying
              value is not nil. This appears to be an Apple bug. If it's not, and we are doing something wrong, please let us know.
              The can be reproed easily if replace bottom code with
-             
+
              if nonMarkedTextValue != relay.value {
                 relay.accept(nonMarkedTextValue ?? "")
              }
@@ -62,7 +64,7 @@ func <-> <Base>(textInput: TextInput<Base>, relay: BehaviorRelay<String>) -> Dis
             if let nonMarkedTextValue = nonMarkedTextValue, nonMarkedTextValue != relay.value {
                 relay.accept(nonMarkedTextValue)
             }
-        }, onCompleted:  {
+        }, onCompleted: {
             bindToUIDisposable.dispose()
         })
 
@@ -77,7 +79,7 @@ func <-> <T>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposabl
             "That will usually work ok, but for some languages that use IME, that simplistic method could cause unexpected issues because it will return intermediate results while text is being inputed.\n" +
             "REMEDY: Just use `textField <-> relay` instead of `textField.rx.text <-> relay`.\n" +
             "Find out more here: https://github.com/ReactiveX/RxSwift/issues/649\n"
-            )
+        )
 #endif
     }
 
@@ -85,7 +87,7 @@ func <-> <T>(property: ControlProperty<T>, relay: BehaviorRelay<T>) -> Disposabl
     let bindToRelay = property
         .subscribe(onNext: { n in
             relay.accept(n)
-        }, onCompleted:  {
+        }, onCompleted: {
             bindToUIDisposable.dispose()
         })
 

@@ -6,21 +6,22 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
-import UIKit
 import Moya
 import RxSwift
+import UIKit
 
-//保存全局Providers
-fileprivate var retainProviders:[String: Any] = [:]
+// 保存全局Providers
+private var retainProviders: [String: Any] = [:]
 
 protocol BarkTargetType: TargetType {
     var parameters: [String: Any]? { get }
 }
 
 extension BarkTargetType {
-    var headers: [String : String]? {
+    var headers: [String: String]? {
         return nil
     }
+
     var baseURL: URL {
         return URL(string: ServerManager.shared.currentAddress)!
     }
@@ -42,21 +43,19 @@ extension BarkTargetType {
     }
     
     var requestTaskWithParameters: Task {
-        get {
-            //默认参数
-            var defaultParameters:[String:Any] = [:]
-            //协议参数
-            if let parameters = self.parameters {
-                for (key, value) in parameters {
-                    defaultParameters[key] = value
-                }
+        // 默认参数
+        var defaultParameters: [String: Any] = [:]
+        // 协议参数
+        if let parameters = self.parameters {
+            for (key, value) in parameters {
+                defaultParameters[key] = value
             }
-            return Task.requestParameters(parameters: defaultParameters, encoding: parameterEncoding)
         }
+        return Task.requestParameters(parameters: defaultParameters, encoding: parameterEncoding)
     }
     
     static var networkActivityPlugin: PluginType {
-        return NetworkActivityPlugin { (change, type) in
+        return NetworkActivityPlugin { change, _ in
             switch change {
             case .began:
                 dispatch_sync_safely_main_queue {
@@ -71,9 +70,9 @@ extension BarkTargetType {
     }
     
     /// 实现此协议的类，将自动获得用该类实例化的 provider 对象
-    static var provider: RxSwift.Reactive< MoyaProvider<Self> > {
+    static var provider: RxSwift.Reactive<MoyaProvider<Self>> {
         let key = "\(Self.self)"
-        if let provider = retainProviders[key] as? RxSwift.Reactive< MoyaProvider<Self> > {
+        if let provider = retainProviders[key] as? RxSwift.Reactive<MoyaProvider<Self>> {
             return provider
         }
         let provider = Self.weakProvider
@@ -82,18 +81,18 @@ extension BarkTargetType {
     }
     
     /// 不被全局持有的 Provider ，使用时，需要持有它，否则将立即释放，请求随即终止
-    static var weakProvider: RxSwift.Reactive< MoyaProvider<Self> > {
-        var plugins:[PluginType] = [networkActivityPlugin]
+    static var weakProvider: RxSwift.Reactive<MoyaProvider<Self>> {
+        var plugins: [PluginType] = [networkActivityPlugin]
         #if DEBUG
         plugins.append(LogPlugin())
         #endif
-        let provider = MoyaProvider<Self>(plugins:plugins)
+        let provider = MoyaProvider<Self>(plugins: plugins)
         return provider.rx
     }
 }
 
-extension RxSwift.Reactive where Base: MoyaProviderType {
-    public func request(_ token: Base.Target, callbackQueue: DispatchQueue? = nil) -> Observable<Response> {
+public extension RxSwift.Reactive where Base: MoyaProviderType {
+    func request(_ token: Base.Target, callbackQueue: DispatchQueue? = nil) -> Observable<Response> {
         return Single.create { [weak base] single in
             let cancellableToken = base?.request(token, callbackQueue: callbackQueue, progress: nil) { result in
                 switch result {
@@ -107,11 +106,11 @@ extension RxSwift.Reactive where Base: MoyaProviderType {
             return Disposables.create {
                 cancellableToken?.cancel()
             }
-            }.asObservable()
+        }.asObservable()
     }
 }
 
-fileprivate class LogPlugin: PluginType{
+private class LogPlugin: PluginType {
     func willSend(_ request: RequestType, target: TargetType) {
         print("\n-------------------\n准备请求: \(target.path)")
         print("请求方式: \(target.method.rawValue)")
@@ -119,8 +118,8 @@ fileprivate class LogPlugin: PluginType{
             print(params)
         }
         print("\n")
-        
     }
+
     func didReceive(_ result: Result<Response, MoyaError>, target: TargetType) {
         print("\n-------------------\n请求结束: \(target.path)")
         if let data = try? result.get().data, let resutl = String(data: data, encoding: String.Encoding.utf8) {

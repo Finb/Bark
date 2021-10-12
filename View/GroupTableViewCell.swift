@@ -6,16 +6,17 @@
 //  Copyright © 2021 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
+import UIKit
 
 class GroupTableViewCell: BaseTableViewCell {
-    let nameLabel:UILabel = {
+    let nameLabel: UILabel = {
         let label = UILabel()
         label.fontSize = 14
         label.textColor = Color.darkText.primary
         return label
     }()
+
     let checkButton: BKButton = {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_radio_button_unchecked_black_24pt"), for: .normal)
@@ -37,31 +38,33 @@ class GroupTableViewCell: BaseTableViewCell {
             make.left.equalToSuperview().offset(15)
             make.centerY.equalToSuperview()
         }
-        nameLabel.snp.makeConstraints { (make) in
+        nameLabel.snp.makeConstraints { make in
             make.left.equalTo(checkButton.snp.right).offset(15)
             make.top.equalToSuperview().offset(15)
             make.bottom.equalToSuperview().offset(-15)
         }
         let tap = UITapGestureRecognizer()
         self.contentView.addGestureRecognizer(tap)
-        tap.rx.event.subscribe(onNext: {[weak self] _ in
+        tap.rx.event.subscribe(onNext: { [weak self] _ in
             (self?.viewModel as? GroupCellViewModel)?.checked.accept(!self!.checkButton.isSelected)
         }).disposed(by: rx.disposeBag)
     }
+
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func bindViewModel(model:ViewModel){
+    override func bindViewModel(model: ViewModel) {
         super.bindViewModel(model: model)
         guard let viewModel = model as? GroupCellViewModel else {
             return
         }
         
         viewModel.name
-            .map({ name in
-                return name ?? NSLocalizedString("default")
-            })
+            .map { name in
+                name ?? NSLocalizedString("default")
+            }
             .bind(to: nameLabel.rx.text)
             .disposed(by: rx.reuseBag)
         
@@ -70,10 +73,8 @@ class GroupTableViewCell: BaseTableViewCell {
             .disposed(by: rx.reuseBag)
         
         viewModel.checked.subscribe(
-            onNext: {[weak self] checked in
+            onNext: { [weak self] checked in
                 self?.checkButton.tintColor = checked ? Color.lightBlue.darken3 : Color.lightGray
             }).disposed(by: rx.reuseBag)
-        
-
     }
 }

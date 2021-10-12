@@ -6,18 +6,18 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import Foundation
-import RxSwift
-import RxCocoa
 import AVKit
+import Foundation
+import RxCocoa
+import RxSwift
 
-class SoundCellViewModel:ViewModel {
+class SoundCellViewModel: ViewModel {
     let name = BehaviorRelay<String>(value: "")
     let duration = BehaviorRelay<CMTime>(value: .zero)
-    
+
     let copyNameAction = PublishRelay<String>()
     let playAction = PublishRelay<CFURL>()
-    
+
     let model: AVURLAsset
     init(model: AVURLAsset) {
         self.model = model

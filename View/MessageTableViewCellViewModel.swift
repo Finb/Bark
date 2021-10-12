@@ -6,11 +6,10 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
+import Differentiator
 import Foundation
 import RxCocoa
-import Differentiator
 import RxDataSources
-
 
 class MessageTableViewCellViewModel: ViewModel {
     let message: Message
@@ -22,7 +21,7 @@ class MessageTableViewCellViewModel: ViewModel {
     
     let urlTap: PublishRelay<String>
     
-    init(message:Message) {
+    init(message: Message) {
         self.message = message
         
         self.title = BehaviorRelay<String>(value: message.title ?? "")
@@ -35,13 +34,12 @@ class MessageTableViewCellViewModel: ViewModel {
     }
 }
 
-
 struct MessageSection {
     var header: String
-    var messages:[MessageTableViewCellViewModel]
+    var messages: [MessageTableViewCellViewModel]
 }
 
-extension MessageSection:AnimatableSectionModelType {
+extension MessageSection: AnimatableSectionModelType {
     typealias Item = MessageTableViewCellViewModel
     typealias Identity = String
     
@@ -62,7 +60,7 @@ extension MessageSection:AnimatableSectionModelType {
 extension MessageTableViewCellViewModel: IdentifiableType {
     typealias Identity = String
     
-    var identity: String{
+    var identity: String {
         return "\(self.message.id)"
     }
     
