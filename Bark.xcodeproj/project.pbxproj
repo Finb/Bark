@@ -62,6 +62,7 @@
 		0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */; };
 		0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8920E0D58800E80174 /* NewServerViewController.swift */; };
 		0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA8B20E0D7A700E80174 /* BaseViewController.swift */; };
+		063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B909A272149BF00431EC2 /* HomeViewModelTests.swift */; };
 		063C499520E36BF9001BCA35 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
 		064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */; };
 		064CABA6256BE9510018155C /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CABA5256BE9510018155C /* PreviewModel.swift */; };
@@ -109,6 +110,7 @@
 		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
 		06EE1FD326843E9300586708 /* BarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EE1FD226843E9300586708 /* BarkTests.swift */; };
+		31DF5981A61A5E2A04F075DF /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF7FFC18E05A0B590665CCA /* libPods-BarkTests.a */; };
 		6AF9CC9B5F6CD2BF86509897 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */; };
 		ACC117FABC6F8E44060B8D80 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */; };
 /* End PBXBuildFile section */
@@ -215,6 +217,7 @@
 		0637FA8520E0AB6600E80174 /* UIColor+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
 		0637FA8920E0D58800E80174 /* NewServerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewServerViewController.swift; sourceTree = "<group>"; };
 		0637FA8B20E0D7A700E80174 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		063B909A272149BF00431EC2 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		063C499620E36BF9001BCA35 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		063C499820E36C15001BCA35 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardCellViewModel.swift; sourceTree = "<group>"; };
@@ -272,9 +275,12 @@
 		08AEA046D1FD0D7950208796 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		14F0F73EC45A35FC2482F967 /* Pods_NotificationContentExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationContentExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
+		5630EF7352A1AFE67151BDA5 /* Pods-BarkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BarkTests/Pods-BarkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		68049930BAF79AFBD8B109B8 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
+		97CF293CD268ACB4619C3AD9 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
 		A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BAF7FFC18E05A0B590665CCA /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -317,6 +323,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31DF5981A61A5E2A04F075DF /* libPods-BarkTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +533,7 @@
 			children = (
 				06EE1FD226843E9300586708 /* BarkTests.swift */,
 				06EE1FD426843E9300586708 /* Info.plist */,
+				063B909A272149BF00431EC2 /* HomeViewModelTests.swift */,
 			);
 			path = BarkTests;
 			sourceTree = "<group>";
@@ -537,6 +545,8 @@
 				1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */,
 				08AEA046D1FD0D7950208796 /* Pods-NotificationServiceExtension.debug.xcconfig */,
 				68049930BAF79AFBD8B109B8 /* Pods-NotificationServiceExtension.release.xcconfig */,
+				5630EF7352A1AFE67151BDA5 /* Pods-BarkTests.debug.xcconfig */,
+				97CF293CD268ACB4619C3AD9 /* Pods-BarkTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -551,6 +561,7 @@
 				E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */,
 				A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */,
 				0660480A2700550600938904 /* Intents.framework */,
+				BAF7FFC18E05A0B590665CCA /* libPods-BarkTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -637,6 +648,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06EE1FD726843E9300586708 /* Build configuration list for PBXNativeTarget "BarkTests" */;
 			buildPhases = (
+				B19EDF6ED49FA5301126DD02 /* [CP] Check Pods Manifest.lock */,
 				06EE1FCC26843E9300586708 /* Sources */,
 				06EE1FCD26843E9300586708 /* Frameworks */,
 				06EE1FCE26843E9300586708 /* Resources */,
@@ -853,6 +865,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bark/Pods-Bark-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B19EDF6ED49FA5301126DD02 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BarkTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -945,6 +979,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				06EE1FD326843E9300586708 /* BarkTests.swift in Sources */,
+				063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1311,6 +1346,7 @@
 		};
 		06EE1FD826843E9300586708 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5630EF7352A1AFE67151BDA5 /* Pods-BarkTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1336,6 +1372,7 @@
 		};
 		06EE1FD926843E9300586708 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 97CF293CD268ACB4619C3AD9 /* Pods-BarkTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;

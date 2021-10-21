@@ -28,6 +28,11 @@ end
 
 target 'Bark' do
     pods
+    
+    target 'BarkTests' do
+      inherit! :search_paths
+    end
+    
 end
 
 
