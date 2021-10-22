@@ -84,6 +84,7 @@
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
 		067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
+		06840DBB272298FB001B3193 /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
 		06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
 		06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */; };
@@ -244,6 +245,7 @@
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
+		06840DBA272298FB001B3193 /* BKColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKColor.swift; sourceTree = "<group>"; };
 		06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewController.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewController.swift; sourceTree = "<group>"; };
@@ -451,6 +453,7 @@
 				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
 				06BBB8C82567B6730076F63E /* Operators.swift */,
 				0633E809256A091B00ED0680 /* MJRefresh+Rx.swift */,
+				06840DBA272298FB001B3193 /* BKColor.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -910,6 +913,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06840DBB272298FB001B3193 /* BKColor.swift in Sources */,
 				06C2CF232685B88D0034B127 /* TextCell.swift in Sources */,
 				06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */,
 				06BBB8C92567B6730076F63E /* Operators.swift in Sources */,

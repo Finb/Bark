@@ -21,13 +21,16 @@ class NewServerViewController: BaseViewController {
         textField.detail = NSLocalizedString("ServerExample")
         textField.transition([.scale(0.85), .opacity(0)])
         textField.detailLabel.transition([.scale(0.85), .opacity(0)])
+        textField.textColor = BKColor.grey.darken4
+        textField.placeholderNormalColor = BKColor.grey.base
+        textField.detailLabel.textColor = BKColor.grey.base
         return textField
     }()
     
     let noticeLabel: UILabel = {
         let label = UILabel()
         label.text = NSLocalizedString("DeploymentDocuments")
-        label.textColor = Color.blue.base
+        label.textColor = BKColor.blue.base
         label.font = UIFont.systemFont(ofSize: 12)
         label.transition([.scale(0.85), .opacity(0), .translate(x: 50)])
         label.isUserInteractionEnabled = true
@@ -40,6 +43,7 @@ class NewServerViewController: BaseViewController {
         doneButton.setImage(Icon.check, for: .normal)
         doneButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: doneButton))
+        doneButton.tintColor = BKColor.grey.darken4
         return doneButton
     }()
     

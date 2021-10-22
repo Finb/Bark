@@ -13,7 +13,7 @@ class MessageSettingsViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.backgroundColor = Color.grey.lighten5
+        tableView.backgroundColor = BKColor.background.primary
         tableView.register(LabelCell.self, forCellReuseIdentifier: "\(LabelCell.self)")
         tableView.register(iCloudStatusCell.self, forCellReuseIdentifier: "\(iCloudStatusCell.self)")
         tableView.register(ArchiveSettingCell.self, forCellReuseIdentifier: "\(ArchiveSettingCell.self)")

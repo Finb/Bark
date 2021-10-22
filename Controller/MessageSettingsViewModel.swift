@@ -31,7 +31,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             settings.append(.label(text: NSLocalizedString("defaultArchiveSettings")))
             settings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: ArchiveSettingManager.shared.isArchive)))
             settings.append(.label(text: NSLocalizedString("archiveNote")))
-            
+
             if let infoDict = Bundle.main.infoDictionary,
                let runId = infoDict["GitHub Run Id"] as? String
             {
@@ -39,26 +39,26 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 settings.append(.detail(
                     title: "Github Run Id",
                     text: "\(runId)",
-                    textColor: Color.grey.darken2,
+                    textColor: BKColor.grey.darken2,
                     url: URL(string: "https://github.com/Finb/Bark/actions/runs/\(runId)")))
                 settings.append(.label(text: NSLocalizedString("buildDesc")))
             }
-            
+
             settings.append(.label(text: NSLocalizedString("other")))
             settings.append(.detail(
                 title: NSLocalizedString("faq"),
                 text: nil,
                 textColor: nil,
                 url: URL(string: "https://day.app/2021/06/barkfaq/")))
-            
-            settings.append(.spacer(height: 0.5, color: Color.grey.lighten4))
+
+            settings.append(.spacer(height: 0.5, color: BKColor.grey.lighten4))
             settings.append(.detail(
                 title: NSLocalizedString("appSC"),
                 text: nil,
                 textColor: nil,
                 url: URL(string: "https://github.com/Finb/Bark")))
-            
-            settings.append(.spacer(height: 0.5, color: Color.grey.lighten4))
+
+            settings.append(.spacer(height: 0.5, color: BKColor.grey.lighten4))
             settings.append(.detail(
                 title: NSLocalizedString("backendSC"),
                 text: nil,
@@ -66,7 +66,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 url: URL(string: "https://github.com/Finb/bark-server")))
             return settings
         }()
-        
+
         settings.compactMap { item -> ArchiveSettingCellViewModel? in
             if case let MessageSettingItem.archiveSetting(viewModel) = item {
                 return viewModel
@@ -85,7 +85,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             }
             return nil
         }
-        
+
         return Output(
             settings: Driver<[SectionModel<String, MessageSettingItem>]>
                 .just([SectionModel(model: "model", items: settings)]),

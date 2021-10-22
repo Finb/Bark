@@ -18,7 +18,7 @@ import RxSwift
 class SoundsViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
-        tableView.backgroundColor = Color.grey.lighten5
+        tableView.backgroundColor = BKColor.background.primary
         tableView.register(SoundCell.self, forCellReuseIdentifier: "\(SoundCell.self)")
         return tableView
     }()
@@ -35,7 +35,7 @@ class SoundsViewController: BaseViewController {
             let header = UILabel()
             header.fontSize = 12
             header.text = "    \(NSLocalizedString("previewSound"))"
-            header.textColor = Color.darkText.secondary
+            header.textColor = BKColor.grey.darken1
             header.frame = CGRect(x: 0, y: 0, width: 0, height: 40)
             return header
         }()

@@ -16,13 +16,14 @@ class HomeViewController: BaseViewController {
     let newButton: BKButton = {
         let btn = BKButton()
         btn.setImage(Icon.add, for: .normal)
+        btn.imageView?.tintColor = BKColor.grey.darken4
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         return btn
     }()
     
     let startButton: FABButton = {
         let button = FABButton(title: NSLocalizedString("RegisterDevice"))
-        button.backgroundColor = Color.white
+        button.backgroundColor = BKColor.white
         button.transition([.scale(0.75), .opacity(0)])
         return button
     }()
@@ -30,14 +31,14 @@ class HomeViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.backgroundColor = Color.grey.lighten4
+        tableView.backgroundColor = BKColor.background.primary
         tableView.register(PreviewCardCell.self, forCellReuseIdentifier: "\(PreviewCardCell.self)")
         tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 0)
         return tableView
     }()
     
     override func makeUI() {
-        self.view.backgroundColor = Color.grey.lighten4
+        self.view.backgroundColor = BKColor.background.primary
         
         navigationItem.setRightBarButtonItem(
             item: UIBarButtonItem(customView: newButton))

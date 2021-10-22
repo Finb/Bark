@@ -14,8 +14,8 @@ class LabelCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
 
-        self.backgroundColor = Color.grey.lighten5
-        self.textLabel?.textColor = Color.darkText.secondary
+        self.backgroundColor = BKColor.background.primary
+        self.textLabel?.textColor = BKColor.grey.darken1
         self.textLabel?.fontSize = 12
         self.textLabel?.numberOfLines = 0
     }

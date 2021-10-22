@@ -13,7 +13,7 @@ class iCloudStatusCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-
+        self.backgroundColor = BKColor.background.secondary
         self.textLabel?.text = NSLocalizedString("iCloudSatatus")
         self.detailTextLabel?.text = ""
         CKContainer.default().accountStatus { status, _ in

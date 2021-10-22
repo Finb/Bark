@@ -48,7 +48,7 @@ class MessageListViewController: BaseViewController {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
-        tableView.backgroundColor = Color.grey.lighten5
+        tableView.backgroundColor = BKColor.background.primary
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "\(MessageTableViewCell.self)")
         tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         return tableView

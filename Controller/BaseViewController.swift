@@ -14,7 +14,7 @@ class BaseViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         
-        self.view.backgroundColor = Color.grey.lighten5
+        self.view.backgroundColor = BKColor.background.primary
     }
     
     @available(*, unavailable)

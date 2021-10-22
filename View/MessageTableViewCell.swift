@@ -13,14 +13,14 @@ class MessageTableViewCell: BaseTableViewCell {
         let view = UIView()
         view.layer.cornerRadius = 3
         view.clipsToBounds = true
-        view.backgroundColor = UIColor.white
+        view.backgroundColor = BKColor.background.secondary
         return view
     }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.medium(with: 16)
-        label.textColor = Color.darkText.primary
+        label.textColor = BKColor.grey.darken4
         label.numberOfLines = 0
         return label
     }()
@@ -28,7 +28,7 @@ class MessageTableViewCell: BaseTableViewCell {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.darkText.primary
+        label.textColor = BKColor.grey.darken4
         label.numberOfLines = 0
         return label
     }()
@@ -38,7 +38,7 @@ class MessageTableViewCell: BaseTableViewCell {
         label.hitTestSlop = UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20)
         label.isUserInteractionEnabled = true
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.blue.darken1
+        label.textColor = BKColor.blue.darken1
         label.numberOfLines = 0
         return label
     }()
@@ -46,7 +46,7 @@ class MessageTableViewCell: BaseTableViewCell {
     let dateLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.medium(with: 11)
-        label.textColor = Color.darkText.others
+        label.textColor = BKColor.grey.base
         return label
     }()
 
@@ -58,7 +58,7 @@ class MessageTableViewCell: BaseTableViewCell {
 
     let separatorLine: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = Color.grey.lighten5
+        imageView.backgroundColor = BKColor.background.primary
         return imageView
     }()
 
@@ -66,7 +66,7 @@ class MessageTableViewCell: BaseTableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         
-        self.backgroundColor = Color.grey.lighten5
+        self.backgroundColor = BKColor.background.primary
         contentView.addSubview(backgroundPanel)
         contentView.addSubview(bodyStackView)
         

@@ -10,13 +10,13 @@ import Material
 import UIKit
 
 class PreviewCardCell: BaseTableViewCell {
-    let previewButton = IconButton(image: Icon.cm.skipForward, tintColor: Color.grey.base)
-    let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: Color.grey.base)
+    let previewButton = IconButton(image: Icon.cm.skipForward, tintColor: BKColor.grey.base)
+    let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
     
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.grey.darken3
+        label.textColor = BKColor.grey.darken3
         label.numberOfLines = 0
         return label
     }()
@@ -24,7 +24,7 @@ class PreviewCardCell: BaseTableViewCell {
     let bodyLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 14)
-        label.textColor = Color.grey.darken2
+        label.textColor = BKColor.grey.darken2
         label.numberOfLines = 0
         return label
     }()
@@ -32,7 +32,7 @@ class PreviewCardCell: BaseTableViewCell {
     let noticeLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.regular(with: 12)
-        label.textColor = Color.grey.base
+        label.textColor = BKColor.grey.base
         label.numberOfLines = 0
         label.isUserInteractionEnabled = true
         return label
@@ -46,7 +46,7 @@ class PreviewCardCell: BaseTableViewCell {
 
     let card: UIView = {
         let view = UIView()
-        view.backgroundColor = Color.white
+        view.backgroundColor = BKColor.background.secondary
         view.layer.cornerRadius = 2
         view.clipsToBounds = true
         return view
@@ -70,7 +70,7 @@ class PreviewCardCell: BaseTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
-        self.backgroundColor = Color.grey.lighten4
+        self.backgroundColor = BKColor.background.primary
         
         contentView.addSubview(card)
         card.addSubview(copyButton)

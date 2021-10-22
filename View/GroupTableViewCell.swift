@@ -13,7 +13,7 @@ class GroupTableViewCell: BaseTableViewCell {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.fontSize = 14
-        label.textColor = Color.darkText.primary
+        label.textColor = BKColor.grey.darken4
         return label
     }()
 
@@ -21,7 +21,7 @@ class GroupTableViewCell: BaseTableViewCell {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_radio_button_unchecked_black_24pt"), for: .normal)
         btn.setImage(UIImage(named: "baseline_check_circle_outline_black_24pt"), for: .selected)
-        btn.tintColor = Color.lightGray
+        btn.tintColor = BKColor.grey.base
         btn.isUserInteractionEnabled = false
         return btn
     }()
@@ -74,7 +74,7 @@ class GroupTableViewCell: BaseTableViewCell {
         
         viewModel.checked.subscribe(
             onNext: { [weak self] checked in
-                self?.checkButton.tintColor = checked ? Color.lightBlue.darken3 : Color.lightGray
+                self?.checkButton.tintColor = checked ? BKColor.lightBlue.darken3 : BKColor.grey.base
             }).disposed(by: rx.reuseBag)
     }
 }

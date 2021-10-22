@@ -51,11 +51,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         setupRealm()
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
-        if #available(iOS 13.0, *) {
-            self.window?.overrideUserInterfaceStyle = .light
-        }
         let tabBarController = StateStorageTabBarController()
-        tabBarController.tabBar.tintColor = UIColor.black
+        tabBarController.tabBar.tintColor = BKColor.grey.darken4
 
         self.window?.backgroundColor = UIColor.black
         self.window?.rootViewController = BarkSnackbarController(
@@ -96,7 +93,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let bar = UINavigationBar.appearance(whenContainedInInstancesOf: [BarkNavigationController.self])
         bar.backIndicatorImage = UIImage(named: "back")
         bar.backIndicatorTransitionMaskImage = UIImage(named: "back")
-        bar.tintColor = Color.darkText.primary
+        bar.tintColor = BKColor.grey.darken4
 
         return true
     }
@@ -123,8 +120,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         if let dict = userInfo as? [String: NSObject],
-            let notification = CKNotification(fromRemoteNotificationDictionary: dict),
-            let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
+           let notification = CKNotification(fromRemoteNotificationDictionary: dict),
+           let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID)
+        {
             NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
             completionHandler(.newData)
         }

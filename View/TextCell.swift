@@ -13,6 +13,7 @@ class DetailTextCell: UITableViewCell {
         super.init(style: .value1, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.accessoryType = .disclosureIndicator
+        self.backgroundColor = BKColor.background.secondary
     }
 
     @available(*, unavailable)
