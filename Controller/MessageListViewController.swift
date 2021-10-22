@@ -192,6 +192,9 @@ class MessageListViewController: BaseViewController {
         // 标题
         output.title
             .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
+        
+        // 绑定数据后，滚动到顶部
+        self.scrollToTop()
     }
     
     func alertMessage(message: String) {

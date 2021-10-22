@@ -29,6 +29,7 @@ class GroupTableViewCell: BaseTableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
+        self.backgroundColor = BKColor.background.secondary
         
         self.contentView.addSubview(nameLabel)
         self.contentView.addSubview(checkButton)
