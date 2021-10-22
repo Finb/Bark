@@ -23,7 +23,7 @@ class HomeViewController: BaseViewController {
     
     let startButton: FABButton = {
         let button = FABButton(title: NSLocalizedString("RegisterDevice"))
-        button.backgroundColor = BKColor.white
+        button.backgroundColor = BKColor.grey.lighten5
         button.transition([.scale(0.75), .opacity(0)])
         return button
     }()
