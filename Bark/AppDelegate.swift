@@ -6,6 +6,7 @@
 //  Copyright © 2018年 Fin. All rights reserved.
 //
 
+import CloudKit
 import IceCream
 import Material
 import RealmSwift
@@ -118,6 +119,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         notificatonHandler(userInfo: response.notification.request.content.userInfo)
+    }
+
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        if let dict = userInfo as? [String: NSObject],
+            let notification = CKNotification(fromRemoteNotificationDictionary: dict),
+            let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID) {
+            NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
+            completionHandler(.newData)
+        }
     }
 
     private func notificatonHandler(userInfo: [AnyHashable: Any]) {
