@@ -143,17 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
             // URL 直接打开
             if let url = url {
-                if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
-                    UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly: true]) { success in
-                        if !success {
-                            // 打不开Universal Link时，则用内置 safari 打开
-                            navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
-                        }
-                    }
-                }
-                else {
-                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                }
+                Client.shared.openUrl(url: url)
                 return
             }
 

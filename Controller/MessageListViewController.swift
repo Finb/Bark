@@ -175,12 +175,7 @@ class MessageListViewController: BaseViewController {
         
         // 点击message中的URL
         output.urlTap.drive(onNext: { url in
-            if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
-                self.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
-            }
-            else {
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
-            }
+            Client.shared.openUrl(url: url)
         }).disposed(by: rx.disposeBag)
         
         // 选择群组

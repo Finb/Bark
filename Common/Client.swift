@@ -101,4 +101,18 @@ class Client: NSObject {
             }
         })
     }
+    
+    func openUrl(url: URL) {
+        if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
+            UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly: true]) { success in
+                if !success {
+                    // 打不开Universal Link时，则用内置 safari 打开
+                    self.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                }
+            }
+        }
+        else {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
 }
