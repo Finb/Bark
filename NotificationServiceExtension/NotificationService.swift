@@ -250,6 +250,19 @@ class NotificationService: UNNotificationServiceExtension {
         
         let userInfo = bestAttemptContent.userInfo
         
+        // 通知中断级别
+        if #available(iOSApplicationExtension 15.0, *) {
+            if let level = userInfo["level"] as? String {
+                let interruptionLevels: [String: UNNotificationInterruptionLevel] = [
+                    "passive": UNNotificationInterruptionLevel.passive,
+                    "active": UNNotificationInterruptionLevel.active,
+                    "timeSensitive": UNNotificationInterruptionLevel.timeSensitive,
+                    "critical": UNNotificationInterruptionLevel.critical,
+                ]
+                bestAttemptContent.interruptionLevel = interruptionLevels[level] ?? .active
+            }
+        }
+        
         // 自动复制
         autoCopy(userInfo, defaultCopy: bestAttemptContent.body)
         // 保存推送
