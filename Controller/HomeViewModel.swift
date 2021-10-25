@@ -71,6 +71,11 @@ class HomeViewModel: ViewModel, ViewModelType {
                 image: UIImage(named: "group")
             ),
             PreviewModel(
+                body: NSLocalizedString("interruptionLevel"),
+                notice: NSLocalizedString("interruptionLevelNotice"),
+                queryParameter: "level=timeSensitive"
+            ),
+            PreviewModel(
                 body: "URL Test",
                 notice: NSLocalizedString("urlParameter"),
                 queryParameter: "url=https://www.baidu.com"

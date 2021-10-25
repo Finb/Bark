@@ -257,6 +257,7 @@ class NotificationService: UNNotificationServiceExtension {
                     "passive": UNNotificationInterruptionLevel.passive,
                     "active": UNNotificationInterruptionLevel.active,
                     "timeSensitive": UNNotificationInterruptionLevel.timeSensitive,
+                    "timesensitive": UNNotificationInterruptionLevel.timeSensitive,
                     "critical": UNNotificationInterruptionLevel.critical,
                 ]
                 bestAttemptContent.interruptionLevel = interruptionLevels[level] ?? .active

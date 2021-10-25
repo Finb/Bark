@@ -51,24 +51,33 @@ https://api.day.app/yourkey/验证码是9527?automaticallyCopy=1&copy=9527
 
 * url
 ```
-//点击推送将跳转到url的地址（发送时，URL参数需要编码）
+// 点击推送将跳转到url的地址（发送时，URL参数需要编码）
 https://api.day.app/yourkey/百度网址?url=https://www.baidu.com 
 ```
 * isArchive
 ```
-//指定是否需要保存推送信息到历史记录，1 为保存，其他值为不保存。
-//如果不指定这个参数，推送信息将按照APP内设置来决定是否保存。
+// 指定是否需要保存推送信息到历史记录，1 为保存，其他值为不保存。
+// 如果不指定这个参数，推送信息将按照APP内设置来决定是否保存。
 https://api.day.app/yourkey/需要保存的推送?isArchive=1
 ```
 * group
 ```
-//指定推送消息分组，可在历史记录中按分组查看推送。
+// 指定推送消息分组，可在历史记录中按分组查看推送。
 https://api.day.app/yourkey/需要分组的推送?group=groupName
 ```
 * icon (仅 iOS15 或以上支持）
 ```
-//指定推送消息图标
+// 指定推送消息图标
 https://api.day.app/yourkey/需要自定义图标的推送?icon=http://day.app/assets/images/avatar.jpg
+```
+* 时效性通知
+```
+// 指定推送消息图标
+https://api.day.app/yourkey/时效性通知?level=timeSensitive
+// 可选参数值
+// active：不设置时的默认值，系统会立即亮屏显示通知。
+// timeSensitive：时效性通知，可在专注状态下显示通知。
+// passive：仅将通知添加到通知列表，不会亮屏提醒
 ```
 
 ## 后端代码 

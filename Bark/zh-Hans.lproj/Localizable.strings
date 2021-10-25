@@ -97,5 +97,9 @@ faq = "常见问题";
 appSC = "App源代码";
 backendSC = "后端源代码";
 
-notificationIcon = "自定义推送图标";
+notificationIcon = "自定义推送图标（需iOS15或以上）";
 notificationIconNotice = "为推送设置自定义图标，设置的图标将替换默认Bark图标。\图标会自动缓存在本机，相同的图标 URL 仅下载一次。";
+
+
+interruptionLevel = "时效性通知";
+interruptionLevelNotice = "可对通知设置中断级别，不设置则默认为 active。\n\n可选参数值：\nactive： 默认值，系统会立即亮屏显示通知。\ntimeSensitive：时效性通知，可在专注状态下显示通知。\npassive：仅将通知添加到通知列表，不会亮屏提醒。";

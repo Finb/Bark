@@ -45,7 +45,7 @@ urlParameter = "Clicking on the notification will jump \nto this URL in the para
 
 copyParameter = "If the URL has a copy parameter then the value of the copy \nparameter will be copied";
 
-automaticallyCopyTitle = "Automatically copy push content (No longer available after iOS14.5，)";
+automaticallyCopyTitle = "Automatically copy push content (No longer available after iOS14.5)";
 automaticallyCopy = "Automatically copy push content \nwhen a push is received\nAfter iOS 14.5, long press or pull down on a push to trigger auto-copy, before iOS 14.5 you don't need to do anything";
 
 historyMessage = "Message History";
@@ -97,3 +97,6 @@ backendSC = "Backend Source Code";
 
 notificationIcon = "Custom Icon";
 notificationIconNotice = "Set a custom icon for the push and the set icon will replace the default Bark icon. Icons are automatically cached locally.";
+
+interruptionLevel = "Time Sensitive notifications";
+interruptionLevelNotice = "The interruption level can be set for notifications; if not set, the default is active.\n\nAvailable parameter values:\nactive: The system presents the notification immediately, lights up the screen.\ntimeSensitive: May be presented during Do Not Disturb\npassive: Added to the notification list; does not light up screen or play sound.";
