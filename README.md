@@ -72,8 +72,9 @@ https://api.day.app/yourkey/需要自定义图标的推送?icon=http://day.app/a
 ```
 * 时效性通知
 ```
-// 指定推送消息图标
+// 设置时效性通知
 https://api.day.app/yourkey/时效性通知?level=timeSensitive
+
 // 可选参数值
 // active：不设置时的默认值，系统会立即亮屏显示通知。
 // timeSensitive：时效性通知，可在专注状态下显示通知。
