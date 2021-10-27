@@ -87,6 +87,11 @@ class HomeViewModel: ViewModel, ViewModelType {
                 image: UIImage(named: "copyTest")
             ),
             PreviewModel(
+                body: NSLocalizedString("badge"),
+                notice: NSLocalizedString("badgeNotice"),
+                queryParameter: "badge=1"
+            ),
+            PreviewModel(
                 body: NSLocalizedString("automaticallyCopyTitle"),
                 notice: NSLocalizedString("automaticallyCopy"),
                 queryParameter: "autoCopy=1&copy=optional"

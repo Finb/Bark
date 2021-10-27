@@ -103,3 +103,6 @@ notificationIconNotice = "为推送设置自定义图标，设置的图标将替
 
 interruptionLevel = "时效性通知";
 interruptionLevelNotice = "可对通知设置中断级别，不设置则默认为 active。\n\n可选参数值：\nactive： 默认值，系统会立即亮屏显示通知。\ntimeSensitive：时效性通知，可在专注状态下显示通知。\npassive：仅将通知添加到通知列表，不会亮屏提醒。";
+
+badge = "设置角标";
+badgeNotice = "可以为推送设置角标，角标可以是任意数字。";

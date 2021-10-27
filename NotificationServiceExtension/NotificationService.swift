@@ -264,6 +264,11 @@ class NotificationService: UNNotificationServiceExtension {
             }
         }
         
+        // 通知角标
+        if let badgeStr = userInfo["badge"] as? String, let badge = Int(badgeStr) {
+            bestAttemptContent.badge = NSNumber(value: badge)
+        }
+        
         // 自动复制
         autoCopy(userInfo, defaultCopy: bestAttemptContent.body)
         // 保存推送

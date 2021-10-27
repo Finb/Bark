@@ -100,3 +100,6 @@ notificationIconNotice = "Set a custom icon for the push and the set icon will r
 
 interruptionLevel = "Time Sensitive notifications";
 interruptionLevelNotice = "The interruption level can be set for notifications; if not set, the default is active.\n\nAvailable parameter values:\nactive: The system presents the notification immediately, lights up the screen.\ntimeSensitive: May be presented during Do Not Disturb\npassive: Added to the notification list; does not light up screen or play sound.";
+
+badge = "Modify a Notification Badge";
+badgeNotice = "The notification badge can be set with a number.";
