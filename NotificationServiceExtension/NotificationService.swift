@@ -89,19 +89,19 @@ class NotificationService: UNNotificationServiceExtension {
     /// - Parameters:
     ///   - userInfo: 推送参数
     ///   - bestAttemptContent: 推送content
-    ///   - complection: 下载图片完毕后的回调函数
-    fileprivate func downloadImage(_ imageUrl: String, complection: @escaping (_ imageFileUrl: String?) -> ()) {
+    ///   - completion: 下载图片完毕后的回调函数
+    fileprivate func downloadImage(_ imageUrl: String, completion: @escaping (_ imageFileUrl: String?) -> ()) {
         guard let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark"),
               let cache = try? ImageCache(name: "shared", cacheDirectoryURL: groupUrl),
               let imageResource = URL(string: imageUrl)
         else {
-            complection(nil)
+            completion(nil)
             return
         }
         
         func downloadFinished() {
             let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
-            complection(cacheFileUrl)
+            completion(cacheFileUrl)
         }
         
         // 先查看图片缓存
@@ -113,7 +113,7 @@ class NotificationService: UNNotificationServiceExtension {
         // 下载图片
         Kingfisher.ImageDownloader.default.downloadImage(with: imageResource, options: nil) { result in
             guard let result = try? result.get() else {
-                complection(nil)
+                completion(nil)
                 return
             }
             // 缓存图片
@@ -126,19 +126,19 @@ class NotificationService: UNNotificationServiceExtension {
     /// 设置推送图片
     /// - Parameters:
     ///   - bestAttemptContent: 推送content
-    ///   - complection: 下载图片完毕后的回调函数
+    ///   - completion: 下载图片完毕后的回调函数
     fileprivate func setImage(content bestAttemptContent: UNMutableNotificationContent,
-                              complection: @escaping (_ content: UNMutableNotificationContent) -> ())
+                              completion: @escaping (_ content: UNMutableNotificationContent) -> ())
     {
         let userInfo = bestAttemptContent.userInfo
         guard let imageUrl = userInfo["image"] as? String else {
-            complection(bestAttemptContent)
+            completion(bestAttemptContent)
             return
         }
         
         func finished(_ imageFileUrl: String?) {
             guard let imageFileUrl = imageFileUrl else {
-                complection(bestAttemptContent)
+                completion(bestAttemptContent)
                 return
             }
             let copyDestUrl = URL(fileURLWithPath: imageFileUrl).appendingPathExtension(".tmp")
@@ -155,29 +155,29 @@ class NotificationService: UNNotificationServiceExtension {
             ) {
                 bestAttemptContent.attachments = [attachment]
             }
-            complection(bestAttemptContent)
+            completion(bestAttemptContent)
         }
         
-        downloadImage(imageUrl, complection: finished)
+        downloadImage(imageUrl, completion: finished)
     }
     
     /// 设置推送 icon
     /// - Parameters:
     ///   - bestAttemptContent: 推送 content
-    ///   - complection: 设置完成后的回调参数
+    ///   - completion: 设置完成后的回调参数
     fileprivate func setIcon(content bestAttemptContent: UNMutableNotificationContent,
-                             complection: @escaping (_ content: UNMutableNotificationContent) -> ())
+                             completion: @escaping (_ content: UNMutableNotificationContent) -> ())
     {
         if #available(iOSApplicationExtension 15.0, *) {
             let userInfo = bestAttemptContent.userInfo
             guard let imageUrl = userInfo["icon"] as? String else {
-                complection(bestAttemptContent)
+                completion(bestAttemptContent)
                 return
             }
             
             func finished(_ imageFileUrl: String?) {
                 guard let imageFileUrl = imageFileUrl else {
-                    complection(bestAttemptContent)
+                    completion(bestAttemptContent)
                     return
                 }
                 var personNameComponents = PersonNameComponents()
@@ -225,19 +225,19 @@ class NotificationService: UNNotificationServiceExtension {
                 
                 do {
                     let content = try bestAttemptContent.updating(from: intent) as! UNMutableNotificationContent
-                    complection(content)
+                    completion(content)
                 }
                 catch {
                     // Handle error
                 }
                 
-                complection(bestAttemptContent)
+                completion(bestAttemptContent)
             }
             
-            downloadImage(imageUrl, complection: finished)
+            downloadImage(imageUrl, completion: finished)
         }
         else {
-            complection(bestAttemptContent)
+            completion(bestAttemptContent)
         }
     }
     
