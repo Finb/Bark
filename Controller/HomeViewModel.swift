@@ -98,7 +98,25 @@ class HomeViewModel: ViewModel, ViewModelType {
             )
         ]
     }()
-
+    
+    // 第一次进入APP 查看通知权限设置
+    lazy var authorizationStatus = Single<UNAuthorizationStatus>.create { single -> Disposable in
+        UNUserNotificationCenter.current().getNotificationSettings { settings in
+            single(.success(settings.authorizationStatus))
+        }
+        return Disposables.create()
+    }
+    
+    // 点击注册按钮，请求通知权限
+    lazy var startRequestAuthorization = Single<Bool>.create { single -> Disposable in
+        let center = UNUserNotificationCenter.current()
+        center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
+            single(.success(granted))
+        })
+        return Disposables.create()
+    }
+    .asObservable()
+    
     func transform(input: Input) -> Output {
         let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentAddress)?.host ?? "")
         
@@ -137,31 +155,12 @@ class HomeViewModel: ViewModel, ViewModelType {
                 }
             }
         
-        // 第一次进入APP 查看通知权限设置
-        let authorizationStatus = Single<UNAuthorizationStatus>.create { single -> Disposable in
-            UNUserNotificationCenter.current().getNotificationSettings { settings in
-                single(.success(settings.authorizationStatus))
-            }
-            return Disposables.create()
-        }
-        .map { $0 == .authorized }
-        
-        // 点击注册按钮，请求通知权限
-        let startRequestAuthorization = Single<Bool>.create { single -> Disposable in
-            let center = UNUserNotificationCenter.current()
-            center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
-                single(.success(granted))
-            })
-            return Disposables.create()
-        }
-        .asObservable()
-        
         // 根据通知权限，设置是否隐藏注册按钮、显示示例预览列表
-        let tableViewHidden = authorizationStatus
+        let tableViewHidden = authorizationStatus.map { $0 == .authorized }
             .asObservable()
-            .concat(input.start
-                .asObservable()
-                .flatMapLatest { startRequestAuthorization })
+            .concat(
+                input.start.asObservable().flatMapLatest { self.startRequestAuthorization }
+            )
             .asDriver(onErrorJustReturn: false)
         
         let showSnackbar = PublishRelay<String>()
