@@ -13,7 +13,6 @@ import XCTest
 
 class HomeViewModelTests: XCTestCase {
 
-    let homeViewModel = HomeViewModel()
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -24,12 +23,9 @@ class HomeViewModelTests: XCTestCase {
 
     func testNewButtonClick() {
         let exp = expectation(description: #function)
+        let homeViewModel = HomeViewModel()
 
-        let input = HomeViewModel.Input(
-            addCustomServerTap: Driver.just(()),
-            viewDidAppear: Driver.empty(),
-            start: Driver.empty(),
-            clientState: Driver.empty())
+        let input = generateInput(addCustomServerTap: Driver.just(()))
         let output = homeViewModel.transform(input: input)
 
         output.push.drive { viewModel in
@@ -38,5 +34,73 @@ class HomeViewModelTests: XCTestCase {
         }.disposed(by: rx.disposeBag)
 
         waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    /// 测试 查看所有铃声 按钮点击
+    func testSoundsTap() {
+        let exp = expectation(description: #function)
+        let homeViewModel = HomeViewModel()
+
+        let input = generateInput()
+        let output = homeViewModel.transform(input: input)
+
+        // 测试是否能正常收到 push model
+        output.push.drive { viewModel in
+            XCTAssertTrue(viewModel is SoundsViewModel, "Type Error")
+            exp.fulfill()
+        }.disposed(by: rx.disposeBag)
+
+        // 发送点击事件
+        output.previews.drive { models in
+            guard let items = models.first?.items, let testPrevieModel = items.first(where: { model in
+                model.previewModel.moreViewModel is SoundsViewModel
+            }) else {
+                assertionFailure("Empty items")
+                return
+            }
+            if let model = testPrevieModel.previewModel.moreViewModel {
+                testPrevieModel.noticeTap.accept(model)
+            }
+        }.disposed(by: rx.disposeBag)
+
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    func testCopy() {
+        let exp = expectation(description: #function)
+        let homeViewModel = HomeViewModel()
+
+        let input = generateInput()
+        let output = homeViewModel.transform(input: input)
+        
+        let testStr = "hello bark"
+        // 测试是否正常 copy
+        output.copy.drive { str in
+            XCTAssertTrue(str == testStr)
+            exp.fulfill()
+        }.disposed(by: rx.disposeBag)
+
+        // 发送复制事件
+        output.previews.drive { models in
+            guard let items = models.first?.items, let testPrevieModel = items.first else {
+                assertionFailure("Empty items")
+                return
+            }
+            testPrevieModel.copy.accept(testStr)
+        }.disposed(by: rx.disposeBag)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
+    /// 生成Input
+    private func generateInput(addCustomServerTap: Driver<Void> = Driver.empty(),
+                               viewDidAppear: Driver<Void> = Driver.empty(),
+                               start: Driver<Void> = Driver.empty(),
+                               clientState: Driver<Client.ClienState> = Driver.empty()) -> HomeViewModel.Input
+    {
+        return HomeViewModel.Input(
+            addCustomServerTap: addCustomServerTap,
+            viewDidAppear: viewDidAppear,
+            start: start,
+            clientState: clientState)
     }
 }
