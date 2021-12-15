@@ -13,7 +13,6 @@ import RealmSwift
 import UIKit
 import UserNotifications
 class NotificationService: UNNotificationServiceExtension {
-    var contentHandler: ((UNNotificationContent) -> ())?
     
     lazy var realm: Realm? = {
         let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
@@ -85,164 +84,155 @@ class NotificationService: UNNotificationServiceExtension {
         }
     }
     
-    /// 下载推送图片
+    /// 保存图片到缓存中
     /// - Parameters:
-    ///   - userInfo: 推送参数
-    ///   - bestAttemptContent: 推送content
-    ///   - completion: 下载图片完毕后的回调函数
-    fileprivate func downloadImage(_ imageUrl: String, completion: @escaping (_ imageFileUrl: String?) -> ()) {
+    ///   - cache: 使用的缓存
+    ///   - data: 图片 Data 数据
+    ///   - key: 缓存 Key
+    func storeImage(cache: ImageCache, data: Data, key: String) async {
+        return await withCheckedContinuation { continuation in
+            cache.storeToDisk(data, forKey: key, expiration: StorageExpiration.never) { _ in
+                continuation.resume()
+            }
+        }
+    }
+    
+    /// 使用 Kingfisher.ImageDownloader 下载图片
+    /// - Parameter url: 下载的图片URL
+    /// - Returns: 返回 Result
+    func downloadImage(url: URL) async -> Result<ImageLoadingResult, KingfisherError> {
+        return await withCheckedContinuation { continuation in
+            Kingfisher.ImageDownloader.default.downloadImage(with: url, options: nil) { result in
+                continuation.resume(returning: result)
+            }
+        }
+    }
+   
+    /// 下载推送图片
+    /// - Parameter imageUrl: 图片URL字符串
+    /// - Returns: 保存在本地中的`图片 File URL`
+    fileprivate func downloadImage(_ imageUrl: String) async -> String? {
         guard let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark"),
               let cache = try? ImageCache(name: "shared", cacheDirectoryURL: groupUrl),
               let imageResource = URL(string: imageUrl)
         else {
-            completion(nil)
-            return
-        }
-        
-        func downloadFinished() {
-            let cacheFileUrl = cache.cachePath(forKey: imageResource.cacheKey)
-            completion(cacheFileUrl)
+            return nil
         }
         
         // 先查看图片缓存
         if cache.diskStorage.isCached(forKey: imageResource.cacheKey) {
-            downloadFinished()
-            return
+            return cache.cachePath(forKey: imageResource.cacheKey)
         }
         
         // 下载图片
-        Kingfisher.ImageDownloader.default.downloadImage(with: imageResource, options: nil) { result in
-            guard let result = try? result.get() else {
-                completion(nil)
-                return
-            }
-            // 缓存图片
-            cache.storeToDisk(result.originalData, forKey: imageResource.cacheKey, expiration: StorageExpiration.never) { _ in
-                downloadFinished()
-            }
+        guard let result = try? await downloadImage(url: imageResource).get() else {
+            return nil
         }
+        // 缓存图片
+        await storeImage(cache: cache, data: result.originalData, key: imageResource.cacheKey)
+        
+        return cache.cachePath(forKey: imageResource.cacheKey)
     }
     
-    /// 设置推送图片
-    /// - Parameters:
-    ///   - bestAttemptContent: 推送content
-    ///   - completion: 下载图片完毕后的回调函数
-    fileprivate func setImage(content bestAttemptContent: UNMutableNotificationContent,
-                              completion: @escaping (_ content: UNMutableNotificationContent) -> ())
-    {
+    /// 为 Notification Content 设置图片
+    /// - Parameter bestAttemptContent: 要设置的 Notification Content
+    /// - Returns: 返回设置图片后的 Notification Content
+    fileprivate func setImage(content bestAttemptContent: UNMutableNotificationContent) async -> UNMutableNotificationContent {
         let userInfo = bestAttemptContent.userInfo
-        guard let imageUrl = userInfo["image"] as? String else {
-            completion(bestAttemptContent)
-            return
+        guard let imageUrl = userInfo["image"] as? String,
+              let imageFileUrl = await downloadImage(imageUrl)
+        else {
+            return bestAttemptContent
         }
         
-        func finished(_ imageFileUrl: String?) {
-            guard let imageFileUrl = imageFileUrl else {
-                completion(bestAttemptContent)
-                return
+        let copyDestUrl = URL(fileURLWithPath: imageFileUrl).appendingPathExtension(".tmp")
+        // 将图片缓存复制一份，推送使用完后会自动删除，但图片缓存需要留着以后在历史记录里查看
+        try? FileManager.default.copyItem(
+            at: URL(fileURLWithPath: imageFileUrl),
+            to: copyDestUrl
+        )
+        
+        if let attachment = try? UNNotificationAttachment(
+            identifier: "image",
+            url: copyDestUrl,
+            options: [UNNotificationAttachmentOptionsTypeHintKey: kUTTypePNG]
+        ) {
+            bestAttemptContent.attachments = [attachment]
+        }
+        return bestAttemptContent
+    }
+    
+    /// 为 Notification Content 设置ICON
+    /// - Parameter bestAttemptContent: 要设置的 Notification Content
+    /// - Returns: 返回设置ICON后的 Notification Content
+    fileprivate func setIcon(content bestAttemptContent: UNMutableNotificationContent) async -> UNMutableNotificationContent {
+        if #available(iOSApplicationExtension 15.0, *) {
+            
+            let userInfo = bestAttemptContent.userInfo
+            
+            guard let imageUrl = userInfo["icon"] as? String,
+                  let imageFileUrl = await downloadImage(imageUrl)
+            else {
+                return bestAttemptContent
             }
-            let copyDestUrl = URL(fileURLWithPath: imageFileUrl).appendingPathExtension(".tmp")
-            // 将图片缓存复制一份，推送使用完后会自动删除，但图片缓存需要留着以后在历史记录里查看
-            try? FileManager.default.copyItem(
-                at: URL(fileURLWithPath: imageFileUrl),
-                to: copyDestUrl
+            
+            var personNameComponents = PersonNameComponents()
+            personNameComponents.nickname = bestAttemptContent.title
+            
+            let avatar = INImage(imageData: NSData(contentsOfFile: imageFileUrl)! as Data)
+            let senderPerson = INPerson(
+                personHandle: INPersonHandle(value: "", type: .unknown),
+                nameComponents: personNameComponents,
+                displayName: personNameComponents.nickname,
+                image: avatar,
+                contactIdentifier: nil,
+                customIdentifier: nil,
+                isMe: false,
+                suggestionType: .none
+            )
+            let mePerson = INPerson(
+                personHandle: INPersonHandle(value: "", type: .unknown),
+                nameComponents: nil,
+                displayName: nil,
+                image: nil,
+                contactIdentifier: nil,
+                customIdentifier: nil,
+                isMe: true,
+                suggestionType: .none
             )
             
-            if let attachment = try? UNNotificationAttachment(
-                identifier: "image",
-                url: copyDestUrl,
-                options: [UNNotificationAttachmentOptionsTypeHintKey: kUTTypePNG]
-            ) {
-                bestAttemptContent.attachments = [attachment]
-            }
-            completion(bestAttemptContent)
-        }
-        
-        downloadImage(imageUrl, completion: finished)
-    }
-    
-    /// 设置推送 icon
-    /// - Parameters:
-    ///   - bestAttemptContent: 推送 content
-    ///   - completion: 设置完成后的回调参数
-    fileprivate func setIcon(content bestAttemptContent: UNMutableNotificationContent,
-                             completion: @escaping (_ content: UNMutableNotificationContent) -> ())
-    {
-        if #available(iOSApplicationExtension 15.0, *) {
-            let userInfo = bestAttemptContent.userInfo
-            guard let imageUrl = userInfo["icon"] as? String else {
-                completion(bestAttemptContent)
-                return
-            }
+            let intent = INSendMessageIntent(
+                recipients: [mePerson],
+                outgoingMessageType: .outgoingMessageText,
+                content: bestAttemptContent.body,
+                speakableGroupName: INSpeakableString(spokenPhrase: personNameComponents.nickname ?? ""),
+                conversationIdentifier: bestAttemptContent.threadIdentifier,
+                serviceName: nil,
+                sender: senderPerson,
+                attachments: nil
+            )
             
-            func finished(_ imageFileUrl: String?) {
-                guard let imageFileUrl = imageFileUrl else {
-                    completion(bestAttemptContent)
-                    return
-                }
-                var personNameComponents = PersonNameComponents()
-                personNameComponents.nickname = bestAttemptContent.title
-                
-                let avatar = INImage(imageData: NSData(contentsOfFile: imageFileUrl)! as Data)
-                let senderPerson = INPerson(
-                    personHandle: INPersonHandle(value: "", type: .unknown),
-                    nameComponents: personNameComponents,
-                    displayName: personNameComponents.nickname,
-                    image: avatar,
-                    contactIdentifier: nil,
-                    customIdentifier: nil,
-                    isMe: false,
-                    suggestionType: .none
-                )
-                let mePerson = INPerson(
-                    personHandle: INPersonHandle(value: "", type: .unknown),
-                    nameComponents: nil,
-                    displayName: nil,
-                    image: nil,
-                    contactIdentifier: nil,
-                    customIdentifier: nil,
-                    isMe: true,
-                    suggestionType: .none
-                )
-                
-                let intent = INSendMessageIntent(
-                    recipients: [mePerson],
-                    outgoingMessageType: .outgoingMessageText,
-                    content: bestAttemptContent.body,
-                    speakableGroupName: INSpeakableString(spokenPhrase: personNameComponents.nickname ?? ""),
-                    conversationIdentifier: bestAttemptContent.threadIdentifier,
-                    serviceName: nil,
-                    sender: senderPerson,
-                    attachments: nil
-                )
-                
-                intent.setImage(avatar, forParameterNamed: \.sender)
-                
-                let interaction = INInteraction(intent: intent, response: nil)
-                interaction.direction = .incoming
-                
-                interaction.donate(completion: nil)
-                
-                do {
-                    let content = try bestAttemptContent.updating(from: intent) as! UNMutableNotificationContent
-                    completion(content)
-                }
-                catch {
-                    // Handle error
-                }
-                
-                completion(bestAttemptContent)
-            }
+            intent.setImage(avatar, forParameterNamed: \.sender)
             
-            downloadImage(imageUrl, completion: finished)
+            let interaction = INInteraction(intent: intent, response: nil)
+            interaction.direction = .incoming
+            
+            try? await interaction.donate()
+            
+            do {
+                let content = try bestAttemptContent.updating(from: intent) as! UNMutableNotificationContent
+                return content
+            }
+            catch {}
+            
+            return bestAttemptContent
         }
         else {
-            completion(bestAttemptContent)
+            return bestAttemptContent
         }
     }
     
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> ()) {
-        self.contentHandler = contentHandler
         guard let bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent) else {
             contentHandler(request.content)
             return
@@ -271,14 +261,16 @@ class NotificationService: UNNotificationServiceExtension {
         
         // 自动复制
         autoCopy(userInfo, defaultCopy: bestAttemptContent.body)
+        
         // 保存推送
         archive(userInfo)
-        // 设置推送图标
-        setIcon(content: bestAttemptContent) { result in
+        
+        Task.init {
+            // 设置推送图标
+            let iconResult = await setIcon(content: bestAttemptContent)
             // 设置推送图片
-            self.setImage(content: result) { result in
-                contentHandler(result)
-            }
+            let imageResult = await self.setImage(content: iconResult)
+            contentHandler(imageResult)
         }
     }
 }
