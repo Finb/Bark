@@ -9,6 +9,7 @@
 import Material
 import RxCocoa
 import RxDataSources
+import RxSwift
 import UIKit
 import UserNotifications
 
@@ -67,7 +68,27 @@ class HomeViewController: BaseViewController {
         guard let viewModel = self.viewModel as? HomeViewModel else {
             return
         }
-            
+        
+        // 第一次进入APP 查看通知权限设置
+        let authorizationStatus = Single<UNAuthorizationStatus>.create { single -> Disposable in
+            UNUserNotificationCenter.current().getNotificationSettings { settings in
+                single(.success(settings.authorizationStatus))
+            }
+            return Disposables.create()
+        }
+        
+        // 请求通知权限操作
+        let startRequestAuthorization: () -> Observable<Bool> = {
+            Single<Bool>.create { single -> Disposable in
+                let center = UNUserNotificationCenter.current()
+                center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
+                    single(.success(granted))
+                })
+                return Disposables.create()
+            }
+            .asObservable()
+        }
+        
         let output = viewModel.transform(
             input: HomeViewModel.Input(
                 addCustomServerTap: newButton.rx.tap.asDriver(),
@@ -75,7 +96,9 @@ class HomeViewController: BaseViewController {
                     .map { _ in () }
                     .asDriver(onErrorDriveWith: .empty()),
                 start: self.startButton.rx.tap.asDriver(),
-                clientState: Client.shared.state.asDriver()
+                clientState: Client.shared.state.asDriver(),
+                authorizationStatus: authorizationStatus,
+                startRequestAuthorizationCreator: startRequestAuthorization
             )
         )
         
