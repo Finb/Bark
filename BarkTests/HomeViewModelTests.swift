@@ -72,7 +72,7 @@ class HomeViewModelTests: XCTestCase {
 
         let input = generateInput()
         let output = homeViewModel.transform(input: input)
-        
+
         let testStr = "hello bark"
         // 测试是否正常 copy
         output.copy.drive { str in
@@ -91,16 +91,47 @@ class HomeViewModelTests: XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
 
+    /// 测试推送状态 打开和关闭时，示例 tableView 和 startButton 是否正常显示和隐藏
+    func testAuthorizationStatus() {
+        let exp = expectation(description: #function)
+        let homeViewModel = HomeViewModel()
+
+        let notDeterminedInput = generateInput(authorizationStatus: Observable.just(UNAuthorizationStatus.notDetermined).asSingle())
+        let notDeterminedOutput = homeViewModel.transform(input: notDeterminedInput)
+
+        notDeterminedOutput.tableViewHidden.drive { hidden in
+            XCTAssertTrue(hidden == false)
+        }.disposed(by: rx.disposeBag)
+
+        
+        let authorizedInput = generateInput(authorizationStatus: Observable.just(UNAuthorizationStatus.authorized).asSingle())
+        let authorizedOutput = homeViewModel.transform(input: authorizedInput)
+
+        authorizedOutput.tableViewHidden.drive { hidden in
+            XCTAssertTrue(hidden)
+            exp.fulfill()
+        }.disposed(by: rx.disposeBag)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+
     /// 生成Input
     private func generateInput(addCustomServerTap: Driver<Void> = Driver.empty(),
                                viewDidAppear: Driver<Void> = Driver.empty(),
                                start: Driver<Void> = Driver.empty(),
-                               clientState: Driver<Client.ClienState> = Driver.empty()) -> HomeViewModel.Input
+                               clientState: Driver<Client.ClienState> = Driver.empty(),
+                               authorizationStatus: Single<UNAuthorizationStatus> = Observable.just(UNAuthorizationStatus.authorized).asSingle(),
+                               startRequestAuthorizationCreator: @escaping () -> Observable<Bool> = {
+                                   Observable.just(true)
+                               }) -> HomeViewModel.Input
     {
+
         return HomeViewModel.Input(
             addCustomServerTap: addCustomServerTap,
             viewDidAppear: viewDidAppear,
             start: start,
-            clientState: clientState)
+            clientState: clientState,
+            authorizationStatus: authorizationStatus,
+            startRequestAuthorizationCreator: startRequestAuthorizationCreator
+        )
     }
 }
