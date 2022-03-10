@@ -12,6 +12,7 @@ PODS:
     - Material/Core (= 3.1.8)
   - Material/Core (3.1.8):
     - Motion (~> 3.1.1)
+  - MercariQRScanner (1.9.0)
   - MJRefresh (3.7.2)
   - Motion (3.1.3):
     - Motion/Core (= 3.1.3)
@@ -54,6 +55,7 @@ DEPENDENCIES:
   - Kingfisher
   - KVOController
   - Material
+  - MercariQRScanner (from `https://github.com/Finb/QRScanner`)
   - MJRefresh
   - Moya/RxSwift
   - "NSObject+Rx"
@@ -95,11 +97,16 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   DefaultsKit:
     :git: https://github.com/nmdias/DefaultsKit
+  MercariQRScanner:
+    :git: https://github.com/Finb/QRScanner
 
 CHECKOUT OPTIONS:
   DefaultsKit:
     :commit: c51ad1d66c4a84f26330399046b72c76cd39ddfd
     :git: https://github.com/nmdias/DefaultsKit
+  MercariQRScanner:
+    :commit: 2b123c1b1492adc68f561a5f392727fdc3f31bb0
+    :git: https://github.com/Finb/QRScanner
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
@@ -111,6 +118,7 @@ SPEC CHECKSUMS:
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
+  MercariQRScanner: cd024685242f78fe40879cca9734bb7bb2fceb93
   MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
@@ -127,6 +135,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 7899f2346ec9c29fca8c462331137dba37ded70a
+PODFILE CHECKSUM: f2443e42f5062c17de4e7a770482b083d2659182
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.2

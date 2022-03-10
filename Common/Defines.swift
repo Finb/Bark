@@ -6,6 +6,7 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
+import RxCocoa
 import UIKit
 
 /// 将代码安全的运行在主线程
@@ -36,12 +37,13 @@ let kNavigationHeight: CGFloat = {
 }()
 
 let kSafeAreaInsets: UIEdgeInsets = {
-    if #available(iOS 12.0, *) {
-        return UIWindow().safeAreaInsets
-    } else if #available(iOS 11.0, *) {
-        let inset = UIWindow().safeAreaInsets
-        if inset.top > 0 { return inset }
-        // iOS 11下，不是全面屏的手机 safeAreaInsets.top 是 0，与iOS12 不一致，这里强行让他们保持一致，方便开发
-    }
-    return UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+    UIWindow().safeAreaInsets
 }()
+
+func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
+    guard let returnValue = object as? T else {
+        throw RxCocoaError.castingError(object: object, targetType: resultType)
+    }
+
+    return returnValue
+}

@@ -14,7 +14,16 @@ import SnapKit
 import UIKit
 
 class NewServerViewController: BaseViewController {
-    let addressTextField: TextField = {
+    let scanButton: BKButton = {
+        let button = BKButton()
+        button.setImage(UIImage(named: "baseline_qr_code_scanner_black_24pt"), for: .normal)
+        button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
+        button.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
+        button.tintColor = BKColor.grey.darken3
+        return button
+    }()
+    
+    lazy var addressTextField: TextField = {
         let textField = TextField()
         textField.keyboardType = .URL
         textField.placeholder = NSLocalizedString("ServerAddress")
@@ -24,6 +33,9 @@ class NewServerViewController: BaseViewController {
         textField.textColor = BKColor.grey.darken4
         textField.placeholderNormalColor = BKColor.grey.base
         textField.detailLabel.textColor = BKColor.grey.base
+        
+        textField.rightView?.grid.views = [scanButton]
+        textField.rightViewMode = .whileEditing
         return textField
     }()
     
@@ -65,6 +77,7 @@ class NewServerViewController: BaseViewController {
         guard let viewModel = self.viewModel as? NewServerViewModel else {
             return
         }
+        // 点击提醒按钮事件
         let noticeTap = noticeLabel.gestureRecognizers!.first!.rx
             .event
             .map { _ -> () in
@@ -72,22 +85,32 @@ class NewServerViewController: BaseViewController {
             }
             .asDriver(onErrorJustReturn: ())
         
+        // 点击完成按钮事件
         let done = doneButton.rx.tap
             .map { [weak self] in
                 self?.addressTextField.text ?? ""
             }
             .asDriver(onErrorDriveWith: .empty())
         
+        // 页面显示事件
         let viewDidAppear = rx
             .methodInvoked(#selector(viewDidAppear(_:)))
             .map { _ in () }
             .asDriver(onErrorDriveWith: .empty())
         
+        // 扫描二维码事件
+        let scannerDidScan = self.scanButton.rx.tap.flatMapLatest { _ -> Observable<String> in
+            let controller = QRScannerViewController()
+            self.navigationController?.present(controller, animated: true, completion: nil)
+            return controller.scannerDidSuccess
+        }.asDriver(onErrorDriveWith: .empty())
+        
         let output = viewModel.transform(
             input: NewServerViewModel.Input(
                 noticeClick: noticeTap,
                 done: done,
-                viewDidAppear: viewDidAppear
+                viewDidAppear: viewDidAppear,
+                didScan: scannerDidScan
             ))
         
         // 键盘显示与隐藏

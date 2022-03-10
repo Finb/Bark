@@ -1,4 +1,4 @@
-platform:ios,'11.0'
+platform:ios,'13.0'
 inhibit_all_warnings!
 use_modular_headers!
 
@@ -24,6 +24,7 @@ def pods
     
     pod 'MJRefresh'
     pod 'Kingfisher'
+    pod 'MercariQRScanner', :git => 'https://github.com/Finb/QRScanner'
 end
 
 target 'Bark' do

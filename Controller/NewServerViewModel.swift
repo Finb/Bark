@@ -17,6 +17,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
         var noticeClick: Driver<Void>
         var done: Driver<String>
         var viewDidAppear: Driver<Void>
+        var didScan: Driver<String>
     }
     
     struct Output {
@@ -48,6 +49,12 @@ class NewServerViewModel: ViewModel, ViewModelType {
                 showKeyboard.accept(true)
                 urlText.accept(text)
             }).disposed(by: rx.disposeBag)
+        
+        input.didScan.compactMap { text in
+            URL(string: text)
+        }.drive(onNext: { url in
+            urlText.accept(url.absoluteString)
+        }).disposed(by: rx.disposeBag)
         
         input.done
             .asObservable()

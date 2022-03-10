@@ -102,6 +102,7 @@
 		06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */; };
 		06BBB8C92567B6730076F63E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C82567B6730076F63E /* Operators.swift */; };
 		06BBB8CE2567B8E60076F63E /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06BBB8CD2567B8E60076F63E /* silence.caf */; };
+		06BC18D127D9DDA4000F7CD5 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
 		06C2CF232685B88D0034B127 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF222685B88D0034B127 /* TextCell.swift */; };
 		06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF242685BDB80034B127 /* SpacerCell.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
@@ -111,9 +112,10 @@
 		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
 		06EE1FD326843E9300586708 /* BarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EE1FD226843E9300586708 /* BarkTests.swift */; };
-		31DF5981A61A5E2A04F075DF /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BAF7FFC18E05A0B590665CCA /* libPods-BarkTests.a */; };
-		6AF9CC9B5F6CD2BF86509897 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */; };
-		ACC117FABC6F8E44060B8D80 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */; };
+		06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
+		3428272069AFAFE2C683FEB0 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC722470308049D180876C7 /* libPods-Bark.a */; };
+		879AE4D4178855A9672009E4 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */; };
+		B963F7D5BA7AC2571E71EF66 /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -274,16 +276,16 @@
 		06EE1FD026843E9300586708 /* BarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EE1FD226843E9300586708 /* BarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTests.swift; sourceTree = "<group>"; };
 		06EE1FD426843E9300586708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		08AEA046D1FD0D7950208796 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		14F0F73EC45A35FC2482F967 /* Pods_NotificationContentExtension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NotificationContentExtension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
-		5630EF7352A1AFE67151BDA5 /* Pods-BarkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BarkTests/Pods-BarkTests.debug.xcconfig"; sourceTree = "<group>"; };
-		68049930BAF79AFBD8B109B8 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Pods/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
-		87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
-		97CF293CD268ACB4619C3AD9 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
-		A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		BAF7FFC18E05A0B590665CCA /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
+		138CE8CB688587E893BC5C44 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
+		519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
+		B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CCC722470308049D180876C7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F20815A821395CCA155806A4 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		FB59D77AB30F7AD98BA72C3E /* Pods-BarkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.debug.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -308,8 +310,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AF9CC9B5F6CD2BF86509897 /* libPods-Bark.a in Frameworks */,
 				06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */,
+				3428272069AFAFE2C683FEB0 /* libPods-Bark.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -317,7 +319,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACC117FABC6F8E44060B8D80 /* libPods-NotificationServiceExtension.a in Frameworks */,
+				879AE4D4178855A9672009E4 /* libPods-NotificationServiceExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,7 +327,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				31DF5981A61A5E2A04F075DF /* libPods-BarkTests.a in Frameworks */,
+				B963F7D5BA7AC2571E71EF66 /* libPods-BarkTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,6 +352,7 @@
 				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
 				06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */,
 				06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */,
+				06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -491,8 +494,8 @@
 				06EE1FD126843E9300586708 /* BarkTests */,
 				0660480C2700550600938904 /* Intent */,
 				0661A540204FDA4100965E4E /* Products */,
-				9563D0DB71FE280909AB1C63 /* Pods */,
 				99BD309BDB7F62B5DC0CECE1 /* Frameworks */,
+				E9062CB15F1B70C3719578FB /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -541,32 +544,31 @@
 			path = BarkTests;
 			sourceTree = "<group>";
 		};
-		9563D0DB71FE280909AB1C63 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */,
-				1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */,
-				08AEA046D1FD0D7950208796 /* Pods-NotificationServiceExtension.debug.xcconfig */,
-				68049930BAF79AFBD8B109B8 /* Pods-NotificationServiceExtension.release.xcconfig */,
-				5630EF7352A1AFE67151BDA5 /* Pods-BarkTests.debug.xcconfig */,
-				97CF293CD268ACB4619C3AD9 /* Pods-BarkTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 		99BD309BDB7F62B5DC0CECE1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				06B1158C247BA6D5006D91FB /* CloudKit.framework */,
 				0683487020510FB20024B6DA /* UserNotifications.framework */,
 				0683487220510FB20024B6DA /* UserNotificationsUI.framework */,
-				14F0F73EC45A35FC2482F967 /* Pods_NotificationContentExtension.framework */,
-				E4EA0C04469BF7B418FF3CB7 /* libPods-Bark.a */,
-				A24A28EB12CA35B953807C99 /* libPods-NotificationServiceExtension.a */,
 				0660480A2700550600938904 /* Intents.framework */,
-				BAF7FFC18E05A0B590665CCA /* libPods-BarkTests.a */,
+				CCC722470308049D180876C7 /* libPods-Bark.a */,
+				76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */,
+				B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E9062CB15F1B70C3719578FB /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				138CE8CB688587E893BC5C44 /* Pods-Bark.debug.xcconfig */,
+				A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */,
+				FB59D77AB30F7AD98BA72C3E /* Pods-BarkTests.debug.xcconfig */,
+				121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */,
+				F20815A821395CCA155806A4 /* Pods-NotificationServiceExtension.debug.xcconfig */,
+				519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -610,12 +612,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0661A551204FDA4100965E4E /* Build configuration list for PBXNativeTarget "Bark" */;
 			buildPhases = (
-				4B6119BE7ED5348C2183352F /* [CP] Check Pods Manifest.lock */,
+				96E966B1F9EF139B935A8BB1 /* [CP] Check Pods Manifest.lock */,
 				0661A53B204FDA4100965E4E /* Sources */,
 				0661A53C204FDA4100965E4E /* Frameworks */,
 				0661A53D204FDA4100965E4E /* Resources */,
 				0632CE2E20EC9098003FDF46 /* Embed App Extensions */,
-				A65832AEF7CA9C472EABAB15 /* [CP] Copy Pods Resources */,
+				330C2B4092D535691BE03E9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -633,7 +635,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06CF784A21C7A50300A052D7 /* Build configuration list for PBXNativeTarget "NotificationServiceExtension" */;
 			buildPhases = (
-				800B82E19475CD3E4B36E49D /* [CP] Check Pods Manifest.lock */,
+				02CA273651C315B3AC3557D7 /* [CP] Check Pods Manifest.lock */,
 				06CF783C21C7A50300A052D7 /* Sources */,
 				06CF783D21C7A50300A052D7 /* Frameworks */,
 				06CF783E21C7A50300A052D7 /* Resources */,
@@ -651,7 +653,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 06EE1FD726843E9300586708 /* Build configuration list for PBXNativeTarget "BarkTests" */;
 			buildPhases = (
-				B19EDF6ED49FA5301126DD02 /* [CP] Check Pods Manifest.lock */,
+				FFCCE5E170E29FF10836E9C0 /* [CP] Check Pods Manifest.lock */,
 				06EE1FCC26843E9300586708 /* Sources */,
 				06EE1FCD26843E9300586708 /* Frameworks */,
 				06EE1FCE26843E9300586708 /* Resources */,
@@ -804,25 +806,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		4B6119BE7ED5348C2183352F /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Bark-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		800B82E19475CD3E4B36E49D /* [CP] Check Pods Manifest.lock */ = {
+		02CA273651C315B3AC3557D7 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -844,7 +828,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A65832AEF7CA9C472EABAB15 /* [CP] Copy Pods Resources */ = {
+		330C2B4092D535691BE03E9D /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -854,6 +838,7 @@
 				"${PODS_ROOT}/MJRefresh/MJRefresh/MJRefresh.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Material/com.cosmicmind.material.icons.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Material/com.cosmicmind.material.fonts.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/MercariQRScanner/QRScannerAssets.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
@@ -861,6 +846,7 @@
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MJRefresh.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/com.cosmicmind.material.icons.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/com.cosmicmind.material.fonts.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/QRScannerAssets.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SVProgressHUD.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -868,7 +854,29 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bark/Pods-Bark-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B19EDF6ED49FA5301126DD02 /* [CP] Check Pods Manifest.lock */ = {
+		96E966B1F9EF139B935A8BB1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Bark-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FFCCE5E170E29FF10836E9C0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -953,6 +961,7 @@
 				065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */,
 				062B98C3251B2762004562E7 /* BKButton.swift in Sources */,
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
+				06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */,
@@ -984,6 +993,7 @@
 			files = (
 				06EE1FD326843E9300586708 /* BarkTests.swift in Sources */,
 				063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */,
+				06BC18D127D9DDA4000F7CD5 /* QRScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1255,7 +1265,7 @@
 		};
 		0661A552204FDA4100965E4E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 87D1222A4C6E7283974A44C6 /* Pods-Bark.debug.xcconfig */;
+			baseConfigurationReference = 138CE8CB688587E893BC5C44 /* Pods-Bark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
@@ -1277,7 +1287,7 @@
 		};
 		0661A553204FDA4100965E4E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1CC985CE300A858FF65E166A /* Pods-Bark.release.xcconfig */;
+			baseConfigurationReference = A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
@@ -1299,7 +1309,7 @@
 		};
 		06CF784821C7A50300A052D7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 08AEA046D1FD0D7950208796 /* Pods-NotificationServiceExtension.debug.xcconfig */;
+			baseConfigurationReference = F20815A821395CCA155806A4 /* Pods-NotificationServiceExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
@@ -1324,7 +1334,7 @@
 		};
 		06CF784921C7A50300A052D7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68049930BAF79AFBD8B109B8 /* Pods-NotificationServiceExtension.release.xcconfig */;
+			baseConfigurationReference = 519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = NotificationServiceExtension/NotificationServiceExtension.entitlements;
@@ -1348,7 +1358,7 @@
 		};
 		06EE1FD826843E9300586708 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5630EF7352A1AFE67151BDA5 /* Pods-BarkTests.debug.xcconfig */;
+			baseConfigurationReference = FB59D77AB30F7AD98BA72C3E /* Pods-BarkTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
@@ -1373,7 +1383,7 @@
 		};
 		06EE1FD926843E9300586708 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 97CF293CD268ACB4619C3AD9 /* Pods-BarkTests.release.xcconfig */;
+			baseConfigurationReference = 121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_OBJC_WEAK = YES;
