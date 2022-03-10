@@ -102,7 +102,6 @@
 		06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */; };
 		06BBB8C92567B6730076F63E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C82567B6730076F63E /* Operators.swift */; };
 		06BBB8CE2567B8E60076F63E /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06BBB8CD2567B8E60076F63E /* silence.caf */; };
-		06BC18D127D9DDA4000F7CD5 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
 		06C2CF232685B88D0034B127 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF222685B88D0034B127 /* TextCell.swift */; };
 		06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF242685BDB80034B127 /* SpacerCell.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
@@ -993,7 +992,6 @@
 			files = (
 				06EE1FD326843E9300586708 /* BarkTests.swift in Sources */,
 				063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */,
-				06BC18D127D9DDA4000F7CD5 /* QRScannerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
