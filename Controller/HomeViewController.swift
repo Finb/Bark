@@ -22,6 +22,14 @@ class HomeViewController: BaseViewController {
         return btn
     }()
     
+    let serversButton: BKButton = {
+        let btn = BKButton()
+        btn.setImage(UIImage(named: "baseline_filter_drama_black_24pt"), for: .normal)
+        btn.imageView?.tintColor = BKColor.grey.darken4
+        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        return btn
+    }()
+    
     let startButton: FABButton = {
         let button = FABButton(title: NSLocalizedString("RegisterDevice"))
         button.backgroundColor = BKColor.grey.lighten5
@@ -41,8 +49,10 @@ class HomeViewController: BaseViewController {
     override func makeUI() {
         self.view.backgroundColor = BKColor.background.primary
         
-        navigationItem.setRightBarButtonItem(
-            item: UIBarButtonItem(customView: newButton))
+        navigationItem.setBarButtonItems(items: [
+            UIBarButtonItem(customView: newButton),
+            UIBarButtonItem(customView: serversButton),
+        ], position: .right)
         
         self.view.addSubview(self.tableView)
         self.tableView.snp.makeConstraints { make in
