@@ -59,7 +59,7 @@ class MessageListViewController: BaseViewController {
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.delegate = self
         
-        navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], left: false)
+        navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], position: .right)
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in

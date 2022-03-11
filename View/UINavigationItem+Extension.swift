@@ -13,16 +13,21 @@ import UIKit
 // 所以先用 一个 fixedSpace UIBarButtonItem 先把距离给缩短点，
 // 然后用个 AlignmentRectInsetsOverridable 把自己的按钮往 左/右 挪动，减少距离
 // 用 HitTestSlopable 增加点击区域
+enum UINavigationItemPosition {
+    case left
+    case right
+}
+
 extension UINavigationItem {
     func setLeftBarButtonItem(item: UIBarButtonItem) {
-        setBarButtonItems(items: [item], left: true)
+        setBarButtonItems(items: [item], position: .left)
     }
 
     func setRightBarButtonItem(item: UIBarButtonItem) {
-        setBarButtonItems(items: [item], left: false)
+        setBarButtonItems(items: [item], position: .right)
     }
 
-    func setBarButtonItems(items: [UIBarButtonItem], left: Bool) {
+    func setBarButtonItems(items: [UIBarButtonItem], position: UINavigationItemPosition) {
         guard items.count > 0 else {
             self.leftBarButtonItems = nil
             return
@@ -33,7 +38,7 @@ extension UINavigationItem {
                 guard let view = item.customView else { return }
                 item.customView?.translatesAutoresizingMaskIntoConstraints = false
                 (item.customView as? HitTestSlopable)?.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
-                (item.customView as? AlignmentRectInsetsOverridable)?.alignmentRectInsetsOverride = UIEdgeInsets(top: 0, left: left ? 8 : -8, bottom: 0, right: left ? -8 : 8)
+                (item.customView as? AlignmentRectInsetsOverridable)?.alignmentRectInsetsOverride = UIEdgeInsets(top: 0, left: position == .left ? 8 : -8, bottom: 0, right: position == .left ? -8 : 8)
                 item.customView?.snp.makeConstraints { make in
                     make.width.equalTo(view.bounds.size.width > 24 ? view.bounds.width : 24)
                     make.height.equalTo(view.bounds.size.height > 24 ? view.bounds.height : 24)
@@ -46,7 +51,7 @@ extension UINavigationItem {
             spacer.width = -8
             buttonItems.insert(spacer, at: 0)
         }
-        if left {
+        if position == .left {
             self.leftBarButtonItems = buttonItems
         }
         else {
