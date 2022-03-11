@@ -99,9 +99,9 @@ class NewServerViewController: BaseViewController {
             .asDriver(onErrorDriveWith: .empty())
         
         // 扫描二维码事件
-        let scannerDidScan = self.scanButton.rx.tap.flatMapLatest { _ -> Observable<String> in
+        let scannerDidScan = self.scanButton.rx.tap.flatMapLatest {[weak self] _ -> Observable<String> in
             let controller = QRScannerViewController()
-            self.navigationController?.present(controller, animated: true, completion: nil)
+            self?.navigationController?.present(controller, animated: true, completion: nil)
             return controller.scannerDidSuccess
         }.asDriver(onErrorDriveWith: .empty())
         
