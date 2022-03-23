@@ -87,7 +87,7 @@ showAllGroups = "Select All Groups";
 groupMessagesNotice = "Grouping of messages allows you to view messages by group.";
 messageGroup = "Message grouping";
 
-buildInfo = "Build Info";
+info = "Info";
 buildDesc = "Bark was uploaded to the App Store by Github Actions.";
 
 other = "Other";
@@ -103,3 +103,5 @@ interruptionLevelNotice = "The interruption level can be set for notifications; 
 
 badge = "Modify a Notification Badge";
 badgeNotice = "The notification badge can be set with a number.";
+
+deviceTokenInfo = "Token for APNs, click to copy to clipboard.";

@@ -89,8 +89,8 @@ showAllGroups = "选择所有群组";
 groupMessagesNotice = "对消息进行分组，推送将按group分组显示在通知中心中。\n也可在历史消息列表中选择查看不同的群组。";
 messageGroup = "推送消息分组";
 
-buildInfo = "构建信息";
-buildDesc = "Bark 由 GitHub Actions 构建后上传到 App Store，此信息可帮助你确认当前版本是由开源代码所构建，未经任何人修改。";
+info = "信息";
+buildDesc = "Bark 由 GitHub Actions 构建后上传到 App Store，此信息可帮助你确认当前版本是由开源代码所构建，未经任何人(包含作者)修改。";
 
 other = "其他";
 faq = "常见问题";
@@ -106,3 +106,5 @@ interruptionLevelNotice = "可对通知设置中断级别，不设置则默认�
 
 badge = "设置角标";
 badgeNotice = "可以为推送设置角标，角标可以是任意数字。";
+
+deviceTokenInfo = "用于 APNs 推送的 Token，请勿泄露，点击可复制到剪切板。";

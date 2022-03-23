@@ -18,6 +18,7 @@ class MessageSettingsViewController: BaseViewController {
         tableView.register(iCloudStatusCell.self, forCellReuseIdentifier: "\(iCloudStatusCell.self)")
         tableView.register(ArchiveSettingCell.self, forCellReuseIdentifier: "\(ArchiveSettingCell.self)")
         tableView.register(DetailTextCell.self, forCellReuseIdentifier: "\(DetailTextCell.self)")
+        tableView.register(MutableTextCell.self, forCellReuseIdentifier: "\(MutableTextCell.self)")
         tableView.register(SpacerCell.self, forCellReuseIdentifier: "\(SpacerCell.self)")
         
         return tableView
@@ -38,7 +39,8 @@ class MessageSettingsViewController: BaseViewController {
         }
         let output = viewModel.transform(
             input: MessageSettingsViewModel.Input(
-                itemSelected: self.tableView.rx.modelSelected(MessageSettingItem.self).asDriver()
+                itemSelected: self.tableView.rx.modelSelected(MessageSettingItem.self).asDriver(),
+                deviceToken: Client.shared.deviceToken.asDriver()
             )
         )
         
@@ -65,6 +67,11 @@ class MessageSettingsViewController: BaseViewController {
                     cell.detailTextLabel?.textColor = textColor
                     return cell
                 }
+            case let .deviceToken(viewModel):
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "\(MutableTextCell.self)") as? MutableTextCell {
+                    cell.bindViewModel(model: viewModel)
+                    return cell
+                }
             case let .spacer(height, color):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(SpacerCell.self)") as? SpacerCell {
                     cell.height = height
@@ -82,6 +89,11 @@ class MessageSettingsViewController: BaseViewController {
      
         output.openUrl.drive { [weak self] url in
             self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+        }.disposed(by: rx.disposeBag)
+        
+        output.copyDeviceToken.drive { [weak self] deviceToken in
+            UIPasteboard.general.string = deviceToken
+            self?.showSnackbar(text: NSLocalizedString("Copy"))
         }.disposed(by: rx.disposeBag)
     }
 }

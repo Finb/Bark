@@ -51,7 +51,7 @@ class HomeViewController: BaseViewController {
         
         navigationItem.setBarButtonItems(items: [
             UIBarButtonItem(customView: newButton),
-            UIBarButtonItem(customView: serversButton),
+//            UIBarButtonItem(customView: serversButton),
         ], position: .right)
         
         self.view.addSubview(self.tableView)
