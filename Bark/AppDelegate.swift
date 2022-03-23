@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         let deviceTokenString = deviceToken.map { String(format: "%02.2hhx", $0) }.joined()
-        Settings[.deviceToken] = deviceTokenString
+        Client.shared.deviceToken.accept(deviceTokenString)
 
         // 注册设备
         Client.shared.bindDeviceToken()

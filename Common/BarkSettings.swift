@@ -15,8 +15,6 @@ enum BarkSettingKey: String {
     case servers = "me.fin.bark.servers"
     case currentServer = "me.fin.bark.servers.current"
     
-    case deviceToken = "me.fin.bark.deviceToken"
-    
     case selectedViewControllerIndex = "me.fin.bark.selectedViewControllerIndex"
 }
 

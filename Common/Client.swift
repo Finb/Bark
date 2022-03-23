@@ -57,12 +57,12 @@ class Client: NSObject {
         case unRegister
         case serverError
     }
-    
+    var deviceToken = BehaviorRelay<String?>(value: nil)
     var state = BehaviorRelay<ClienState>(value: .ok)
     
     var dispose: Disposable?
     func bindDeviceToken() {
-        if let token = Settings[.deviceToken], token.count > 0 {
+        if let token = deviceToken.value, token.count > 0 {
             dispose?.dispose()
             
             dispose = BarkApi.provider
