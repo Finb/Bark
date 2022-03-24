@@ -15,6 +15,7 @@ class MutableTextCell: BaseTableViewCell {
         self.selectionStyle = .none
         self.accessoryType = .none
         self.backgroundColor = BKColor.background.secondary
+        self.detailTextLabel?.textColor = BKColor.grey.darken2
     }
 
     @available(*, unavailable)
