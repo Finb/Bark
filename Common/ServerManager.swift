@@ -40,8 +40,8 @@ class ServerManager: NSObject {
         super.init()
 
         // 将老版本数据转换成新版本
-        if let address = Settings[.currentServer] {
-            let key = Settings[.key] ?? ""
+        if let key = Settings[.key] {
+            let address = Settings[.currentServer] ?? defaultServer
             let server = Server(id: UUID().uuidString, address: address, key: key)
 
             self.servers = []
