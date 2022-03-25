@@ -10,7 +10,7 @@ import AVKit
 import Material
 import UIKit
 
-class SoundCell: BaseTableViewCell {
+class SoundCell: BaseTableViewCell<SoundCellViewModel> {
     let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
     let nameLabel: UILabel = {
         let label = UILabel()
@@ -54,23 +54,20 @@ class SoundCell: BaseTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func bindViewModel(model: ViewModel) {
+    override func bindViewModel(model: SoundCellViewModel) {
         super.bindViewModel(model: model)
-        guard let viewModel = model as? SoundCellViewModel else {
-            return
-        }
-        
-        viewModel.name
+
+        model.name
             .bind(to: nameLabel.rx.text)
             .disposed(by: rx.reuseBag)
-        viewModel.duration
+        model.duration
             .map { String(format: "%.2g second(s)", CMTimeGetSeconds($0)) }
             .bind(to: durationLabel.rx.text)
             .disposed(by: rx.reuseBag)
         
         copyButton.rx.tap
-            .map { viewModel.name.value }
-            .bind(to: viewModel.copyNameAction)
+            .map { model.name.value }
+            .bind(to: model.copyNameAction)
             .disposed(by: rx.reuseBag)
     }
 }

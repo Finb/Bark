@@ -8,7 +8,7 @@
 
 import Material
 import UIKit
-class MessageTableViewCell: BaseTableViewCell {
+class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     let backgroundPanel: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 3
@@ -121,21 +121,19 @@ class MessageTableViewCell: BaseTableViewCell {
         }
     }
 
-    override func bindViewModel(model: ViewModel) {
+    override func bindViewModel(model: MessageTableViewCellViewModel) {
         super.bindViewModel(model: model)
-        guard let viewModel = model as? MessageTableViewCellViewModel else {
-            return
-        }
-        viewModel.title.bind(to: self.titleLabel.rx.text).disposed(by: rx.reuseBag)
-        viewModel.body.bind(to: self.bodyLabel.rx.text).disposed(by: rx.reuseBag)
-        viewModel.url.bind(to: self.urlLabel.rx.text).disposed(by: rx.reuseBag)
-        viewModel.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
+
+        model.title.bind(to: self.titleLabel.rx.text).disposed(by: rx.reuseBag)
+        model.body.bind(to: self.bodyLabel.rx.text).disposed(by: rx.reuseBag)
+        model.url.bind(to: self.urlLabel.rx.text).disposed(by: rx.reuseBag)
+        model.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
         
-        viewModel.title.map { $0.count <= 0 }.bind(to: self.titleLabel.rx.isHidden).disposed(by: rx.reuseBag)
-        viewModel.url.map { $0.count <= 0 }.bind(to: self.urlLabel.rx.isHidden).disposed(by: rx.reuseBag)
+        model.title.map { $0.count <= 0 }.bind(to: self.titleLabel.rx.isHidden).disposed(by: rx.reuseBag)
+        model.url.map { $0.count <= 0 }.bind(to: self.urlLabel.rx.isHidden).disposed(by: rx.reuseBag)
         
         self.urlLabel.gestureRecognizers?.first?.rx.event
             .map { [weak self] _ in self?.urlLabel.text ?? "" }
-            .bind(to: viewModel.urlTap).disposed(by: rx.reuseBag)
+            .bind(to: model.urlTap).disposed(by: rx.reuseBag)
     }
 }

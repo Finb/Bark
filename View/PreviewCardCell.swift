@@ -9,7 +9,7 @@
 import Material
 import UIKit
 
-class PreviewCardCell: BaseTableViewCell {
+class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
     let previewButton = IconButton(image: Icon.cm.skipForward, tintColor: BKColor.grey.base)
     let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
     
@@ -142,23 +142,22 @@ class PreviewCardCell: BaseTableViewCell {
         noticeLabel.addGestureRecognizer(UITapGestureRecognizer())
     }
     
-    override func bindViewModel(model: ViewModel) {
-        guard let viewModel = model as? PreviewCardCellViewModel else {
-            return
-        }
-        viewModel.title
+    override func bindViewModel(model: PreviewCardCellViewModel) {
+        super.bindViewModel(model: model)
+        
+        model.title
             .bind(to: self.titleLabel.rx.text).disposed(by: rx.reuseBag)
-        viewModel.body
+        model.body
             .bind(to: self.bodyLabel.rx.text).disposed(by: rx.reuseBag)
-        viewModel.content
+        model.content
             .bind(to: self.contentLabel.rx.attributedText).disposed(by: rx.reuseBag)
-        viewModel.notice
+        model.notice
             .bind(to: self.noticeLabel.rx.attributedText).disposed(by: rx.reuseBag)
-        viewModel.contentImage
+        model.contentImage
             .compactMap { $0 }
             .bind(to: self.contentImageView.rx.image)
             .disposed(by: rx.reuseBag)
-        viewModel.contentImage
+        model.contentImage
             .map { $0 == nil }
             .bind(to: self.contentImageView.rx.isHidden)
             .disposed(by: rx.reuseBag)
@@ -170,14 +169,14 @@ class PreviewCardCell: BaseTableViewCell {
                 // 仅在有 moreViewModel 时 点击
                 weakModel?.previewModel.moreViewModel
             }
-            .bind(to: viewModel.noticeTap)
+            .bind(to: model.noticeTap)
             .disposed(by: rx.reuseBag)
         
         // 点击复制
         copyButton.rx.tap.map { [weak self] () -> String in
             self?.contentLabel.text ?? ""
         }
-        .bind(to: viewModel.copy)
+        .bind(to: model.copy)
         .disposed(by: rx.reuseBag)
         
         // 点击预览
@@ -189,7 +188,7 @@ class PreviewCardCell: BaseTableViewCell {
             }
             return nil
         }
-        .bind(to: viewModel.preview)
+        .bind(to: model.preview)
         .disposed(by: rx.reuseBag)
     }
 }

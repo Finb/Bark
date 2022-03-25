@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ArchiveSettingCell: BaseTableViewCell {
+class ArchiveSettingCell: BaseTableViewCell<ArchiveSettingCellViewModel> {
     let switchButton: UISwitch = {
         let btn = UISwitch()
         return btn
@@ -32,12 +32,9 @@ class ArchiveSettingCell: BaseTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func bindViewModel(model: ViewModel) {
+    override func bindViewModel(model: ArchiveSettingCellViewModel) {
         super.bindViewModel(model: model)
-        guard let viewModel = model as? ArchiveSettingCellViewModel else {
-            return
-        }
-        (self.switchButton.rx.isOn <-> viewModel.on)
+        (self.switchButton.rx.isOn <-> model.on)
             .disposed(by: rx.reuseBag)
     }
 }

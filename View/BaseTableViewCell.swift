@@ -8,9 +8,9 @@
 
 import UIKit
 
-class BaseTableViewCell: UITableViewCell {
-    var viewModel: ViewModel?
-    func bindViewModel(model: ViewModel) {
+class BaseTableViewCell<T>: UITableViewCell where T: ViewModel {
+    var viewModel: T?
+    func bindViewModel(model: T) {
         self.viewModel = model
     }
 }

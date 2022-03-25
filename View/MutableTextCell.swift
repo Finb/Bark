@@ -8,7 +8,7 @@
 
 import UIKit
 
-class MutableTextCell: BaseTableViewCell {
+class MutableTextCell: BaseTableViewCell<MutableTextCellViewModel> {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: UITableViewCell.CellStyle.value1, reuseIdentifier: reuseIdentifier)
@@ -22,14 +22,12 @@ class MutableTextCell: BaseTableViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-    override func bindViewModel(model: ViewModel) {
+    
+    override func bindViewModel(model: MutableTextCellViewModel) {
         super.bindViewModel(model: model)
-        guard let viewModel = model as? MutableTextCellViewModel else {
-            return
-        }
-        self.textLabel?.text = viewModel.title
-        viewModel.text
+        
+        self.textLabel?.text = model.title
+        model.text
             .drive(self.detailTextLabel!.rx.text)
             .disposed(by: rx.reuseBag)
     }

@@ -9,7 +9,7 @@
 import Material
 import UIKit
 
-class GroupTableViewCell: BaseTableViewCell {
+class GroupTableViewCell: BaseTableViewCell<GroupCellViewModel> {
     let nameLabel: UILabel = {
         let label = UILabel()
         label.fontSize = 14
@@ -47,7 +47,7 @@ class GroupTableViewCell: BaseTableViewCell {
         let tap = UITapGestureRecognizer()
         self.contentView.addGestureRecognizer(tap)
         tap.rx.event.subscribe(onNext: { [weak self] _ in
-            (self?.viewModel as? GroupCellViewModel)?.checked.accept(!self!.checkButton.isSelected)
+            self?.viewModel?.checked.accept(!self!.checkButton.isSelected)
         }).disposed(by: rx.disposeBag)
     }
 
@@ -56,24 +56,21 @@ class GroupTableViewCell: BaseTableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func bindViewModel(model: ViewModel) {
+    override func bindViewModel(model: GroupCellViewModel) {
         super.bindViewModel(model: model)
-        guard let viewModel = model as? GroupCellViewModel else {
-            return
-        }
-        
-        viewModel.name
+
+        model.name
             .map { name in
                 name ?? NSLocalizedString("default")
             }
             .bind(to: nameLabel.rx.text)
             .disposed(by: rx.reuseBag)
         
-        viewModel.checked
+        model.checked
             .bind(to: self.checkButton.rx.isSelected)
             .disposed(by: rx.reuseBag)
         
-        viewModel.checked.subscribe(
+        model.checked.subscribe(
             onNext: { [weak self] checked in
                 self?.checkButton.tintColor = checked ? BKColor.lightBlue.darken3 : BKColor.grey.base
             }).disposed(by: rx.reuseBag)
