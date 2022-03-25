@@ -65,14 +65,14 @@ class PreviewCardCellViewModel: ViewModel {
         if UIScreen.main.bounds.size.width <= 320 {
             fontSize = 11
         }
-        let serverUrl = URL(string: ServerManager.shared.currentAddress)!
+        let serverUrl = URL(string: ServerManager.shared.currentServer.address)!
         let attrStr = NSMutableAttributedString(string: "")
         attrStr.append(NSAttributedString(string: serverUrl.absoluteString, attributes: [
             NSAttributedString.Key.foregroundColor: BKColor.grey.darken4,
             NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
         ]))
-        
-        attrStr.append(NSAttributedString(string: "/\(Client.shared.key ?? "Your Key")", attributes: [
+        let key = ServerManager.shared.currentServer.key
+        attrStr.append(NSAttributedString(string: "/\(key.count > 0 ? key : "Your Key")", attributes: [
             NSAttributedString.Key.foregroundColor: BKColor.grey.darken3,
             NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
         ]))

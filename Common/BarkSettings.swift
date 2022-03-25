@@ -10,10 +10,14 @@ import DefaultsKit
 import UIKit
 
 enum BarkSettingKey: String {
-    /// 存放key
+    /// 存放key , 1.2.6 版本`之后`不再使用
     case key = "me.fin.bark.key"
     case servers = "me.fin.bark.servers"
+    
+    /// 1.2.6 版本`之前`保存当前 server 的 key，不再使用
     case currentServer = "me.fin.bark.servers.current"
+    /// 1.2.6 版本`之后`用于保存 server 的 id
+    case currentServerId = "me.fin.bark.servers.currentServerId"
     
     case selectedViewControllerIndex = "me.fin.bark.selectedViewControllerIndex"
 }

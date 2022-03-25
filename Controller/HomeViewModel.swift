@@ -102,7 +102,7 @@ class HomeViewModel: ViewModel, ViewModelType {
     }()
     
     func transform(input: Input) -> Output {
-        let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentAddress)?.host ?? "")
+        let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentServer.address)?.host ?? "")
         
         let sectionModel = SectionModel(
             model: "previews",
@@ -127,7 +127,7 @@ class HomeViewModel: ViewModel, ViewModelType {
         let clienState = input.viewDidAppear
             .asObservable().flatMapLatest { _ -> Observable<Result<JSON, ApiError>> in
                 BarkApi.provider
-                    .request(.ping(baseURL: ServerManager.shared.currentAddress))
+                    .request(.ping(baseURL: ServerManager.shared.currentServer.address))
                     .filterResponseError()
             }
             .map { response -> Client.ClienState in

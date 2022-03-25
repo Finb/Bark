@@ -23,7 +23,7 @@ extension BarkTargetType {
     }
 
     var baseURL: URL {
-        return URL(string: ServerManager.shared.currentAddress)!
+        return URL(string: ServerManager.shared.currentServer.address)!
     }
     
     var method: Moya.Method {
@@ -54,21 +54,6 @@ extension BarkTargetType {
         return Task.requestParameters(parameters: defaultParameters, encoding: parameterEncoding)
     }
     
-    static var networkActivityPlugin: PluginType {
-        return NetworkActivityPlugin { change, _ in
-            switch change {
-            case .began:
-                dispatch_sync_safely_main_queue {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
-                }
-            case .ended:
-                dispatch_sync_safely_main_queue {
-                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
-                }
-            }
-        }
-    }
-    
     /// 实现此协议的类，将自动获得用该类实例化的 provider 对象
     static var provider: RxSwift.Reactive<MoyaProvider<Self>> {
         let key = "\(Self.self)"
@@ -82,7 +67,7 @@ extension BarkTargetType {
     
     /// 不被全局持有的 Provider ，使用时，需要持有它，否则将立即释放，请求随即终止
     static var weakProvider: RxSwift.Reactive<MoyaProvider<Self>> {
-        var plugins: [PluginType] = [networkActivityPlugin]
+        var plugins: [PluginType] = []
         #if DEBUG
         plugins.append(LogPlugin())
         #endif

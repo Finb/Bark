@@ -38,55 +38,14 @@ class Client: NSObject {
         return version
     }()
     
-    private var _key: String?
-    var key: String? {
-        get {
-            if _key == nil, let aKey = Settings[.key] {
-                _key = aKey
-            }
-            return _key
-        }
-        set {
-            _key = newValue
-            Settings[.key] = newValue
-        }
-    }
-    
-    enum ClienState {
+    enum ClienState: Int, Codable {
         case ok
         case unRegister
         case serverError
     }
+
     var deviceToken = BehaviorRelay<String?>(value: nil)
     var state = BehaviorRelay<ClienState>(value: .ok)
-    
-    var dispose: Disposable?
-    func bindDeviceToken() {
-        if let token = deviceToken.value, token.count > 0 {
-            dispose?.dispose()
-            
-            dispose = BarkApi.provider
-                .request(.register(
-                    key: key,
-                    devicetoken: token))
-                .filterResponseError()
-                .map { json -> ClienState in
-                    switch json {
-                    case .success(let json):
-                        if let key = json["data", "key"].rawString() {
-                            Client.shared.key = key
-                            return .ok
-                        }
-                        else {
-                            return .serverError
-                        }
-                    case .failure:
-                        return .serverError
-                    }
-                }
-                .bind(to: state)
-        }
-    }
     
     func registerForRemoteNotifications() {
         let center = UNUserNotificationCenter.current()

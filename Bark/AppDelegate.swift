@@ -107,7 +107,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Client.shared.deviceToken.accept(deviceTokenString)
 
         // 注册设备
-        Client.shared.bindDeviceToken()
+        ServerManager.shared.syncAllServers()
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
@@ -206,9 +206,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        if (Client.shared.key?.count ?? 0) <= 0 {
-            Client.shared.bindDeviceToken()
-        }
+        ServerManager.shared.syncAllServers()
         
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉

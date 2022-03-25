@@ -76,8 +76,10 @@ class NewServerViewModel: ViewModel, ViewModelType {
                 guard let strongSelf = self else { return }
                 switch response {
                 case .success:
-                    ServerManager.shared.currentAddress = strongSelf.url
-                    Client.shared.bindDeviceToken()
+                    let server = Server(address: strongSelf.url, key: "")
+                    ServerManager.shared.addServer(server: server)
+                    ServerManager.shared.setCurrentServer(serverId: server.id)
+                    ServerManager.shared.syncAllServers()
                     
                     strongSelf.pop.accept(strongSelf.url)
                     showSnackbar.accept(NSLocalizedString("AddedSuccessfully"))
