@@ -15,7 +15,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-class SoundsViewController: BaseViewController {
+class SoundsViewController: BaseViewController<SoundsViewModel> {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.backgroundColor = BKColor.background.primary
@@ -42,10 +42,6 @@ class SoundsViewController: BaseViewController {
     }
 
     override func bindViewModel() {
-        guard let viewModel = viewModel as? SoundsViewModel else {
-            return
-        }
-
         let output = viewModel.transform(
             input: SoundsViewModel.Input(soundSelected: self.tableView.rx
                 .modelSelected(SoundCellViewModel.self)

@@ -8,9 +8,9 @@
 
 import Material
 import UIKit
-class BaseViewController: UIViewController {
-    let viewModel: ViewModel
-    init(viewModel: ViewModel) {
+class BaseViewController<T>: UIViewController where T: ViewModel {
+    let viewModel: T
+    init(viewModel: T) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
         

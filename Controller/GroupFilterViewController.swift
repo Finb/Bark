@@ -14,7 +14,7 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-class GroupFilterViewController: BaseViewController {
+class GroupFilterViewController: BaseViewController<GroupFilterViewModel> {
     let doneButton: BKButton = {
         let btn = BKButton()
         btn.setTitle(NSLocalizedString("done"), for: .normal)
@@ -63,10 +63,6 @@ class GroupFilterViewController: BaseViewController {
     }
 
     override func bindViewModel() {
-        guard let viewModel = self.viewModel as? GroupFilterViewModel else {
-            return
-        }
-        
         let output = viewModel.transform(
             input: GroupFilterViewModel.Input(
                 showAllGroups: self.showAllGroupsButton.rx

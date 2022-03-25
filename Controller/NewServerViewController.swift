@@ -13,7 +13,7 @@ import SafariServices
 import SnapKit
 import UIKit
 
-class NewServerViewController: BaseViewController {
+class NewServerViewController: BaseViewController<NewServerViewModel> {
     let scanButton: BKButton = {
         let button = BKButton()
         button.setImage(UIImage(named: "baseline_qr_code_scanner_black_24pt"), for: .normal)
@@ -74,9 +74,6 @@ class NewServerViewController: BaseViewController {
     }
 
     override func bindViewModel() {
-        guard let viewModel = self.viewModel as? NewServerViewModel else {
-            return
-        }
         // 点击提醒按钮事件
         let noticeTap = noticeLabel.gestureRecognizers!.first!.rx
             .event

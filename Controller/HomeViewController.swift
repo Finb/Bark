@@ -13,7 +13,7 @@ import RxSwift
 import UIKit
 import UserNotifications
 
-class HomeViewController: BaseViewController {
+class HomeViewController: BaseViewController<HomeViewModel> {
     let newButton: BKButton = {
         let btn = BKButton()
         btn.setImage(Icon.add, for: .normal)
@@ -75,10 +75,6 @@ class HomeViewController: BaseViewController {
     }
 
     override func bindViewModel() {
-        guard let viewModel = self.viewModel as? HomeViewModel else {
-            return
-        }
-        
         // 第一次进入APP 查看通知权限设置
         let authorizationStatus = Single<UNAuthorizationStatus>.create { single -> Disposable in
             UNUserNotificationCenter.current().getNotificationSettings { settings in

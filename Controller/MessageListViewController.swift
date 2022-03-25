@@ -30,7 +30,7 @@ enum MessageDeleteType: Int {
     }
 }
 
-class MessageListViewController: BaseViewController {
+class MessageListViewController: BaseViewController<MessageListViewModel> {
     let deleteButton: BKButton = {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
@@ -96,10 +96,6 @@ class MessageListViewController: BaseViewController {
     }
     
     override func bindViewModel() {
-        guard let viewModel = self.viewModel as? MessageListViewModel else {
-            return
-        }
-        
         let batchDelete = deleteButton.rx
             .tap
             .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in

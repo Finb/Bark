@@ -9,7 +9,7 @@
 import Material
 import RxDataSources
 import UIKit
-class MessageSettingsViewController: BaseViewController {
+class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel> {
     let tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -34,9 +34,6 @@ class MessageSettingsViewController: BaseViewController {
     }
 
     override func bindViewModel() {
-        guard let viewModel = self.viewModel as? MessageSettingsViewModel else {
-            return
-        }
         let output = viewModel.transform(
             input: MessageSettingsViewModel.Input(
                 itemSelected: self.tableView.rx.modelSelected(MessageSettingItem.self).asDriver(),
