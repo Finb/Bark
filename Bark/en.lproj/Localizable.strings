@@ -105,3 +105,17 @@ badge = "Modify a Notification Badge";
 badgeNotice = "The notification badge can be set with a number.";
 
 deviceTokenInfo = "Token for APNs, click to copy to clipboard.";
+
+
+serverList = "Server List";
+copyAddressAndKey = "Copy address and key";
+resetKey = "Reset or Restore Key";
+resetKeyDesc = "Click confirm to reset, enter the old Key to restore";
+resetKeyPlaceholder = "Do not enter or enter the old Key";
+confirm = "Confirm";
+deleteServer = "Delete server";
+confirmDeleteServer = "Sure to delete the server?";
+deleteFailed = "Cannot be deleted, the server must keep at least one";
+deletedSuccessfully = "Deleted successfully";
+resetFailed = "Reset failed";
+resetFailed2 = "Failed to reset, did not get DeviceToken";

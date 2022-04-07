@@ -51,7 +51,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         
         navigationItem.setBarButtonItems(items: [
             UIBarButtonItem(customView: newButton),
-//            UIBarButtonItem(customView: serversButton),
+            UIBarButtonItem(customView: serversButton),
         ], position: .right)
         
         self.view.addSubview(self.tableView)
@@ -98,6 +98,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let output = viewModel.transform(
             input: HomeViewModel.Input(
                 addCustomServerTap: newButton.rx.tap.asDriver(),
+                serverListTap: serversButton.rx.tap.asDriver(),
                 viewDidAppear: self.rx.methodInvoked(#selector(viewDidAppear(_:)))
                     .map { _ in () }
                     .asDriver(onErrorDriveWith: .empty()),
@@ -130,6 +131,11 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         output.push
             .drive(onNext: { [weak self] viewModel in
                 self?.pushViewModel(viewModel: viewModel)
+            })
+            .disposed(by: rx.disposeBag)
+        output.present
+            .drive(onNext: { [weak self] viewModel in
+                self?.presentViewModel(viewModel: viewModel)
             })
             .disposed(by: rx.disposeBag)
         
@@ -199,6 +205,15 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         
         if let viewController = viewController {
             self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func presentViewModel(viewModel: ViewModel) {
+        if let viewModel = viewModel as? ServerListViewModel {
+            let controller = BarkSnackbarController(
+                rootViewController: BarkNavigationController(
+                    rootViewController: ServerListViewController(viewModel: viewModel)))
+            self.navigationController?.present(controller, animated: true, completion: nil)
         }
     }
 }

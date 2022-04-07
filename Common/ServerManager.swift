@@ -81,6 +81,12 @@ class ServerManager: NSObject {
         saveServers()
     }
 
+    func updateServerKey(server: Server) {
+        let foundServer = self.servers.first{ $0.id == server.id }
+        foundServer?.key = server.key
+        saveServers()
+    }
+    
     /// 移除 server，移除后如果 server 为`空`, `会新增一个默认server`
     func removeServer(server: Server) {
         self.servers.removeAll { $0.id == server.id }
@@ -88,6 +94,8 @@ class ServerManager: NSObject {
             self.servers.append(
                 Server(id: UUID().uuidString, address: defaultServer, key: "")
             )
+        }
+        if self.currentServer.id == server.id {
             self.setCurrentServer(serverId: self.servers[0].id)
         }
         saveServers()
@@ -140,7 +148,9 @@ class ServerManager: NSObject {
             .merge(apis)
             .subscribe { result in
                 // 更新所有的 server 状态
-                result.0.key = result.1
+                if result.2 == .ok {
+                    result.0.key = result.1
+                }
                 result.0.state = result.2
 
                 // 通知客户端 当前 server 状态改变

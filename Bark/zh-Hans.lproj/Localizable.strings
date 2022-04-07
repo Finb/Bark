@@ -108,3 +108,17 @@ badge = "设置角标";
 badgeNotice = "可以为推送设置角标，角标可以是任意数字。";
 
 deviceTokenInfo = "用于 APNs 推送的 Token，请勿泄露，点击可复制到剪切板。";
+
+
+serverList = "服务器列表";
+copyAddressAndKey = "复制地址和Key";
+resetKey = "重置或还原Key";
+resetKeyDesc = "重置直接点确定，还原请先输入旧的Key";
+resetKeyPlaceholder = "不输入或输入旧的Key";
+confirm = "确定";
+deleteServer = "删除服务器";
+confirmDeleteServer = "确定删除服务器吗？";
+deleteFailed = "不能删除，服务器至少需保留一个";
+deletedSuccessfully = "删除成功";
+resetFailed = "重置失败";
+resetFailed2 = "重置失败，没有获取到 DeviceToken";

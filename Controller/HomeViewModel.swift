@@ -16,6 +16,7 @@ import UserNotifications
 class HomeViewModel: ViewModel, ViewModelType {
     struct Input {
         let addCustomServerTap: Driver<Void>
+        let serverListTap: Driver<Void>
         let viewDidAppear: Driver<Void>
         let start: Driver<Void>
         let clientState: Driver<Client.ClienState>
@@ -26,6 +27,7 @@ class HomeViewModel: ViewModel, ViewModelType {
     struct Output {
         let previews: Driver<[SectionModel<String, PreviewCardCellViewModel>]>
         let push: Driver<ViewModel>
+        let present: Driver<ViewModel>
         let title: Driver<String>
         let clienStateChanged: Driver<Client.ClienState>
         let tableViewHidden: Driver<Bool>
@@ -178,10 +180,24 @@ class HomeViewModel: ViewModel, ViewModelType {
             }
         })
         .disposed(by: rx.disposeBag)
-       
+        
+        let serverList = input.serverListTap.map { ServerListViewModel() as ViewModel }
+        
+        // 服务器发生了改变
+        serverList
+            .flatMapLatest { model -> Driver<Server> in
+                (model as! ServerListViewModel).currentServerChanged.asDriver(onErrorDriveWith: .empty())
+            }
+            .map { server -> String in
+                (try? server.address.asURL().host) ?? ""
+            }
+            .drive(title)
+            .disposed(by: rx.disposeBag)
+     
         return Output(
             previews: Driver.just([sectionModel]),
             push: Driver<ViewModel>.merge(customServer, noticeTap),
+            present: serverList.asDriver(),
             title: title.asDriver(),
             clienStateChanged: clienState.asDriver(onErrorDriveWith: .empty()),
             tableViewHidden: tableViewHidden,
