@@ -103,7 +103,6 @@ class HomeViewModelTests: XCTestCase {
             XCTAssertTrue(hidden == false)
         }.disposed(by: rx.disposeBag)
 
-        
         let authorizedInput = generateInput(authorizationStatus: Observable.just(UNAuthorizationStatus.authorized).asSingle())
         let authorizedOutput = homeViewModel.transform(input: authorizedInput)
 
@@ -116,6 +115,7 @@ class HomeViewModelTests: XCTestCase {
 
     /// 生成Input
     private func generateInput(addCustomServerTap: Driver<Void> = Driver.empty(),
+                               serverListTap: Driver<Void> = Driver.empty(),
                                viewDidAppear: Driver<Void> = Driver.empty(),
                                start: Driver<Void> = Driver.empty(),
                                clientState: Driver<Client.ClienState> = Driver.empty(),
@@ -127,6 +127,7 @@ class HomeViewModelTests: XCTestCase {
 
         return HomeViewModel.Input(
             addCustomServerTap: addCustomServerTap,
+            serverListTap: serverListTap,
             viewDidAppear: viewDidAppear,
             start: start,
             clientState: clientState,
