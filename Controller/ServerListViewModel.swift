@@ -60,6 +60,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
                         .filterResponseError()
                 }
                 return Observable.just(Result<JSON, ApiError>.success(JSON()))
+                    .delay(.milliseconds(300), scheduler: MainScheduler.instance)
             }
 
         // 服务器远程注销后，再本地删除
@@ -68,7 +69,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         let serverDeleted = delete.withLatestFrom(input.deleteServer)
             .map { server in
                 ServerManager.shared.removeServer(server: server)
-            }
+            }.share()
 
         // 弹出删除提示
         serverDeleted.map { NSLocalizedString("deletedSuccessfully") }
@@ -135,7 +136,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         // 当前服务器有改动
         let serverChanged = Observable.merge(serverDeleted, serverResetSuccess)
             .share()
-        
+
         serverChanged.map {
             ServerManager.shared.currentServer
         }
