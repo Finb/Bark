@@ -79,7 +79,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         // 重置服务器之前，先检查 DeviceToken
         let resetServer = input.resetServer
             .map { ($0.0, $0.1, Client.shared.deviceToken.value) }
-            .asObservable()
+            .asObservable().share()
 
         // 重置检查错误提示
         resetServer.filter { ($0.2?.count ?? 0) <= 0 }
@@ -111,7 +111,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
             let server = r.0
             server.key = newKey
             ServerManager.shared.updateServerKey(server: server)
-        }
+        }.share()
 
         // 重置失败提示
         serverReseted.filter { $0 == nil }
