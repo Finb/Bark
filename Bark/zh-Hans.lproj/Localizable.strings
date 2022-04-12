@@ -107,7 +107,7 @@ interruptionLevelNotice = "可对通知设置中断级别，不设置则默认�
 badge = "设置角标";
 badgeNotice = "可以为推送设置角标，角标可以是任意数字。";
 
-deviceTokenInfo = "用于 APNs 推送的 Token，请勿泄露，点击可复制到剪切板。";
+deviceTokenInfo = "苹果推送的真实设备 Token ，请勿泄露，点击可复制到剪切板。";
 
 
 serverList = "服务器列表";
