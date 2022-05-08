@@ -103,6 +103,19 @@ https://api.day.app/yourkey/时效性通知?level=timeSensitive
 ## 跨平台的命令行应用
 [https://github.com/JasonkayZK/bark-cli](https://github.com/JasonkayZK/bark-cli)
 
+## bark-jssdk
+> 几行代码，用 nodejs 使用 bark sdk
+
+[https://github.com/afeiship/bark-jssdk](https://github.com/afeiship/bark-jssdk)
+
+```js
+import BarkJssdk from '@jswork/bark-jssdk';
+
+const sdk = new BarkJssdk({ sdkKey: 'YOUR_SDK_KEY'});
+// notify
+sdk.notify({ title: 'Tips', body: 'New message comming.' });
+```
+
 ## Quicker 动作
 使用 Quicker 软件在 Windows 上将选中文字一键推送到iPhone，支持打开URL和自动复制推送内容
 [https://getquicker.net/Sharedaction?code=e927d844-d212-4428-758d-08d69de12a3b](https://getquicker.net/Sharedaction?code=e927d844-d212-4428-758d-08d69de12a3b)
