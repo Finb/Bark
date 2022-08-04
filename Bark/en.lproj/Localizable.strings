@@ -11,17 +11,17 @@ SecureConnection = "Secure Connection (HTTPS)";
 InsecureConnection = "Insecure Connection (HTTP)";
 RegisterDevice = "Register Device";
 
-CustomedNotificationContent = "Customed Notification Content";
-CustomedNotificationTitle = "Customed Notification Title";
+CustomedNotificationContent = "Body Text";
+CustomedNotificationTitle = "Title";
 
-Notice1 = "Click on the buttons in the upper right corner \nto copy or preview test URL";
-Notice2 = "Customed notification content and title";
+Notice1 = "Use the buttons to copy and open sample URLs";
+Notice2 = "Customize notification title and body text";
 
 Copy = "Copied!";
 Copy2 = "Copy";
 Cancel = "Cancel";
 
-AllowNotifications = "Notifications have been turned off, Please allow notifications and try again";
+AllowNotifications = "Notifications have been turned off. Please allow notifications in the Settings app.";
 
 UnregisteredDevice = "Unregistered Device";
 
@@ -29,45 +29,45 @@ ServerError = "Server Error";
 
 ServerAddress = "Server Address";
 
-ServerExample = "Enter the server address, for example: https://api.day.app";
+ServerExample = "Enter the server address, e.g., https://api.day.app";
 
-DeploymentDocuments = "Deployment Documentation";
+DeploymentDocuments = "Deploy a self-hosted Bark server";
 
-AddServer = "Add Customed Server";
+AddServer = "Add a Server";
 
-AddedSuccessfully = "Added Successfully!";
+AddedSuccessfully = "Server has been added successfully.";
 
-InvalidServer = "Invalid server! please try again.";
+InvalidServer = "Server address is invalid.";
 
-InvalidURL = "Invalid URL!";
+InvalidURL = "URL is invalid.";
 
-urlParameter = "Clicking on the notification will jump \nto this URL in the parameter";
+urlParameter = "Open an URL by clicking on a notification";
 
-copyParameter = "If the URL has a copy parameter then the value of the copy \nparameter will be copied";
+copyParameter = "Specify clipboard content by passing through the 'copy' parameter";
 
-automaticallyCopyTitle = "Automatically copy push content (No longer available after iOS14.5)";
-automaticallyCopy = "Automatically copy push content \nwhen a push is received\nAfter iOS 14.5, long press or pull down on a push to trigger auto-copy, before iOS 14.5 you don't need to do anything";
+automaticallyCopyTitle = "Auto Copy Body Text (iOS 14.4 and below)";
+automaticallyCopy = "Automatically copy the body text of a notification, only for iOS 14.4 and below. For iOS 14.5 and above, long press or pull down the notification to copy.";
 
 historyMessage = "Message History";
 
-unknown = "Unknown";
-available = "Available";
-restricted = "Restricted";
+unknown = "Unknown Status";
+available = "Enabled";
+restricted = "Disabled";
 settings = "Settings";
 
-iCloudSatatus = "iCloud sync";
-iCloudSync = "Notification messages will be synced when iCloud is available";
+iCloudSatatus = "iCloud Sync";
+iCloudSync = "Sync notifications through iCloud";
 
-defaultArchiveSettings = "Archive by default";
-archiveNote = "When the isArchive parameter is not specified in the push request URL, whether to archive the notification message will be decided according to this setting";
+defaultArchiveSettings = "Archive by Default";
+archiveNote = "Archive notifications by default if the 'isArchive' parameter is unset.";
 
-archiveNotificationMessageTitle = "Archive notification message";
-archiveNotificationMessage = "Notification message will be archived when isArchive value is 1, and will not be archived when the value is 0.\nIf the isArchive parameter is not specified, the notification message will be archived according to the default settings";
+archiveNotificationMessageTitle = "Archive Notification";
+archiveNotificationMessage = "Archive a notification by passing 'isArchive=1'. Prevent archiving by passing 'isArchive=0'. Default settings will apply if the parameter is unset.";
 
-notificationSound = "Notification sound";
-previewSound = "Click to preview";
-setSounds = "You can set different sounds for push notifications";
-viewAllSounds = "View all sounds";
+notificationSound = "Alert Sound";
+previewSound = "Click to Play";
+setSounds = "Select an alert sound for a notification.";
+viewAllSounds = "Click here to view all available sounds.";
 
 service = "Service";
 
@@ -79,43 +79,43 @@ allTime = "All time";
 clearFrom = "Clear from:";
 clear = "Clear";
 
-group = "Group";
+group = "Groups";
 done = "Done";
 default = "Default";
 hideAllGroups = "Unselect All Groups";
 showAllGroups = "Select All Groups";
-groupMessagesNotice = "Grouping of messages allows you to view messages by group.";
-messageGroup = "Message grouping";
+groupMessagesNotice = "Let iOS sort notifications by groups.";
+messageGroup = "Notification Grouping";
 
 info = "Info";
-buildDesc = "Bark was uploaded to the App Store by Github Actions.";
+buildDesc = "Bark is built and submitted to the App Store by GitHub Actions.";
 
 other = "Other";
 faq = "FAQ";
 appSC = "App Source Code";
 backendSC = "Backend Source Code";
 
-notificationIcon = "Custom Icon";
-notificationIconNotice = "Set a custom icon for the push and the set icon will replace the default Bark icon. Icons are automatically cached locally.";
+notificationIcon = "Icon";
+notificationIconNotice = "Display a custom icon on a notification.";
 
-interruptionLevel = "Time Sensitive notifications";
-interruptionLevelNotice = "The interruption level can be set for notifications; if not set, the default is active.\n\nAvailable parameter values:\nactive: The system presents the notification immediately, lights up the screen.\ntimeSensitive: May be presented during Do Not Disturb\npassive: Added to the notification list; does not light up screen or play sound.";
+interruptionLevel = "Time Sensitive Notifications";
+interruptionLevelNotice = "Set importance and delivery timing of a notification. Available values:\nactive (default): presents the notification immediately, lights up the screen, and can play a sound.\ntimeSensitive: similar to active, but can break through system controls such as Notification Summary and Focus.\npassive: adds the notification to the notification list without lighting up the screen or playing a sound.";
 
-badge = "Modify a Notification Badge";
-badgeNotice = "The notification badge can be set with a number.";
+badge = "Badge Count";
+badgeNotice = "Specify a number on Bark app’s icon when a notification arrives.";
 
-deviceTokenInfo = "Token for APNs, click to copy to clipboard.";
+deviceTokenInfo = "Token for APNs. Click to copy.";
 
 
 serverList = "Server List";
-copyAddressAndKey = "Copy address and key";
+copyAddressAndKey = "Copy Address and Key";
 resetKey = "Reset or Restore Key";
-resetKeyDesc = "Click confirm to reset, enter the old Key to restore";
-resetKeyPlaceholder = "Do not enter or enter the old Key";
+resetKeyDesc = "Leave blank to reset. Enter an old key to restore.";
+resetKeyPlaceholder = "";
 confirm = "Confirm";
-deleteServer = "Delete server";
-confirmDeleteServer = "Sure to delete the server?";
-deleteFailed = "Cannot be deleted, the server must keep at least one";
-deletedSuccessfully = "Deleted successfully";
-resetFailed = "Reset failed";
-resetFailed2 = "Failed to reset, did not get DeviceToken";
+deleteServer = "Delete Server";
+confirmDeleteServer = "Are you sure you want to delete this server?";
+deleteFailed = "You must have at least one server configured.";
+deletedSuccessfully = "Server has been deleted successfully.";
+resetFailed = "Reset Failed";
+resetFailed2 = "Bark could not get a DeviceToken from the server.";
