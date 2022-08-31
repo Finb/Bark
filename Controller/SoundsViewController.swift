@@ -59,9 +59,9 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
 
-        output.copyNameAction.drive(onNext: { name in
+        output.copyNameAction.drive(onNext: { [weak self] name in
             UIPasteboard.general.string = name.trimmingCharacters(in: .whitespacesAndNewlines)
-            self.navigationController?.showSnackbar(text: NSLocalizedString("Copy"))
+            self?.navigationController?.showSnackbar(text: NSLocalizedString("Copy"))
         }).disposed(by: rx.disposeBag)
 
         output.playAction.drive(onNext: { url in
