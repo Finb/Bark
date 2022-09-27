@@ -88,7 +88,7 @@ groupMessagesNotice = "Let iOS sort notifications by groups.";
 messageGroup = "Notification Grouping";
 
 info = "Info";
-buildDesc = "Bark is built and submitted to the App Store by GitHub Actions.";
+buildDesc = "Bark uses GitHub Actions to build and publish itself to the App Store. You can verify the ‘run_id’ in the URL to ensure Bark was built from its original open-source codebase.";
 
 other = "Other";
 faq = "FAQ";
