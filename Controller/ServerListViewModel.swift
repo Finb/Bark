@@ -87,6 +87,15 @@ class ServerListViewModel: ViewModel, ViewModelType {
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
+        // 对重置的旧 key 发送错误的 deviceToken, 使其失效。
+        resetServer.filter { ($0.2?.count ?? 0) > 0 && $0.0.key.count > 0 }.flatMapLatest {
+            BarkApi.provider
+                .request(.register(address: $0.0.address, key: $0.0.key, devicetoken: "deleted"))
+                .filterResponseError()
+        }
+        .subscribe()
+        .disposed(by: rx.disposeBag)
+
         // 发送重置请求
         let serverReseted = resetServer.filter { ($0.2?.count ?? 0) > 0 }
             .flatMapLatest { r -> Observable<Result<JSON, ApiError>> in
