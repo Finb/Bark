@@ -10,7 +10,7 @@ on:
 
 jobs:
   tests:
-    runs-on: macos-11
+    runs-on: macos-12
 
     steps:      
     - name: Checkout
@@ -19,7 +19,7 @@ jobs:
     - name: Select Xcode Version
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '14.0'
+        xcode-version: '14.0.1'
 
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
