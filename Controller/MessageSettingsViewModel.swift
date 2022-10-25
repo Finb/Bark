@@ -180,6 +180,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 if let realm = try? Realm() {
                     let messages = realm.objects(Message.self)
                         .filter("isDeleted != true")
+                        .sorted(byKeyPath: "createDate", ascending: false)
 
                     var arr = [[String: AnyObject]]()
                     for message in messages {
