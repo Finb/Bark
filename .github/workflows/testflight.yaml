@@ -14,7 +14,7 @@ on:
 
 jobs:
   deploy:
-    runs-on: macos-11
+    runs-on: macos-latest
 
     steps:      
     - name: Checkout
@@ -23,7 +23,7 @@ jobs:
     - name: Select Xcode Version
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: '13.2'
+        xcode-version: '14.0.1'
 
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
