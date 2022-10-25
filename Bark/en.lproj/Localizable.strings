@@ -119,3 +119,7 @@ deleteFailed = "You must have at least one server configured.";
 deletedSuccessfully = "Server has been deleted successfully.";
 resetFailed = "Reset Failed";
 resetFailed2 = "Bark could not get a DeviceToken from the server.";
+export = "Export";
+import = "Import";
+exportOrImport = "Exporting or importing messages";
+items = "messages";

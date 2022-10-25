@@ -8,28 +8,88 @@
 
 import Foundation
 import Material
+import RealmSwift
 import RxCocoa
 import RxDataSources
 import RxSwift
+import SwiftyJSON
 
 class MessageSettingsViewModel: ViewModel, ViewModelType {
     struct Input {
         var itemSelected: Driver<MessageSettingItem>
         var deviceToken: Driver<String?>
+        var backupAction: Driver<Void>
+        var restoreAction: Driver<Data>
+        var viewDidAppear: Observable<Void>
     }
 
     struct Output {
         var settings: Driver<[SectionModel<String, MessageSettingItem>]>
         var openUrl: Driver<URL>
         var copyDeviceToken: Driver<String>
+        var exportData: Driver<Data>
     }
 
     func transform(input: Input) -> Output {
+
+        let restoreSuccess = input
+            .restoreAction
+            .compactMap { data -> Void? in
+                guard let json = try? JSON(data: data), let arr = json.array else {
+                    return nil
+                }
+                guard let realm = try? Realm() else {
+                    return nil
+                }
+                try? realm.write {
+                    for message in arr {
+                        guard let id = message["id"].string else {
+                            continue
+                        }
+                        guard let createDate = message["createDate"].int64 else {
+                            continue
+                        }
+
+                        let title = message["title"].string
+                        let body = message["body"].string
+                        let url = message["url"].string
+                        let group = message["group"].string
+
+                        let messageObject = Message()
+                        messageObject.id = id
+                        messageObject.title = title
+                        messageObject.body = body
+                        messageObject.url = url
+                        messageObject.group = group
+                        messageObject.createDate = Date(timeIntervalSince1970: TimeInterval(createDate))
+                        realm.add(messageObject, update: .modified)
+                    }
+                }
+                return ()
+            }.asObservable().share()
+
         let settings: [MessageSettingItem] = {
             var settings = [MessageSettingItem]()
             settings.append(.label(text: "iCloud"))
             settings.append(.iCloudStatus)
             settings.append(.label(text: NSLocalizedString("iCloudSync")))
+            settings.append(.backup(viewModel: MutableTextCellViewModel(
+                title: "\(NSLocalizedString("export"))/\(NSLocalizedString("import"))",
+                text: Observable.merge([restoreSuccess, input.viewDidAppear])
+                    .map { _ in
+                        if let realm = try? Realm() {
+                            return realm.objects(Message.self)
+                                .filter("isDeleted != true")
+                                .count
+                        }
+                        return 0
+                    }
+                    .map { count in
+                        "\(count) \(NSLocalizedString("items"))"
+                    }
+                    .asDriver(onErrorDriveWith: .empty()))
+            ))
+            settings.append(.label(text: NSLocalizedString("exportOrImport")))
             settings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: ArchiveSettingManager.shared.isArchive)))
             settings.append(.label(text: NSLocalizedString("archiveNote")))
 
@@ -112,11 +172,30 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             return nil
         }
 
+        // 导出数据
+        let exportSuccess = input.backupAction
+            .asObservable()
+            .subscribe(on: ConcurrentDispatchQueueScheduler(qos: .userInitiated))
+            .compactMap { _ in
+                if let realm = try? Realm() {
+                    let messages = realm.objects(Message.self)
+                        .filter("isDeleted != true")
+
+                    var arr = [[String: AnyObject]]()
+                    for message in messages {
+                        arr.append(message.toDictionary())
+                    }
+                    return try? JSON(arr).rawData(options: JSONSerialization.WritingOptions.prettyPrinted)
+                }
+                return nil
+            }
+
         return Output(
             settings: Driver<[SectionModel<String, MessageSettingItem>]>
                 .just([SectionModel(model: "model", items: settings)]),
             openUrl: openUrl,
-            copyDeviceToken: copyDeviceToken)
+            copyDeviceToken: copyDeviceToken,
+            exportData: exportSuccess.asDriver(onErrorDriveWith: .empty()))
     }
 }
 
@@ -129,6 +208,8 @@ enum MessageSettingItem {
     case archiveSetting(viewModel: ArchiveSettingCellViewModel)
     // 带 详细按钮的 文本cell
     case detail(title: String?, text: String?, textColor: UIColor?, url: URL?)
+    // 备份还原按钮
+    case backup(viewModel: MutableTextCellViewModel)
     // deviceToken
     case deviceToken(viewModel: MutableTextCellViewModel)
     // 分隔线

@@ -122,3 +122,7 @@ deleteFailed = "不能删除，服务器至少需保留一个";
 deletedSuccessfully = "删除成功";
 resetFailed = "重置失败";
 resetFailed2 = "重置失败，没有获取到 DeviceToken";
+export = "导出";
+import = "导入";
+exportOrImport = "导出或导入消息列表";
+items = "条消息";
