@@ -121,5 +121,5 @@ resetFailed = "Reset Failed";
 resetFailed2 = "Bark could not get a DeviceToken from the server.";
 export = "Export";
 import = "Import";
-exportOrImport = "Exporting or importing messages";
+exportOrImport = "Export and import messages";
 items = "messages";
