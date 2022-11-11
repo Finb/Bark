@@ -41,7 +41,7 @@ InvalidServer = "Server address is invalid.";
 
 InvalidURL = "URL is invalid.";
 
-urlParameter = "Open an URL by clicking on a notification";
+urlParameter = "Open an URL by clicking on a notification, URL schemes are supported.";
 
 copyParameter = "Specify clipboard content by passing through the 'copy' parameter";
 
