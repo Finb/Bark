@@ -1,4 +1,4 @@
-![logo](../_media/icon.png)
+![logo](../_media/Icon.png)
 
 # Bark <small></small>
 
