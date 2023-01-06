@@ -1,7 +1,7 @@
 ## 发送推送
 1. 打开APP，复制测试URL 
 
-<img src="https://wx4.sinaimg.cn/mw2000/003rYfqply1grd1meqrvcj60bi08zt9i02.jpg" width=365 />
+<img src="../_media/example.jpg" width=365 />
 
 2. 修改内容，请求这个URL。<br>
 可以发 get 或者 post 请求 ，请求成功会立即收到推送 
