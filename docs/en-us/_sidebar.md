@@ -1,0 +1,10 @@
+- [Bark](/en-us/#bark)
+- **App**
+  - [tutorial](/en-us/tutorial)
+  - [FAQ](/en-us/faq)
+- **Server**
+  - [Deploy](/en-us/deploy)
+  - [Push](/en-us/apns)
+  - [Build](/en-us/build)
+  - [Cert](/en-us/cert)
+- [Privacy](/en-us/privacy)
