@@ -30,7 +30,7 @@ curl -X "POST" "https://api.day.app/your_key" \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
   "body": "Test Bark Server",
-  "title": "bleem",
+  "title": "Test Title",
   "badge": 1,
   "category": "myNotificationCategory",
   "sound": "minuet.caf",
@@ -39,6 +39,18 @@ curl -X "POST" "https://api.day.app/your_key" \
   "url": "https://mritd.com"
 }'
 ```
+
+JSON 请求 key 可以放进请求体中,URL 路径须为 /push，例如
+```sh
+curl -X "POST" "https://api.day.app/push" \
+     -H 'Content-Type: application/json; charset=utf-8' \
+     -d $'{
+  "body": "Test Bark Server",
+  "title": "Test Title",
+  "device_key": "your_key"
+}'
+```
+
 ## 请求参数
 支持的参数列表，具体效果可在APP内预览。
 

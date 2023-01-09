@@ -3,7 +3,7 @@
 发送端 <font color='red'> →服务端①</font> → 苹果APNS服务器 → 你的设备 → <font color='red'>Bark APP②</font>。
 
 红色的两处地方可能泄露隐私 <br>
-* 发送端未使用HTTPS或使用公共服务器（作者会看到请求日志）
+* 发送端未使用HTTPS或使用公共服务器*（作者会看到请求日志）*
 * Bark App 本身不安全，上传到 App Store 的版本经过修改。
 
 #### 解决服务端隐私问题

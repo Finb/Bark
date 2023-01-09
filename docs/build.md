@@ -1,5 +1,7 @@
 ## 下载源码
-[bark-server](https://github.com/Finb/bark-server)
+从GitHub下载源码 [bark-server](https://github.com/Finb/bark-server)
+
+或
 ```sh
 git clone https://github.com/Finb/bark-server.git
 ```
