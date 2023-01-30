@@ -21,6 +21,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
         var backupAction: Driver<Void>
         var restoreAction: Driver<Data>
         var viewDidAppear: Observable<Void>
+        var archiveSettingRelay: BehaviorRelay<Bool>
     }
 
     struct Output {
@@ -90,7 +91,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                     .asDriver(onErrorDriveWith: .empty()))
             ))
             settings.append(.label(text: NSLocalizedString("exportOrImport")))
-            settings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: ArchiveSettingManager.shared.isArchive)))
+            settings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: input.archiveSettingRelay)))
             settings.append(.label(text: NSLocalizedString("archiveNote")))
 
             settings.append(.label(text: NSLocalizedString("info")))
@@ -142,18 +143,6 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 url: URL(string: "https://github.com/Finb/bark-server")))
             return settings
         }()
-
-        settings.compactMap { item -> ArchiveSettingCellViewModel? in
-            if case let MessageSettingItem.archiveSetting(viewModel) = item {
-                return viewModel
-            }
-            return nil
-        }
-        .first?
-        .on
-        .subscribe(onNext: { on in
-            ArchiveSettingManager.shared.isArchive = on
-        }).disposed(by: rx.disposeBag)
 
         let openUrl = input.itemSelected.compactMap { item -> URL? in
             if case let MessageSettingItem.detail(_, _, _, url) = item {

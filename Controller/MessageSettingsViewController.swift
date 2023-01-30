@@ -121,7 +121,8 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                 backupAction: actions.0,
                 restoreAction: actions.1,
                 viewDidAppear: self.rx.methodInvoked(#selector(viewDidAppear(_:)))
-                    .map { _ in () }
+                    .map { _ in () },
+                archiveSettingRelay: ArchiveSettingRelay.shared.isArchiveRelay
             )
         )
         

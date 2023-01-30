@@ -10,8 +10,8 @@ import Foundation
 import RxCocoa
 class ArchiveSettingCellViewModel: ViewModel {
     var on: BehaviorRelay<Bool>
-    init(on: Bool) {
-        self.on = BehaviorRelay<Bool>(value: on)
+    init(on: BehaviorRelay<Bool>) {
+        self.on = on
         super.init()
     }
 }
