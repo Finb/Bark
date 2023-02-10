@@ -126,3 +126,11 @@ export = "导出";
 import = "导入";
 exportOrImport = "导出或导入消息列表";
 items = "条消息";
+
+enterKey = "请输入%s位Key";
+enterIv = "请输入16位Iv";
+encryptionSettings = "加密设置";
+algorithm = "算法";
+mode = "模式";
+copyExample = "复制发送脚本示例";
+preview = "预览";

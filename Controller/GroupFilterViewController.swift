@@ -18,7 +18,7 @@ class GroupFilterViewController: BaseViewController<GroupFilterViewModel> {
     let doneButton: BKButton = {
         let btn = BKButton()
         btn.setTitle(NSLocalizedString("done"), for: .normal)
-        btn.setTitleColor(Color.lightBlue.darken3, for: .normal)
+        btn.setTitleColor(BKColor.lightBlue.darken3, for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         btn.fontSize = 14
         return btn

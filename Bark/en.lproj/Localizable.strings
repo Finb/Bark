@@ -123,3 +123,11 @@ export = "Export";
 import = "Import";
 exportOrImport = "Export and import messages";
 items = "messages";
+
+enterKey = "Please enter %s-bit Key";
+enterIv = "Please enter %s-bit Iv";
+encryptionSettings = "Encryption Settings";
+algorithm = "Algorithm";
+mode = "Mode";
+copyExample = "Copy Send Script Example";
+preview = "Preview";

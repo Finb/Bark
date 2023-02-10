@@ -8,6 +8,7 @@
 
 import CloudKit
 import IceCream
+import IQKeyboardManagerSwift
 import Material
 import RealmSwift
 import UIKit
@@ -49,6 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // 必须在应用一开始就配置，否则应用可能提前在配置之前试用了 Realm() ，则会创建两个独立数据库。
         setupRealm()
+
+        IQKeyboardManager.shared.enable = true
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let tabBarController = StateStorageTabBarController()
@@ -207,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         ServerManager.shared.syncAllServers()
-        
+
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉
         UIApplication.shared.applicationIconBadgeNumber = -1

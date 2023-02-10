@@ -25,6 +25,7 @@ class BKColor: NSObject {
     enum blue {
         public static let base = UIColor(named: "blue_base")!
         public static let darken1 = UIColor(named: "blue_darken1")!
+        public static let darken5 = UIColor(named: "blue_darken5")!
     }
 
     enum lightBlue {

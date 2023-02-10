@@ -15,6 +15,8 @@ def pods
     pod 'DeviceKit'
     pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
     pod 'IceCream'
+    pod 'CryptoSwift'
+    pod 'IQKeyboardManagerSwift'
     
     pod 'RxSwift'
     pod 'RxCocoa'
@@ -25,6 +27,7 @@ def pods
     pod 'MJRefresh'
     pod 'Kingfisher'
     pod 'MercariQRScanner', :git => 'https://github.com/Finb/QRScanner'
+    pod 'DropDown'
 end
 
 target 'Bark' do
