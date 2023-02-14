@@ -27,7 +27,7 @@ chmod +x bark-server_linux_amd64
 请注意 bark-server 默认使用 /data 目录保存数据，请确保 bark-server 有权限读写 /data 目录，或者你可以使用 `-data` 选项指定一个目录
 
 ## Render
-Render 可以非常简单的创建免费的 bark-server
+Render 能非常简单的创建免费的 bark-server
 1. [注册](https://dashboard.render.com/register/)一个Render账号
 2. 创建一个 [New Web Service](https://dashboard.render.com/select-repo?type=web)
 3. 在底部的 **Public Git repository** 输入框输入下面的URL
@@ -45,6 +45,7 @@ https://github.com/Finb/bark-server
 ```
 https://[your-server-name].onrender.com
 ```
+7. 如果添加失败，可以等待一段时间再试，有可能服务还没准备好。
 ## Serverless 
   
 
