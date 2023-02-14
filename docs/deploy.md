@@ -37,7 +37,7 @@ https://github.com/Finb/bark-server
 4. 点击 **Continue** 输入表单
    * Name - 名称，随便取个名字，例如 bark-server
    * Region - 服务器地区，选择离你近的
-   * Start Command - 程序执行命令,填`./app -addr 0.0.0.0:8080 -data ./bark-data`
+   * Start Command - 程序执行命令,填`./app -addr 0.0.0.0:8080 -data ./bark-data`。（注意不要漏了 ./app 前面的点）
    * Instance Type - 选 Free ，免费的足够用了。
    * 其他的默认不动
 5. 点击底部的 Create Web Service 按钮，等待几分钟，状态从 In progress 变成  Live
