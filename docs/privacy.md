@@ -11,8 +11,9 @@
 * 使用自定义秘钥的[加密推送](/tutorial)
 
 #### 保证 APP 完全由开源代码构建
-为确保 Bark App 是安全的，Bark应用设置内可以查看到 GitHub Run Id。 <br>
-点击可在里面找到当前版本构建所使用的配置文件、编译时的源代码、上传到 App Store 的版本 build 号 等等信息。
+为确保 App 是安全、未经任何人（包含作者）修改过的，Bark 是由 GitHub Actions 构建后上传到 App Store。<br>
+Bark应用设置内可以查看到 GitHub Run Id，点击可在里面找到当前版本构建所使用的配置文件、编译时的源代码、上传到 App Store 的版本 build 号 等等信息。<br>
+
 
 同一个版本 build 号仅能上传到 App Store 一次，所以这个号是唯一的。<br>
 可用此号对比从商店下载的 Bark App，如果一致则证明从 App Store 下载的 App 是完全由开源代码构建。
