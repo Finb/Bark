@@ -8,6 +8,8 @@
 
 import DropDown
 import UIKit
+import RxCocoa
+import RxSwift
 
 class DropBoxView: UIView {
 
@@ -42,12 +44,20 @@ class DropBoxView: UIView {
         }
     }
 
-    let values: [String]
+    var values: [String] {
+        didSet {
+            self.currentValue = values.first
+        }
+    }
+
     var currentValue: String? {
         didSet {
             self.valueLabel.text = currentValue
+            self.currentValueChanged?(self.currentValue)
         }
     }
+    
+    var currentValueChanged: ((String?) -> Void)?
 
     init(values: [String]) {
         self.values = values
@@ -105,5 +115,23 @@ class DropBoxView: UIView {
         }
         self.isSelecting = true
         dropDown.show()
+    }
+}
+
+extension Reactive where Base: DropBoxView {
+
+    var currentValueChanged: ControlEvent<String?> {
+        let source = Observable<String?>.create { [weak control = self.base] observer -> Disposable in
+            MainScheduler.ensureExecutingOnScheduler()
+            guard let control = control else {
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            control.currentValueChanged = { value in
+                observer.onNext(value)
+            }
+            return Disposables.create()
+        }
+        return ControlEvent(events: source)
     }
 }

@@ -8,13 +8,38 @@
 
 import CryptoSwift
 import Foundation
-class CryptoSettingModel: ViewModel, ViewModelType {
-    struct Input {}
+import RxCocoa
+import RxSwift
 
-    struct Output {}
+class CryptoSettingModel: ViewModel, ViewModelType {
+    struct Input {
+        let algorithmChanged: Driver<String>
+    }
+
+    struct Output {
+        let algorithmList: Driver<[Algorithm]>
+        let modeList: Driver<[String]>
+        let paddingList: Driver<[String]>
+        let keyLenght: Driver<Int>
+    }
 
     func transform(input: Input) -> Output {
-        return Output()
+        let modeList = input
+            .algorithmChanged
+            .compactMap { Algorithm(rawValue: $0) }
+            .map { $0.modes }
+
+        let keyLenght = input
+            .algorithmChanged
+            .compactMap { Algorithm(rawValue: $0) }
+            .map { $0.keyLenght }
+
+        return Output(
+            algorithmList: Driver.just([Algorithm.aes128, Algorithm.aes192, Algorithm.aes256]),
+            modeList: Driver.merge(Driver.just(["CBC", "ECB", "GCM"]), modeList),
+            paddingList: Driver.just(["pkcs7"]),
+            keyLenght: Driver.merge(Driver.just(16), keyLenght)
+        )
     }
 
     override init() {

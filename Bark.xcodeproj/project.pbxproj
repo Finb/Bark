@@ -19,6 +19,7 @@
 		06172FDA27F6DAEF002333A4 /* ServerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06172FD927F6DAEF002333A4 /* ServerListTableViewCell.swift */; };
 		06172FDC27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06172FDB27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift */; };
 		061894C529962EB900E001C2 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C429962EB900E001C2 /* GradientButton.swift */; };
+		061894C729A75BEA00E001C2 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
 		0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABA298B6EA2002F3F69 /* DropBoxView.swift */; };
 		0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABC2990D615002F3F69 /* BorderTextField.swift */; };
 		062B98C3251B2762004562E7 /* BKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062B98C2251B2762004562E7 /* BKButton.swift */; };
@@ -192,6 +193,7 @@
 		06172FD927F6DAEF002333A4 /* ServerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListTableViewCell.swift; sourceTree = "<group>"; };
 		06172FDB27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		061894C429962EB900E001C2 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
+		061894C629A75BEA00E001C2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		0627DABA298B6EA2002F3F69 /* DropBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropBoxView.swift; sourceTree = "<group>"; };
 		0627DABC2990D615002F3F69 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		062B98C2251B2762004562E7 /* BKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKButton.swift; sourceTree = "<group>"; };
@@ -430,6 +432,7 @@
 				06B1158E247BB1FB006D91FB /* Message.swift */,
 				064CABA5256BE9510018155C /* PreviewModel.swift */,
 				06BD4DA92901352E003364DB /* Object+Dictionary.swift */,
+				061894C629A75BEA00E001C2 /* Algorithm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -989,6 +992,7 @@
 				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
 				068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */,
 				06172FDC27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift in Sources */,
+				061894C729A75BEA00E001C2 /* Algorithm.swift in Sources */,
 				065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
 				06172FDA27F6DAEF002333A4 /* ServerListTableViewCell.swift in Sources */,

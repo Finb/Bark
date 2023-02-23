@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class CryptoSettingController: BaseViewController<CryptoSettingModel> {
     let algorithmFeild = DropBoxView(values: ["AES128", "AES192", "AES256"])
@@ -179,5 +180,33 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = BKColor.white
+    }
+    
+    override func bindViewModel() {
+        
+        let output = viewModel.transform(input: CryptoSettingModel.Input(
+            algorithmChanged: self.algorithmFeild
+                .rx
+                .currentValueChanged
+                .compactMap{$0}
+                .asDriver(onErrorDriveWith: .empty())
+        ))
+        
+        output.algorithmList
+            .map{$0.map {$0.rawValue}}
+            .drive(self.algorithmFeild.rx.values)
+            .disposed(by: rx.disposeBag)
+        
+        output.modeList
+            .drive(self.modeFeild.rx.values)
+            .disposed(by: rx.disposeBag)
+        
+        output.paddingList
+            .drive(self.paddingField.rx.values)
+            .disposed(by: rx.disposeBag)
+        
+        output.keyLenght.drive(onNext: {[weak self] keyLenght in
+            self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLenght)
+        }).disposed(by: rx.disposeBag)
     }
 }
