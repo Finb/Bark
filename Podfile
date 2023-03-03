@@ -43,6 +43,7 @@ end
 target 'NotificationServiceExtension' do
     pod 'IceCream'
     pod 'Kingfisher'
+    pod 'CryptoSwift'
 end
 
 post_install do |installer|

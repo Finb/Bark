@@ -6,14 +6,14 @@
 //  Copyright © 2022 Fin. All rights reserved.
 //
 
-import UIKit
 import RxSwift
+import UIKit
 
-class CryptoSettingController: BaseViewController<CryptoSettingModel> {
+class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let algorithmFeild = DropBoxView(values: ["AES128", "AES192", "AES256"])
     let modeFeild = DropBoxView(values: ["CBC", "ECB", "GCM"])
     let paddingField = DropBoxView(values: ["pkcs7"])
-    
+
     let keyTextField: BorderTextField = {
         let textField = BorderTextField(title: "Key")
         textField.font = UIFont.systemFont(ofSize: 14)
@@ -26,14 +26,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
         textField.font = UIFont.systemFont(ofSize: 14)
         textField.placeholder = NSLocalizedString("enterIv")
         return textField
-    }()
-
-    let previewLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12)
-        label.textColor = BKColor.grey.darken4
-        label.text = "\(NSLocalizedString("preview")): \"helloworld\" -> \"DASGKJLSAJKGH==\""
-        return label
     }()
 
     let doneButton: BKButton = {
@@ -57,7 +49,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
                 UIColor(r255: 36, g255: 51, b255: 236),
                 UIColor(r255: 70, g255: 44, b255: 233),
             ],
-            gradientOrientation: .horizontal)
+            gradientOrientation: .horizontal
+        )
         return btn
     }()
 
@@ -74,7 +67,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
         scrollView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        
+
         func getTitleLabel(title: String) -> UILabel {
             let label = UILabel()
             label.font = UIFont.systemFont(ofSize: 14)
@@ -104,7 +97,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
         self.scrollView.addSubview(ivLabel)
         self.scrollView.addSubview(ivTextField)
 
-        self.scrollView.addSubview(previewLabel)
         self.scrollView.addSubview(copyButton)
 
         self.view.backgroundColor = UIColor.white
@@ -157,16 +149,12 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
             make.top.equalTo(ivLabel.snp.bottom).offset(5)
         }
 
-        previewLabel.snp.makeConstraints { make in
-            make.left.equalTo(ivLabel)
-            make.top.equalTo(ivTextField.snp.bottom).offset(20)
-        }
 
         copyButton.snp.makeConstraints { make in
             make.left.equalTo(ivTextField)
             make.right.equalTo(ivTextField)
             make.height.equalTo(42)
-            make.top.equalTo(previewLabel.snp.bottom).offset(10)
+            make.top.equalTo(ivTextField.snp.bottom).offset(25)
             make.bottom.equalToSuperview().offset(-20)
         }
 
@@ -181,31 +169,53 @@ class CryptoSettingController: BaseViewController<CryptoSettingModel> {
         super.viewDidLoad()
         self.view.backgroundColor = BKColor.white
     }
-    
+
     override func bindViewModel() {
-        
-        let output = viewModel.transform(input: CryptoSettingModel.Input(
+
+        func getFieldValues() -> CryptoSettingFields {
+            return CryptoSettingFields(
+                algorithm: self.algorithmFeild.currentValue!,
+                mode: self.modeFeild.currentValue!,
+                padding: self.paddingField.currentValue!,
+                key: self.keyTextField.text,
+                iv: self.ivTextField.text
+            )
+        }
+
+        let output = viewModel.transform(input: CryptoSettingViewModel.Input(
             algorithmChanged: self.algorithmFeild
                 .rx
                 .currentValueChanged
-                .compactMap{$0}
+                .compactMap { $0 }
+                .asDriver(onErrorDriveWith: .empty()),
+
+            copyScript: copyButton
+                .rx
+                .tap
+                .map { getFieldValues() }
+                .asDriver(onErrorDriveWith: .empty()),
+
+            done: doneButton
+                .rx
+                .tap
+                .map { getFieldValues() }
                 .asDriver(onErrorDriveWith: .empty())
         ))
-        
+
         output.algorithmList
-            .map{$0.map {$0.rawValue}}
+            .map { $0.map { $0.rawValue }}
             .drive(self.algorithmFeild.rx.values)
             .disposed(by: rx.disposeBag)
-        
+
         output.modeList
             .drive(self.modeFeild.rx.values)
             .disposed(by: rx.disposeBag)
-        
+
         output.paddingList
             .drive(self.paddingField.rx.values)
             .disposed(by: rx.disposeBag)
-        
-        output.keyLenght.drive(onNext: {[weak self] keyLenght in
+
+        output.keyLenght.drive(onNext: { [weak self] keyLenght in
             self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLenght)
         }).disposed(by: rx.disposeBag)
     }

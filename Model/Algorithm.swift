@@ -6,6 +6,7 @@
 //  Copyright © 2023 Fin. All rights reserved.
 //
 
+import CryptoSwift
 import Foundation
 
 enum Algorithm: String {
@@ -36,5 +37,64 @@ enum Algorithm: String {
         case .aes256:
             return 32
         }
+    }
+}
+
+struct CryptoSettingFields {
+    let algorithm: String
+    let mode: String
+    let padding: String
+    let key: String?
+    let iv: String?
+}
+
+struct AESCryptoModel {
+    let key: String
+    let mode: BlockMode
+    let padding: Padding
+    let aes: AES
+    init(cryptoFields: CryptoSettingFields) throws {
+        guard let algorithm = Algorithm(rawValue: cryptoFields.algorithm) else {
+            throw "Invalid algorithm"
+        }
+        guard let key = cryptoFields.key else {
+            throw "Key is missing"
+        }
+
+        guard algorithm.keyLenght == key.count else {
+            throw String(format: NSLocalizedString("enterKey"), algorithm.keyLenght)
+        }
+
+        var iv = ""
+        if ["CBC", "GCM"].contains(cryptoFields.mode) {
+            if let ivField = cryptoFields.iv, ivField.count == 16 {
+                iv = ivField
+            }
+        }
+
+        let mode: BlockMode
+        switch cryptoFields.mode {
+        case "CBC":
+            mode = CBC(iv: iv.bytes)
+        case "ECB":
+            mode = ECB()
+        case "GCM":
+            mode = GCM(iv: iv.bytes)
+        default:
+            throw "Invalid Mode"
+        }
+
+        self.key = key
+        self.mode = mode
+        self.padding = Padding.pkcs7
+        self.aes = try AES(key: key.bytes, blockMode: self.mode, padding: self.padding)
+    }
+
+    func encrypt(text: String) throws -> String {
+        return try aes.encrypt(Array(text.utf8)).toBase64()
+    }
+
+    func decrypt(ciphertext: String) throws -> String {
+        return String(data: Data(try aes.decrypt(Array(base64: ciphertext))), encoding: .utf8) ?? ""
     }
 }
