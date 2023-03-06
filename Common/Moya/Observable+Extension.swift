@@ -21,6 +21,9 @@ public enum ApiError: Swift.Error {
 
 extension Swift.Error {
     func rawString() -> String {
+        if let err = self as? String {
+            return err
+        }
         guard let err = self as? ApiError else {
             return self.localizedDescription
         }

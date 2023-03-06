@@ -14,10 +14,23 @@ class CryptoSettingManager: NSObject {
     let defaults = UserDefaults(suiteName: "group.bark")
     var fields: CryptoSettingFields? {
         get {
-            return defaults?.value(forKey: "cryptoSettingFields") as? CryptoSettingFields
+            guard let data:Data =  defaults?.value(forKey: "cryptoSettingFields") as? Data else {
+                return nil
+            }
+            guard let fields = try? JSONDecoder().decode(CryptoSettingFields.self, from: data) else {
+                return nil
+            }
+            return fields
         }
         set {
-            defaults?.set(newValue, forKey: "cryptoSettingFields")
+            guard let newValue = newValue else {
+                defaults?.removeObject(forKey: "cryptoSettingFields")
+                return
+            }
+            guard let encoded = try? JSONEncoder().encode(newValue) else{
+                return
+            }
+            defaults?.set(encoded, forKey: "cryptoSettingFields")
         }
     }
 

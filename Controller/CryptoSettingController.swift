@@ -214,9 +214,13 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         output.paddingList
             .drive(self.paddingField.rx.values)
             .disposed(by: rx.disposeBag)
-
+        
         output.keyLenght.drive(onNext: { [weak self] keyLenght in
             self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLenght)
+        }).disposed(by: rx.disposeBag)
+        
+        output.showSnackbar.drive(onNext: { text in
+            HUDError(text)
         }).disposed(by: rx.disposeBag)
     }
 }

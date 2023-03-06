@@ -78,5 +78,4 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty())
         )
     }
-
 }

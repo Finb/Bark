@@ -134,6 +134,7 @@
 		06F08EAA29B1DE9F006AB9CA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
 		06F08EAC29B1DECD006AB9CA /* NSLocalizedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */; };
 		06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */; };
+		06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAE29B5D9FF006AB9CA /* HUD.swift */; };
 		06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
 		3428272069AFAFE2C683FEB0 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC722470308049D180876C7 /* libPods-Bark.a */; };
 		879AE4D4178855A9672009E4 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */; };
@@ -317,6 +318,7 @@
 		06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingManager.swift; sourceTree = "<group>"; };
 		06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLocalizedString+Extension.swift"; sourceTree = "<group>"; };
+		06F08EAE29B5D9FF006AB9CA /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
 		138CE8CB688587E893BC5C44 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
@@ -432,6 +434,7 @@
 				0608F06D2994D115006B8029 /* BKDropDownCell.swift */,
 				0608F0712994D269006B8029 /* BKDropDownCell.xib */,
 				061894C429962EB900E001C2 /* GradientButton.swift */,
+				06F08EAE29B5D9FF006AB9CA /* HUD.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1054,6 +1057,7 @@
 				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,
 				06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
+				06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */,
 				065AE76B2987777F00323230 /* ArchiveSettingRelay.swift in Sources */,
 				06F08EAC29B1DECD006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
 			);

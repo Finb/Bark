@@ -40,7 +40,7 @@ enum Algorithm: String {
     }
 }
 
-struct CryptoSettingFields {
+struct CryptoSettingFields: Codable {
     let algorithm: String
     let mode: String
     let padding: String
@@ -69,6 +69,9 @@ struct AESCryptoModel {
         if ["CBC", "GCM"].contains(cryptoFields.mode) {
             if let ivField = cryptoFields.iv, ivField.count == 16 {
                 iv = ivField
+            }
+            else {
+                throw NSLocalizedString("enterIv")
             }
         }
 
