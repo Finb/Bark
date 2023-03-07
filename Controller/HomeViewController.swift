@@ -202,7 +202,10 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         else if let viewModel = viewModel as? SoundsViewModel {
             viewController = SoundsViewController(viewModel: viewModel)
         }
-        
+        else if let viewModel = viewModel as? CryptoSettingViewModel {
+            self.navigationController?.present(BarkNavigationController(rootViewController: CryptoSettingController(viewModel: viewModel)), animated: true)
+            return
+        }
         if let viewController = viewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         }

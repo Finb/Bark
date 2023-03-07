@@ -131,3 +131,6 @@ algorithm = "Algorithm";
 mode = "Mode";
 copyExample = "Copy Send Script Example";
 preview = "Preview";
+
+pushNotificationEncryption = "Push Notification Encryption";
+encryptionNotice = "Encrypt push messages with a custom key to enhance privacy protection. You need to configure the key before using it.";

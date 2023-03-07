@@ -134,3 +134,6 @@ algorithm = "算法";
 mode = "模式";
 copyExample = "复制发送脚本示例";
 preview = "预览";
+
+pushNotificationEncryption = "推送加密";
+encryptionNotice = "使用自定义秘钥加密推送消息，以增强隐私保护。使用前需要先配置秘钥。";
