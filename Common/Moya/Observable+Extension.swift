@@ -14,28 +14,6 @@ import RxSwift
 import SwiftyJSON
 import UIKit
 
-public enum ApiError: Swift.Error {
-    case Error(info: String)
-    case AccountBanned(info: String)
-}
-
-extension Swift.Error {
-    func rawString() -> String {
-        if let err = self as? String {
-            return err
-        }
-        guard let err = self as? ApiError else {
-            return self.localizedDescription
-        }
-        switch err {
-        case .Error(let info):
-            return info
-        case .AccountBanned(let info):
-            return info
-        }
-    }
-}
-
 extension Observable where Element: Moya.Response {
     /// 过滤 HTTP 错误，例如超时，请求失败等
     func filterHttpError() -> Observable<Result<Element, ApiError>> {

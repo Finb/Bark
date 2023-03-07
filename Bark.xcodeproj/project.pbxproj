@@ -76,6 +76,8 @@
 		0642B55C27EB149900453D91 /* MutableTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0642B55B27EB149900453D91 /* MutableTextCellViewModel.swift */; };
 		064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */; };
 		064CABA6256BE9510018155C /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CABA5256BE9510018155C /* PreviewModel.swift */; };
+		0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */; };
+		0653677829B727A60038BDB8 /* CryptoSettingRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */; };
 		065A4D4220EE1A31002EB2DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 063C499720E36BF9001BCA35 /* Localizable.strings */; };
 		065AE76B2987777F00323230 /* ArchiveSettingRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065AE76A2987777F00323230 /* ArchiveSettingRelay.swift */; };
 		065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */; };
@@ -258,6 +260,7 @@
 		0642B55B27EB149900453D91 /* MutableTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTextCellViewModel.swift; sourceTree = "<group>"; };
 		064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardCellViewModel.swift; sourceTree = "<group>"; };
 		064CABA5256BE9510018155C /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
+		0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingRelay.swift; sourceTree = "<group>"; };
 		065AE76A2987777F00323230 /* ArchiveSettingRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingRelay.swift; sourceTree = "<group>"; };
 		065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewModel.swift; sourceTree = "<group>"; };
 		065BE4452563D7E5002A8CA4 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
@@ -518,6 +521,7 @@
 				06840DBA272298FB001B3193 /* BKColor.swift */,
 				065AE76A2987777F00323230 /* ArchiveSettingRelay.swift */,
 				06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */,
+				0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */,
 				06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */,
 				06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */,
 			);
@@ -1015,6 +1019,7 @@
 				06F08EA729B1DDFE006AB9CA /* Error+Extension.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
 				06172FDA27F6DAEF002333A4 /* ServerListTableViewCell.swift in Sources */,
+				0653677829B727A60038BDB8 /* CryptoSettingRelay.swift in Sources */,
 				061894C529962EB900E001C2 /* GradientButton.swift in Sources */,
 				06C595362481160F006B98F3 /* BKLabel.swift in Sources */,
 				0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */,
@@ -1069,6 +1074,7 @@
 			files = (
 				06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */,
 				06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
+				0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */,
 				06F08EA529B1DDA7006AB9CA /* Algorithm.swift in Sources */,
 				06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */,
 				06B11591247BC132006D91FB /* Message.swift in Sources */,

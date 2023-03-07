@@ -10,8 +10,10 @@ import Intents
 import Kingfisher
 import MobileCoreServices
 import RealmSwift
+import SwiftyJSON
 import UIKit
 import UserNotifications
+
 class NotificationService: UNNotificationServiceExtension {
     
     lazy var realm: Realm? = {
@@ -232,14 +234,57 @@ class NotificationService: UNNotificationServiceExtension {
         }
     }
     
+    func decrypt(ciphertext: String) throws -> [String: Any] {
+        guard let fields = CryptoSettingManager.shared.fields else {
+            throw "No encryption key set"
+        }
+        let aes = try AESCryptoModel(cryptoFields: fields)
+        
+        let json = try aes.decrypt(ciphertext: ciphertext)
+        
+        guard let data = json.data(using: .utf8), let map = JSON(data).dictionaryObject else {
+            throw "JSON parsing failed"
+        }
+        return map
+    }
+    
     override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> ()) {
         guard let bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent) else {
             contentHandler(request.content)
             return
         }
-        
-        let userInfo = bestAttemptContent.userInfo
-        
+                
+        var userInfo = bestAttemptContent.userInfo
+        // 如果是加密推送，则使用密文配置 bestAttemptContent
+        if let ciphertext = userInfo["ciphertext"] as? String {
+            do {
+                var map = try decrypt(ciphertext: ciphertext)
+                var alert = [String: Any]()
+                if let title = map["title"] as? String {
+                    bestAttemptContent.title = title
+                    alert["title"] = title
+                }
+                if let body = map["body"] as? String {
+                    bestAttemptContent.body = body
+                    alert["body"] = body
+                }
+                if let sound = map["sound"] as? String {
+                    bestAttemptContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
+                }
+                if let badge = map["badge"] as? Int {
+                    bestAttemptContent.badge = badge as NSNumber
+                }
+                
+                map["aps"] = ["alert": alert]
+                userInfo = map
+                bestAttemptContent.userInfo = userInfo
+            }
+            catch {
+                bestAttemptContent.body = "Decryption Failed"
+                return
+            }
+        }
+           
         // 通知中断级别
         if #available(iOSApplicationExtension 15.0, *) {
             if let level = userInfo["level"] as? String {

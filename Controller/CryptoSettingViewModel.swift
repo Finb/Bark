@@ -31,6 +31,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
     struct Dependencies {
         let settingFieldRelay: BehaviorRelay<CryptoSettingFields?>
         let deviceKey: Driver<String>
+        let serverAddress: Driver<String>
     }
 
     private let dependencies: Dependencies
@@ -39,7 +40,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         Dependencies(
             settingFieldRelay: CryptoSettingRelay.shared.fields,
             // Key 好像没有对应的事件流，先“just”，懒得写了
-            deviceKey: Driver.just(ServerManager.shared.currentServer.key)
+            deviceKey: Driver.just(ServerManager.shared.currentServer.key),
+            serverAddress: Driver.just(ServerManager.shared.currentServer.address)
         )
     ) {
         self.dependencies = dependencies
@@ -94,8 +96,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     return false
                 }
             }
-        let copy = Driver.combineLatest(copyScript, dependencies.deviceKey)
-            .map { fields, deviceKey in
+        let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
+            .map { fields, deviceKey,serverAddress in
                 return
                     """
                     #!/usr/bin/env bash
@@ -120,7 +122,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     # The console will print "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\"}")) ?? "")"
                     echo $ciphertext
 
-                    # curl --data-urlencode "ciphertext=$ciphertext" https://api.day.app/$deviceKey
+                    curl --data-urlencode "ciphertext=$ciphertext" \(serverAddress)/$deviceKey
                     """
             }
 

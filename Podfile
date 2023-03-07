@@ -44,6 +44,7 @@ target 'NotificationServiceExtension' do
     pod 'IceCream'
     pod 'Kingfisher'
     pod 'CryptoSwift'
+    pod 'SwiftyJSON'
 end
 
 post_install do |installer|

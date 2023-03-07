@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RxCocoa
 
 class CryptoSettingManager: NSObject {
     static let shared = CryptoSettingManager()
@@ -39,16 +38,3 @@ class CryptoSettingManager: NSObject {
     }
 }
 
-class CryptoSettingRelay: NSObject {
-    static let shared = CryptoSettingRelay()
-    let fields: BehaviorRelay<CryptoSettingFields?>
-
-    override private init() {
-        self.fields = BehaviorRelay<CryptoSettingFields?>(value: CryptoSettingManager.shared.fields)
-        super.init()
-
-        self.fields.subscribe { val in
-            CryptoSettingManager.shared.fields = val
-        }.disposed(by: rx.disposeBag)
-    }
-}
