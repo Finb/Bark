@@ -11,7 +11,7 @@ import UIKit
 
 class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let algorithmFeild = DropBoxView(values: ["AES128", "AES192", "AES256"])
-    let modeFeild = DropBoxView(values: ["CBC", "ECB", "GCM"])
+    let modeFeild = DropBoxView(values: ["CBC", "ECB"])
     let paddingField = DropBoxView(values: ["pkcs7"])
 
     let keyTextField: BorderTextField = {
@@ -149,7 +149,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             make.top.equalTo(ivLabel.snp.bottom).offset(5)
         }
 
-
         copyButton.snp.makeConstraints { make in
             make.left.equalTo(ivTextField)
             make.right.equalTo(ivTextField)
@@ -202,25 +201,42 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 .asDriver(onErrorDriveWith: .empty())
         ))
 
-        output.algorithmList
-            .map { $0.map { $0.rawValue }}
-            .drive(self.algorithmFeild.rx.values)
-            .disposed(by: rx.disposeBag)
+        output.initial.drive(onNext: { [weak self] val in
+            self?.algorithmFeild.values = val.algorithmList.map { $0.rawValue }
+            self?.modeFeild.values = val.modeList
+            self?.paddingField.values = val.paddingList
+            if let fields = val.initialFields {
+                self?.algorithmFeild.currentValue = fields.algorithm
+                self?.modeFeild.currentValue = fields.mode
+                self?.paddingField.currentValue = fields.padding
+                self?.keyTextField.text = fields.key
+                self?.ivTextField.text = fields.iv
+            }
+        }).disposed(by: rx.disposeBag)
 
-        output.modeList
+        output.modeListChanged
             .drive(self.modeFeild.rx.values)
             .disposed(by: rx.disposeBag)
 
-        output.paddingList
+        output.paddingListChanged
             .drive(self.paddingField.rx.values)
             .disposed(by: rx.disposeBag)
-        
-        output.keyLenght.drive(onNext: { [weak self] keyLenght in
+
+        output.keyLenghtChanged.drive(onNext: { [weak self] keyLenght in
             self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLenght)
         }).disposed(by: rx.disposeBag)
-        
+
         output.showSnackbar.drive(onNext: { text in
             HUDError(text)
+        }).disposed(by: rx.disposeBag)
+
+        output.done.drive(onNext: { [weak self] in
+            self?.navigationController?.dismiss(animated: true)
+        }).disposed(by: rx.disposeBag)
+
+        output.copy.drive(onNext: { text in
+            UIPasteboard.general.string = text
+            HUDSuccess(NSLocalizedString("Copy"))
         }).disposed(by: rx.disposeBag)
     }
 }

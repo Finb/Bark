@@ -17,7 +17,7 @@ enum Algorithm: String {
     var modes: [String] {
         switch self {
         case .aes128, .aes192, .aes256:
-            return ["CBC", "ECB", "GCM"]
+            return ["CBC", "ECB"]
         }
     }
 
@@ -66,7 +66,7 @@ struct AESCryptoModel {
         }
 
         var iv = ""
-        if ["CBC", "GCM"].contains(cryptoFields.mode) {
+        if ["CBC"].contains(cryptoFields.mode) {
             if let ivField = cryptoFields.iv, ivField.count == 16 {
                 iv = ivField
             }
@@ -81,8 +81,6 @@ struct AESCryptoModel {
             mode = CBC(iv: iv.bytes)
         case "ECB":
             mode = ECB()
-        case "GCM":
-            mode = GCM(iv: iv.bytes)
         default:
             throw "Invalid Mode"
         }
