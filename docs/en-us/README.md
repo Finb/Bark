@@ -23,11 +23,12 @@ Sponsors：[https://github.com/sponsors/Finb](https://github.com/sponsors/Finb)
 
 ### Documentation
 - **App**
-  - [Usage tutorial](/en-us/tutorial)
+  - [Tutorial](/en-us/tutorial)
+  - [Encryption](/en-us/encryption)  
   - [FAQs](/en-us/faq)
 - **Server**
-  - [Deploy service](/en-us/deploy)
-  - [Direct push](/en-us/apns)
-  - [Compile code](/en-us/build)
-  - [Push certificate](/en-us/cert)
-- [Privacy and security](/en-us/privacy)
+  - [Deploy](/en-us/deploy)
+  - [Direct Push](/en-us/apns)
+  - [Build](/en-us/build)
+  - [Certificate](/en-us/cert)
+- [Privacy](/en-us/privacy)

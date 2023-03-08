@@ -40,7 +40,7 @@ https://api.day.app/key/a/b/c/
 https://api.day.app/key/a%2Fb%2Fc%2F
 ```
  If you use a mature HTTP library, parameters will be automatically processed and you don’t need manual encoding. <br>
-But if you splice URL yourself, you need special attention for special characters in parameters. **It’s better not care whether there are special characters or not and blindly apply a layer of URL encoding.**。
+But if you splice URL yourself, you need special attention for special characters in parameters. **It’s better not care whether there are special characters or not and blindly apply a layer of URL encoding.**
 
 #### How to ensure privacy and security
 Refer [privacy security](/en-us/privacy)

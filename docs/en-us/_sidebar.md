@@ -1,10 +1,11 @@
 - [Bark](/en-us/#bark)
 - **App**
-  - [tutorial](/en-us/tutorial)
-  - [FAQ](/en-us/faq)
+  - [Tutorial](/en-us/tutorial)
+  - [Encryption](/en-us/encryption)
+  - [FAQs](/en-us/faq)
 - **Server**
   - [Deploy](/en-us/deploy)
-  - [Push](/en-us/apns)
+  - [Direct Push](/en-us/apns)
   - [Build](/en-us/build)
-  - [Cert](/en-us/cert)
+  - [Certificate](/en-us/cert)
 - [Privacy](/en-us/privacy)
