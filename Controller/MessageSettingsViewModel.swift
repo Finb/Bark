@@ -133,7 +133,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 title: NSLocalizedString("documentation"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: NSLocalizedString("faqUrl"))))
+                url: URL(string: NSLocalizedString("docUrl"))))
             return settings
         }()
 
