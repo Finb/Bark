@@ -140,4 +140,5 @@ encryptionNotice = "使用自定义秘钥加密推送消息，以增强隐私保
 
 faqUrl = "https://bark.day.app/#/faq";
 docUrl = "https://bark.day.app/#/?id=bark";
+encryptionUrl = "https://bark.day.app/#/encryption";
 documentation = "使用文档";

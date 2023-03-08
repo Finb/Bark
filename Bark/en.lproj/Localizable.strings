@@ -137,4 +137,5 @@ encryptionNotice = "Encrypt push messages with a custom key to enhance privacy p
 
 faqUrl = "https://bark.day.app/#/en-us/faq";
 docUrl = "https://bark.day.app/#/en-us/?id=bark";
+encryptionUrl = "https://bark.day.app/#/en-us/encryption";
 documentation = "Documentation";

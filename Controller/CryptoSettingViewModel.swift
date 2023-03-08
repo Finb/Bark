@@ -101,7 +101,9 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                 return
                     """
                     #!/usr/bin/env bash
-
+                    
+                    # Documentation: \(NSLocalizedString("encryptionUrl"))
+                    
                     set -e
 
                     # bark key
@@ -109,7 +111,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     # push payload
                     json='{"body": "test", "sound": "birdsong"}'
 
-                    # must be 16 bytes long
+                    # must be \(Int(fields.algorithm.suffix(3))! / 8) bit long
                     key='\(fields.key ?? "")'
                     iv='\(fields.iv ?? "")'
 

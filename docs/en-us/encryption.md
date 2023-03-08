@@ -19,7 +19,7 @@ deviceKey='F5u42Bd3HyW8KxkUqo2gRA'
 # push payload
 json='{"body": "test2", "sound": "birdsong"}'
 
-# must be 16 bytes long
+# must be 16 bit long
 key='1234567890123456'
 iv='1111111111111111'
 
