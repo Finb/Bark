@@ -17,6 +17,7 @@ class BKColor: NSObject {
         public static let darken3 = UIColor(named: "grey_darken3")!
         public static let darken4 = UIColor(named: "grey_darken4")!
         public static let lighten1 = UIColor(named: "grey_lighten1")!
+        public static let lighten2 = UIColor(named: "grey_lighten2")!
         public static let lighten3 = UIColor(named: "grey_lighten3")!
         public static let lighten4 = UIColor(named: "grey_lighten4")!
         public static let lighten5 = UIColor(named: "grey_lighten5")!

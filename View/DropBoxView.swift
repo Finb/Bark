@@ -23,7 +23,7 @@ class DropBoxView: UIView {
     let dropIconView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "baseline_keyboard_arrow_down_black_24pt")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = BKColor.grey.lighten1
+        imageView.tintColor = BKColor.grey.lighten2
         return imageView
     }()
 
@@ -36,8 +36,8 @@ class DropBoxView: UIView {
                     self.layer.shadowOpacity = 0.3
                 }
                 else {
-                    self.borderColor = BKColor.grey.lighten1
-                    self.shadowColor = BKColor.grey.lighten1
+                    self.borderColor = BKColor.grey.lighten2
+                    self.shadowColor = BKColor.grey.lighten2
                     self.layer.shadowOpacity = 0
                 }
             }
@@ -64,10 +64,10 @@ class DropBoxView: UIView {
         super.init(frame: CGRect.zero)
         self.backgroundColor = BKColor.white
 
-        self.borderColor = BKColor.grey.lighten1
+        self.borderColor = BKColor.grey.lighten2
         self.borderWidthPreset = .border2
         self.cornerRadiusPreset = .cornerRadius3
-        self.shadowColor = BKColor.grey.lighten1
+        self.shadowColor = BKColor.grey.lighten2
         self.layer.shadowOffset = CGSize(width: 0, height: 0)
         self.layer.shadowRadius = 2
         self.layer.shadowOpacity = 0

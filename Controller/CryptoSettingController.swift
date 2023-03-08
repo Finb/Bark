@@ -17,7 +17,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let keyTextField: BorderTextField = {
         let textField = BorderTextField(title: "Key")
         textField.font = UIFont.systemFont(ofSize: 14)
-        textField.placeholder = NSLocalizedString("enterKey")
+        textField.placeholder = String(format: NSLocalizedString("enterKey"), 16)
         return textField
     }()
 

@@ -37,8 +37,8 @@ class BorderTextField: InsetTextField {
                     self.backgroundView.layer.shadowOpacity = 0.3
                 }
                 else {
-                    self.backgroundView.borderColor = BKColor.grey.lighten1
-                    self.backgroundView.shadowColor = BKColor.grey.lighten1
+                    self.backgroundView.borderColor = BKColor.grey.lighten2
+                    self.backgroundView.shadowColor = BKColor.grey.lighten2
                     self.backgroundView.layer.shadowOpacity = 0
                 }
             }
@@ -50,11 +50,11 @@ class BorderTextField: InsetTextField {
         view.backgroundColor = BKColor.white
         view.isUserInteractionEnabled = false
         view.cornerRadiusPreset = .cornerRadius3
-        view.shadowColor = BKColor.grey.lighten1
+        view.shadowColor = BKColor.grey.lighten2
         view.layer.shadowOffset = CGSize(width: 0, height: 0)
         view.layer.shadowRadius = 2
         view.layer.shadowOpacity = 0
-        view.borderColor = BKColor.grey.lighten1
+        view.borderColor = BKColor.grey.lighten2
         view.borderWidthPreset = .border2
         
         return view
