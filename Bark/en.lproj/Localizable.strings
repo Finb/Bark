@@ -133,7 +133,7 @@ copyExample = "Copy Send Script Example";
 preview = "Preview";
 
 pushNotificationEncryption = "Push Notification Encryption";
-encryptionNotice = "Encrypt push messages with a custom key to enhance privacy protection. You need to configure the key before using it.";
+encryptionNotice = "Uses a custom key to encrypt and decrypt the push content when sending and receiving. In this way, the push content will not be obtained or leaked by Bark server and Apple APNs server during transmission.";
 
 faqUrl = "https://bark.day.app/#/en-us/faq";
 docUrl = "https://bark.day.app/#/en-us/?id=bark";
