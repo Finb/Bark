@@ -17,7 +17,7 @@ set -e
 # bark key
 deviceKey='F5u42Bd3HyW8KxkUqo2gRA'
 # push payload
-json='{"body": "test2", "sound": "birdsong"}'
+json='{"body": "test", "sound": "birdsong"}'
 
 # must be 16 bit long
 key='1234567890123456'
@@ -29,7 +29,7 @@ iv=$(printf $iv | xxd -ps -c 200)
 
 ciphertext=$(echo -n $json | openssl enc -aes-128-cbc -K $key -iv $iv | base64)
 
-# The console will print "R63BJ2hohOrrVdRsyarrp9CqIyuBwV9Xh970rFXkiB4="
+# The console will print "d3QhjQjP5majvNt5CjsvFWwqqj2gKl96RFj5OO+u6ynTt7lkyigDYNA3abnnCLpr"
 echo $ciphertext
 
 curl --data-urlencode "ciphertext=$ciphertext" http://api.day.app/$deviceKey
