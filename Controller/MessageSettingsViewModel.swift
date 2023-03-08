@@ -126,21 +126,14 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 title: NSLocalizedString("faq"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: "https://day.app/2021/06/barkfaq/")))
+                url: URL(string: NSLocalizedString("faqUrl"))))
 
             settings.append(.spacer(height: 0.5, color: BKColor.grey.lighten4))
             settings.append(.detail(
-                title: NSLocalizedString("appSC"),
+                title: NSLocalizedString("documentation"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: "https://github.com/Finb/Bark")))
-
-            settings.append(.spacer(height: 0.5, color: BKColor.grey.lighten4))
-            settings.append(.detail(
-                title: NSLocalizedString("backendSC"),
-                text: nil,
-                textColor: nil,
-                url: URL(string: "https://github.com/Finb/bark-server")))
+                url: URL(string: NSLocalizedString("faqUrl"))))
             return settings
         }()
 

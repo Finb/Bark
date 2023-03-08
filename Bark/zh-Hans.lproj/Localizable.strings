@@ -137,3 +137,7 @@ preview = "预览";
 
 pushNotificationEncryption = "推送加密";
 encryptionNotice = "使用自定义秘钥加密推送消息，以增强隐私保护。使用前需要先配置秘钥。";
+
+faqUrl = "https://bark.day.app/#/faq";
+docUrl = "https://bark.day.app/#/?id=bark";
+documentation = "使用文档";
