@@ -2,10 +2,10 @@
 
 # Bark <small></small>
 
-> 欢迎彦祖们提交PR完善英文文档
+> A privacy-focused, secure and controllable custom notification push tool.
 
-- ...
-- ...
+- Free, simple and safe
+- Ready to use
 
 [GitHub](https://github.com/finb/bark)
 [Get Started](#bark)
