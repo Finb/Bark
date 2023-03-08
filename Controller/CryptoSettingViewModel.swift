@@ -107,7 +107,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     # bark key
                     deviceKey='\(deviceKey)'
                     # push payload
-                    json='{"body": "test"}'
+                    json='{"body": "test", "sound": "birdsong"}'
 
                     # must be 16 bytes long
                     key='\(fields.key ?? "")'

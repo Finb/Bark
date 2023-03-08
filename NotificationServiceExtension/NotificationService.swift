@@ -259,6 +259,11 @@ class NotificationService: UNNotificationServiceExtension {
         if let ciphertext = userInfo["ciphertext"] as? String {
             do {
                 var map = try decrypt(ciphertext: ciphertext)
+                for (key,val) in map {
+                    // 将key重写为小写
+                    map[key.lowercased()] = val
+                }
+                
                 var alert = [String: Any]()
                 if let title = map["title"] as? String {
                     bestAttemptContent.title = title
@@ -268,7 +273,13 @@ class NotificationService: UNNotificationServiceExtension {
                     bestAttemptContent.body = body
                     alert["body"] = body
                 }
-                if let sound = map["sound"] as? String {
+                if let group = map["group"] as? String {
+                    bestAttemptContent.threadIdentifier = group
+                }
+                if var sound = map["sound"] as? String {
+                    if !sound.hasSuffix(".caf") {
+                        sound = "\(sound).caf"
+                    }
                     bestAttemptContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
                 }
                 if let badge = map["badge"] as? Int {
