@@ -281,6 +281,8 @@ class NotificationService: UNNotificationServiceExtension {
             }
             catch {
                 bestAttemptContent.body = "Decryption Failed"
+                bestAttemptContent.userInfo = ["aps": ["alert": ["body": bestAttemptContent.body]]]
+                contentHandler(bestAttemptContent)
                 return
             }
         }
