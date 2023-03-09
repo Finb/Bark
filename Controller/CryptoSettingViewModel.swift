@@ -121,7 +121,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
 
                     ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key -iv $iv | base64)
 
-                    # The console will print "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\"}")) ?? "")"
+                    # The console will print "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
                     echo $ciphertext
 
                     curl --data-urlencode "ciphertext=$ciphertext" \(serverAddress)/$deviceKey
