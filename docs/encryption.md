@@ -32,5 +32,6 @@ ciphertext=$(echo -n $json | openssl enc -aes-128-cbc -K $key -iv $iv | base64)
 # The console will print "d3QhjQjP5majvNt5CjsvFWwqqj2gKl96RFj5OO+u6ynTt7lkyigDYNA3abnnCLpr"
 echo $ciphertext
 
+# URL encoding the ciphertext, there may be special characters.
 curl --data-urlencode "ciphertext=$ciphertext" http://api.day.app/$deviceKey
 ```
