@@ -123,7 +123,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
 
                     # The console will print "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
                     echo $ciphertext
-
+                    
+                    # URL encoding the ciphertext, there may be special characters.
                     curl --data-urlencode "ciphertext=$ciphertext" \(serverAddress)/$deviceKey
                     """
             }

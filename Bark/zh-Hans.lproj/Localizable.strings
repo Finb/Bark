@@ -136,7 +136,7 @@ copyExample = "复制发送脚本示例";
 preview = "预览";
 
 pushNotificationEncryption = "推送加密";
-encryptionNotice = "在发送和接收推送时，对推送内容进行加密和解密。这样，推送内容在传输过程中就不会被 Bark 服务器和苹果 APNs 服务器获取或泄露，从而保护你的隐私。";
+encryptionNotice = "在发送和接收推送时，对推送内容进行加密和解密。这样，推送内容在传输过程中就不会被 Bark 服务器和苹果 APNs 服务器获取或泄露，从而保护你的隐私";
 
 faqUrl = "https://bark.day.app/#/faq";
 docUrl = "https://bark.day.app/#/?id=bark";
