@@ -45,7 +45,7 @@ struct CryptoSettingFields: Codable {
     let mode: String
     let padding: String
     let key: String?
-    let iv: String?
+    var iv: String?
 }
 
 struct AESCryptoModel {

@@ -234,10 +234,15 @@ class NotificationService: UNNotificationServiceExtension {
         }
     }
     
-    func decrypt(ciphertext: String) throws -> [String: Any] {
-        guard let fields = CryptoSettingManager.shared.fields else {
+    func decrypt(ciphertext: String, iv: String? = nil) throws -> [String: Any] {
+        guard var fields = CryptoSettingManager.shared.fields else {
             throw "No encryption key set"
         }
+        if let iv = iv {
+            // Support using specified IV decryption
+            fields.iv = iv
+        }
+        
         let aes = try AESCryptoModel(cryptoFields: fields)
         
         let json = try aes.decrypt(ciphertext: ciphertext)
@@ -258,8 +263,8 @@ class NotificationService: UNNotificationServiceExtension {
         // 如果是加密推送，则使用密文配置 bestAttemptContent
         if let ciphertext = userInfo["ciphertext"] as? String {
             do {
-                var map = try decrypt(ciphertext: ciphertext)
-                for (key,val) in map {
+                var map = try decrypt(ciphertext: ciphertext, iv: userInfo["iv"] as? String)
+                for (key, val) in map {
                     // 将key重写为小写
                     map[key.lowercased()] = val
                 }
