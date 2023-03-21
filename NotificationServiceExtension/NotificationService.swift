@@ -239,7 +239,7 @@ class NotificationService: UNNotificationServiceExtension {
             throw "No encryption key set"
         }
         if let iv = iv {
-            // Support using specified IV decryption
+            // Support using specified IV parameter for decryption
             fields.iv = iv
         }
         

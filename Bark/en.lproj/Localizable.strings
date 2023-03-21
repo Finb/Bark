@@ -139,3 +139,8 @@ faqUrl = "https://bark.day.app/#/en-us/faq";
 docUrl = "https://bark.day.app/#/en-us/?id=bark";
 encryptionUrl = "https://bark.day.app/#/en-us/encryption";
 documentation = "Documentation";
+ivComment = "IV can be randomly generated, but if it is random, it needs to be passed in the iv parameter.";
+opensslEncodingComment = "openssl requires Hex encoding of manual keys and IVs, not ASCII encoding.";
+ciphertextComment = "URL encoding the ciphertext, there may be special characters.";
+consoleComment = "The console will print";
+keyComment = "Must be %d bit long";

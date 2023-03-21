@@ -98,6 +98,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             }
         let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
             .map { fields, deviceKey,serverAddress in
+                let key = fields.key ?? ""
+                let iv = fields.iv ?? ""
                 return
                     """
                     #!/usr/bin/env bash
@@ -111,21 +113,22 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     # push payload
                     json='{"body": "test", "sound": "birdsong"}'
 
-                    # must be \(Int(fields.algorithm.suffix(3))! / 8) bit long
-                    key='\(fields.key ?? "")'
-                    iv='\(fields.iv ?? "")'
+                    # \(String(format: NSLocalizedString("keyComment"), Int(fields.algorithm.suffix(3))! / 8))
+                    key='\(key)'
+                    # \(NSLocalizedString("ivComment"))
+                    iv='\(iv)'
 
-                    # openssl requires Hex encoding of manual keys and IVs, not ASCII encoding.
+                    # \(NSLocalizedString("opensslEncodingComment"))
                     key=$(printf $key | xxd -ps -c 200)
                     iv=$(printf $iv | xxd -ps -c 200)
 
-                    ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key -iv $iv | base64)
+                    ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
 
-                    # The console will print "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
+                    # \(NSLocalizedString("consoleComment")) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
                     echo $ciphertext
                     
-                    # URL encoding the ciphertext, there may be special characters.
-                    curl --data-urlencode "ciphertext=$ciphertext" \(serverAddress)/$deviceKey
+                    # \(NSLocalizedString("ciphertextComment"))
+                    curl --data-urlencode "ciphertext=$ciphertext"\( iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
                     """
             }
 
