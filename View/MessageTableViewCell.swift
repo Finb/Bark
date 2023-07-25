@@ -25,11 +25,15 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         return label
     }()
 
-    let bodyLabel: UILabel = {
-        let label = UILabel()
+    let bodyLabel: UITextView = {
+        let label = UITextView()
+        label.isEditable = false
+        label.dataDetectorTypes = [.phoneNumber, .link]
+        label.isScrollEnabled = false
+        label.textContainerInset = .zero
+        label.textContainer.lineFragmentPadding = 0
         label.font = RobotoFont.regular(with: 14)
         label.textColor = BKColor.grey.darken4
-        label.numberOfLines = 0
         return label
     }()
     
