@@ -85,9 +85,6 @@
 		065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44A2563D8E1002A8CA4 /* Reusable.swift */; };
 		065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */; };
 		065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4542565055F002A8CA4 /* HomeViewModel.swift */; };
-		0660480B2700550600938904 /* Intents.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0660480A2700550600938904 /* Intents.framework */; };
-		0660480E2700550600938904 /* IntentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0660480D2700550600938904 /* IntentHandler.swift */; };
-		066048122700550600938904 /* Intent.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 066048092700550600938904 /* Intent.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A542204FDA4100965E4E /* AppDelegate.swift */; };
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
@@ -151,13 +148,6 @@
 			remoteGlobalIDString = 0632CE1D20EC9098003FDF46;
 			remoteInfo = NotificationContentExtension;
 		};
-		066048102700550600938904 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0661A537204FDA4100965E4E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 066048082700550600938904;
-			remoteInfo = Intent;
-		};
 		06CF784521C7A50300A052D7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0661A537204FDA4100965E4E /* Project object */;
@@ -182,7 +172,6 @@
 			dstSubfolderSpec = 13;
 			files = (
 				0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed App Extensions */,
-				066048122700550600938904 /* Intent.appex in Embed App Extensions */,
 				06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -267,10 +256,7 @@
 		065BE44A2563D8E1002A8CA4 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
 		065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCellViewModel.swift; sourceTree = "<group>"; };
 		065BE4542565055F002A8CA4 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
-		066048092700550600938904 /* Intent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Intent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		0660480A2700550600938904 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
-		0660480D2700550600938904 /* IntentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntentHandler.swift; sourceTree = "<group>"; };
-		0660480F2700550600938904 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0661A53F204FDA4100965E4E /* Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0661A542204FDA4100965E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0661A544204FDA4100965E4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -341,14 +327,6 @@
 			files = (
 				0632CE2020EC9098003FDF46 /* UserNotificationsUI.framework in Frameworks */,
 				0632CE1F20EC9098003FDF46 /* UserNotifications.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		066048062700550600938904 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0660480B2700550600938904 /* Intents.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -538,15 +516,6 @@
 			path = Moya;
 			sourceTree = "<group>";
 		};
-		0660480C2700550600938904 /* Intent */ = {
-			isa = PBXGroup;
-			children = (
-				0660480D2700550600938904 /* IntentHandler.swift */,
-				0660480F2700550600938904 /* Info.plist */,
-			);
-			path = Intent;
-			sourceTree = "<group>";
-		};
 		0661A536204FDA4100965E4E = {
 			isa = PBXGroup;
 			children = (
@@ -559,7 +528,6 @@
 				0632CE2120EC9098003FDF46 /* NotificationContentExtension */,
 				06CF784121C7A50300A052D7 /* NotificationServiceExtension */,
 				06EE1FD126843E9300586708 /* BarkTests */,
-				0660480C2700550600938904 /* Intent */,
 				0661A540204FDA4100965E4E /* Products */,
 				99BD309BDB7F62B5DC0CECE1 /* Frameworks */,
 				E9062CB15F1B70C3719578FB /* Pods */,
@@ -573,7 +541,6 @@
 				0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */,
 				06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */,
 				06EE1FD026843E9300586708 /* BarkTests.xctest */,
-				066048092700550600938904 /* Intent.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -658,23 +625,6 @@
 			productReference = 0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
-		066048082700550600938904 /* Intent */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 066048132700550600938904 /* Build configuration list for PBXNativeTarget "Intent" */;
-			buildPhases = (
-				066048052700550600938904 /* Sources */,
-				066048062700550600938904 /* Frameworks */,
-				066048072700550600938904 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Intent;
-			productName = Intent;
-			productReference = 066048092700550600938904 /* Intent.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		0661A53E204FDA4100965E4E /* Bark */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0661A551204FDA4100965E4E /* Build configuration list for PBXNativeTarget "Bark" */;
@@ -691,7 +641,6 @@
 			dependencies = (
 				0632CE2920EC9098003FDF46 /* PBXTargetDependency */,
 				06CF784621C7A50300A052D7 /* PBXTargetDependency */,
-				066048112700550600938904 /* PBXTargetDependency */,
 			);
 			name = Bark;
 			productName = Bark;
@@ -749,10 +698,6 @@
 						CreatedOnToolsVersion = 9.3;
 						ProvisioningStyle = Manual;
 					};
-					066048082700550600938904 = {
-						CreatedOnToolsVersion = 13.0;
-						ProvisioningStyle = Manual;
-					};
 					0661A53E204FDA4100965E4E = {
 						CreatedOnToolsVersion = 9.2;
 						ProvisioningStyle = Manual;
@@ -791,7 +736,6 @@
 				0632CE1D20EC9098003FDF46 /* NotificationContentExtension */,
 				06CF783F21C7A50300A052D7 /* NotificationServiceExtension */,
 				06EE1FCF26843E9300586708 /* BarkTests */,
-				066048082700550600938904 /* Intent */,
 			);
 		};
 /* End PBXProject section */
@@ -804,13 +748,6 @@
 				06802E5320ECC40C00767047 /* Assets.xcassets in Resources */,
 				065A4D4220EE1A31002EB2DB /* Localizable.strings in Resources */,
 				0632CE2620EC9098003FDF46 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		066048072700550600938904 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -980,14 +917,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		066048052700550600938904 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				0660480E2700550600938904 /* IntentHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		0661A53B204FDA4100965E4E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1099,11 +1028,6 @@
 			target = 0632CE1D20EC9098003FDF46 /* NotificationContentExtension */;
 			targetProxy = 0632CE2820EC9098003FDF46 /* PBXContainerItemProxy */;
 		};
-		066048112700550600938904 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 066048082700550600938904 /* Intent */;
-			targetProxy = 066048102700550600938904 /* PBXContainerItemProxy */;
-		};
 		06CF784621C7A50300A052D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 06CF783F21C7A50300A052D7 /* NotificationServiceExtension */;
@@ -1184,63 +1108,6 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		066048142700550600938904 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Intent/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Intent;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Fin. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.Intent;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match Development me.fin.bark.Intent";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		066048152700550600938904 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CODE_SIGN_IDENTITY = "Apple Distribution";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Intent/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Intent;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2021 Fin. All rights reserved.";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				MARKETING_VERSION = 1.0;
-				MTL_FAST_MATH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.Intent;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore me.fin.bark.Intent";
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1507,15 +1374,6 @@
 			buildConfigurations = (
 				0632CE2B20EC9098003FDF46 /* Debug */,
 				0632CE2C20EC9098003FDF46 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		066048132700550600938904 /* Build configuration list for PBXNativeTarget "Intent" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				066048142700550600938904 /* Debug */,
-				066048152700550600938904 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
