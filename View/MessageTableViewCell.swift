@@ -25,8 +25,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         return label
     }()
 
-    let bodyLabel: UITextView = {
-        let label = UITextView()
+    let bodyLabel: GesturePassTextView = {
+        let label = GesturePassTextView()
         label.isEditable = false
         label.dataDetectorTypes = [.phoneNumber, .link]
         label.isScrollEnabled = false
@@ -85,8 +85,11 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         self.urlLabel.addGestureRecognizer(UITapGestureRecognizer())
         
         layoutView()
+        self.bodyLabel.superCell = self
+        
+//        bodyLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
     }
-
+    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

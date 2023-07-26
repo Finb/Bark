@@ -92,6 +92,7 @@
 		0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D191247D162C005DE2ED /* MessageTableViewCell.swift */; };
 		0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D193247D1BA0005DE2ED /* Date+Extension.swift */; };
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
+		06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C382A710568008ABDD7 /* GesturePassTextView.swift */; };
 		067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		06840DBB272298FB001B3193 /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
@@ -266,6 +267,7 @@
 		0667D191247D162C005DE2ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		0667D193247D1BA0005DE2ED /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
+		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
 		067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -416,6 +418,7 @@
 				0608F0712994D269006B8029 /* BKDropDownCell.xib */,
 				061894C429962EB900E001C2 /* GradientButton.swift */,
 				06F08EAE29B5D9FF006AB9CA /* HUD.swift */,
+				06787C382A710568008ABDD7 /* GesturePassTextView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -977,6 +980,7 @@
 				06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */,
 				0608F06E2994D115006B8029 /* BKDropDownCell.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
+				06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */,
 				068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */,
