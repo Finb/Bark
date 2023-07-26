@@ -169,11 +169,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             self?.alertMessage(message: message)
         }).disposed(by: rx.disposeBag)
         
-        // 点击message中的URL
-        output.urlTap.drive(onNext: { url in
-            Client.shared.openUrl(url: url)
-        }).disposed(by: rx.disposeBag)
-        
         // 选择群组
         output.groupFilter
             .drive(onNext: { [weak self] groupModel in

@@ -7,7 +7,9 @@
 //
 
 import Material
+import RxSwift
 import UIKit
+
 class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     let backgroundPanel: UIView = {
         let view = UIView()
@@ -17,16 +19,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         return view
     }()
     
-    let titleLabel: UILabel = {
-        let label = UILabel()
-        label.font = RobotoFont.medium(with: 16)
-        label.textColor = BKColor.grey.darken4
-        label.numberOfLines = 0
-        return label
-    }()
-
-    let bodyLabel: GesturePassTextView = {
-        let label = GesturePassTextView()
+    let bodyLabel: UITextView = {
+        let label = UITextView()
         label.isEditable = false
         label.dataDetectorTypes = [.phoneNumber, .link]
         label.isScrollEnabled = false
@@ -37,27 +31,11 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         return label
     }()
     
-    let urlLabel: UILabel = {
-        let label = BKLabel()
-        label.hitTestSlop = UIEdgeInsets(top: -20, left: -20, bottom: -20, right: -20)
-        label.isUserInteractionEnabled = true
-        label.font = RobotoFont.regular(with: 14)
-        label.textColor = BKColor.blue.darken1
-        label.numberOfLines = 0
-        return label
-    }()
-    
     let dateLabel: UILabel = {
         let label = UILabel()
         label.font = RobotoFont.medium(with: 11)
         label.textColor = BKColor.grey.base
         return label
-    }()
-
-    let bodyStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
     }()
 
     let separatorLine: UIImageView = {
@@ -72,22 +50,38 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         
         self.backgroundColor = BKColor.background.primary
         contentView.addSubview(backgroundPanel)
-        contentView.addSubview(bodyStackView)
-        
-        bodyStackView.addArrangedSubview(titleLabel)
-        bodyStackView.addArrangedSubview(bodyLabel)
-        bodyStackView.addArrangedSubview(urlLabel)
-        bodyStackView.spacing = 6
-        bodyStackView.setCustomSpacing(12, after: bodyLabel)
+        contentView.addSubview(bodyLabel)
         contentView.addSubview(dateLabel)
         contentView.addSubview(separatorLine)
-        
-        self.urlLabel.addGestureRecognizer(UITapGestureRecognizer())
-        
+
         layoutView()
-        self.bodyLabel.superCell = self
         
-//        bodyLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tap.delegate = self
+        bodyLabel.addGestureRecognizer(tap)
+    }
+    
+    @objc func tap() {
+        var view = self.superview
+        while view != nil, (view as? UITableView) == nil {
+            view = view?.superview
+        }
+        guard let tableView = view as? UITableView else {
+            return
+        }
+        
+        guard let indexPath = tableView.indexPath(for: self) else {
+            return
+        }
+        tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
+    }
+    // 单击手势如果没点击链接，则传递给UITableView didSelectRow
+    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        print(otherGestureRecognizer.name ?? "")
+        if otherGestureRecognizer.name == "UITextInteractionNameLinkTap" {
+            return true
+        }
+        return false
     }
     
     @available(*, unavailable)
@@ -96,23 +90,15 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     }
     
     func layoutView() {
-        bodyStackView.snp.makeConstraints { make in
-            make.left.top.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
-        }
-        titleLabel.snp.remakeConstraints { make in
-            make.left.equalTo(12)
-            make.right.equalTo(-12)
-        }
+
         bodyLabel.snp.remakeConstraints { make in
-            make.left.right.equalTo(titleLabel)
-        }
-        urlLabel.snp.makeConstraints { make in
-            make.left.right.equalTo(bodyLabel)
+            make.top.equalTo(16)
+            make.left.equalTo(28)
+            make.right.equalTo(-28)
         }
         dateLabel.snp.remakeConstraints { make in
             make.left.equalTo(bodyLabel)
-            make.top.equalTo(bodyStackView.snp.bottom).offset(12)
+            make.top.equalTo(bodyLabel.snp.bottom).offset(12)
         }
         separatorLine.snp.remakeConstraints { make in
             make.left.right.bottom.equalToSuperview()
@@ -131,16 +117,42 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     override func bindViewModel(model: MessageTableViewCellViewModel) {
         super.bindViewModel(model: model)
 
-        model.title.bind(to: self.titleLabel.rx.text).disposed(by: rx.reuseBag)
-        model.body.bind(to: self.bodyLabel.rx.text).disposed(by: rx.reuseBag)
-        model.url.bind(to: self.urlLabel.rx.text).disposed(by: rx.reuseBag)
+        Observable.combineLatest(model.title, model.body, model.url).subscribe { title, body, url in
+            
+            let text = NSMutableAttributedString(
+                string: body,
+                attributes: [.font: RobotoFont.regular(with: 14), .foregroundColor: BKColor.grey.darken4]
+            )
+            
+            if title.count > 0 {
+                // 插入一行空行当 spacer
+                text.insert(NSAttributedString(
+                    string: "\n",
+                    attributes: [.font: RobotoFont.medium(with: 6)]
+                ), at: 0)
+                
+                text.insert(NSAttributedString(
+                    string: title + "\n",
+                    attributes: [.font: RobotoFont.medium(with: 16), .foregroundColor: BKColor.grey.darken4]
+                ), at: 0)
+            }
+            
+            if url.count > 0 {
+                // 插入一行空行当 spacer
+                text.append(NSAttributedString(
+                    string: "\n ",
+                    attributes: [.font: RobotoFont.medium(with: 8)]
+                ))
+                
+                text.append(NSAttributedString(string: "\n\(url)", attributes: [
+                    .font: RobotoFont.regular(with: 14),
+                    .foregroundColor: BKColor.grey.darken4,
+                    .link: url
+                ]))
+            }
+            
+            self.bodyLabel.attributedText = text
+        }.disposed(by: rx.disposeBag)
         model.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
-        
-        model.title.map { $0.count <= 0 }.bind(to: self.titleLabel.rx.isHidden).disposed(by: rx.reuseBag)
-        model.url.map { $0.count <= 0 }.bind(to: self.urlLabel.rx.isHidden).disposed(by: rx.reuseBag)
-        
-        self.urlLabel.gestureRecognizers?.first?.rx.event
-            .map { [weak self] _ in self?.urlLabel.text ?? "" }
-            .bind(to: model.urlTap).disposed(by: rx.reuseBag)
     }
 }

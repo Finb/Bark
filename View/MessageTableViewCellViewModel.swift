@@ -19,7 +19,6 @@ class MessageTableViewCellViewModel: ViewModel {
     let url: BehaviorRelay<String>
     let date: BehaviorRelay<String>
     
-    let urlTap: PublishRelay<String>
     
     init(message: Message) {
         self.message = message
@@ -28,8 +27,7 @@ class MessageTableViewCellViewModel: ViewModel {
         self.body = BehaviorRelay<String>(value: message.body ?? "")
         self.url = BehaviorRelay<String>(value: message.url ?? "")
         self.date = BehaviorRelay<String>(value: (message.createDate ?? Date()).agoFormatString())
-        
-        self.urlTap = PublishRelay<String>()
+
         super.init()
     }
 }
