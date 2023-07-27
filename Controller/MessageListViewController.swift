@@ -185,7 +185,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     
     func alertMessage(message: String) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { [weak self]
+        let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
             (_: UIAlertAction) -> Void in
             UIPasteboard.general.string = message
             self?.showSnackbar(text: NSLocalizedString("Copy"))

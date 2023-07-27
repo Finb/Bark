@@ -19,6 +19,7 @@ Notice2 = "Customize notification title and body text";
 
 Copy = "Copied!";
 Copy2 = "Copy";
+CopyAll = "Copy All";
 Cancel = "Cancel";
 
 AllowNotifications = "Notifications have been turned off. Please allow notifications in the Settings app.";

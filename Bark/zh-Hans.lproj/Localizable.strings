@@ -19,6 +19,7 @@ Notice2 = "推送标题的字号比推送内容粗一点";
 
 Copy = "复制成功";
 Copy2 = "复制";
+CopyAll = "复制全部内容";
 Cancel = "取消";
 
 AllowNotifications = "绑定设备需要推送。请打开推送后重试";
