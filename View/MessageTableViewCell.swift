@@ -57,6 +57,7 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         layoutView()
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
+        tap.name = "messageTap"
         tap.delegate = self
         bodyLabel.addGestureRecognizer(tap)
     }
@@ -77,8 +78,7 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     }
     // 单击手势如果没点击链接，则传递给UITableView didSelectRow
     override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        print(otherGestureRecognizer.name ?? "")
-        if otherGestureRecognizer.name == "UITextInteractionNameLinkTap" {
+        if gestureRecognizer.name == "messageTap", otherGestureRecognizer.name == "UITextInteractionNameLinkTap" {
             return true
         }
         return false
