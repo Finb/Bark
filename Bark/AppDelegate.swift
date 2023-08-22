@@ -151,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
 
             let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "复制内容", style: .default, handler: { _ in
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("CopyContent"), style: .default, handler: { _ in
                 if let copy = userInfo["copy"] as? String {
                     UIPasteboard.general.string = copy
                 }
@@ -159,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     UIPasteboard.general.string = body
                 }
             }))
-            alertController.addAction(UIAlertAction(title: "更多操作", style: .default, handler: { _ in
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("MoreActions"), style: .default, handler: { _ in
                 var shareContent = ""
                 if let title = title {
                     shareContent += "\(title)\n"
@@ -183,7 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                                                   applicationActivities: nil)
                 controller?.present(activityController, animated: true, completion: nil)
             }))
-            alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
 
             navigationController?.present(alertController, animated: true, completion: nil)
         }
