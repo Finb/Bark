@@ -23,7 +23,7 @@ CopyAll = "Copy All";
 CopyContent = "Copy the Content";
 Cancel = "Cancel";
 
-MoreActions = "More Actions"
+MoreActions = "More Actions";
 
 AllowNotifications = "Notifications have been turned off. Please allow notifications in the Settings app.";
 

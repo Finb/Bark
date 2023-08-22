@@ -23,7 +23,7 @@ CopyAll = "复制全部内容";
 CopyContent = "复制内容";
 Cancel = "取消";
 
-MoreActions = "更多操作"
+MoreActions = "更多操作";
 
 AllowNotifications = "绑定设备需要推送。请打开推送后重试";
 

@@ -23,7 +23,7 @@ CopyAll = "Tümünü Kopyala";
 CopyContent = "İçeriği Kopyala";
 Cancel = "Vazgeç";
 
-MoreActions = "Daha Fazla İşlem"
+MoreActions = "Daha Fazla İşlem";
 
 AllowNotifications = "Bildirimler kapatıldı. Lütfen Ayarlar uygulamasından bildirimlere izin verin.";
 
