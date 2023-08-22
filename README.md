@@ -109,3 +109,7 @@ https://api.day.app/yourkey/时效性通知?level=timeSensitive
 
 ## Bark for Wox
 [https://github.com/Zeroto521/Wox.Plugin.Bark](https://github.com/Zeroto521/Wox.Plugin.Bark)
+
+## Python for Bark
+[barknotificator
+](https://github.com/funny-cat-happy/barknotificator)

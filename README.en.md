@@ -138,3 +138,6 @@ Push from CLI: [bark-cli](https://github.com/JasonkayZK/bark-cli)
 Quicker Action: https://getquicker.net/Sharedaction?code=e927d844-d212-4428-758d-08d69de12a3b
 
 Bark for Wox: [Wox.Plugin.Bark](https://github.com/Zeroto521/Wox.Plugin.Bark)
+
+Python for Bark: [barknotificator
+](https://github.com/funny-cat-happy/barknotificator)
