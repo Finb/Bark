@@ -145,6 +145,7 @@ encryptionNotice = "在发送和接收推送时，对推送内容进行加密和
 faqUrl = "https://bark.day.app/#/faq";
 docUrl = "https://bark.day.app/#/?id=bark";
 encryptionUrl = "https://bark.day.app/#/encryption";
+deployUrl = "https://bark.day.app/#/deploy";
 documentation = "使用文档";
 ivComment = "IV可以是随机生成的，但如果是随机的就需要放在 iv 参数里传递。";
 opensslEncodingComment = "OpenSSL 要求输入的 Key 和 IV 需使用十六进制编码。";

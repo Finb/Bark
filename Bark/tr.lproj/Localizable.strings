@@ -139,9 +139,10 @@ preview = "Önizleme";
 pushNotificationEncryption = "Anlık Bildirim Şifreleme";
 encryptionNotice = "Gönderirken ve alırken push içeriğini şifrelemek ve şifresini çözmek için özel bir anahtar kullanır. Bu sayede push içeriği iletim sırasında Bark sunucusu ve Apple APNs sunucusu tarafından elde edilemez veya sızdırılamaz.";
 
-faqUrl = "https://bark.day.app/#/en-us/faq";
-docUrl = "https://bark.day.app/#/en-us/?id=bark";
-encryptionUrl = "https://bark.day.app/#/en-us/encryption";
+faqUrl = "https://bark.day.app/#/tr/faq";
+docUrl = "https://bark.day.app/#/tr/?id=bark";
+encryptionUrl = "https://bark.day.app/#/tr/encryption";
+deployUrl = "https://bark.day.app/#/tr/deploy";
 documentation = "Dokümantasyon";
 ivComment = "IV rastgele oluşturulabilir, ancak rastgele ise iv parametresinde belirtilmesi gerekir.";
 opensslEncodingComment = "openssl, manuel anahtarların ve IV'lerin ASCII kodlamasını değil, Hex kodlamasını gerektirir.";
