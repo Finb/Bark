@@ -38,7 +38,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
         let showSnackbar = PublishRelay<String>()
 
         let notice = input.noticeClick
-            .map { URL(string: "https://day.app/2018/06/bark-server-document/")! }
+            .map { URL(string: NSLocalizedString("deployUrl"))! }
             .asDriver()
         
         input.viewDidAppear

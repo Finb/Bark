@@ -1,11 +1,14 @@
 PODS:
   - Alamofire (5.4.4)
+  - CryptoSwift (1.6.0)
   - DefaultsKit (0.2.0)
   - DeviceKit (4.5.0)
   - Differentiator (5.0.0)
+  - DropDown (2.3.13)
   - FDFullscreenPopGesture (1.1)
   - IceCream (2.0.4):
     - RealmSwift (< 10.8.0)
+  - IQKeyboardManagerSwift (6.5.10)
   - Kingfisher (6.3.1)
   - KVOController (1.2.0)
   - Material (3.1.8):
@@ -48,10 +51,13 @@ PODS:
   - SwiftyJSON (5.0.1)
 
 DEPENDENCIES:
+  - CryptoSwift
   - DefaultsKit (from `https://github.com/nmdias/DefaultsKit`)
   - DeviceKit
+  - DropDown
   - FDFullscreenPopGesture
   - IceCream
+  - IQKeyboardManagerSwift
   - Kingfisher
   - KVOController
   - Material
@@ -71,10 +77,13 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CryptoSwift
     - DeviceKit
     - Differentiator
+    - DropDown
     - FDFullscreenPopGesture
     - IceCream
+    - IQKeyboardManagerSwift
     - Kingfisher
     - KVOController
     - Material
@@ -110,11 +119,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
+  CryptoSwift: 562f8eceb40e80796fffc668b0cad9313284cfa6
   DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
   DeviceKit: b68cded46afdaefc5d2253d631d441ba7049a7fe
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
@@ -135,6 +147,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: f2443e42f5062c17de4e7a770482b083d2659182
+PODFILE CHECKSUM: 60eda42686b4893abd7ff19557301ef40fca0dff
 
-COCOAPODS: 1.11.2
+COCOAPODS: 1.11.3

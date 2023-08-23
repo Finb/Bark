@@ -8,6 +8,7 @@
 
 import CloudKit
 import IceCream
+import IQKeyboardManagerSwift
 import Material
 import RealmSwift
 import UIKit
@@ -49,6 +50,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // 必须在应用一开始就配置，否则应用可能提前在配置之前试用了 Realm() ，则会创建两个独立数据库。
         setupRealm()
+
+        IQKeyboardManager.shared.enable = true
 
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let tabBarController = StateStorageTabBarController()
@@ -148,7 +151,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             }
 
             let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "复制内容", style: .default, handler: { _ in
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("CopyContent"), style: .default, handler: { _ in
                 if let copy = userInfo["copy"] as? String {
                     UIPasteboard.general.string = copy
                 }
@@ -156,7 +159,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     UIPasteboard.general.string = body
                 }
             }))
-            alertController.addAction(UIAlertAction(title: "更多操作", style: .default, handler: { _ in
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("MoreActions"), style: .default, handler: { _ in
                 var shareContent = ""
                 if let title = title {
                     shareContent += "\(title)\n"
@@ -180,7 +183,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                                                                   applicationActivities: nil)
                 controller?.present(activityController, animated: true, completion: nil)
             }))
-            alertController.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
 
             navigationController?.present(alertController, animated: true, completion: nil)
         }
@@ -207,7 +210,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         ServerManager.shared.syncAllServers()
-        
+
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉
         UIApplication.shared.applicationIconBadgeNumber = -1

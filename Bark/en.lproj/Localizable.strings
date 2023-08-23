@@ -19,7 +19,11 @@ Notice2 = "Customize notification title and body text";
 
 Copy = "Copied!";
 Copy2 = "Copy";
+CopyAll = "Copy All";
+CopyContent = "Copy the Content";
 Cancel = "Cancel";
+
+MoreActions = "More Actions";
 
 AllowNotifications = "Notifications have been turned off. Please allow notifications in the Settings app.";
 
@@ -41,7 +45,7 @@ InvalidServer = "Server address is invalid.";
 
 InvalidURL = "URL is invalid.";
 
-urlParameter = "Open an URL by clicking on a notification";
+urlParameter = "Open an URL by clicking on a notification, URL schemes are supported.";
 
 copyParameter = "Specify clipboard content by passing through the 'copy' parameter";
 
@@ -91,7 +95,7 @@ info = "Info";
 buildDesc = "Bark uses GitHub Actions to build and publish itself to the App Store. You can verify the ‘run_id’ in the URL to ensure Bark was built from its original open-source codebase.";
 
 other = "Other";
-faq = "FAQ";
+faq = "FAQs";
 appSC = "App Source Code";
 backendSC = "Backend Source Code";
 
@@ -119,3 +123,29 @@ deleteFailed = "You must have at least one server configured.";
 deletedSuccessfully = "Server has been deleted successfully.";
 resetFailed = "Reset Failed";
 resetFailed2 = "Bark could not get a DeviceToken from the server.";
+export = "Export";
+import = "Import";
+exportOrImport = "Export and import messages";
+items = "messages";
+
+enterKey = "Please enter %d-bit Key";
+enterIv = "Please enter 16-bit Iv";
+encryptionSettings = "Encryption Settings";
+algorithm = "Algorithm";
+mode = "Mode";
+copyExample = "Copy Send Script Example";
+preview = "Preview";
+
+pushNotificationEncryption = "Push Notification Encryption";
+encryptionNotice = "Uses a custom key to encrypt and decrypt the push content when sending and receiving. In this way, the push content will not be obtained or leaked by Bark server and Apple APNs server during transmission.";
+
+faqUrl = "https://bark.day.app/#/en-us/faq";
+docUrl = "https://bark.day.app/#/en-us/?id=bark";
+encryptionUrl = "https://bark.day.app/#/en-us/encryption";
+deployUrl = "https://bark.day.app/#/en-us/deploy";
+documentation = "Documentation";
+ivComment = "IV can be randomly generated, but if it is random, it needs to be passed in the iv parameter.";
+opensslEncodingComment = "openssl requires Hex encoding of manual keys and IVs, not ASCII encoding.";
+ciphertextComment = "URL encoding the ciphertext, there may be special characters.";
+consoleComment = "The console will print";
+keyComment = "Must be %d bit long";

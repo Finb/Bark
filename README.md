@@ -1,5 +1,5 @@
-## 常见问题
-[https://day.app/2021/06/barkfaq/](https://day.app/2021/06/barkfaq/)
+## 使用文档
+[https://bark.day.app](https://bark.day.app)
 
 ## 问题反馈 Telegram 群
 [Bark反馈群](https://t.me/joinchat/OsCbLzovUAE0YjY1)
@@ -112,3 +112,7 @@ https://api.day.app/yourkey/时效性通知?level=timeSensitive
 
 ## java-bark-server
 [https://gitee.com/hotlcc/java-bark-server](https://gitee.com/hotlcc/java-bark-server)
+
+## Python for Bark
+[barknotificator
+](https://github.com/funny-cat-happy/barknotificator)
