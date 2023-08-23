@@ -139,5 +139,8 @@ Quicker Action: https://getquicker.net/Sharedaction?code=e927d844-d212-4428-758d
 
 Bark for Wox: [Wox.Plugin.Bark](https://github.com/Zeroto521/Wox.Plugin.Bark)
 
+java-bark-server: [https://gitee.com/hotlcc/java-bark-server](https://gitee.com/hotlcc/java-bark-server)
+
 Python for Bark: [barknotificator
 ](https://github.com/funny-cat-happy/barknotificator)
+
