@@ -19,7 +19,11 @@ Notice2 = "推送标题的字号比推送内容粗一点";
 
 Copy = "复制成功";
 Copy2 = "复制";
+CopyAll = "复制全部内容";
+CopyContent = "复制内容";
 Cancel = "取消";
+
+MoreActions = "更多操作";
 
 AllowNotifications = "绑定设备需要推送。请打开推送后重试";
 
@@ -41,7 +45,7 @@ InvalidServer = "填写的服务器无效，请重试!";
 
 InvalidURL = "输入的URL好像不对劲!";
 
-urlParameter = "携带url参数时，点击推送会跳转到这个URL";
+urlParameter = "携带url参数时，点击推送会跳转到这个URL,支持跳转URL Scheme";
 
 copyParameter = "下拉推送、锁屏界面左滑查看推送时，可以选择复制推送内容\n携带copy参数时，将只复制copy参数的值";
 
@@ -62,7 +66,7 @@ defaultArchiveSettings = "默认保存";
 archiveNote = "当推送请求URL没有指定 isArchive 参数时，将按照此设置来决定是否保存通知消息";
 
 archiveNotificationMessageTitle = "自动保存通知消息";
-archiveNotificationMessage = "当设置 isArchive 值为 1 时，则会自动保存这条推送消息，设置为其他值时，则不会保存。\n如果不指定 isArchive 参数时，则按照默认设置保存消息，可以在 消息->设置->默认保存消息 更改默认保存设置";
+archiveNotificationMessage = "当设置 isArchive 值为 1 时，则会自动保存这条推送消息，设置为其他值时，则不会保存。\n如果不指定 isArchive 参数时，则按照默认设置保存消息，可以在 设置->默认保存消息 更改默认保存设置";
 
 notificationSound = "推送铃声";
 previewSound = "点击可预览";
@@ -122,3 +126,29 @@ deleteFailed = "不能删除，服务器至少需保留一个";
 deletedSuccessfully = "删除成功";
 resetFailed = "重置失败";
 resetFailed2 = "重置失败，没有获取到 DeviceToken";
+export = "导出";
+import = "导入";
+exportOrImport = "导出或导入消息列表";
+items = "条消息";
+
+enterKey = "请输入%d位Key";
+enterIv = "请输入16位Iv";
+encryptionSettings = "加密设置";
+algorithm = "算法";
+mode = "模式";
+copyExample = "复制发送脚本示例";
+preview = "预览";
+
+pushNotificationEncryption = "推送加密";
+encryptionNotice = "在发送和接收推送时，对推送内容进行加密和解密。这样，推送内容在传输过程中就不会被 Bark 服务器和苹果 APNs 服务器获取或泄露，从而保护你的隐私";
+
+faqUrl = "https://bark.day.app/#/faq";
+docUrl = "https://bark.day.app/#/?id=bark";
+encryptionUrl = "https://bark.day.app/#/encryption";
+deployUrl = "https://bark.day.app/#/deploy";
+documentation = "使用文档";
+ivComment = "IV可以是随机生成的，但如果是随机的就需要放在 iv 参数里传递。";
+opensslEncodingComment = "OpenSSL 要求输入的 Key 和 IV 需使用十六进制编码。";
+ciphertextComment = "密文可能有特殊字符，所以记得 URL 编码一下。";
+consoleComment = "控制台将打印";
+keyComment = "必须%d位";

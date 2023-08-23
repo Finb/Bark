@@ -1,5 +1,5 @@
-## 常见问题
-[https://day.app/2021/06/barkfaq/](https://day.app/2021/06/barkfaq/)
+## 使用文档
+[https://bark.day.app](https://bark.day.app)
 
 ## 问题反馈 Telegram 群
 [Bark反馈群](https://t.me/joinchat/OsCbLzovUAE0YjY1)
@@ -103,26 +103,8 @@ https://api.day.app/yourkey/时效性通知?level=timeSensitive
 ## 跨平台的命令行应用
 [https://github.com/JasonkayZK/bark-cli](https://github.com/JasonkayZK/bark-cli)
 
-## bark-jssdk
-> 几行代码，用 nodejs 使用 bark sdk
-
-[https://github.com/afeiship/bark-jssdk](https://github.com/afeiship/bark-jssdk)
-
-```js
-import BarkJssdk from '@jswork/bark-jssdk';
-
-// use instance
-const sdk = new BarkJssdk({ sdkKey: 'YOUR_SDK_KEY'});
-// notify
-sdk.notify({ title: 'Tips', body: 'New message comming.' });
-
-// OR use BarkJssdk.notify directly
-BarkJssdk.notify({
-  sdkKey: 'YOUR_SDK_KEY',
-  title: 'Tips', 
-  body: 'New message comming.'
-});
-```
+## GitHub Actions
+[https://github.com/harryzcy/action-bark](https://github.com/harryzcy/action-bark)
 
 ## Quicker 动作
 使用 Quicker 软件在 Windows 上将选中文字一键推送到iPhone，支持打开URL和自动复制推送内容
@@ -130,3 +112,12 @@ BarkJssdk.notify({
 
 ## Bark for Wox
 [https://github.com/Zeroto521/Wox.Plugin.Bark](https://github.com/Zeroto521/Wox.Plugin.Bark)
+
+## bark-jssdk
+[https://github.com/afeiship/bark-jssdk](https://github.com/afeiship/bark-jssdk)
+
+## java-bark-server
+[https://gitee.com/hotlcc/java-bark-server](https://gitee.com/hotlcc/java-bark-server)
+
+## Python for Bark
+[barknotificator](https://github.com/funny-cat-happy/barknotificator)

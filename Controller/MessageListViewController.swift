@@ -169,11 +169,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             self?.alertMessage(message: message)
         }).disposed(by: rx.disposeBag)
         
-        // 点击message中的URL
-        output.urlTap.drive(onNext: { url in
-            Client.shared.openUrl(url: url)
-        }).disposed(by: rx.disposeBag)
-        
         // 选择群组
         output.groupFilter
             .drive(onNext: { [weak self] groupModel in
@@ -190,7 +185,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     
     func alertMessage(message: String) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { [weak self]
+        let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
             (_: UIAlertAction) -> Void in
             UIPasteboard.general.string = message
             self?.showSnackbar(text: NSLocalizedString("Copy"))

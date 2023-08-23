@@ -27,7 +27,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var messages: Driver<[MessageSection]>
         var refreshAction: Driver<MJRefreshAction>
         var alertMessage: Driver<String>
-        var urlTap: Driver<URL>
         var groupFilter: Driver<GroupFilterViewModel>
         var title: Driver<String>
     }
@@ -178,17 +177,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
         }).disposed(by: rx.disposeBag)
         
-        // cell 中点击 url。
-        let urlTap = messagesRelay.flatMapLatest { section -> Observable<String> in
-            if let section = section.first {
-                let taps = section.messages.compactMap { model -> Observable<String> in
-                    model.urlTap.asObservable()
-                }
-                return Observable.merge(taps)
-            }
-            return .empty()
-        }
-        .compactMap { URL(string: $0) } // 只处理正确的url
         
         // 批量删除
         input.delete.drive(onNext: { [weak self] type in
@@ -260,7 +248,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
             refreshAction: refreshAction.asDriver(),
             alertMessage: alertMessage,
-            urlTap: urlTap.asDriver(onErrorDriveWith: .empty()),
             groupFilter: groupFilter.asDriver(),
             title: titleRelay.asDriver()
         )

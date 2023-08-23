@@ -28,10 +28,6 @@ extension UIViewController {
     }
 }
 
-func NSLocalizedString(_ key: String) -> String {
-    return NSLocalizedString(key, comment: "")
-}
-
 let kNavigationHeight: CGFloat = {
     kSafeAreaInsets.top + 44
 }()

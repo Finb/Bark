@@ -1,0 +1,151 @@
+/* 
+  Localizable.strings
+  Bark
+
+  Created by furkanipek on 2023/8/22.
+  Copyright © 2018 Fin. All rights reserved.
+*/
+
+
+SecureConnection = "Güvenli Bağlantı (HTTPS)";
+InsecureConnection = "Güvensiz Bağlantı (HTTP)";
+RegisterDevice = "Cihazı Kaydet";
+
+CustomedNotificationContent = "Gövde Metni";
+CustomedNotificationTitle = "Başlık";
+
+Notice1 = "Örnek URL'leri kopyalamak ve açmak için düğmeleri kullanın";
+Notice2 = "Bildirim başlığını ve gövde metnini özelleştirme";
+
+Copy = "Kopyalandı!";
+Copy2 = "Kopyala";
+CopyAll = "Tümünü Kopyala";
+CopyContent = "İçeriği Kopyala";
+Cancel = "Vazgeç";
+
+MoreActions = "Daha Fazla İşlem";
+
+AllowNotifications = "Bildirimler kapatıldı. Lütfen Ayarlar uygulamasından bildirimlere izin verin.";
+
+UnregisteredDevice = "Kayıtsız Cihaz";
+
+ServerError = "Sunucu Hatası";
+
+ServerAddress = "Sunucu Adresi";
+
+ServerExample = "Sunucu adresini girin, örneğin, https://api.day.app";
+
+DeploymentDocuments = "Sunucu tarafı dağıtım dökümanını görüntüleyin";
+
+AddServer = "Sunucu Ekleme";
+
+AddedSuccessfully = "Sunucu başarıyla eklendi.";
+
+InvalidServer = "Sunucu adresi geçersiz.";
+
+InvalidURL = "URL geçersiz.";
+
+urlParameter = "Bir bildirime tıklayarak bir URL açın, URL şemaları desteklenir.";
+
+copyParameter = "'copy' parametresini geçirerek pano içeriğini belirtin";
+
+automaticallyCopyTitle = "Gövde Metnini Otomatik Kopyala (iOS 14.4 ve altı)";
+automaticallyCopy = "Bir bildirimin gövde metnini otomatik olarak kopyalayın, yalnızca iOS 14.4 ve altı için. iOS 14.5 ve üzeri sürümlerde, kopyalamak için bildirime uzun basın veya aşağı çekin.";
+
+historyMessage = "Mesaj Geçmişi";
+
+unknown = "Bilinmeyen Durum";
+available = "Etkin";
+restricted = "Devre Dışı";
+settings = "Ayarlar";
+
+iCloudSatatus = "iCloud Senkronizasyonu";
+iCloudSync = "Bildirimleri iCloud aracılığıyla senkronize edin";
+
+defaultArchiveSettings = "Varsayılan Olarak Arşivle";
+archiveNote = "'isArchive' parametresi ayarlanmamışsa varsayılan olarak bildirimleri arşivleyin.";
+
+archiveNotificationMessageTitle = "Arşiv Bildirimi";
+archiveNotificationMessage = "'isArchive=1' değerini geçerek bir bildirimi arşivleyin. 'isArchive=0' geçerek arşivlemeyi önleyin. Parametre ayarlanmamışsa varsayılan ayarlar geçerli olacaktır.";
+
+notificationSound = "Uyarı Sesi";
+previewSound = "Oynamak için Tıklayın";
+setSounds = "Bildirim için bir uyarı sesi seçin.";
+viewAllSounds = "Mevcut tüm sesleri görüntülemek için buraya tıklayın.";
+
+service = "Hizmet";
+
+lastHour = "Son bir saat";
+today = "Bugün";
+todayAndYesterday = "Dün ve Bugün";
+allTime = "Tüm zamanlar";
+
+clearFrom = "Şuradan Temizle:";
+clear = "Temizle";
+
+group = "Gruplar";
+done = "Bitti";
+default = "Varsayılan";
+hideAllGroups = "Tüm Grupların Seçimini Kaldır";
+showAllGroups = "Tüm Grupları Seç";
+groupMessagesNotice = "iOS'un bildirimleri gruplara göre sıralamasına izin verin.";
+messageGroup = "Bildirim Gruplandırma";
+
+info = "Bilgi";
+buildDesc = "Bark, kendisini oluşturmak ve App Store'da yayınlamak için GitHub Actions'ı kullanır. Bark'ın orijinal açık kaynak kod tabanından oluşturulduğundan emin olmak için URL'deki 'run_id'yi doğrulayabilirsiniz.";
+
+other = "Diğer";
+faq = "SSS";
+appSC = "Uygulama Kaynak Kodu";
+backendSC = "Arka Uç Kaynak Kodu";
+
+notificationIcon = "İkon";
+notificationIconNotice = "Bildirimde özel bir ikon görüntüleyin.";
+
+interruptionLevel = "Zamana Duyarlı Bildirimler";
+interruptionLevelNotice = "Bir bildirimin önemini ve teslim zamanlamasını ayarlayın. Kullanılabilir değerler:\nactive (varsayılan): bildirimi hemen sunar, ekranı aydınlatır ve bir ses çalabilir.\ntimeSensitive: aktif'e benzer, ancak Bildirim Özeti ve Odak gibi sistem denetimlerini aşabilir.\npassive: bildirimi ekranı aydınlatmadan veya bir ses çalmadan bildirim listesine ekler.";
+
+badge = "Rozet Sayısı";
+badgeNotice = "Bir bildirim geldiğinde Bark uygulamasının simgesinde bir sayı belirtin.";
+
+deviceTokenInfo = "APNs için token. Kopyalamak için tıklayın.";
+
+
+serverList = "Sunucu Listesi";
+copyAddressAndKey = "Adres ve Anahtarı Kopyala";
+resetKey = "Anahtarı Sıfırla veya Geri Yükle";
+resetKeyDesc = "Sıfırlamak için boş bırakın. Geri yüklemek için eski bir anahtar girin.";
+resetKeyPlaceholder = "";
+confirm = "Onayla";
+deleteServer = "Sunucuyu Sil";
+confirmDeleteServer = "Bu sunucuyu silmek istediğinizden emin misiniz?";
+deleteFailed = "Yapılandırılmış en az bir sunucunuz olmalıdır.";
+deletedSuccessfully = "Sunucu başarıyla silindi.";
+resetFailed = "Sıfırlama Başarısız Oldu";
+resetFailed2 = "Bark sunucudan bir DeviceToken alamadı.";
+export = "Dışa Aktar";
+import = "İçe Aktar";
+exportOrImport = "Mesajları dışa ve içe aktarma";
+items = "mesajlar";
+
+enterKey = "Lütfen %d-bit Anahtar girin";
+enterIv = "Lütfen 16 bit Iv girin";
+encryptionSettings = "Şifreleme Ayarları";
+algorithm = "Algoritma";
+mode = "Mod";
+copyExample = "Kopya Gönderme Komut Dosyası Örneği";
+preview = "Önizleme";
+
+pushNotificationEncryption = "Anlık Bildirim Şifreleme";
+encryptionNotice = "Gönderirken ve alırken push içeriğini şifrelemek ve şifresini çözmek için özel bir anahtar kullanır. Bu sayede push içeriği iletim sırasında Bark sunucusu ve Apple APNs sunucusu tarafından elde edilemez veya sızdırılamaz.";
+
+faqUrl = "https://bark.day.app/#/tr/faq";
+docUrl = "https://bark.day.app/#/tr/?id=bark";
+encryptionUrl = "https://bark.day.app/#/tr/encryption";
+deployUrl = "https://bark.day.app/#/tr/deploy";
+documentation = "Dokümantasyon";
+ivComment = "IV rastgele oluşturulabilir, ancak rastgele ise iv parametresinde belirtilmesi gerekir.";
+opensslEncodingComment = "openssl, manuel anahtarların ve IV'lerin ASCII kodlamasını değil, Hex kodlamasını gerektirir.";
+ciphertextComment = "URL şifreli metni kodlarken özel karakterler olabilir.";
+consoleComment = "Konsola şunları yazdırır";
+keyComment = "%d bit uzunluğunda olmalıdır";

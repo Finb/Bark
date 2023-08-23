@@ -75,6 +75,13 @@ class HomeViewModel: ViewModel, ViewModelType {
                 image: UIImage(named: "group")
             ),
             PreviewModel(
+                body: NSLocalizedString("pushNotificationEncryption"),
+                notice: NSLocalizedString("encryptionNotice"),
+                queryParameter: "ciphertext=ciphertext",
+                moreInfo: NSLocalizedString("encryptionSettings"),
+                moreViewModel: CryptoSettingViewModel()
+            ),
+            PreviewModel(
                 body: NSLocalizedString("interruptionLevel"),
                 notice: NSLocalizedString("interruptionLevelNotice"),
                 queryParameter: "level=timeSensitive"
