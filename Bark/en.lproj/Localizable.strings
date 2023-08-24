@@ -149,3 +149,9 @@ opensslEncodingComment = "openssl requires Hex encoding of manual keys and IVs, 
 ciphertextComment = "URL encoding the ciphertext, there may be special characters.";
 consoleComment = "The console will print";
 keyComment = "Must be %d bit long";
+
+removeMessage = "Remove";
+timeJustNow = "Just now";
+timeMinAgo = "%1$@ minute ago";
+timeHourAgo = "%1$@ hour ago";
+timeMinHourAgo = "%1$@ hour %2$@ minutes ago";
