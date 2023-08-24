@@ -32,12 +32,15 @@ extension Date {
             return formatString(format: "HH:mm")
         }
         if hour > 0 {
-            return "\(hour)小时" + (minute > 0 ? "\(minute)分钟" : "") + "前"
+            if minute > 0 {
+                return String(format: NSLocalizedString("timeMinHourAgo"), hour, minute)
+            }
+            return String(format: NSLocalizedString("timeHourAgo"), hour)
         }
         if minute > 1 {
-            return "\(minute)分钟前"
+            return String(format: NSLocalizedString("timeMinAgo"), minute)
         }
-        return "刚刚"
+        return NSLocalizedString("timeJustNow")
     }
 }
 

@@ -75,14 +75,12 @@ viewAllSounds = "查看所有铃声";
 
 service = "服务器";
 
-
 lastHour = "过去一小时";
 today = "今天";
 todayAndYesterday = "昨天和今天";
 allTime = "所有时间";
 
 clearFrom = "清除以下时间段的历史消息:";
-
 clear = "清除";
 
 group = "群组";
@@ -112,7 +110,6 @@ badge = "设置角标";
 badgeNotice = "可以为推送设置角标，角标可以是任意数字。";
 
 deviceTokenInfo = "苹果推送的真实设备 Token ，请勿泄露，点击可复制到剪切板。";
-
 
 serverList = "服务器列表";
 copyAddressAndKey = "复制地址和Key";
@@ -152,3 +149,9 @@ opensslEncodingComment = "OpenSSL 要求输入的 Key 和 IV 需使用十六进�
 ciphertextComment = "密文可能有特殊字符，所以记得 URL 编码一下。";
 consoleComment = "控制台将打印";
 keyComment = "必须%d位";
+
+removeMessage = "删除";
+timeJustNow = "刚刚";
+timeMinAgo = "%1$@分钟前";
+timeHourAgo = "%1$@小时前";
+timeMinHourAgo = "%1$@小时%2$@分钟前";

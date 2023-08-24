@@ -208,7 +208,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
 
 extension MessageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: "删除") { [weak self] _, _, actionPerformed in
+        let action = UIContextualAction(style: .destructive, title: NSLocalizedString("removeMessage")) { [weak self] _, _, actionPerformed in
             self?.tableView.dataSource?.tableView?(self!.tableView, commit: .delete, forRowAt: indexPath)
             actionPerformed(true)
         }
