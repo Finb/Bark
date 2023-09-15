@@ -21,6 +21,7 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     
     let bodyLabel: UITextView = {
         let label = UITextView()
+        label.backgroundColor = UIColor.clear
         label.isEditable = false
         label.dataDetectorTypes = [.phoneNumber, .link]
         label.isScrollEnabled = false
