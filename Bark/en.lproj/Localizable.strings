@@ -150,6 +150,12 @@ ciphertextComment = "URL encoding the ciphertext, there may be special character
 consoleComment = "The console will print";
 keyComment = "Must be %d bit long";
 
+removeMessage = "Remove";
+timeJustNow = "Just now";
+timeMinAgo = "%1$@ minute ago";
+timeHourAgo = "%1$@ hour ago";
+timeMinHourAgo = "%1$@ hour %2$@ minutes ago";
+
 crashed = "Crashed!";
 copyCrashLog = "Copy Crash Log";
 crashContent = "If the app keeps crashing repeatedly, you can try to uncheck Bark in System Settings -> iCloud -> Apps Using iCloud. (The path may vary slightly depending on the system version.)
