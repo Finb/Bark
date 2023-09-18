@@ -7,6 +7,7 @@
 //
 
 import CloudKit
+import CrashReporter
 import IceCream
 import IQKeyboardManagerSwift
 import Material
@@ -42,22 +43,62 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ], databaseScope: .private)
 
         #if DEBUG
-        let realm = try? Realm()
-        print("message count: \(realm?.objects(Message.self).count ?? 0)")
+            let realm = try? Realm()
+            print("message count: \(realm?.objects(Message.self).count ?? 0)")
         #endif
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        self.window = UIWindow(frame: UIScreen.main.bounds)
+        self.window?.backgroundColor = UIColor.black
+        self.window?.makeKeyAndVisible()
+        
+        #if !DEBUG
+            let config = PLCrashReporterConfig(signalHandlerType: .mach, symbolicationStrategy: [])
+            if let crashReporter = PLCrashReporter(configuration: config) {
+                // Enable the Crash Reporter.
+                do {
+                    try crashReporter.enableAndReturnError()
+                } catch {
+                    print("Warning: Could not enable crash reporter: \(error)")
+                }
+
+                if crashReporter.hasPendingCrashReport() {
+                    let reportController = CrashReportViewController()
+                    do {
+                        let data = try crashReporter.loadPendingCrashReportDataAndReturnError()
+
+                        // Retrieving crash reporter data.
+                        let report = try PLCrashReport(data: data)
+
+                        if let text = PLCrashReportTextFormatter.stringValue(for: report, with: PLCrashReportTextFormatiOS) {
+                            reportController.crashLog = text
+                        } else {
+                            print("CrashReporter: can't convert report to text")
+                        }
+                    } catch {
+                        print("CrashReporter failed to load and parse with error: \(error)")
+                    }
+
+                    // Purge the report.
+                    crashReporter.purgePendingCrashReport()
+                    self.window?.rootViewController = reportController
+                    return true
+                }
+            } else {
+                print("Could not create an instance of PLCrashReporter")
+            }
+        #endif
+        
         // 必须在应用一开始就配置，否则应用可能提前在配置之前试用了 Realm() ，则会创建两个独立数据库。
         setupRealm()
 
         IQKeyboardManager.shared.enable = true
 
-        self.window = UIWindow(frame: UIScreen.main.bounds)
         let tabBarController = StateStorageTabBarController()
         tabBarController.tabBar.tintColor = BKColor.grey.darken4
 
-        self.window?.backgroundColor = UIColor.black
         self.window?.rootViewController = BarkSnackbarController(
             rootViewController: tabBarController
         )
@@ -74,8 +115,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         for (index, viewController) in tabBarController.viewControllers!.enumerated() {
             viewController.tabBarItem = tabBarItems[index]
         }
-
-        self.window?.makeKeyAndVisible()
 
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().setNotificationCategories([
@@ -154,8 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             alertController.addAction(UIAlertAction(title: NSLocalizedString("CopyContent"), style: .default, handler: { _ in
                 if let copy = userInfo["copy"] as? String {
                     UIPasteboard.general.string = copy
-                }
-                else {
+                } else {
                     UIPasteboard.general.string = body
                 }
             }))
@@ -192,8 +230,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             presentedController.dismiss(animated: false) {
                 presentController()
             }
-        }
-        else {
+        } else {
             presentController()
         }
     }

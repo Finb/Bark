@@ -28,6 +28,8 @@ def pods
     pod 'Kingfisher'
     pod 'MercariQRScanner', :git => 'https://github.com/Finb/QRScanner'
     pod 'DropDown'
+    
+    pod 'PLCrashReporter'
 end
 
 target 'Bark' do

@@ -28,6 +28,7 @@ PODS:
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
   - ObjectMapper (4.2.0)
+  - PLCrashReporter (1.11.1)
   - Realm (10.7.7):
     - Realm/Headers (= 10.7.7)
   - Realm/Headers (10.7.7)
@@ -66,6 +67,7 @@ DEPENDENCIES:
   - Moya/RxSwift
   - "NSObject+Rx"
   - ObjectMapper
+  - PLCrashReporter
   - RxCocoa
   - RxDataSources
   - RxGesture
@@ -92,6 +94,7 @@ SPEC REPOS:
     - Moya
     - "NSObject+Rx"
     - ObjectMapper
+    - PLCrashReporter
     - Realm
     - RealmSwift
     - RxCocoa
@@ -136,6 +139,7 @@ SPEC CHECKSUMS:
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
+  PLCrashReporter: 5d2d3967afe0efad61b3048d617e2199a5d1b787
   Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
   RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
@@ -147,6 +151,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 60eda42686b4893abd7ff19557301ef40fca0dff
+PODFILE CHECKSUM: 73cfda85b7a345d896330d72bc61822356f98586
 
 COCOAPODS: 1.11.3

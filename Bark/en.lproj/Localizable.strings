@@ -149,3 +149,17 @@ opensslEncodingComment = "openssl requires Hex encoding of manual keys and IVs, 
 ciphertextComment = "URL encoding the ciphertext, there may be special characters.";
 consoleComment = "The console will print";
 keyComment = "Must be %d bit long";
+
+crashed = "Crashed!";
+copyCrashLog = "Copy Crash Log";
+crashContent = "If the app keeps crashing repeatedly, you can try to uncheck Bark in System Settings -> iCloud -> Apps Using iCloud. (The path may vary slightly depending on the system version.)
+
+If the problem persists, you can try to check the FAQ to see if there is a solution.
+https://bark.day.app/#/faq
+
+If you need help, you can also send the crash log to me, and I will contact you as soon as possible.
+
+Email: to@day.app
+Telegram: https://t.me/joinchat/OsCbLzovUAE0YjY1
+Github Issue: https://github.com/Finb/Bark/issues
+";

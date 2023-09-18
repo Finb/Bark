@@ -152,3 +152,17 @@ opensslEncodingComment = "OpenSSL 要求输入的 Key 和 IV 需使用十六进�
 ciphertextComment = "密文可能有特殊字符，所以记得 URL 编码一下。";
 consoleComment = "控制台将打印";
 keyComment = "必须%d位";
+
+crashed = "好像闪退了！";
+copyCrashLog = "复制闪退日志";
+crashContent = "如果一直重复闪退，你可以尝试在 系统设置 -> iCloud -> 使用iCloud的APP -> 取消勾选Bark。（不同系统版本可能设置路径略有差异）
+
+如无法解决，你可以尝试查看FAQ看是否有解决办法
+https://bark.day.app/#/faq
+
+如需帮助，你也可以将闪退日志反馈给我，我会尽快与你联系
+
+邮箱: to@day.app
+Telegram: https://t.me/joinchat/OsCbLzov
+Github Issue: https://github.com/Finb/Bark/issues
+";
