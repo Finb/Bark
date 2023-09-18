@@ -52,7 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.black
-        self.window?.makeKeyAndVisible()
         
         #if !DEBUG
             let config = PLCrashReporterConfig(signalHandlerType: .mach, symbolicationStrategy: [])
@@ -84,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                     // Purge the report.
                     crashReporter.purgePendingCrashReport()
                     self.window?.rootViewController = reportController
+                    self.window?.makeKeyAndVisible()
                     return true
                 }
             } else {
@@ -115,7 +115,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         for (index, viewController) in tabBarController.viewControllers!.enumerated() {
             viewController.tabBarItem = tabBarItems[index]
         }
-
+        
+        // 需先配置好 tabBarController 的 viewControllers，显示时会默认显示上次打开的页面
+        self.window?.makeKeyAndVisible()
+        
         UNUserNotificationCenter.current().delegate = self
         UNUserNotificationCenter.current().setNotificationCategories([
             UNNotificationCategory(identifier: "myNotificationCategory", actions: [
