@@ -116,6 +116,9 @@ https://api.day.app/yourkey/时效性通知?level=timeSensitive
 ## bark-jssdk
 [https://github.com/afeiship/bark-jssdk](https://github.com/afeiship/bark-jssdk)
 
+## bark-java-sdk
+[https://github.com/MoshiCoCo/bark-java-sdk](https://github.com/MoshiCoCo/bark-java-sdk)
+
 ## java-bark-server
 [https://gitee.com/hotlcc/java-bark-server](https://gitee.com/hotlcc/java-bark-server)
 
