@@ -152,9 +152,9 @@ keyComment = "必须%d位";
 
 removeMessage = "删除";
 timeJustNow = "刚刚";
-timeMinAgo = "%1$@分钟前";
-timeHourAgo = "%1$@小时前";
-timeMinHourAgo = "%1$@小时%2$@分钟前";
+timeMinAgo = "%1$d分钟前";
+timeHourAgo = "%1$d小时前";
+timeMinHourAgo = "%1$d小时%2$d分钟前";
 
 crashed = "好像闪退了！";
 copyCrashLog = "复制闪退日志";

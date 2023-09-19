@@ -152,9 +152,9 @@ keyComment = "%d bit uzunluğunda olmalıdır";
 
 removeMessage = "Sil";
 timeJustNow = "Az önce";
-timeMinAgo = "%1$@ dakika önce";
-timeHourAgo = "%1$@ saat önce";
-timeMinHourAgo = "%1$@ saat %2$@ dakika önce";
+timeMinAgo = "%1$d dakika önce";
+timeHourAgo = "%1$d saat önce";
+timeMinHourAgo = "%1$d saat %2$d dakika önce";
 
 crashed = "Crashed!";
 copyCrashLog = "Copy Crash Log";

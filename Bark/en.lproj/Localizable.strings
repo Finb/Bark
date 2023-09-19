@@ -152,9 +152,9 @@ keyComment = "Must be %d bit long";
 
 removeMessage = "Remove";
 timeJustNow = "Just now";
-timeMinAgo = "%1$@ minute ago";
-timeHourAgo = "%1$@ hour ago";
-timeMinHourAgo = "%1$@ hour %2$@ minutes ago";
+timeMinAgo = "%1$d minute ago";
+timeHourAgo = "%1$d hour ago";
+timeMinHourAgo = "%1$d hour %2$d minutes ago";
 
 crashed = "Crashed!";
 copyCrashLog = "Copy Crash Log";
