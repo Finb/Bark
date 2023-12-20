@@ -24,7 +24,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let ivTextField: BorderTextField = {
         let textField = BorderTextField(title: "IV")
         textField.font = UIFont.systemFont(ofSize: 14)
-        textField.placeholder = String(format: NSLocalizedString("enterIv"), 16)
+        textField.placeholder = String(format: NSLocalizedString("enterIv"), 16) // todo: update iv length
         return textField
     }()
 
