@@ -11,7 +11,7 @@ import UIKit
 
 class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let algorithmFeild = DropBoxView(values: ["AES128", "AES192", "AES256"])
-    let modeFeild = DropBoxView(values: ["CBC", "ECB"])
+    let modeFeild = DropBoxView(values: ["CBC", "ECB", "GCM"])
     let paddingField = DropBoxView(values: ["pkcs7"])
 
     let keyTextField: BorderTextField = {
@@ -24,7 +24,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let ivTextField: BorderTextField = {
         let textField = BorderTextField(title: "IV")
         textField.font = UIFont.systemFont(ofSize: 14)
-        textField.placeholder = NSLocalizedString("enterIv")
+        textField.placeholder = String(format: NSLocalizedString("enterIv"), 16)
         return textField
     }()
 
@@ -222,8 +222,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             .drive(self.paddingField.rx.values)
             .disposed(by: rx.disposeBag)
 
-        output.keyLenghtChanged.drive(onNext: { [weak self] keyLenght in
-            self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLenght)
+        output.keyLengthChanged.drive(onNext: { [weak self] keyLength in
+            self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLength)
         }).disposed(by: rx.disposeBag)
 
         output.showSnackbar.drive(onNext: { text in

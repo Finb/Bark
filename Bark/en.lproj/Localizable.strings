@@ -129,7 +129,7 @@ exportOrImport = "Export and import messages";
 items = "messages";
 
 enterKey = "Please enter %d-bit Key";
-enterIv = "Please enter 16-bit Iv";
+enterIv = "Please enter %d-bit Iv";
 encryptionSettings = "Encryption Settings";
 algorithm = "Algorithm";
 mode = "Mode";

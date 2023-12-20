@@ -17,7 +17,7 @@ enum Algorithm: String {
     var modes: [String] {
         switch self {
         case .aes128, .aes192, .aes256:
-            return ["CBC", "ECB"]
+            return ["CBC", "ECB", "GCM"]
         }
     }
 
@@ -28,7 +28,7 @@ enum Algorithm: String {
         }
     }
 
-    var keyLenght: Int {
+    var keyLength: Int {
         switch self {
         case .aes128:
             return 16
@@ -61,17 +61,25 @@ struct AESCryptoModel {
             throw "Key is missing"
         }
 
-        guard algorithm.keyLenght == key.count else {
-            throw String(format: NSLocalizedString("enterKey"), algorithm.keyLenght)
+        guard algorithm.keyLength == key.count else {
+            throw String(format: NSLocalizedString("enterKey"), algorithm.keyLength)
         }
 
         var iv = ""
-        if ["CBC"].contains(cryptoFields.mode) {
-            if let ivField = cryptoFields.iv, ivField.count == 16 {
+        if ["CBC", "GCM"].contains(cryptoFields.mode) {
+            var expectIVLength = 0
+            if cryptoFields.mode == "CBC" {
+                expectIVLength = 16
+            }
+            else if cryptoFields.mode == "GCM" {
+                expectIVLength = 12
+            }
+
+            if let ivField = cryptoFields.iv, ivField.count == expectIVLength {
                 iv = ivField
             }
             else {
-                throw NSLocalizedString("enterIv")
+                throw String(format: NSLocalizedString("enterIv"), expectIVLength)
             }
         }
 
@@ -81,6 +89,8 @@ struct AESCryptoModel {
             mode = CBC(iv: iv.bytes)
         case "ECB":
             mode = ECB()
+        case "GCM":
+            mode = GCM(iv: iv.bytes)
         default:
             throw "Invalid Mode"
         }
