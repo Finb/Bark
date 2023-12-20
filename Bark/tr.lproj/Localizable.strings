@@ -129,7 +129,7 @@ exportOrImport = "Mesajları dışa ve içe aktarma";
 items = "mesajlar";
 
 enterKey = "Lütfen %d-bit Anahtar girin";
-enterIv = "Lütfen 16 bit Iv girin";
+enterIv = "Lütfen %d-bit Iv girin";
 encryptionSettings = "Şifreleme Ayarları";
 algorithm = "Algoritma";
 mode = "Mod";
