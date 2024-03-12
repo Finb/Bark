@@ -135,7 +135,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         return Output(
             initial: Driver.just((
                 algorithmList: [Algorithm.aes128, Algorithm.aes192, Algorithm.aes256],
-                modeList: ["CBC", "ECB", "GCM"],
+                modeList: ["CBC", "ECB", /* "GCM" */],  // GCM 还没准备好示例代码，暂时禁用
                 paddingList: ["pkcs7"],
                 initialFields: dependencies.settingFieldRelay.value
             )),

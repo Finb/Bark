@@ -67,13 +67,10 @@ struct AESCryptoModel {
 
         var iv = ""
         if ["CBC", "GCM"].contains(cryptoFields.mode) {
-            var expectIVLength = 0
-            if cryptoFields.mode == "CBC" {
-                expectIVLength = 16
-            }
-            else if cryptoFields.mode == "GCM" {
-                expectIVLength = 12
-            }
+            let expectIVLength = [
+                "CBC": 16,
+                "GCM": 12
+            ][cryptoFields.mode] ?? 0
 
             if let ivField = cryptoFields.iv, ivField.count == expectIVLength {
                 iv = ivField
