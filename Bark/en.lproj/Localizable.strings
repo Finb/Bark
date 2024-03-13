@@ -128,8 +128,8 @@ import = "Import";
 exportOrImport = "Export and import messages";
 items = "messages";
 
-enterKey = "Please enter %d-bit Key";
-enterIv = "Please enter %d-bit Iv";
+enterKey = "Please enter %d-bytes Key";
+enterIv = "Please enter %d-bytes Iv";
 encryptionSettings = "Encryption Settings";
 algorithm = "Algorithm";
 mode = "Mode";

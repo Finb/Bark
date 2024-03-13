@@ -128,8 +128,8 @@ import = "İçe Aktar";
 exportOrImport = "Mesajları dışa ve içe aktarma";
 items = "mesajlar";
 
-enterKey = "Lütfen %d-bit Anahtar girin";
-enterIv = "Lütfen %d-bit Iv girin";
+enterKey = "Lütfen %d-bytes Anahtar girin";
+enterIv = "Lütfen %d-bytes Iv girin";
 encryptionSettings = "Şifreleme Ayarları";
 algorithm = "Algoritma";
 mode = "Mod";
