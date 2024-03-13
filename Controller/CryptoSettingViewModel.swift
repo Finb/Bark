@@ -122,7 +122,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     key=$(printf $key | xxd -ps -c 200)
                     iv=$(printf $iv | xxd -ps -c 200)
 
-                    ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
+                    ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64 -w 0)
 
                     # \(NSLocalizedString("consoleComment")) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
                     echo $ciphertext
