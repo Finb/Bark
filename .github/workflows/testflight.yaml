@@ -55,7 +55,7 @@ jobs:
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
 
     - name: Archive artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: dSYM
-          path: Bark.app.dSYM.zip
+      uses: actions/upload-artifact@v4
+      with:
+        name: dSYM
+        path: Bark.app.dSYM.zip
