@@ -53,3 +53,9 @@ jobs:
         BARK_KEY: ${{ secrets.BARK_KEY }}
         MATCH_GIT_BASIC_AUTHORIZATION: ${{ secrets.MATCH_GIT_BASIC_AUTHORIZATION }}
         MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
+
+    - name: Archive artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: dSYM
+          path: Bark.app.dSYM.zip
