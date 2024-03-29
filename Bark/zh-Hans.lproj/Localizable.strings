@@ -169,3 +169,7 @@ https://bark.day.app/#/faq
 Telegram: https://t.me/joinchat/OsCbLzov
 Github Issue: https://github.com/Finb/Bark/issues
 ";
+
+uploadSound = "上传铃声";
+customSounds = "自定义铃声";
+defaultSounds = "默认铃声";

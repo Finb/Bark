@@ -12,24 +12,31 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
+enum SoundItem {
+    case sound(model: SoundCellViewModel)
+    case addSound
+}
+
 class SoundsViewModel: ViewModel, ViewModelType {
     struct Input {
-        var soundSelected: Driver<SoundCellViewModel>
+        var soundSelected: Driver<SoundItem>
     }
 
     struct Output {
-        var audios: Observable<[SectionModel<String, SoundCellViewModel>]>
+        var audios: Observable<[SectionModel<String, SoundItem>]>
         var copyNameAction: Driver<String>
         var playAction: Driver<CFURL>
+        var pickerFile: Driver<Void>
     }
 
-    func getSounds(urls: [URL]) -> [SoundCellViewModel] {
+    func getSounds(urls: [URL]) -> [SoundItem] {
         let urls = urls.sorted { u1, u2 -> Bool in
             u1.lastPathComponent.localizedStandardCompare(u2.lastPathComponent) == ComparisonResult.orderedAscending
         }
         return urls
             .map { AVURLAsset(url: $0) }
             .map { SoundCellViewModel(model: $0) }
+            .map { SoundItem.sound(model: $0) }
     }
 
     /// 返回指定文件夹，指定后缀的文件列表数组
@@ -53,17 +60,22 @@ class SoundsViewModel: ViewModel, ViewModelType {
             urls: Bundle.main.urls(forResourcesWithExtension: "caf", subdirectory: nil) ?? []
         )
 
-        let customSounds: [SoundCellViewModel] = {
+        let customSounds: [SoundItem] = {
             guard let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/Sounds") else {
-                return []
+                return [.addSound]
             }
             return getSounds(
                 urls: getFilesInDirectory(directory: soundsDirectoryUrl, suffix: "caf")
-            )
+            ) + [.addSound]
         }()
 
         let copyAction = Driver.merge(
-            (defaultSounds + customSounds).map { $0.copyNameAction.asDriver(onErrorDriveWith: .empty()) }
+            (defaultSounds + customSounds).compactMap { item in
+                if case SoundItem.sound(let model) = item {
+                    return model.copyNameAction.asDriver(onErrorDriveWith: .empty())
+                }
+                return nil
+            }
         ).asDriver()
 
         return Output(
@@ -72,7 +84,20 @@ class SoundsViewModel: ViewModel, ViewModelType {
                 SectionModel(model: "defaultSounds", items: defaultSounds)
             ]),
             copyNameAction: copyAction,
-            playAction: input.soundSelected.map { $0.model.url as CFURL }
-        )
+            playAction: input.soundSelected
+                .compactMap { item in
+                    if case SoundItem.sound(let model) = item {
+                        return model
+                    }
+                    return nil
+                }
+                .map { $0.model.url as CFURL },
+            pickerFile: input.soundSelected
+                .compactMap { item in
+                    if case SoundItem.addSound = item {
+                        return ()
+                    }
+                    return nil
+                })
     }
 }

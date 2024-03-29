@@ -169,3 +169,7 @@ Email: to@day.app
 Telegram: https://t.me/joinchat/OsCbLzovUAE0YjY1
 Github Issue: https://github.com/Finb/Bark/issues
 ";
+
+uploadSound = "Upload Sound";
+customSounds = "Custom Sounds";
+defaultSounds = "Default Sounds";

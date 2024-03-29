@@ -91,6 +91,7 @@
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
 		0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D191247D162C005DE2ED /* MessageTableViewCell.swift */; };
 		0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D193247D1BA0005DE2ED /* Date+Extension.swift */; };
+		066E0C8C2BB6AC9A00873838 /* AddSoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */; };
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
 		06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C382A710568008ABDD7 /* GesturePassTextView.swift */; };
 		06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */; };
@@ -267,6 +268,7 @@
 		0661A54E204FDA4100965E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0667D191247D162C005DE2ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		0667D193247D1BA0005DE2ED /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSoundCell.swift; sourceTree = "<group>"; };
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
 		06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReportViewController.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */,
 				060481EF250F51CA00BC9799 /* SoundCell.swift */,
 				065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */,
+				066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */,
 				062B98C2251B2762004562E7 /* BKButton.swift */,
 				06C595352481160F006B98F3 /* BKLabel.swift */,
 				062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */,
@@ -952,6 +955,7 @@
 				068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */,
 				06172FDC27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift in Sources */,
 				061894C729A75BEA00E001C2 /* Algorithm.swift in Sources */,
+				066E0C8C2BB6AC9A00873838 /* AddSoundCell.swift in Sources */,
 				065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */,
 				06F08EA729B1DDFE006AB9CA /* Error+Extension.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
