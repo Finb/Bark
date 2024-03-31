@@ -18,17 +18,36 @@ enum SoundItem {
 }
 
 class SoundsViewModel: ViewModel, ViewModelType {
+    /// 依赖
+    struct Dependencies {
+        /// 用于保存铃声文件
+        let soundFileStorage: SoundFileStorageProtocol
+    }
+
+    private let dependencies: Dependencies
+    init(dependencies: Dependencies = Dependencies(soundFileStorage: SoundFileStorage())) {
+        self.dependencies = dependencies
+    }
+
     struct Input {
+        /// 铃声列表点击
         var soundSelected: Driver<SoundItem>
+        /// 铃声导入
+        var importSound: Driver<URL>
     }
 
     struct Output {
+        /// 铃声数据源
         var audios: Observable<[SectionModel<String, SoundItem>]>
+        /// 复制铃声名称
         var copyNameAction: Driver<String>
+        /// 播放铃声
         var playAction: Driver<CFURL>
+        /// 打开文件选择器选择铃声文件
         var pickerFile: Driver<Void>
     }
 
+    /// 将铃声URL转换成 SoundItem
     func getSounds(urls: [URL]) -> [SoundItem] {
         let urls = urls.sorted { u1, u2 -> Bool in
             u1.lastPathComponent.localizedStandardCompare(u2.lastPathComponent) == ComparisonResult.orderedAscending
@@ -56,33 +75,62 @@ class SoundsViewModel: ViewModel, ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let defaultSounds = getSounds(
-            urls: Bundle.main.urls(forResourcesWithExtension: "caf", subdirectory: nil) ?? []
-        )
-
-        let customSounds: [SoundItem] = {
-            guard let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/Sounds") else {
-                return [.addSound]
+        // 保存文件
+        input
+            .importSound
+            .drive { [unowned self] url in
+                self.dependencies.soundFileStorage.saveSound(url: url)
             }
-            return getSounds(
-                urls: getFilesInDirectory(directory: soundsDirectoryUrl, suffix: "caf")
-            ) + [.addSound]
-        }()
+            .disposed(by: rx.disposeBag)
+        
+        // 铃声列表有更新，
+        let soundsListUpdated = Observable.merge(
+            // 刚进页面
+            Observable.just(()),
+            // 上传了新铃声
+            input.importSound.map { _ in () }.asObservable()
+        ).share(replay: 1)
+        
+        // 所有铃声列表，包含自定义铃声和默认铃声
+        let sounds: Observable<([SoundItem], [SoundItem])> = soundsListUpdated.map { _ in
+            let defaultSounds = self.getSounds(
+                urls: Bundle.main.urls(forResourcesWithExtension: "caf", subdirectory: nil) ?? []
+            )
 
-        let copyAction = Driver.merge(
-            (defaultSounds + customSounds).compactMap { item in
+            let customSounds: [SoundItem] = {
+                guard let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/Sounds") else {
+                    return [.addSound]
+                }
+                return self.getSounds(
+                    urls: self.getFilesInDirectory(directory: soundsDirectoryUrl, suffix: "caf")
+                ) + [.addSound]
+            }()
+            return (customSounds, defaultSounds)
+        }.share(replay: 1)
+        
+        // 用于 RxDataSource 的数据源
+        let dataSource = sounds.map { sounds in
+            return [
+                SectionModel(model: "customSounds", items: sounds.0),
+                SectionModel(model: "defaultSounds", items: sounds.1)
+            ]
+        }
+        
+        // 铃声列表点击复制按钮事件
+        let copyAction = sounds.flatMapLatest { sounds in
+            let observables = (sounds.0 + sounds.1).compactMap { item in
                 if case SoundItem.sound(let model) = item {
-                    return model.copyNameAction.asDriver(onErrorDriveWith: .empty())
+                    return model
                 }
                 return nil
+            }.map { model in
+                return model.copyNameAction.asObservable()
             }
-        ).asDriver()
+            return Observable.merge(observables)
+        }.asDriver(onErrorDriveWith: .empty())
 
         return Output(
-            audios: Observable.just([
-                SectionModel(model: "customSounds", items: customSounds),
-                SectionModel(model: "defaultSounds", items: defaultSounds)
-            ]),
+            audios: dataSource,
             copyNameAction: copyAction,
             playAction: input.soundSelected
                 .compactMap { item in
@@ -98,6 +146,37 @@ class SoundsViewModel: ViewModel, ViewModelType {
                         return ()
                     }
                     return nil
-                })
+                }
+        )
+    }
+}
+
+/// 保存铃声文件协议
+protocol SoundFileStorageProtocol {
+    func saveSound(url: URL)
+}
+
+/// 用于将铃声文件保存在  /Library/Sounds 文件夹中
+class SoundFileStorage: SoundFileStorageProtocol {
+    let fileManager: FileManager
+    init() {
+        fileManager = FileManager()
+    }
+
+    /// 将指定文件保存在 Library/Sound，如果存在则覆盖
+    func saveSound(url: URL) {
+        let soundsDirectoryUrl = getSoundsDirectory()
+        let soundUrl = soundsDirectoryUrl.appendingPathComponent(url.lastPathComponent)
+        try? fileManager.copyItem(at: url, to: soundUrl)
+    }
+
+    /// 获取 Library 目录下的 Sounds 文件夹
+    /// 如果不存在就创建
+    func getSoundsDirectory() -> URL {
+        let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!.appending("/Sounds")
+        if !fileManager.fileExists(atPath: soundsDirectoryUrl) {
+            try? fileManager.createDirectory(atPath: soundsDirectoryUrl, withIntermediateDirectories: true, attributes: nil)
+        }
+        return URL(fileURLWithPath: soundsDirectoryUrl)
     }
 }

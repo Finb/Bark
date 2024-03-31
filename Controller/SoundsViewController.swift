@@ -23,6 +23,9 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
         tableView.register(AddSoundCell.self, forCellReuseIdentifier: "\(AddSoundCell.self)")
         return tableView
     }()
+    
+    // 上传铃声文件事件序列
+    let importSoundActionRelay = PublishRelay<URL>()
 
     override func makeUI() {
         self.title = NSLocalizedString("notificationSound")
@@ -36,9 +39,11 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
 
     override func bindViewModel() {
         let output = viewModel.transform(
-            input: SoundsViewModel.Input(soundSelected: self.tableView.rx
-                .modelSelected(SoundItem.self)
-                .asDriver()))
+            input: SoundsViewModel.Input(
+                soundSelected: self.tableView.rx.modelSelected(SoundItem.self).asDriver(),
+                importSound: self.importSoundActionRelay.asDriver(onErrorDriveWith: .empty())
+            )
+        )
 
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, SoundItem>> { _, tableView, _, item -> UITableViewCell in
             switch item {
@@ -77,7 +82,7 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
         }).disposed(by: rx.disposeBag)
         
         output.pickerFile.drive(onNext: { [unowned self] _ in
-
+            self.pickerSoundFile()
         }).disposed(by: rx.disposeBag)
     }
 }
@@ -103,5 +108,37 @@ extension SoundsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 40
+    }
+}
+
+extension SoundsViewController: UIDocumentPickerDelegate {
+    /// 选择 caf 文件
+    func pickerSoundFile() {
+        if #available(iOS 14.0, *) {
+            let types = UTType.types(tag: "caf",
+                                     tagClass: UTTagClass.filenameExtension,
+                                     conformingTo: nil)
+            let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: types)
+            documentPicker.delegate = self
+            documentPicker.allowsMultipleSelection = false
+            documentPicker.modalPresentationStyle = .formSheet
+            self.present(documentPicker, animated: true, completion: nil)
+        } else {
+            self.showSnackbar(text: "Requires iOS 14")
+        }
+    }
+    
+    // 文件选择完成回调
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        guard let url = urls.first else { return }
+        let canAccessingResource = url.startAccessingSecurityScopedResource()
+        guard canAccessingResource else { return }
+        
+        let fileCoordinator = NSFileCoordinator()
+        let err = NSErrorPointer(nilLiteral: ())
+        fileCoordinator.coordinate(readingItemAt: url, error: err) { url in
+            self.importSoundActionRelay.accept(url)
+        }
+        url.stopAccessingSecurityScopedResource()
     }
 }
