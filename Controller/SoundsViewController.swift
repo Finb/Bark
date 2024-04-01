@@ -102,6 +102,9 @@ extension SoundsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard section == 0 else {
+            return 0
+        }
         return NSLocalizedString("uploadSoundNoticeFullText").count <= 30 ? 50 : 60
     }
     
@@ -124,6 +127,9 @@ extension SoundsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard section == 0 else {
+            return nil
+        }
         let view = UIView()
         
         let fullText = NSLocalizedString("uploadSoundNoticeFullText")
