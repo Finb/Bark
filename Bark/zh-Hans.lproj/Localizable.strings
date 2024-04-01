@@ -173,3 +173,5 @@ Github Issue: https://github.com/Finb/Bark/issues
 uploadSound = "上传铃声";
 customSounds = "自定义铃声";
 defaultSounds = "默认铃声";
+uploadSoundNoticeFullText = "请先将铃声转换成 caf 格式，时长不超过 30 秒。";
+uploadSoundNoticeHighlightText = "转换成 caf 格式";

@@ -173,3 +173,5 @@ Github Issue: https://github.com/Finb/Bark/issues
 uploadSound = "Upload Sound";
 customSounds = "Custom Sounds";
 defaultSounds = "Default Sounds";
+uploadSoundNoticeFullText = "Please convert the sound file to caf format, and make sure it's no longer than 30 seconds.";
+uploadSoundNoticeHighlightText = "convert the sound file to caf format";

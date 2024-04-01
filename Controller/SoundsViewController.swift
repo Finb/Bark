@@ -97,6 +97,14 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
 }
 
 extension SoundsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 40
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return NSLocalizedString("uploadSoundNoticeFullText").count <= 30 ? 50 : 60
+    }
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionTitle = tableView.dataSource?.tableView?(tableView, titleForHeaderInSection: section) ?? ""
         
@@ -115,8 +123,40 @@ extension SoundsViewController: UITableViewDelegate {
         return view
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 40
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let view = UIView()
+        
+        let fullText = NSLocalizedString("uploadSoundNoticeFullText")
+        let highlightText = NSLocalizedString("uploadSoundNoticeHighlightText")
+        let attrStr = NSMutableAttributedString(
+            string: fullText,
+            attributes: [
+                NSAttributedString.Key.foregroundColor: BKColor.grey.darken3,
+                NSAttributedString.Key.font: RobotoFont.regular(with: 14)
+            ]
+        )
+        attrStr.setAttributes([
+            NSAttributedString.Key.foregroundColor: BKColor.lightBlue.darken3,
+            NSAttributedString.Key.font: RobotoFont.regular(with: 14)
+        ], range: (fullText as NSString).range(of: highlightText))
+        
+        let label = UILabel()
+        label.attributedText = attrStr
+        label.numberOfLines = 0
+        view.addSubview(label)
+        label.snp.makeConstraints { make in
+            make.left.equalTo(12)
+            make.right.equalTo(-12)
+            make.top.equalTo(12)
+        }
+        
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer())
+        label.gestureRecognizers?.first?.rx.event.subscribe(onNext: { _ in
+            UIApplication.shared.open(URL(string: "https://convertio.co/mp3-caf/")!)
+        }).disposed(by: label.rx.disposeBag)
+        
+        return view
     }
 }
 
