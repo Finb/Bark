@@ -34,6 +34,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
         var soundSelected: Driver<SoundItem>
         /// 铃声导入
         var importSound: Driver<URL>
+        /// 删除铃声
         var soundDeleted: Driver<SoundItem>
     }
 
@@ -48,7 +49,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
         var pickerFile: Driver<Void>
     }
 
-    /// 将铃声URL转换成 SoundItem
+    /// 将铃声 URL 转换成 SoundItem
     func getSounds(urls: [URL]) -> [SoundItem] {
         let urls = urls.sorted { u1, u2 -> Bool in
             u1.lastPathComponent.localizedStandardCompare(u2.lastPathComponent) == ComparisonResult.orderedAscending
@@ -92,7 +93,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
             self.dependencies.soundFileStorage.deleteSound(url: model.model.url)
         }).disposed(by: rx.disposeBag)
         
-        // 铃声列表有更新，
+        // 铃声列表有更新
         let soundsListUpdated = Observable.merge(
             // 刚进页面
             Observable.just(()),

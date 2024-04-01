@@ -60,7 +60,6 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
                 }
                 return cell
             }
-            
         } titleForHeaderInSection: { dataSource, section in
             return dataSource[section].model
         } canEditRowAtIndexPath: { dataSource, indexPath in
@@ -176,7 +175,7 @@ extension SoundsViewController: UIDocumentPickerDelegate {
             let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: types)
             documentPicker.delegate = self
             documentPicker.allowsMultipleSelection = false
-            documentPicker.modalPresentationStyle = .formSheet
+            documentPicker.modalPresentationStyle = .pageSheet
             self.present(documentPicker, animated: true, completion: nil)
         } else {
             self.showSnackbar(text: "Requires iOS 14")
