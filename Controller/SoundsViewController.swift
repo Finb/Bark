@@ -41,7 +41,8 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
         let output = viewModel.transform(
             input: SoundsViewModel.Input(
                 soundSelected: self.tableView.rx.modelSelected(SoundItem.self).asDriver(),
-                importSound: self.importSoundActionRelay.asDriver(onErrorDriveWith: .empty())
+                importSound: self.importSoundActionRelay.asDriver(onErrorDriveWith: .empty()),
+                soundDeleted: self.tableView.rx.modelDeleted(SoundItem.self).asDriver()
             )
         )
 
@@ -62,6 +63,14 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
             
         } titleForHeaderInSection: { dataSource, section in
             return dataSource[section].model
+        } canEditRowAtIndexPath: { dataSource, indexPath in
+            guard indexPath.section == 0 else {
+                return false
+            }
+            guard case SoundItem.sound = dataSource[indexPath.section].items[indexPath.row] else {
+                return false
+            }
+            return true
         }
 
         output.audios

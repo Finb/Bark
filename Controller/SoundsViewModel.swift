@@ -34,6 +34,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
         var soundSelected: Driver<SoundItem>
         /// 铃声导入
         var importSound: Driver<URL>
+        var soundDeleted: Driver<SoundItem>
     }
 
     struct Output {
@@ -83,12 +84,22 @@ class SoundsViewModel: ViewModel, ViewModelType {
             }
             .disposed(by: rx.disposeBag)
         
+        // 删除铃声
+        input.soundDeleted.drive(onNext: { item in
+            guard case SoundItem.sound(let model) = item else {
+                return
+            }
+            self.dependencies.soundFileStorage.deleteSound(url: model.model.url)
+        }).disposed(by: rx.disposeBag)
+        
         // 铃声列表有更新，
         let soundsListUpdated = Observable.merge(
             // 刚进页面
             Observable.just(()),
             // 上传了新铃声
-            input.importSound.map { _ in () }.asObservable()
+            input.importSound.map { _ in () }.asObservable(),
+            // 删除了铃声
+            input.soundDeleted.map { _ in () }.asObservable()
         ).share(replay: 1)
         
         // 所有铃声列表，包含自定义铃声和默认铃声
@@ -154,6 +165,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
 /// 保存铃声文件协议
 protocol SoundFileStorageProtocol {
     func saveSound(url: URL)
+    func deleteSound(url: URL)
 }
 
 /// 用于将铃声文件保存在  /Library/Sounds 文件夹中
@@ -168,6 +180,10 @@ class SoundFileStorage: SoundFileStorageProtocol {
         let soundsDirectoryUrl = getSoundsDirectory()
         let soundUrl = soundsDirectoryUrl.appendingPathComponent(url.lastPathComponent)
         try? fileManager.copyItem(at: url, to: soundUrl)
+    }
+
+    func deleteSound(url: URL) {
+        try? fileManager.removeItem(at: url)
     }
 
     /// 获取 Library 目录下的 Sounds 文件夹
