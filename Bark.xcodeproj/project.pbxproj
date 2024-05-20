@@ -1243,6 +1243,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 138CE8CB688587E893BC5C44 /* Pods-Bark.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1265,6 +1266,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = Bark/Bark.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
