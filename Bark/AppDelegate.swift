@@ -11,7 +11,6 @@ import CrashReporter
 import IceCream
 import IQKeyboardManagerSwift
 import Material
-import RealmSwift
 import UIKit
 import UserNotifications
 
@@ -20,22 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     var window: UIWindow?
     var syncEngine: SyncEngine?
     func setupRealm() {
-        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
-        let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
-        let config = Realm.Configuration(
-            fileURL: fileUrl,
-            schemaVersion: 13,
-            migrationBlock: { _, oldSchemaVersion in
-                // We haven’t migrated anything yet, so oldSchemaVersion == 0
-                if oldSchemaVersion < 1 {
-                    // Nothing to do!
-                    // Realm will automatically detect new properties and removed properties
-                    // And will update the schema on disk automatically
-                }
-            }
-        )
         // Tell Realm to use this new configuration object for the default Realm
-        Realm.Configuration.defaultConfiguration = config
+        Realm.Configuration.defaultConfiguration = kRealmDefaultConfiguration
 
         // iCloud 同步
         syncEngine = SyncEngine(objects: [

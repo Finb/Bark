@@ -126,6 +126,17 @@
 		06C595362481160F006B98F3 /* BKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C595352481160F006B98F3 /* BKLabel.swift */; };
 		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
+		06E944682C06E40600AC86AB /* NotificationContentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */; };
+		06E9446A2C06E4A200AC86AB /* CiphertextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944692C06E4A200AC86AB /* CiphertextProcessor.swift */; };
+		06E9446D2C06FEC900AC86AB /* LevelProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E9446C2C06FEC900AC86AB /* LevelProcessor.swift */; };
+		06E9446F2C06FF1E00AC86AB /* BadgeProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E9446E2C06FF1E00AC86AB /* BadgeProcessor.swift */; };
+		06E944712C06FF4C00AC86AB /* AutoCopyProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944702C06FF4C00AC86AB /* AutoCopyProcessor.swift */; };
+		06E944732C06FF9200AC86AB /* ArchiveProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944722C06FF9200AC86AB /* ArchiveProcessor.swift */; };
+		06E944752C07012E00AC86AB /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944742C07012E00AC86AB /* RealmConfiguration.swift */; };
+		06E944762C07013000AC86AB /* RealmConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944742C07012E00AC86AB /* RealmConfiguration.swift */; };
+		06E944782C0701F300AC86AB /* IconProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944772C0701F300AC86AB /* IconProcessor.swift */; };
+		06E9447A2C0704E500AC86AB /* ImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944792C0704E500AC86AB /* ImageDownloader.swift */; };
+		06E9447C2C07052F00AC86AB /* ImageProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E9447B2C07052F00AC86AB /* ImageProcessor.swift */; };
 		06EE1FD326843E9300586708 /* BarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EE1FD226843E9300586708 /* BarkTests.swift */; };
 		06EEF333291CCFF400CA228A /* CryptoSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EEF332291CCFF400CA228A /* CryptoSettingController.swift */; };
 		06EEF335291CD00000CA228A /* CryptoSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EEF334291CD00000CA228A /* CryptoSettingViewModel.swift */; };
@@ -305,6 +316,16 @@
 		06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		06CF784421C7A50300A052D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06CF784B21C7A51200A052D7 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContentProcessor.swift; sourceTree = "<group>"; };
+		06E944692C06E4A200AC86AB /* CiphertextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CiphertextProcessor.swift; sourceTree = "<group>"; };
+		06E9446C2C06FEC900AC86AB /* LevelProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProcessor.swift; sourceTree = "<group>"; };
+		06E9446E2C06FF1E00AC86AB /* BadgeProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BadgeProcessor.swift; sourceTree = "<group>"; };
+		06E944702C06FF4C00AC86AB /* AutoCopyProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCopyProcessor.swift; sourceTree = "<group>"; };
+		06E944722C06FF9200AC86AB /* ArchiveProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveProcessor.swift; sourceTree = "<group>"; };
+		06E944742C07012E00AC86AB /* RealmConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmConfiguration.swift; sourceTree = "<group>"; };
+		06E944772C0701F300AC86AB /* IconProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconProcessor.swift; sourceTree = "<group>"; };
+		06E944792C0704E500AC86AB /* ImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownloader.swift; sourceTree = "<group>"; };
+		06E9447B2C07052F00AC86AB /* ImageProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageProcessor.swift; sourceTree = "<group>"; };
 		06EE1FD026843E9300586708 /* BarkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BarkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		06EE1FD226843E9300586708 /* BarkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTests.swift; sourceTree = "<group>"; };
 		06EE1FD426843E9300586708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -512,6 +533,7 @@
 				0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */,
 				06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */,
 				06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */,
+				06E944742C07012E00AC86AB /* RealmConfiguration.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -571,11 +593,28 @@
 		06CF784121C7A50300A052D7 /* NotificationServiceExtension */ = {
 			isa = PBXGroup;
 			children = (
+				06E9446B2C06E4A800AC86AB /* Processor */,
 				06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */,
 				06CF784B21C7A51200A052D7 /* NotificationService.swift */,
 				06CF784421C7A50300A052D7 /* Info.plist */,
 			);
 			path = NotificationServiceExtension;
+			sourceTree = "<group>";
+		};
+		06E9446B2C06E4A800AC86AB /* Processor */ = {
+			isa = PBXGroup;
+			children = (
+				06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */,
+				06E944692C06E4A200AC86AB /* CiphertextProcessor.swift */,
+				06E9446C2C06FEC900AC86AB /* LevelProcessor.swift */,
+				06E9446E2C06FF1E00AC86AB /* BadgeProcessor.swift */,
+				06E944702C06FF4C00AC86AB /* AutoCopyProcessor.swift */,
+				06E944722C06FF9200AC86AB /* ArchiveProcessor.swift */,
+				06E944772C0701F300AC86AB /* IconProcessor.swift */,
+				06E9447B2C07052F00AC86AB /* ImageProcessor.swift */,
+				06E944792C0704E500AC86AB /* ImageDownloader.swift */,
+			);
+			path = Processor;
 			sourceTree = "<group>";
 		};
 		06EE1FD126843E9300586708 /* BarkTests */ = {
@@ -981,6 +1020,7 @@
 				0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */,
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
+				06E944762C07013000AC86AB /* RealmConfiguration.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
 				06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */,
 				064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */,
@@ -1015,12 +1055,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				06E944752C07012E00AC86AB /* RealmConfiguration.swift in Sources */,
+				06E944732C06FF9200AC86AB /* ArchiveProcessor.swift in Sources */,
+				06E9447A2C0704E500AC86AB /* ImageDownloader.swift in Sources */,
 				06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */,
 				06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
 				0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */,
+				06E9446F2C06FF1E00AC86AB /* BadgeProcessor.swift in Sources */,
+				06E9446D2C06FEC900AC86AB /* LevelProcessor.swift in Sources */,
+				06E944682C06E40600AC86AB /* NotificationContentProcessor.swift in Sources */,
 				06F08EA529B1DDA7006AB9CA /* Algorithm.swift in Sources */,
+				06E944782C0701F300AC86AB /* IconProcessor.swift in Sources */,
 				06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */,
 				06B11591247BC132006D91FB /* Message.swift in Sources */,
+				06E9447C2C07052F00AC86AB /* ImageProcessor.swift in Sources */,
+				06E9446A2C06E4A200AC86AB /* CiphertextProcessor.swift in Sources */,
+				06E944712C06FF4C00AC86AB /* AutoCopyProcessor.swift in Sources */,
 				06F08EA829B1DE0A006AB9CA /* Error+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
