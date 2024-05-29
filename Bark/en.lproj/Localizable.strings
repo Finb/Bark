@@ -148,6 +148,7 @@ ivComment = "IV can be randomly generated, but if it is random, it needs to be p
 opensslEncodingComment = "openssl requires Hex encoding of manual keys and IVs, not ASCII encoding.";
 ciphertextComment = "URL encoding the ciphertext, there may be special characters.";
 consoleComment = "The console will print";
+base64Notice = "If you get a 'Decryption Failed' prompt, try adding '-w 0' after the base64 command.";
 keyComment = "Must be %d bit long";
 
 removeMessage = "Remove";

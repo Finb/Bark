@@ -148,6 +148,7 @@ ivComment = "IV rastgele oluşturulabilir, ancak rastgele ise iv parametresinde 
 opensslEncodingComment = "openssl, manuel anahtarların ve IV'lerin ASCII kodlamasını değil, Hex kodlamasını gerektirir.";
 ciphertextComment = "URL şifreli metni kodlarken özel karakterler olabilir.";
 consoleComment = "Konsola şunları yazdırır";
+base64Notice = "If you get a 'Decryption Failed' prompt, try adding '-w 0' after the base64 command.";
 keyComment = "%d bit uzunluğunda olmalıdır";
 
 removeMessage = "Sil";

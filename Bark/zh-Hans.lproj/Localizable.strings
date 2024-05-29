@@ -148,6 +148,7 @@ ivComment = "IV可以是随机生成的，但如果是随机的就需要放在 i
 opensslEncodingComment = "OpenSSL 要求输入的 Key 和 IV 需使用十六进制编码。";
 ciphertextComment = "密文可能有特殊字符，所以记得 URL 编码一下。";
 consoleComment = "控制台将打印";
+base64Notice = "如果提示 Decryption Failed， 尝试在 base64 命令后面 加上 -w 0";
 keyComment = "必须%d位";
 
 removeMessage = "删除";
