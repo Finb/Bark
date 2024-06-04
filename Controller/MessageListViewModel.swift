@@ -198,10 +198,17 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 guard let messages = strongSelf.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@", date) else {
                     return
                 }
+                
+                            
+                // 不再使用icecream 了
+                // 所以需要手动删除
+//                try? realm.write {
+//                    for msg in messages {
+//                        msg.isDeleted = true
+//                    }
+//                }
                 try? realm.write {
-                    for msg in messages {
-                        msg.isDeleted = true
-                    }
+                    realm.delete(messages)
                 }
             }
             

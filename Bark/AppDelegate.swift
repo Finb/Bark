@@ -8,7 +8,7 @@
 
 import CloudKit
 import CrashReporter
-import IceCream
+//import IceCream
 import IQKeyboardManagerSwift
 import Material
 import UIKit
@@ -17,15 +17,15 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
-    var syncEngine: SyncEngine?
+//    var syncEngine: SyncEngine?
     func setupRealm() {
         // Tell Realm to use this new configuration object for the default Realm
         Realm.Configuration.defaultConfiguration = kRealmDefaultConfiguration
 
-        // iCloud 同步
-        syncEngine = SyncEngine(objects: [
-            SyncObject(type: Message.self)
-        ], databaseScope: .private)
+//        // iCloud 同步
+//        syncEngine = SyncEngine(objects: [
+//            SyncObject(type: Message.self)
+//        ], databaseScope: .private)
 
         #if DEBUG
             let realm = try? Realm()
@@ -148,15 +148,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         notificatonHandler(userInfo: response.notification.request.content.userInfo)
     }
 
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        if let dict = userInfo as? [String: NSObject],
-           let notification = CKNotification(fromRemoteNotificationDictionary: dict),
-           let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID)
-        {
-            NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
-            completionHandler(.newData)
-        }
-    }
+//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+//        if let dict = userInfo as? [String: NSObject],
+//           let notification = CKNotification(fromRemoteNotificationDictionary: dict),
+//           let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID)
+//        {
+//            NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
+//            completionHandler(.newData)
+//        }
+//    }
 
     private func notificatonHandler(userInfo: [AnyHashable: Any]) {
         let navigationController = Client.shared.currentNavigationController

@@ -6,8 +6,6 @@ PODS:
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
   - FDFullscreenPopGesture (1.1)
-  - IceCream (2.0.4):
-    - RealmSwift (< 10.8.0)
   - IQKeyboardManagerSwift (6.5.10)
   - Kingfisher (6.3.1)
   - KVOController (1.2.0)
@@ -29,11 +27,11 @@ PODS:
     - RxSwift (~> 6.2)
   - ObjectMapper (4.2.0)
   - PLCrashReporter (1.11.1)
-  - Realm (10.7.7):
-    - Realm/Headers (= 10.7.7)
-  - Realm/Headers (10.7.7)
-  - RealmSwift (10.7.7):
-    - Realm (= 10.7.7)
+  - Realm (10.50.1):
+    - Realm/Headers (= 10.50.1)
+  - Realm/Headers (10.50.1)
+  - RealmSwift (10.50.1):
+    - Realm (= 10.50.1)
   - RxCocoa (6.2.0):
     - RxRelay (= 6.2.0)
     - RxSwift (= 6.2.0)
@@ -57,7 +55,6 @@ DEPENDENCIES:
   - DeviceKit
   - DropDown
   - FDFullscreenPopGesture
-  - IceCream
   - IQKeyboardManagerSwift
   - Kingfisher
   - KVOController
@@ -68,6 +65,7 @@ DEPENDENCIES:
   - "NSObject+Rx"
   - ObjectMapper
   - PLCrashReporter
+  - RealmSwift
   - RxCocoa
   - RxDataSources
   - RxGesture
@@ -84,7 +82,6 @@ SPEC REPOS:
     - Differentiator
     - DropDown
     - FDFullscreenPopGesture
-    - IceCream
     - IQKeyboardManagerSwift
     - Kingfisher
     - KVOController
@@ -128,7 +125,6 @@ SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
@@ -140,8 +136,8 @@ SPEC CHECKSUMS:
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
   ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
   PLCrashReporter: 5d2d3967afe0efad61b3048d617e2199a5d1b787
-  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
-  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
+  Realm: 36bc9fe2681d7cf234aa487e7990821c772206a2
+  RealmSwift: 84a370d3d4f191d327a9f8ade1f064a274f79847
   RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxGesture: f059f2aeef966fb17dad56ee440e76410f10e55f
@@ -151,6 +147,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
 
-PODFILE CHECKSUM: 73cfda85b7a345d896330d72bc61822356f98586
+PODFILE CHECKSUM: c9560d9c6653dd0da638d1f49876c91a02632de6
 
 COCOAPODS: 1.15.2

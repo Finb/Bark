@@ -14,7 +14,8 @@ def pods
     pod 'SwiftyJSON'
     pod 'DeviceKit'
     pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
-    pod 'IceCream'
+#    pod 'IceCream'
+    pod 'RealmSwift'
     pod 'CryptoSwift'
     pod 'IQKeyboardManagerSwift'
     
@@ -43,7 +44,8 @@ end
 
 
 target 'NotificationServiceExtension' do
-    pod 'IceCream'
+#    pod 'IceCream'
+    pod 'RealmSwift'
     pod 'Kingfisher'
     pod 'CryptoSwift'
     pod 'SwiftyJSON'

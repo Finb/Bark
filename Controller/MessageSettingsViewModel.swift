@@ -71,9 +71,10 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
 
         let settings: [MessageSettingItem] = {
             var settings = [MessageSettingItem]()
-            settings.append(.label(text: "iCloud"))
-            settings.append(.iCloudStatus)
-            settings.append(.label(text: NSLocalizedString("iCloudSync")))
+//            settings.append(.label(text: "iCloud"))
+//            settings.append(.iCloudStatus)
+//            settings.append(.label(text: NSLocalizedString("iCloudSync")))
+            settings.append(.label(text: NSLocalizedString("historyMessage")))
             settings.append(.backup(viewModel: MutableTextCellViewModel(
                 title: "\(NSLocalizedString("export"))/\(NSLocalizedString("import"))",
                 text: Observable.merge([restoreSuccess, input.viewDidAppear])
