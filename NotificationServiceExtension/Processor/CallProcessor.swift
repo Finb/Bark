@@ -63,12 +63,19 @@ class CallProcessor: NotificationContentProcessor {
         self.startAudioWorkCompletion = completion
         
         let sound = ((content.userInfo["aps"] as? [String: Any])?["sound"] as? String)?.split(separator: ".")
-        let soundName = sound?.first ?? "multiwayinvitation"
-        let soundType = sound?.last ?? "caf"
+        let soundName: String
+        let soundType: String
+        if sound?.count == 2, let first = sound?.first, let last = sound?.last {
+            soundName = String(first)
+            soundType = String(last)
+        } else {
+            soundName = "multiwayinvitation"
+            soundType = "caf"
+        }
         
         // 先找自定义上传的铃声，再找内置铃声
         guard let audioPath = getSoundInCustomSoundsDirectory(soundName: "\(soundName).\(soundType)") ??
-            Bundle.main.path(forResource: String(soundName), ofType: String(soundType))
+            Bundle.main.path(forResource: soundName, ofType: soundType)
         else {
             completion()
             return
