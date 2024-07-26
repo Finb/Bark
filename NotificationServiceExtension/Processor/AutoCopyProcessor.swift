@@ -9,7 +9,7 @@
 import Foundation
 
 class AutoCopyProcessor: NotificationContentProcessor {
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         let userInfo = bestAttemptContent.userInfo
         if userInfo["autocopy"] as? String == "1"
             || userInfo["automaticallycopy"] as? String == "1"

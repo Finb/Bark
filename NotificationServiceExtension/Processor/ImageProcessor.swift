@@ -10,7 +10,7 @@ import Foundation
 import MobileCoreServices
 
 class ImageProcessor: NotificationContentProcessor {
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         let userInfo = bestAttemptContent.userInfo
         guard let imageUrl = userInfo["image"] as? String,
               let imageFileUrl = await ImageDownloader.downloadImage(imageUrl)

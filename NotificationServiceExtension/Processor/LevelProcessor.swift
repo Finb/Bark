@@ -10,7 +10,7 @@ import Foundation
 
 /// 通知中断级别
 class LevelProcessor: NotificationContentProcessor {
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         if #available(iOSApplicationExtension 15.0, *) {
             if let level = bestAttemptContent.userInfo["level"] as? String {
                 let interruptionLevels: [String: UNNotificationInterruptionLevel] = [

@@ -10,7 +10,7 @@ import Foundation
 
 /// 通知角标
 class BadgeProcessor: NotificationContentProcessor {
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         if let badgeStr = bestAttemptContent.userInfo["badge"] as? String, let badge = Int(badgeStr) {
             bestAttemptContent.badge = NSNumber(value: badge)
         }

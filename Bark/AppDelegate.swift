@@ -8,7 +8,6 @@
 
 import CloudKit
 import CrashReporter
-//import IceCream
 import IQKeyboardManagerSwift
 import Material
 import UIKit
@@ -34,7 +33,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.backgroundColor = UIColor.black
         
@@ -140,24 +138,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ServerManager.shared.syncAllServers()
     }
 
-    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        notificatonHandler(userInfo: notification.request.content.userInfo)
-    }
-
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         notificatonHandler(userInfo: response.notification.request.content.userInfo)
     }
 
-//    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-//        if let dict = userInfo as? [String: NSObject],
-//           let notification = CKNotification(fromRemoteNotificationDictionary: dict),
-//           let subscriptionID = notification.subscriptionID, IceCreamSubscription.allIDs.contains(subscriptionID)
-//        {
-//            NotificationCenter.default.post(name: Notifications.cloudKitDataDidChangeRemotely.name, object: nil, userInfo: userInfo)
-//            completionHandler(.newData)
-//        }
-//    }
-
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        if UIApplication.shared.applicationState == .active {
+            stopCallNotificationProcessor()
+        }
+        return .alert
+    }
+    
     private func notificatonHandler(userInfo: [AnyHashable: Any]) {
         let navigationController = Client.shared.currentNavigationController
         func presentController() {
@@ -239,6 +230,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉
         UIApplication.shared.applicationIconBadgeNumber = -1
+        // 如果有响铃通知，则关闭响铃
+        stopCallNotificationProcessor()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
@@ -247,5 +240,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    }
+    
+    /// 停止响铃
+    func stopCallNotificationProcessor() {
+        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFNotificationName(kStopCallProcessorKey as CFString), nil, nil, true)
     }
 }

@@ -10,7 +10,7 @@ import Foundation
 import Intents
 
 class IconProcessor: NotificationContentProcessor {
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         if #available(iOSApplicationExtension 15.0, *) {
             let userInfo = bestAttemptContent.userInfo
             

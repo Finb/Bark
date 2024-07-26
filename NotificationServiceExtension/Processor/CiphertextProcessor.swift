@@ -11,7 +11,7 @@ import SwiftyJSON
 
 /// 加密推送
 class CiphertextProcessor: NotificationContentProcessor {
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         var userInfo = bestAttemptContent.userInfo
         guard let ciphertext = userInfo["ciphertext"] as? String else {
             return bestAttemptContent
@@ -22,6 +22,7 @@ class CiphertextProcessor: NotificationContentProcessor {
             var map = try decrypt(ciphertext: ciphertext, iv: userInfo["iv"] as? String)
             
             var alert = [String: Any]()
+            var soundName: String? = nil
             if let title = map["title"] as? String {
                 bestAttemptContent.title = title
                 alert["title"] = title
@@ -37,13 +38,18 @@ class CiphertextProcessor: NotificationContentProcessor {
                 if !sound.hasSuffix(".caf") {
                     sound = "\(sound).caf"
                 }
+                soundName = sound
                 bestAttemptContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
             }
             if let badge = map["badge"] as? Int {
                 bestAttemptContent.badge = badge as NSNumber
             }
-            
-            map["aps"] = ["alert": alert]
+            var aps: [String: Any] = ["alert": alert]
+            if let soundName {
+                aps["sound"] = soundName
+            }
+            map["aps"] = aps
+        
             userInfo = map
             bestAttemptContent.userInfo = userInfo
             return bestAttemptContent

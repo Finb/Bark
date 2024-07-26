@@ -15,7 +15,7 @@ class ArchiveProcessor: NotificationContentProcessor {
         return try? Realm()
     }()
     
-    func process(content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
+    func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         let userInfo = bestAttemptContent.userInfo
         
         var isArchive: Bool = ArchiveSettingManager.shared.isArchive

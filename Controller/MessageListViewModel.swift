@@ -60,7 +60,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 return []
             }
             var messages: [Message] = []
-            for i in startIndex ..< endIndex {
+            for i in startIndex..<endIndex {
                 messages.append(result[i])
             }
             page += 1
@@ -113,8 +113,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
             .subscribe(onNext: { filterGroups in
                 if filterGroups.count <= 0 {
                     titleRelay.accept(NSLocalizedString("historyMessage"))
-                }
-                else {
+                } else {
                     titleRelay.accept(filterGroups.map { $0 ?? NSLocalizedString("default") }.joined(separator: " , "))
                 }
             }).disposed(by: rx.disposeBag)
@@ -157,8 +156,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 if var section = messagesRelay.value.first {
                     section.messages.append(contentsOf: cellViewModels)
                     messagesRelay.accept([section])
-                }
-                else {
+                } else {
                     messagesRelay.accept([MessageSection(header: "model", messages: cellViewModels)])
                 }
             }).disposed(by: rx.disposeBag)
@@ -176,7 +174,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 messagesRelay.accept([section])
             }
         }).disposed(by: rx.disposeBag)
-        
         
         // 批量删除
         input.delete.drive(onNext: { [weak self] type in
@@ -199,7 +196,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
                     return
                 }
                 
-                            
                 // 不再使用icecream 了
                 // 所以需要手动删除
 //                try? realm.write {
@@ -208,6 +204,9 @@ class MessageListViewModel: ViewModel, ViewModelType {
 //                    }
 //                }
                 try? realm.write {
+                    for msg in messages {
+                        msg.isDeleted = true
+                    }
                     realm.delete(messages)
                 }
             }
