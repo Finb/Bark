@@ -20,6 +20,7 @@ class NotificationService: UNNotificationServiceExtension {
                 contentHandler(request.content)
                 return
             }
+            self.currentContentHandler = contentHandler
             
             // 所有的 processor， 按顺序从上往下对推送进行处理
             // ciphertext 需要放在最前面，有可能所有的推送数据都在密文里
@@ -52,9 +53,9 @@ class NotificationService: UNNotificationServiceExtension {
     }
 
     override func serviceExtensionTimeWillExpire() {
+        super.serviceExtensionTimeWillExpire()
         if let handler = self.currentContentHandler {
             self.currentNotificationProcessor?.serviceExtensionTimeWillExpire(contentHandler: handler)
         }
-        super.serviceExtensionTimeWillExpire()
     }
 }

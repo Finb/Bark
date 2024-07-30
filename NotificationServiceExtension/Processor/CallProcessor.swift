@@ -25,6 +25,7 @@ class CallProcessor: NotificationContentProcessor {
         
         self.registerObserver()
         self.sendLocalNotification(identifier: identifier, content: bestAttemptContent)
+        self.cancelRemoteNotification(content: bestAttemptContent)
         await startAudioWork()
         return bestAttemptContent
     }
@@ -38,9 +39,24 @@ class CallProcessor: NotificationContentProcessor {
     /// 生成一个本地推送
     private func sendLocalNotification(identifier: String, content: UNMutableNotificationContent) {
         // 推送id和推送的内容都使用远程APNS的
+        guard let content = content.mutableCopy() as? UNMutableNotificationContent else {
+            return
+        }
         content.sound = nil
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request)
+    }
+    
+    /// 响铃结束时取消显示远程推送，因为已经用本地推送显示了一遍
+    private func cancelRemoteNotification(content: UNMutableNotificationContent) {
+        // 远程推送在响铃结束后静默不显示
+        // 至于iOS15以下的设备，因不支持这个特性会在响铃结束后再展示一次, 但会取消声音
+        // 如果设置了 level 参数，就还是以 level 参数为准不做修改
+        if #available(iOSApplicationExtension 15.0, *), self.content?.userInfo["level"] == nil {
+            self.content?.interruptionLevel = .passive
+        } else {
+            content.sound = nil
+        }
     }
     
     // 开始播放铃声，startAudioWork(completion:) 方法的异步包装
