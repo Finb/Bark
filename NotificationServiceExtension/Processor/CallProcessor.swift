@@ -31,6 +31,7 @@ class CallProcessor: NotificationContentProcessor {
     }
     
     func serviceExtensionTimeWillExpire(contentHandler: (UNNotificationContent) -> Void) {
+        stopAudioWork()
         if let content {
             contentHandler(content)
         }
