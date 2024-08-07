@@ -136,10 +136,10 @@ class CallProcessor: NotificationContentProcessor {
     
     func getSoundInCustomSoundsDirectory(soundName: String) -> String? {
         // 扩展访问不到主APP中的铃声，需要先共享铃声文件，再实现自定义铃声响铃
-        guard let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/Sounds") else {
+        guard let soundsDirectoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Sounds") else {
             return nil
         }
-        let path = soundsDirectoryUrl.appending("/\(soundName)")
+        let path = soundsDirectoryUrl.appendingPathComponent(soundName).absoluteString
         if FileManager.default.fileExists(atPath: path) {
             return path
         }
