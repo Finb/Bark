@@ -139,7 +139,7 @@ class CallProcessor: NotificationContentProcessor {
         guard let soundsDirectoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Sounds") else {
             return nil
         }
-        let path = soundsDirectoryUrl.appendingPathComponent(soundName).absoluteString
+        let path = soundsDirectoryUrl.appendingPathComponent(soundName).path
         if FileManager.default.fileExists(atPath: path) {
             return path
         }

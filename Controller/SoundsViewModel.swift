@@ -220,8 +220,8 @@ class SoundFileStorage: SoundFileStorageProtocol {
     /// 如果不存在就创建
     private func getSoundsGroupDirectory() -> URL? {
         if let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Sounds") {
-            if !fileManager.fileExists(atPath: directoryUrl.absoluteString) {
-                try? fileManager.createDirectory(atPath: directoryUrl.absoluteString, withIntermediateDirectories: true, attributes: nil)
+            if !fileManager.fileExists(atPath: directoryUrl.path) {
+                try? fileManager.createDirectory(atPath: directoryUrl.path, withIntermediateDirectories: true, attributes: nil)
             }
             return directoryUrl
         }
