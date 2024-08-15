@@ -176,3 +176,6 @@ customSounds = "Custom Sounds";
 defaultSounds = "Default Sounds";
 uploadSoundNoticeFullText = "Please convert the sound file to caf format, and make sure it's no longer than 30 seconds.";
 uploadSoundNoticeHighlightText = "convert the sound file to caf format";
+
+ringtone = "Ringtone";
+ringtoneNotice = "Ringtone for a notification";

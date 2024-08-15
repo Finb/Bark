@@ -176,3 +176,6 @@ customSounds = "自定义铃声";
 defaultSounds = "默认铃声";
 uploadSoundNoticeFullText = "请先将铃声转换成 caf 格式，时长不超过 30 秒。";
 uploadSoundNoticeHighlightText = "转换成 caf 格式";
+
+ringtone = "持续响铃";
+ringtoneNotice = "通知铃声将重复播放 30 秒，同时收到多个通知时将按顺序依次响铃。";
