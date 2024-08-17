@@ -11,13 +11,14 @@ import RealmSwift
 import RxCocoa
 import RxDataSources
 import RxSwift
+import UIKit
 
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         var refresh: Driver<Void>
         var loadMore: Driver<Void>
         var itemDelete: Driver<IndexPath>
-        var itemSelected: Driver<MessageTableViewCellViewModel>
+        var itemSelected: Driver<IndexPath>
         var delete: Driver<MessageDeleteType>
         var groupTap: Driver<Void>
         var searchText: Observable<String?>
@@ -26,7 +27,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
     struct Output {
         var messages: Driver<[MessageSection]>
         var refreshAction: Driver<MJRefreshAction>
-        var alertMessage: Driver<String>
+        var alertMessage: Driver<(String, IndexPath)>
         var groupFilter: Driver<GroupFilterViewModel>
         var title: Driver<String>
     }
@@ -70,8 +71,12 @@ class MessageListViewModel: ViewModel, ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let alertMessage = input.itemSelected.map { model -> String in
-            let message = model.message
+        let alertMessage = input.itemSelected.map({ [weak self] indexPath in
+            guard let results = self?.results else {
+                return ("", IndexPath(row: 0, section: 0));
+            }
+            let message = results[indexPath.row]
+//            let message = model.message
             
             var copyContent: String = ""
             if let title = message.title {
@@ -85,8 +90,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
             copyContent = String(copyContent.prefix(copyContent.count - 1))
             
-            return copyContent
-        }
+            return (copyContent, indexPath)
+        })
         // 标题
         let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
         // 数据源

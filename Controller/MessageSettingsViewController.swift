@@ -64,14 +64,18 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
     /// 生成导入导出事件
     func getBackupOrRestoreAction() -> (Driver<Void>, Driver<Data>) {
         let backupOrRestoreAction = self.tableView.rx
-            .modelSelected(MessageSettingItem.self)
-            .filter { item in
-                if case MessageSettingItem.backup = item {
+//            .modelSelected(MessageSettingItem.self)
+            .itemSelected
+            .filter { indexPath in
+                guard let viewModel: MessageSettingItem = try? self.tableView.rx.model(at: indexPath)  else {
+                    return false;
+                }
+                if case MessageSettingItem.backup = viewModel {
                     return true
                 }
                 return false
             }
-            .flatMapLatest { [weak self] _ in
+            .flatMapLatest {  [weak self] indexPath in
                 guard let strongSelf = self else {
                     return Observable<BackupOrRestoreActionEnum>.empty()
                 }
@@ -91,7 +95,15 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                 }))
             
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
-                strongSelf.navigationController?.present(alertController, animated: true, completion: nil)
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    alertController.modalPresentationStyle = .popover
+                    if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
+                        alertController.popoverPresentationController?.sourceView = strongSelf.tableView
+                        alertController.popoverPresentationController?.sourceRect = cell.frame
+                    }
+                    
+                }
+                strongSelf.present(alertController, animated: true, completion: nil)
 
                 return strongSelf.backupOrRestoreActionRelay.asObservable()
             }
@@ -210,6 +222,10 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             }
             
             let activityController = UIActivityViewController(activityItems: [linkURL], applicationActivities: nil)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                activityController.popoverPresentationController?.sourceView = self?.view
+                activityController.popoverPresentationController?.sourceRect = self?.view.frame ?? .zero
+            }
             self?.navigationController?.present(activityController, animated: true, completion: nil)
             
         }.disposed(by: rx.disposeBag)

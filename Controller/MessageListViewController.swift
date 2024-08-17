@@ -31,18 +31,18 @@ enum MessageDeleteType: Int {
 }
 
 class MessageListViewController: BaseViewController<MessageListViewModel> {
-    let deleteButton: BKButton = {
+    let deleteButton: UIBarButtonItem = {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return btn
+        return UIBarButtonItem(customView: btn)
     }()
     
-    let groupButton: BKButton = {
+    let groupButton: UIBarButtonItem = {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_folder_open_black_24pt"), for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return btn
+        return UIBarButtonItem(customView: btn)
     }()
     
     let tableView: UITableView = {
@@ -59,7 +59,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.delegate = self
         
-        navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], position: .right)
+        navigationItem.setBarButtonItems(items: [deleteButton, groupButton], position: .right)
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -96,9 +96,12 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     }
     
     override func bindViewModel() {
-        let batchDelete = deleteButton.rx
+        guard let deleteBtn = deleteButton.customView as? BKButton else {
+            return;
+        }
+        let batchDelete = deleteBtn.rx
             .tap
-            .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in
+            .flatMapLatest {_ -> PublishRelay<MessageDeleteType> in
                 let relay = PublishRelay<MessageDeleteType>()
                 
                 func alert(_ type: MessageDeleteType) {
@@ -124,19 +127,31 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     alert(.allTime)
                 }))
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    alertController.modalPresentationStyle = .popover
+                    if #available(iOS 16.0, *) {
+                        alertController.popoverPresentationController?.sourceItem = self.deleteButton
+                    } else {
+                        alertController.popoverPresentationController?.barButtonItem = self.deleteButton
+                    }
+                }
                 self.navigationController?.present(alertController, animated: true, completion: nil)
                 
                 return relay
             }
+        
+        guard let groupBtn = groupButton.customView as? BKButton else {
+            return;
+        }
         
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
                 refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.itemDeleted.asDriver(),
-                itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
+                itemSelected: tableView.rx.itemSelected.asDriver(),
                 delete: batchDelete.asDriver(onErrorDriveWith: .empty()),
-                groupTap: groupButton.rx.tap.asDriver(),
+                groupTap: groupBtn.rx.tap.asDriver(),
                 searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()))
         
         // tableView 刷新状态
@@ -166,7 +181,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         // message操作alert
         output.alertMessage.drive(onNext: { [weak self] message in
-            self?.alertMessage(message: message)
+            self?.alertMessage(message: message.0, indexPath: message.1)
         }).disposed(by: rx.disposeBag)
         
         // 选择群组
@@ -183,7 +198,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         self.scrollToTop()
     }
     
-    func alertMessage(message: String) {
+    func alertMessage(message: String, indexPath: IndexPath) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
             (_: UIAlertAction) -> Void in
@@ -195,6 +210,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         alertController.addAction(copyAction)
         alertController.addAction(cancelAction)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.modalPresentationStyle = .popover
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                alertController.popoverPresentationController?.sourceView = self.tableView
+                alertController.popoverPresentationController?.sourceRect = cell.frame
+            }
+        }
         
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }
