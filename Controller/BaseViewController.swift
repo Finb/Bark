@@ -28,7 +28,11 @@ class BaseViewController<T>: UIViewController where T: ViewModel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.largeTitleDisplayMode = .automatic
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            navigationItem.largeTitleDisplayMode = .never
+        } else {
+            navigationItem.largeTitleDisplayMode = .automatic
+        }
         makeUI()
     }
 

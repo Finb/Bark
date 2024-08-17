@@ -124,9 +124,12 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
     func getServerAction() -> Driver<(Server, ServerActionType)> {
 
         return tableView.rx
-            .modelSelected(ServerListTableViewCellViewModel.self)
-            .flatMapLatest { viewModel -> PublishRelay<(Server, ServerActionType)> in
+            .itemSelected
+            .flatMapLatest { indexPath in
                 let relay = PublishRelay<(Server, ServerActionType)>()
+                guard let viewModel: ServerListTableViewCellViewModel = try? self.tableView.rx.model(at: indexPath)  else {
+                    return relay;
+                }
 
                 let alertController = UIAlertController(title: nil, message: "\(viewModel.address.value)", preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("copyAddressAndKey"), style: .default, handler: { _ in
@@ -157,6 +160,14 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                 }))
 
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    alertController.modalPresentationStyle = .popover
+                    if let cell = self.tableView.cellForRow(at: indexPath) {
+                        alertController.popoverPresentationController?.sourceView = self.tableView
+                        alertController.popoverPresentationController?.sourceRect = cell.frame
+                    }
+                }
                 self.navigationController?.present(alertController, animated: true, completion: nil)
 
                 return relay
