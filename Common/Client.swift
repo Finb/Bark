@@ -18,12 +18,14 @@ class Client: NSObject {
     }
 
     var currentNavigationController: UINavigationController? {
+        // TODO: iPad 取值不对
         let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
         let nav = (controller?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
         return nav
     }
 
     var currentTabBarController: StateStorageTabBarController? {
+        // TODO: iPad 取值不对
         let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
         return controller?.rootViewController as? StateStorageTabBarController
     }
@@ -49,13 +51,12 @@ class Client: NSObject {
     
     func registerForRemoteNotifications() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
+        center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) in
             if granted {
                 dispatch_sync_safely_main_queue {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-            }
-            else {
+            } else {
                 print("没有打开推送")
             }
         })
@@ -69,8 +70,7 @@ class Client: NSObject {
                     self.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
                 }
             }
-        }
-        else {
+        } else {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
