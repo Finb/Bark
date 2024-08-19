@@ -78,10 +78,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         setupRealm()
 
         IQKeyboardManager.shared.enable = true
-        if #available(iOS 14, *), UIDevice.current.userInterfaceIdiom == .pad {
-            let splitViewController = BarkSplitViewController.init(style: .doubleColumn)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            let splitViewController = BarkSplitViewController()
             splitViewController.initViewControllers()
-            self.window?.rootViewController = splitViewController;
+            self.window?.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
         } else {
             let tabBarController = StateStorageTabBarController()
             tabBarController.tabBar.tintColor = BKColor.grey.darken4

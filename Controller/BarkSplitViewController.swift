@@ -6,63 +6,57 @@
 //  Copyright © 2024 Fin. All rights reserved.
 //
 
-import UIKit
 import Material
+import UIKit
 
 class BarkSplitViewController: UISplitViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.displayModeButtonItem.tintColor = BKColor.grey.darken4
-//        self.delegate = self
-        // Do any additional setup after loading the view.
+        // 暂时没找到 oneOverSecondary 模式下，怎么显示左侧导航栏按钮
+        // 先强制显示 primary 吧
+        self.preferredDisplayMode = .oneBesideSecondary
+        self.delegate = self
     }
-    
-    func initViewControllers() {
-        if #available(iOS 14, *) {
-            let sectionViewController = BarkNavigationController(rootViewController: SectionViewController_iPad(viewModel: SectionViewModel()));
-            let homeViewController = BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel()));
-            let tabBarController = StateStorageTabBarController()
-            tabBarController.tabBar.tintColor = BKColor.grey.darken4
-            
-            let snackBarController = BarkSnackbarController(
-                rootViewController: tabBarController
-            )
-            
-            tabBarController.viewControllers = [
-                BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel())),
-                BarkNavigationController(rootViewController: MessageListViewController(viewModel: MessageListViewModel())),
-                BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
-            ]
-            
-            let tabBarItems = [
-                UITabBarItem(title: NSLocalizedString("service"), image: UIImage(named: "baseline_gite_black_24pt"), tag: 0),
-                UITabBarItem(title: NSLocalizedString("historyMessage"), image: Icon.history, tag: 1),
-                UITabBarItem(title: NSLocalizedString("settings"), image: UIImage(named: "baseline_manage_accounts_black_24pt"), tag: 2)
-            ]
-            for (index, viewController) in tabBarController.viewControllers!.enumerated() {
-                viewController.tabBarItem = tabBarItems[index]
-            }
-            
-            
-            self.setViewController(sectionViewController, for: .primary)
-            self.setViewController(homeViewController, for: .secondary)
-            self.setViewController(snackBarController, for: .compact)
+
+    let sectionViewController = BarkNavigationController(
+        rootViewController: SectionViewController_iPad(viewModel: SectionViewModel())
+    )
+    let homeViewController = BarkNavigationController(
+        rootViewController: HomeViewController(viewModel: HomeViewModel())
+    )
+    // Compact 下替换显示成 snackBarController
+    let snackBarController: StateStorageTabBarController = {
+        let tabBarController = StateStorageTabBarController()
+        tabBarController.tabBar.tintColor = BKColor.grey.darken4
+        
+        tabBarController.viewControllers = [
+            BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel())),
+            BarkNavigationController(rootViewController: MessageListViewController(viewModel: MessageListViewModel())),
+            BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
+        ]
+        
+        let tabBarItems = [
+            UITabBarItem(title: NSLocalizedString("service"), image: UIImage(named: "baseline_gite_black_24pt"), tag: 0),
+            UITabBarItem(title: NSLocalizedString("historyMessage"), image: Icon.history, tag: 1),
+            UITabBarItem(title: NSLocalizedString("settings"), image: UIImage(named: "baseline_manage_accounts_black_24pt"), tag: 2)
+        ]
+        for (index, viewController) in tabBarController.viewControllers!.enumerated() {
+            viewController.tabBarItem = tabBarItems[index]
         }
+        return tabBarController
+    }()
+
+    func initViewControllers() {
+        self.viewControllers = [sectionViewController, homeViewController]
     }
-    
-//    func splitViewController(_ splitViewController: UISplitViewController, collapseSecondary secondaryViewController: UIViewController, onto primaryViewController: UIViewController) -> Bool {
-//        return true
-//    }
+}
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+extension BarkSplitViewController: UISplitViewControllerDelegate {
+    func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
+        sectionViewController
     }
-    */
 
+    func primaryViewController(forCollapsing splitViewController: UISplitViewController) -> UIViewController? {
+        snackBarController
+    }
 }
