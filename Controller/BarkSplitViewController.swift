@@ -14,6 +14,11 @@ class BarkSplitViewController: UISplitViewController {
     let sectionViewController = SectionViewController_iPad(viewModel: SectionViewModel())
     // Compact 下替换显示成 BarkTabBarController
     let compactController = BarkTabBarController()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.preferredDisplayMode = .oneBesideSecondary
+        self.preferredSplitBehavior = .tile
+    }
 
     func initViewControllers() {
         self.setViewController(sectionViewController, for: .primary)
