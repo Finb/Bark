@@ -9,7 +9,6 @@
 import CloudKit
 import CrashReporter
 import IQKeyboardManagerSwift
-import Material
 import UIKit
 import UserNotifications
 
@@ -83,25 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             splitViewController.initViewControllers()
             self.window?.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
         } else {
-            let tabBarController = StateStorageTabBarController()
-            tabBarController.tabBar.tintColor = BKColor.grey.darken4
-            
+            let tabBarController = BarkTabBarController()
             self.window?.rootViewController = BarkSnackbarController(
                 rootViewController: tabBarController
             )
-            
-            tabBarController.viewControllers = [
-                BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel())),
-                BarkNavigationController(rootViewController: MessageListViewController(viewModel: MessageListViewModel())),
-                BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
-            ]
-            
-            let tabBarItems = [UITabBarItem(title: NSLocalizedString("service"), image: UIImage(named: "baseline_gite_black_24pt"), tag: 0),
-                               UITabBarItem(title: NSLocalizedString("historyMessage"), image: Icon.history, tag: 1),
-                               UITabBarItem(title: NSLocalizedString("settings"), image: UIImage(named: "baseline_manage_accounts_black_24pt"), tag: 2)]
-            for (index, viewController) in tabBarController.viewControllers!.enumerated() {
-                viewController.tabBarItem = tabBarItems[index]
-            }
         }
         
         // 需先配置好 tabBarController 的 viewControllers，显示时会默认显示上次打开的页面
