@@ -99,6 +99,7 @@
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		06840DBB272298FB001B3193 /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
 		06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */; };
+		0689CF4C2C7484A7007203A6 /* BarkTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */; };
 		068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15727ED99C900D5D11E /* ServerListViewController.swift */; };
 		068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15927ED99E700D5D11E /* ServerListViewModel.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
@@ -327,6 +328,7 @@
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		06840DBA272298FB001B3193 /* BKColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKColor.swift; sourceTree = "<group>"; };
 		06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewController.swift; sourceTree = "<group>"; };
+		0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTabBarController.swift; sourceTree = "<group>"; };
 		068EC15727ED99C900D5D11E /* ServerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewController.swift; sourceTree = "<group>"; };
 		068EC15927ED99E700D5D11E /* ServerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewModel.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
@@ -456,6 +458,7 @@
 				1E73F99D2C282822002BF649 /* SectionViewController-iPad.swift */,
 				1EFB545E2C32514000B8E51B /* SectionViewModel-iPad.swift */,
 				1EFB545C2C314A6800B8E51B /* BarkSplitViewController.swift */,
+				0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1179,6 +1182,7 @@
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */,
 				1E73F99E2C282822002BF649 /* SectionViewController-iPad.swift in Sources */,
+				0689CF4C2C7484A7007203A6 /* BarkTabBarController.swift in Sources */,
 				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,
 				06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
