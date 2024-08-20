@@ -24,7 +24,15 @@ class SectionViewController_iPad: BaseViewController<SectionViewModel>, UITableV
     let homeController = BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel()))
     let messageListController = BarkNavigationController(rootViewController: MessageListViewController(viewModel: MessageListViewModel()))
     let settingsController = BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
-
+    
+    var viewControllers: [UIViewController] {
+        [
+            homeController,
+            messageListController,
+            settingsController
+        ]
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.title = "Bark"
@@ -44,14 +52,11 @@ class SectionViewController_iPad: BaseViewController<SectionViewModel>, UITableV
                 return Observable.just(indexPath)
             }
             .subscribe { [weak self] indexPath in
-                guard let self, indexPath.row < 3 else {
+                guard let self, indexPath.row < self.viewControllers.count else {
                     return
                 }
-                self.splitViewController?.showDetailViewController([
-                    self.homeController,
-                    self.messageListController,
-                    self.settingsController
-                ][indexPath.row], sender: self)
+                self.splitViewController?.showDetailViewController(self.viewControllers[indexPath.row], sender: self)
+                Settings[.selectedViewControllerIndex] = indexPath.row
             }.disposed(by: rx.disposeBag)
     }
     
