@@ -9,21 +9,9 @@
 import Material
 import UIKit
 
+@available(iOS 14, *)
 class BarkSplitViewController: UISplitViewController {
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // 暂时没找到 oneOverSecondary 模式下，怎么显示左侧导航栏按钮
-        // 先强制显示 primary 吧
-        self.preferredDisplayMode = .oneBesideSecondary
-        self.delegate = self
-    }
-
-    let sectionViewController = BarkNavigationController(
-        rootViewController: SectionViewController_iPad(viewModel: SectionViewModel())
-    )
-    let homeViewController = BarkNavigationController(
-        rootViewController: HomeViewController(viewModel: HomeViewModel())
-    )
+    let sectionViewController = SectionViewController_iPad(viewModel: SectionViewModel())
     // Compact 下替换显示成 snackBarController
     let snackBarController: StateStorageTabBarController = {
         let tabBarController = StateStorageTabBarController()
@@ -47,16 +35,10 @@ class BarkSplitViewController: UISplitViewController {
     }()
 
     func initViewControllers() {
-        self.viewControllers = [sectionViewController, homeViewController]
-    }
-}
-
-extension BarkSplitViewController: UISplitViewControllerDelegate {
-    func primaryViewController(forExpanding splitViewController: UISplitViewController) -> UIViewController? {
-        sectionViewController
-    }
-
-    func primaryViewController(forCollapsing splitViewController: UISplitViewController) -> UIViewController? {
-        snackBarController
+        self.setViewController(sectionViewController, for: .primary)
+        // 设置默认打开页面
+        let index: Int = Settings[.selectedViewControllerIndex] ?? 0
+        self.setViewController(sectionViewController.viewControllers[index], for: .secondary)
+        self.setViewController(snackBarController, for: .compact)
     }
 }
