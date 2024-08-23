@@ -11,14 +11,13 @@ import RealmSwift
 import RxCocoa
 import RxDataSources
 import RxSwift
-import UIKit
 
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         var refresh: Driver<Void>
         var loadMore: Driver<Void>
-        var itemDelete: Driver<IndexPath>
-        var itemSelected: Driver<IndexPath>
+        var itemDelete: Driver<Int>
+        var itemSelected: Driver<Int>
         var delete: Driver<MessageDeleteType>
         var groupTap: Driver<Void>
         var searchText: Observable<String?>
@@ -27,7 +26,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
     struct Output {
         var messages: Driver<[MessageSection]>
         var refreshAction: Driver<MJRefreshAction>
-        var alertMessage: Driver<(String, IndexPath)>
+        var alertMessage: Driver<(String, Int)>
         var groupFilter: Driver<GroupFilterViewModel>
         var title: Driver<String>
     }
@@ -71,11 +70,11 @@ class MessageListViewModel: ViewModel, ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let alertMessage = input.itemSelected.map({ [weak self] indexPath in
+        let alertMessage = input.itemSelected.map { [weak self] index in
             guard let results = self?.results else {
-                return ("", IndexPath(row: 0, section: 0));
+                return ("", 0)
             }
-            let message = results[indexPath.row]
+            let message = results[index]
 //            let message = model.message
             
             var copyContent: String = ""
@@ -90,8 +89,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
             copyContent = String(copyContent.prefix(copyContent.count - 1))
             
-            return (copyContent, indexPath)
-        })
+            return (copyContent, index)
+        }
         // 标题
         let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
         // 数据源
@@ -167,15 +166,15 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }).disposed(by: rx.disposeBag)
         
         // 删除message
-        input.itemDelete.drive(onNext: { [weak self] indexPath in
+        input.itemDelete.drive(onNext: { [weak self] index in
             if var section = messagesRelay.value.first {
                 if let realm = try? Realm() {
                     try? realm.write {
-                        let message = self?.results?[indexPath.row]
+                        let message = self?.results?[index]
                         message?.isDeleted = true
                     }
                 }
-                section.messages.remove(at: indexPath.row)
+                section.messages.remove(at: index)
                 messagesRelay.accept([section])
             }
         }).disposed(by: rx.disposeBag)

@@ -25,7 +25,7 @@ enum MessageDeleteType: Int {
             NSLocalizedString("lastHour"),
             NSLocalizedString("today"),
             NSLocalizedString("todayAndYesterday"),
-            NSLocalizedString("allTime"),
+            NSLocalizedString("allTime")
         ][self.rawValue]
     }
 }
@@ -97,11 +97,11 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     
     override func bindViewModel() {
         guard let deleteBtn = deleteButton.customView as? BKButton else {
-            return;
+            return
         }
         let batchDelete = deleteBtn.rx
             .tap
-            .flatMapLatest {_ -> PublishRelay<MessageDeleteType> in
+            .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in
                 let relay = PublishRelay<MessageDeleteType>()
                 
                 func alert(_ type: MessageDeleteType) {
@@ -141,18 +141,19 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             }
         
         guard let groupBtn = groupButton.customView as? BKButton else {
-            return;
+            return
         }
         
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
                 refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
-                itemDelete: tableView.rx.itemDeleted.asDriver(),
-                itemSelected: tableView.rx.itemSelected.asDriver(),
+                itemDelete: tableView.rx.itemDeleted.asDriver().map { $0.row },
+                itemSelected: tableView.rx.itemSelected.asDriver().map { $0.row },
                 delete: batchDelete.asDriver(onErrorDriveWith: .empty()),
                 groupTap: groupBtn.rx.tap.asDriver(),
-                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()))
+                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
+            ))
         
         // tableView 刷新状态
         output.refreshAction
@@ -164,7 +165,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             animationConfiguration: AnimationConfiguration(
                 insertAnimation: .none,
                 reloadAnimation: .none,
-                deleteAnimation: .left),
+                deleteAnimation: .left
+            ),
             configureCell: { _, tableView, _, item -> UITableViewCell in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
                     return UITableViewCell()
@@ -173,7 +175,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 return cell
             }, canEditRowAtIndexPath: { _, _ in
                 true
-            })
+            }
+        )
         
         output.messages
             .drive(tableView.rx.items(dataSource: dataSource))
@@ -181,7 +184,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         // message操作alert
         output.alertMessage.drive(onNext: { [weak self] message in
-            self?.alertMessage(message: message.0, indexPath: message.1)
+            self?.alertMessage(message: message.0, indexPath: IndexPath(row: message.1, section: 0))
         }).disposed(by: rx.disposeBag)
         
         // 选择群组
@@ -201,9 +204,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     func alertMessage(message: String, indexPath: IndexPath) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
-            (_: UIAlertAction) -> Void in
-            UIPasteboard.general.string = message
-            self?.showSnackbar(text: NSLocalizedString("Copy"))
+            (_: UIAlertAction) in
+                UIPasteboard.general.string = message
+                self?.showSnackbar(text: NSLocalizedString("Copy"))
         })
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in })
