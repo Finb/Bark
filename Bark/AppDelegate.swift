@@ -6,7 +6,6 @@
 //  Copyright © 2018年 Fin. All rights reserved.
 //
 
-import CloudKit
 import CrashReporter
 import IQKeyboardManagerSwift
 import UIKit
