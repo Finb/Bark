@@ -18,6 +18,8 @@ class BarkSplitViewController: UISplitViewController {
         super.viewDidLoad()
         self.preferredDisplayMode = .oneBesideSecondary
         self.preferredSplitBehavior = .tile
+        self.delegate = self
+        initViewControllers()
     }
 
     func initViewControllers() {
@@ -26,5 +28,23 @@ class BarkSplitViewController: UISplitViewController {
         let index: Int = Settings[.selectedViewControllerIndex] ?? 0
         self.setViewController(sectionViewController.viewControllers[index], for: .secondary)
         self.setViewController(compactController, for: .compact)
+    }
+}
+
+@available(iOS 14, *)
+extension BarkSplitViewController: UISplitViewControllerDelegate {
+    // 同步 sectionViewController 和 compactController 当前显示页面
+    func splitViewControllerDidCollapse(_ svc: UISplitViewController) {
+        guard let index: Int = Settings[.selectedViewControllerIndex] else {
+            return
+        }
+        self.compactController.selectedIndex = index
+    }
+
+    func splitViewControllerDidExpand(_ svc: UISplitViewController) {
+        guard let index: Int = Settings[.selectedViewControllerIndex] else {
+            return
+        }
+        self.sectionViewController.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
     }
 }

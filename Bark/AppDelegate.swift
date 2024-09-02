@@ -79,7 +79,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         IQKeyboardManager.shared.enable = true
         if #available(iOS 14, *), UIDevice.current.userInterfaceIdiom == .pad {
             let splitViewController = BarkSplitViewController(style: .doubleColumn)
-            splitViewController.initViewControllers()
             self.window?.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
         } else {
             let tabBarController = BarkTabBarController()
