@@ -28,17 +28,13 @@ class SectionViewModel: ViewModel, ViewModelType {
     }
     
     func initSectionItems() -> Observable<[SectionModel<String, SectionItem>]> {
-        return Observable.create { (observer) -> Disposable in
-            let sectionItems = [
-                SectionItem(image: UIImage(named: "baseline_gite_black_24pt"), title: NSLocalizedString("service")),
-                SectionItem(image: Icon.history, title: NSLocalizedString("historyMessage")),
-                SectionItem(image: UIImage(named: "baseline_manage_accounts_black_24pt"), title: NSLocalizedString("settings")),
-            ]
-            let section = [SectionModel(model: "", items: sectionItems)]
-            observer.onNext(section)
-            observer.onCompleted()
-            return Disposables.create()
-        }
+        let sectionItems = [
+            SectionItem(image: UIImage(named: "baseline_gite_black_24pt"), title: NSLocalizedString("service")),
+            SectionItem(image: Icon.history, title: NSLocalizedString("historyMessage")),
+            SectionItem(image: UIImage(named: "baseline_manage_accounts_black_24pt"), title: NSLocalizedString("settings")),
+        ]
+        let section = [SectionModel(model: "", items: sectionItems)]
+        return Observable.just(section)
     }
     
     func transform(input: Input) -> Output {

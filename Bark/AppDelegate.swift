@@ -213,16 +213,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         ServerManager.shared.syncAllServers()
-
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉
         UIApplication.shared.applicationIconBadgeNumber = -1
-        // 如果有响铃通知，则关闭响铃
-        stopCallNotificationProcessor()
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        // 如果有响铃通知，则关闭响铃
+        stopCallNotificationProcessor()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
