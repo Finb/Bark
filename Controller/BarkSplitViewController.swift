@@ -27,6 +27,9 @@ class BarkSplitViewController: UISplitViewController {
         // 设置默认打开页面
         let index: Int = Settings[.selectedViewControllerIndex] ?? 0
         self.setViewController(sectionViewController.viewControllers[index], for: .secondary)
+        DispatchQueue.main.async {
+            self.sectionViewController.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
+        }
         self.setViewController(compactController, for: .compact)
     }
 }
@@ -46,5 +49,6 @@ extension BarkSplitViewController: UISplitViewControllerDelegate {
             return
         }
         self.sectionViewController.tableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
+        self.setViewController(self.sectionViewController.viewControllers[index], for: .secondary)
     }
 }

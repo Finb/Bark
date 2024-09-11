@@ -81,4 +81,9 @@ class SectionViewController_iPad: BaseViewController<SectionViewModel>, UITableV
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 55
     }
+
+    func tableView(_ tableView: UITableView, canFocusRowAt indexPath: IndexPath) -> Bool {
+        // 去掉额外的蓝色 selectionStyle
+        return false
+    }
 }
