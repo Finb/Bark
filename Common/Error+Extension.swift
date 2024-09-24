@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension String: Error {}
+extension String: @retroactive Error {}
 
 public enum ApiError: Swift.Error {
     case Error(info: String)
