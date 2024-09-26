@@ -57,32 +57,6 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
 
         layoutView()
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
-        tap.name = "messageTap"
-        tap.delegate = self
-        bodyLabel.addGestureRecognizer(tap)
-    }
-    
-    @objc func tap() {
-        var view = self.superview
-        while view != nil, (view as? UITableView) == nil {
-            view = view?.superview
-        }
-        guard let tableView = view as? UITableView else {
-            return
-        }
-        
-        guard let indexPath = tableView.indexPath(for: self) else {
-            return
-        }
-        tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
-    }
-    // 单击手势如果没点击链接，则传递给UITableView didSelectRow
-    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer.name == "messageTap", otherGestureRecognizer.name == "UITextInteractionNameLinkTap" {
-            return true
-        }
-        return false
     }
     
     @available(*, unavailable)
@@ -153,7 +127,7 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
             }
             
             self.bodyLabel.attributedText = text
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: rx.reuseBag)
         model.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
     }
 }
