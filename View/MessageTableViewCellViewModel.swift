@@ -11,13 +11,22 @@ import Foundation
 import RxCocoa
 import RxDataSources
 
+enum MessageListCellDateStyle {
+    /// 相对时间，例如 1分钟前、1小时前
+    case relative
+    /// 精确时间，例如 2024-01-01 12:00
+    case exact
+}
+
 class MessageTableViewCellViewModel: ViewModel {
     let message: Message
     
     let title: BehaviorRelay<String>
     let body: BehaviorRelay<String>
     let url: BehaviorRelay<String>
-    let date: BehaviorRelay<String>
+    
+    let date = BehaviorRelay<String>(value: "")
+    var dateStyle = BehaviorRelay<MessageListCellDateStyle>(value: .relative)
     
     init(message: Message) {
         self.message = message
@@ -25,9 +34,19 @@ class MessageTableViewCellViewModel: ViewModel {
         self.title = BehaviorRelay<String>(value: message.title ?? "")
         self.body = BehaviorRelay<String>(value: message.body ?? "")
         self.url = BehaviorRelay<String>(value: message.url ?? "")
-        self.date = BehaviorRelay<String>(value: (message.createDate ?? Date()).agoFormatString())
 
         super.init()
+        
+        dateStyle.map { style in
+            switch style {
+            case .relative:
+                return self.message.createDate?.agoFormatString() ?? ""
+            case .exact:
+                return self.message.createDate?.formatString(format: "yyyy-MM-dd HH:mm") ?? ""
+            }
+        }
+        .bind(to: date)
+        .disposed(by: rx.disposeBag)
     }
 }
 

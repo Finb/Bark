@@ -36,6 +36,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         let label = UILabel()
         label.font = RobotoFont.medium(with: 11)
         label.textColor = BKColor.grey.base
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer())
         return label
     }()
 
@@ -56,7 +58,6 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         contentView.addSubview(separatorLine)
 
         layoutView()
-        
     }
     
     @available(*, unavailable)
@@ -65,7 +66,6 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     }
     
     func layoutView() {
-
         bodyLabel.snp.remakeConstraints { make in
             make.top.equalTo(16)
             make.left.equalTo(28)
@@ -128,6 +128,16 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
             
             self.bodyLabel.attributedText = text
         }.disposed(by: rx.reuseBag)
+        
         model.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
+        
+        // 切换时间显示样式
+        dateLabel.gestureRecognizers?.first?.rx.event.subscribe(onNext: { _ in
+            if model.dateStyle.value != .exact {
+                model.dateStyle.accept(.exact)
+            } else {
+                model.dateStyle.accept(.relative)
+            }
+        }).disposed(by: rx.reuseBag)
     }
 }
