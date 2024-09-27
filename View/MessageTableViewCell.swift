@@ -33,7 +33,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     }()
     
     let dateLabel: UILabel = {
-        let label = UILabel()
+        let label = BKLabel()
+        label.hitTestSlop = UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5)
         label.font = RobotoFont.medium(with: 11)
         label.textColor = BKColor.grey.base
         label.isUserInteractionEnabled = true
