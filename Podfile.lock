@@ -1,13 +1,13 @@
 PODS:
   - Alamofire (5.9.1)
-  - CryptoSwift (1.8.2)
+  - CryptoSwift (1.8.3)
   - DefaultsKit (0.2.0)
-  - DeviceKit (5.4.0)
+  - DeviceKit (5.5.0)
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
   - FDFullscreenPopGesture (1.1)
-  - IQKeyboardManagerSwift (7.0.3)
-  - Kingfisher (7.11.0)
+  - IQKeyboardManagerSwift (7.1.1)
+  - Kingfisher (8.0.3)
   - KVOController (1.2.0)
   - Material (3.1.8):
     - Material/Core (= 3.1.8)
@@ -27,14 +27,14 @@ PODS:
     - RxSwift (~> 6.2)
   - ObjectMapper (4.4.2)
   - PLCrashReporter (1.11.2)
-  - Realm (10.50.1):
-    - Realm/Headers (= 10.50.1)
-  - Realm/Headers (10.50.1)
-  - RealmSwift (10.50.1):
-    - Realm (= 10.50.1)
-  - RxCocoa (6.7.1):
-    - RxRelay (= 6.7.1)
-    - RxSwift (= 6.7.1)
+  - Realm (20.0.0):
+    - Realm/Headers (= 20.0.0)
+  - Realm/Headers (20.0.0)
+  - RealmSwift (20.0.0):
+    - Realm (= 20.0.0)
+  - RxCocoa (6.8.0):
+    - RxRelay (= 6.8.0)
+    - RxSwift (= 6.8.0)
   - RxDataSources (5.0.0):
     - Differentiator (~> 5.0)
     - RxCocoa (~> 6.0)
@@ -42,9 +42,9 @@ PODS:
   - RxGesture (4.0.4):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxRelay (6.7.1):
-    - RxSwift (= 6.7.1)
-  - RxSwift (6.7.1)
+  - RxRelay (6.8.0):
+    - RxSwift (= 6.8.0)
+  - RxSwift (6.8.0)
   - SnapKit (5.7.1)
   - SVProgressHUD (2.3.1):
     - SVProgressHUD/Core (= 2.3.1)
@@ -121,14 +121,14 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
-  CryptoSwift: c63a805d8bb5e5538e88af4e44bb537776af11ea
+  CryptoSwift: 967f37cea5a3294d9cce358f78861652155be483
   DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
-  DeviceKit: bd34bb1766d926c3cc5a5f6e3e9a6dd10148b805
+  DeviceKit: d83e38ca196a4ebf0cc5f37d6f0316a24b794d5b
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  IQKeyboardManagerSwift: f9c5dc36cba16ddd2e51fa7d51c34a2e083029b5
-  Kingfisher: b9c985d864d43515f404f1ef4a8ce7d802ace3ac
+  IQKeyboardManagerSwift: d7f3d3a562c237a0e7335e657cd598c452f57f1b
+  Kingfisher: bbf78af014cc845cf9a799363f627b5212784165
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
   MercariQRScanner: cd024685242f78fe40879cca9734bb7bb2fceb93
@@ -138,13 +138,13 @@ SPEC CHECKSUMS:
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
   ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
   PLCrashReporter: 499c53b0104f95c302d94fd723ebb03c56d9bac8
-  Realm: 36bc9fe2681d7cf234aa487e7990821c772206a2
-  RealmSwift: 84a370d3d4f191d327a9f8ade1f064a274f79847
-  RxCocoa: f5609cb4637587a7faa99c5d5787e3ad582b75a4
+  Realm: a799b5f9145623fb0bfe149fe81422863631dd0f
+  RealmSwift: f8c4354ebd5053343e6ab9f4eda244145308a51e
+  RxCocoa: 2d33c1e1e5d66492052ad46b11024ae287572880
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
   RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
-  RxRelay: 4151ba01152436b08271e08410135e099880eae5
-  RxSwift: b9a93a26031785159e11abd40d1a55bcb8057e52
+  RxRelay: 335c78b926a2aea8d863a6d25f1ed3b5ad8e8705
+  RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
