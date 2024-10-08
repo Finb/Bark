@@ -225,7 +225,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     }
     
     private func scrollToTop() {
-        self.tableView.setContentOffset(CGPoint(x: 0, y: -250), animated: false)
+        if self.tableView.visibleCells.count > 0 {
+            self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
+        }
     }
 }
 
