@@ -17,17 +17,23 @@ class Client: NSObject {
         super.init()
     }
 
-    var currentNavigationController: UINavigationController? {
-        // TODO: iPad 取值不对
-        let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-        let nav = (controller?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
-        return nav
+    var window: UIWindow? {
+        return UIApplication.shared.delegate?.window ?? nil
+    }
+
+    var currentSnackbarController: BarkSnackbarController? {
+        return self.window?.rootViewController as? BarkSnackbarController
     }
 
     var currentTabBarController: StateStorageTabBarController? {
-        // TODO: iPad 取值不对
-        let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-        return controller?.rootViewController as? StateStorageTabBarController
+        guard let snackbarController = self.currentSnackbarController else {
+            return nil
+        }
+        if #available(iOS 14, *), UIDevice.current.userInterfaceIdiom == .pad {
+            return (snackbarController.rootViewController as? BarkSplitViewController)?.compactController
+        } else {
+            return snackbarController.rootViewController as? BarkTabBarController
+        }
     }
     
     let appVersion: String = {
@@ -67,7 +73,7 @@ class Client: NSObject {
             UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly: true]) { success in
                 if !success {
                     // 打不开Universal Link时，则用内置 safari 打开
-                    self.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                    self.currentSnackbarController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
                 }
             }
         } else {

@@ -8,13 +8,12 @@
 
 import Material
 import UIKit
+
 class BaseViewController<T>: UIViewController where T: ViewModel {
     let viewModel: T
     init(viewModel: T) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
-        
-        self.view.backgroundColor = BKColor.background.primary
     }
     
     @available(*, unavailable)
@@ -28,6 +27,8 @@ class BaseViewController<T>: UIViewController where T: ViewModel {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.view.backgroundColor = BKColor.background.primary
+        
         if UIDevice.current.userInterfaceIdiom == .pad {
             navigationItem.largeTitleDisplayMode = .never
         } else {

@@ -137,7 +137,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     private func notificatonHandler(userInfo: [AnyHashable: Any]) {
-        let navigationController = Client.shared.currentNavigationController
+        let viewController = Client.shared.currentSnackbarController
         func presentController() {
             let alert = (userInfo["aps"] as? [String: Any])?["alert"] as? [String: Any]
             let title = alert?["title"] as? String
@@ -182,17 +182,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if let url = url {
                     items.append(url)
                 }
-                let controller = UIApplication.shared.keyWindow?.rootViewController
+                let controller = Client.shared.window?.rootViewController
                 let activityController = UIActivityViewController(activityItems: items,
                                                                   applicationActivities: nil)
                 controller?.present(activityController, animated: true, completion: nil)
             }))
             alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
 
-            navigationController?.present(alertController, animated: true, completion: nil)
+            viewController?.present(alertController, animated: true, completion: nil)
         }
 
-        if let presentedController = navigationController?.presentedViewController {
+        if let presentedController = viewController?.presentedViewController {
             presentedController.dismiss(animated: false) {
                 presentController()
             }
