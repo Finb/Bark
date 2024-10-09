@@ -355,12 +355,6 @@
             "value" : "If you get a 'Decryption Failed' prompt, try adding '-w 0' after the base64 command."
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If you get a 'Decryption Failed' prompt, try adding '-w 0' after the base64 command."
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -745,12 +739,6 @@
             "value" : "If the app keeps crashing repeatedly, you can try to uncheck Bark in System Settings -> iCloud -> Apps Using iCloud. (The path may vary slightly depending on the system version.)\n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/en-us/faq\n\nIf you need help, you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "If the app keeps crashing repeatedly, you can try to uncheck Bark in System Settings -> iCloud -> Apps Using iCloud. (The path may vary slightly depending on the system version.)\n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/tr/faq\n\nIf you need help, you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -763,12 +751,6 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Crashed!"
-          }
-        },
-        "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Crashed!"
@@ -837,12 +819,6 @@
             "value" : "Custom Sounds"
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Custom Sounds"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -901,12 +877,6 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Default Sounds"
-          }
-        },
-        "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Default Sounds"
@@ -2217,12 +2187,6 @@
             "value" : "Ringtone"
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ringtone"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2235,12 +2199,6 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Ringtone for a notification"
-          }
-        },
-        "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ringtone for a notification"
@@ -2654,12 +2612,6 @@
             "value" : "Upload Sound"
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Upload Sound"
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2677,12 +2629,6 @@
             "value" : "Please convert the sound file to caf format, and make sure it's no longer than 30 seconds."
           }
         },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Please convert the sound file to caf format, and make sure it's no longer than 30 seconds."
-          }
-        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2695,12 +2641,6 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "convert the sound file to caf format"
-          }
-        },
-        "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "convert the sound file to caf format"
