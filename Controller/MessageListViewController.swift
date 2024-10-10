@@ -50,7 +50,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         tableView.separatorStyle = .none
         tableView.backgroundColor = BKColor.background.primary
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "\(MessageTableViewCell.self)")
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        // 设置了这个后，第一次进页面 LargeTitle 就会收缩成小标题，不设置这个LargeTitle就是大标题显示
+        // 谁特么能整的明白这个？
+        // tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        
+        // 替代 contentInset 设置一个 header
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+        
         return tableView
     }()
         
@@ -196,9 +202,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         // 标题
         output.title
             .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
-        
-        // 绑定数据后，滚动到顶部
-        self.scrollToTop()
     }
     
     func alertMessage(message: String, indexPath: IndexPath) {
