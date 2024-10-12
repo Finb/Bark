@@ -736,13 +736,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "If the app keeps crashing repeatedly, you can try to uncheck Bark in System Settings -> iCloud -> Apps Using iCloud. (The path may vary slightly depending on the system version.)\n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/en-us/faq\n\nIf you need help, you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
+            "value" : "You need to restart the app! \n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/en-us/faq\n\nBark will not upload any logs! If you need help (or wish to help the developer fix the crash), you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "如果一直重复闪退，你可以尝试在 系统设置 -> iCloud -> 使用iCloud的APP -> 取消勾选Bark。（不同系统版本可能设置路径略有差异）\n\n如无法解决，你可以尝试查看FAQ看是否有解决办法\nhttps://bark.day.app/#/faq\n\n如需帮助，你也可以将闪退日志反馈给我，我会尽快与你联系\n\n邮箱: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzov\nGithub Issue: https://github.com/Finb/Bark/issues\n"
+            "value" : "您需要重启APP！\n\n如还是提示闪退，可以尝试查看FAQ看是否有解决办法\nhttps://bark.day.app/#/faq\n\nBark 不会上传任何日志！如您需帮助(或帮助作者修复闪退)，可以将闪退日志手动复制发送给我，我会尽快与您联系。\n\n邮箱: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzov\nGithub Issue: https://github.com/Finb/Bark/issues\n"
           }
         }
       }
