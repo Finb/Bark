@@ -97,7 +97,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             }
             .subscribe(onNext: { [weak self] _ in
                 self?.tableView.refreshControl?.sendActions(for: .valueChanged)
-                self?.scrollToTop()
             }).disposed(by: rx.disposeBag)
     }
     
