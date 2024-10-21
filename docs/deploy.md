@@ -69,6 +69,21 @@ https://[your-server-name].onrender.com
 ```
 https://[your-server-name].onrender.com/BARK_KEY/推送内容
 ```
+## 阿里云FC 函数计算
+FC 能非常简单的创建**近乎免费**的 bark-server
+1. 创建一个[函数](https://fcnext.console.aliyun.com/cn-hangzhou/functions/create), 选择Web函数
+2. 从[Release](https://github.com/Finb/bark-server/releases)下载最新的`bark-server_linux_amd64` 到本地
+   * 运行`chmod +x ./bark-server_linux_amd64`添加执行权限
+   * 压缩文件为zip，后面会用到
+4. 填写函数创建相关表单
+   * 运行环境选Go 1
+   * 代码上传方式选通过ZIP包上传代码
+   * 启动命令填 `./bark-server_linux_amd64 -serverless true -addr 0.0.0.0:8080`
+   * 端口填 8080
+   * 环境变量下添加 Serverless 模式需要的 BARK_KEY 和 BARK_DEVICE_TOKEN 字段。 (填写要求参考 [Serverless](#Serverless)) <br><img src="../_media/environment.png" />
+5. 配置函数，优化用量
+   * 配置-〉基础配置改为 0.05vCPU 128MB
+6. 配置-〉触发器 下可以获取到公网访问地址，在Bark App中添加即可
 
 ## 宝塔面板
 
