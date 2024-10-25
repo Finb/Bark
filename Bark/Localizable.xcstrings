@@ -19,7 +19,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "修改成功!"
+            "value" : "修改成功！"
           }
         }
       }
@@ -908,7 +908,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "删除成功"
+            "value" : "删除成功！"
           }
         }
       }
@@ -2350,6 +2350,23 @@
         }
       }
     },
+    "setAsDefaultServer" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Set As Default Server"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设为预览服务器"
+          }
+        }
+      }
+    },
     "setSounds" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2369,6 +2386,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "可以为推送设置不同的铃声"
+          }
+        }
+      }
+    },
+    "setSuccessfully" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Successfully set"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设置成功！"
           }
         }
       }
