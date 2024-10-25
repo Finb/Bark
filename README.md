@@ -47,6 +47,28 @@ https://api.day.app/yourkey/验证码是9527?automaticallyCopy=1
 https://api.day.app/yourkey/验证码是9527?automaticallyCopy=1&copy=9527
 ```
 
+
+
+## 添加私有服务器
+
+
+
+* 测试服务器，运行下面命令。在私有服务器上面部署完bark server后，如果返回pong，说明一切正常
+
+~~~shell
+j@localhost:~$ curl 172.2.20.5:8080/ping
+{"code":200,"message":"pong","timestamp":1712062566}
+~~~
+
+* 增加服务器
+
+~~~shell
+
+http://172.2.20.5:8080
+~~~
+
+
+
 ## 其他参数
 
 * url
