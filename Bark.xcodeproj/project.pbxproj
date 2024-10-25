@@ -99,6 +99,9 @@
 		067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		06840DBB272298FB001B3193 /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
+		0687F2A82CCB791A00B2A52F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
+		0687F2A92CCB791A00B2A52F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
+		0687F2AA2CCB7FA500B2A52F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
 		06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */; };
 		0689CF4C2C7484A7007203A6 /* BarkTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */; };
 		068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15727ED99C900D5D11E /* ServerListViewController.swift */; };
@@ -326,6 +329,7 @@
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
 		06840DBA272298FB001B3193 /* BKColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKColor.swift; sourceTree = "<group>"; };
+		0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+Extension.swift"; sourceTree = "<group>"; };
 		06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewController.swift; sourceTree = "<group>"; };
 		0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTabBarController.swift; sourceTree = "<group>"; };
 		068EC15727ED99C900D5D11E /* ServerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewController.swift; sourceTree = "<group>"; };
@@ -582,6 +586,7 @@
 				06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */,
 				06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */,
 				06E944742C07012E00AC86AB /* RealmConfiguration.swift */,
+				0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -1103,6 +1108,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0687F2AA2CCB7FA500B2A52F /* UIFont+Extension.swift in Sources */,
 				0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1138,6 +1144,7 @@
 				066E0C8C2BB6AC9A00873838 /* AddSoundCell.swift in Sources */,
 				065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */,
 				06F08EA729B1DDFE006AB9CA /* Error+Extension.swift in Sources */,
+				0687F2A82CCB791A00B2A52F /* UIFont+Extension.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
 				06172FDA27F6DAEF002333A4 /* ServerListTableViewCell.swift in Sources */,
 				0653677829B727A60038BDB8 /* CryptoSettingRelay.swift in Sources */,
@@ -1218,6 +1225,7 @@
 				06E9447C2C07052F00AC86AB /* ImageProcessor.swift in Sources */,
 				06E9446A2C06E4A200AC86AB /* CiphertextProcessor.swift in Sources */,
 				06E944712C06FF4C00AC86AB /* AutoCopyProcessor.swift in Sources */,
+				0687F2A92CCB791A00B2A52F /* UIFont+Extension.swift in Sources */,
 				06F08EA829B1DE0A006AB9CA /* Error+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -27,7 +27,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         label.isScrollEnabled = false
         label.textContainerInset = .zero
         label.textContainer.lineFragmentPadding = 0
-        label.font = RobotoFont.regular(with: 14)
+        label.font = UIFont.preferredFont(ofSize: 14)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
         return label
     }()
@@ -35,7 +36,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     let dateLabel: UILabel = {
         let label = BKLabel()
         label.hitTestSlop = UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5)
-        label.font = RobotoFont.medium(with: 11)
+        label.font = UIFont.preferredFont(ofSize: 11, weight: .medium)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.base
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(UITapGestureRecognizer())
@@ -97,19 +99,19 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
             
             let text = NSMutableAttributedString(
                 string: body,
-                attributes: [.font: RobotoFont.regular(with: 14), .foregroundColor: BKColor.grey.darken4]
+                attributes: [.font: UIFont.preferredFont(ofSize: 14), .foregroundColor: BKColor.grey.darken4]
             )
             
             if title.count > 0 {
                 // 插入一行空行当 spacer
                 text.insert(NSAttributedString(
                     string: "\n",
-                    attributes: [.font: RobotoFont.medium(with: 6)]
+                    attributes: [.font: UIFont.systemFont(ofSize: 6, weight: .medium)]
                 ), at: 0)
                 
                 text.insert(NSAttributedString(
                     string: title + "\n",
-                    attributes: [.font: RobotoFont.medium(with: 16), .foregroundColor: BKColor.grey.darken4]
+                    attributes: [.font: UIFont.preferredFont(ofSize: 16, weight: .medium), .foregroundColor: BKColor.grey.darken4]
                 ), at: 0)
             }
             
@@ -117,11 +119,11 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
                 // 插入一行空行当 spacer
                 text.append(NSAttributedString(
                     string: "\n ",
-                    attributes: [.font: RobotoFont.medium(with: 8)]
+                    attributes: [.font: UIFont.systemFont(ofSize: 8, weight: .medium)]
                 ))
                 
                 text.append(NSAttributedString(string: "\n\(url)", attributes: [
-                    .font: RobotoFont.regular(with: 14),
+                    .font: UIFont.preferredFont(ofSize: 14),
                     .foregroundColor: BKColor.grey.darken4,
                     .link: url
                 ]))

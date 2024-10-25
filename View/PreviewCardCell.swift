@@ -15,7 +15,8 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = RobotoFont.regular(with: 14)
+        label.font = UIFont.preferredFont(ofSize: 14)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken3
         label.numberOfLines = 0
         return label
@@ -23,7 +24,8 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
 
     let bodyLabel: UILabel = {
         let label = UILabel()
-        label.font = RobotoFont.regular(with: 14)
+        label.font = UIFont.preferredFont(ofSize: 14)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken2
         label.numberOfLines = 0
         return label
@@ -31,7 +33,8 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
     
     let noticeLabel: UILabel = {
         let label = UILabel()
-        label.font = RobotoFont.regular(with: 12)
+        label.font = UIFont.preferredFont(ofSize: 12)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.base
         label.numberOfLines = 0
         label.isUserInteractionEnabled = true
@@ -58,7 +61,8 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
         let label = UILabel()
         label.lineBreakMode = .byCharWrapping
         label.numberOfLines = 0
-        label.font = RobotoFont.regular(with: 14)
+        label.font = UIFont.preferredFont(ofSize: 14)
+        label.adjustsFontForContentSizeCategory = true
         return label
     }()
     

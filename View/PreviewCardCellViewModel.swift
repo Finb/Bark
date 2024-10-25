@@ -48,13 +48,13 @@ class PreviewCardCellViewModel: ViewModel {
         let noticeStr = "\(previewModel.notice ?? "")"
         let noticeAttrStr = NSMutableAttributedString(string: noticeStr, attributes: [
             NSAttributedString.Key.foregroundColor: BKColor.grey.base,
-            NSAttributedString.Key.font: RobotoFont.regular(with: 12)
+            NSAttributedString.Key.font: UIFont.preferredFont(ofSize: 12)
         ])
         
         if let moreInfo = previewModel.moreInfo {
             noticeAttrStr.append(NSMutableAttributedString(string: "   \(moreInfo)", attributes: [
                 NSAttributedString.Key.foregroundColor: BKColor.blue.base,
-                NSAttributedString.Key.font: RobotoFont.regular(with: 12)
+                NSAttributedString.Key.font: UIFont.preferredFont(ofSize: 12)
             ]))
         }
         notice.accept(noticeAttrStr)
@@ -69,30 +69,30 @@ class PreviewCardCellViewModel: ViewModel {
         let attrStr = NSMutableAttributedString(string: "")
         attrStr.append(NSAttributedString(string: serverUrl.absoluteString, attributes: [
             NSAttributedString.Key.foregroundColor: BKColor.grey.darken4,
-            NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
+            NSAttributedString.Key.font: UIFont.preferredFont(ofSize: fontSize)
         ]))
         let key = ServerManager.shared.currentServer.key
         attrStr.append(NSAttributedString(string: "/\(key.count > 0 ? key : "Your Key")", attributes: [
             NSAttributedString.Key.foregroundColor: BKColor.grey.darken3,
-            NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
+            NSAttributedString.Key.font: UIFont.preferredFont(ofSize: fontSize)
         ]))
         
         if let modelTitle = previewModel.title {
             attrStr.append(NSAttributedString(string: "/\(modelTitle)", attributes: [
                 NSAttributedString.Key.foregroundColor: BKColor.grey.darken1,
-                NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
+                NSAttributedString.Key.font: UIFont.preferredFont(ofSize: fontSize)
             ]))
         }
         if let modelBody = previewModel.body {
             attrStr.append(NSAttributedString(string: "/\(modelBody)", attributes: [
                 NSAttributedString.Key.foregroundColor: BKColor.grey.base,
-                NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
+                NSAttributedString.Key.font: UIFont.preferredFont(ofSize: fontSize)
             ]))
         }
         if let queryParameter = previewModel.queryParameter {
             attrStr.append(NSAttributedString(string: "?\(queryParameter)", attributes: [
                 NSAttributedString.Key.foregroundColor: BKColor.grey.lighten1,
-                NSAttributedString.Key.font: RobotoFont.regular(with: fontSize)
+                NSAttributedString.Key.font: UIFont.preferredFont(ofSize: fontSize)
             ]))
         }
         

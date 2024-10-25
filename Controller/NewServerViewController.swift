@@ -43,7 +43,8 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
         let label = UILabel()
         label.text = NSLocalizedString("DeploymentDocuments")
         label.textColor = BKColor.blue.base
-        label.font = UIFont.systemFont(ofSize: 12)
+        label.font = UIFont.preferredFont(ofSize: 12)
+        label.adjustsFontForContentSizeCategory = true
         label.transition([.scale(0.85), .opacity(0), .translate(x: 50)])
         label.isUserInteractionEnabled = true
         label.addGestureRecognizer(UITapGestureRecognizer())
