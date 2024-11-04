@@ -82,7 +82,8 @@ extension MessageTableViewCellViewModel: IdentifiableType {
     
     override func isEqual(_ object: Any?) -> Bool {
         if let obj = object as? MessageTableViewCellViewModel {
-            return self.identity == obj.identity
+            // 消息列表cell上显示的时间需要随着时间的变化而变化（1分钟前、2分钟前 ...），如果时间不一样的就需要刷新界面
+            return self.identity == obj.identity && self.date.value == obj.date.value
         }
         return super.isEqual(object)
     }
