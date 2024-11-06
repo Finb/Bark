@@ -1350,6 +1350,23 @@
         }
       }
     },
+    "groupMuted" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group \"%@\" muted!"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "分组 \"%@\" 已静音"
+          }
+        }
+      }
+    },
     "hideAllGroups" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1760,6 +1777,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更多操作"
+          }
+        }
+      }
+    },
+    "muteGroup1Hour" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute this group for 1 Hour"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1小时内不再提醒此分组"
           }
         }
       }

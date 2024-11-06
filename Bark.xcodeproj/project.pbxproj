@@ -122,6 +122,10 @@
 		06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */; };
 		06BBB8C92567B6730076F63E /* Operators.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8C82567B6730076F63E /* Operators.swift */; };
 		06BBB8CE2567B8E60076F63E /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06BBB8CD2567B8E60076F63E /* silence.caf */; };
+		06BCAE562CDB19260092867A /* GroupMuteSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */; };
+		06BCAE572CDB19420092867A /* GroupMuteSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */; };
+		06BCAE582CDB19420092867A /* GroupMuteSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */; };
+		06BCAE5B2CDB25120092867A /* MuteProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE5A2CDB25120092867A /* MuteProcessor.swift */; };
 		06BD4DAA2901352E003364DB /* Object+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BD4DA92901352E003364DB /* Object+Dictionary.swift */; };
 		06C2CF232685B88D0034B127 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF222685B88D0034B127 /* TextCell.swift */; };
 		06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF242685BDB80034B127 /* SpacerCell.swift */; };
@@ -348,6 +352,9 @@
 		06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableViewCell.swift; sourceTree = "<group>"; };
 		06BBB8C82567B6730076F63E /* Operators.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Operators.swift; sourceTree = "<group>"; };
 		06BBB8CD2567B8E60076F63E /* silence.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = silence.caf; sourceTree = "<group>"; };
+		06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupMuteSettingManager.swift; sourceTree = "<group>"; };
+		06BCAE592CDB19590092867A /* NotificationContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentExtension.entitlements; sourceTree = "<group>"; };
+		06BCAE5A2CDB25120092867A /* MuteProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteProcessor.swift; sourceTree = "<group>"; };
 		06BD4DA92901352E003364DB /* Object+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+Dictionary.swift"; sourceTree = "<group>"; };
 		06C2CF222685B88D0034B127 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		06C2CF242685BDB80034B127 /* SpacerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCell.swift; sourceTree = "<group>"; };
@@ -555,6 +562,7 @@
 		0632CE2120EC9098003FDF46 /* NotificationContentExtension */ = {
 			isa = PBXGroup;
 			children = (
+				06BCAE592CDB19590092867A /* NotificationContentExtension.entitlements */,
 				0632CE2220EC9098003FDF46 /* NotificationViewController.swift */,
 				0632CE2420EC9098003FDF46 /* MainInterface.storyboard */,
 				0632CE2720EC9098003FDF46 /* Info.plist */,
@@ -587,6 +595,7 @@
 				06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */,
 				06E944742C07012E00AC86AB /* RealmConfiguration.swift */,
 				0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */,
+				06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -667,6 +676,7 @@
 				06E9447B2C07052F00AC86AB /* ImageProcessor.swift */,
 				06D69E402C11983E00161A35 /* CallProcessor.swift */,
 				06E944792C0704E500AC86AB /* ImageDownloader.swift */,
+				06BCAE5A2CDB25120092867A /* MuteProcessor.swift */,
 			);
 			path = Processor;
 			sourceTree = "<group>";
@@ -1110,6 +1120,7 @@
 			files = (
 				0687F2AA2CCB7FA500B2A52F /* UIFont+Extension.swift in Sources */,
 				0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */,
+				06BCAE572CDB19420092867A /* GroupMuteSettingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1146,6 +1157,7 @@
 				06F08EA729B1DDFE006AB9CA /* Error+Extension.swift in Sources */,
 				0687F2A82CCB791A00B2A52F /* UIFont+Extension.swift in Sources */,
 				06B1158F247BB1FB006D91FB /* Message.swift in Sources */,
+				06BCAE562CDB19260092867A /* GroupMuteSettingManager.swift in Sources */,
 				06172FDA27F6DAEF002333A4 /* ServerListTableViewCell.swift in Sources */,
 				0653677829B727A60038BDB8 /* CryptoSettingRelay.swift in Sources */,
 				06FB04042C53575400F3A213 /* SharedDefines.swift in Sources */,
@@ -1215,6 +1227,8 @@
 				06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
 				0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */,
 				06E9446F2C06FF1E00AC86AB /* BadgeProcessor.swift in Sources */,
+				06BCAE582CDB19420092867A /* GroupMuteSettingManager.swift in Sources */,
+				06BCAE5B2CDB25120092867A /* MuteProcessor.swift in Sources */,
 				06E9446D2C06FEC900AC86AB /* LevelProcessor.swift in Sources */,
 				06E944682C06E40600AC86AB /* NotificationContentProcessor.swift in Sources */,
 				06F08EA529B1DDA7006AB9CA /* Algorithm.swift in Sources */,
@@ -1283,6 +1297,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationContentExtension/NotificationContentExtension.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
@@ -1304,6 +1319,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = NotificationContentExtension/NotificationContentExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;

@@ -90,10 +90,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         self.window?.makeKeyAndVisible()
         
         UNUserNotificationCenter.current().delegate = self
+        var actions = [
+            UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.foreground)
+        ]
+        if #available(iOSApplicationExtension 15.0, *) {
+            actions.append(UNNotificationAction(identifier: "mute", title: NSLocalizedString("muteGroup1Hour"), options: UNNotificationActionOptions.foreground))
+        }
         UNUserNotificationCenter.current().setNotificationCategories([
-            UNNotificationCategory(identifier: "myNotificationCategory", actions: [
-                UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.foreground)
-            ], intentIdentifiers: [], options: .customDismissAction)
+            UNNotificationCategory(identifier: "myNotificationCategory", actions: actions, intentIdentifiers: [], options: .customDismissAction)
         ])
 
         UNUserNotificationCenter.current().getNotificationSettings { settings in
