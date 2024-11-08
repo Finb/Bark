@@ -121,3 +121,6 @@ https://api.day.app/yourkey/时效性通知?level=timeSensitive
 
 ## Python for Bark
 [barknotificator](https://github.com/funny-cat-happy/barknotificator)
+
+## uTools for Bark
+[PushOne](https://u.tools/plugins/detail/PushOne/)
