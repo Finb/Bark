@@ -43,7 +43,9 @@ class CallProcessor: NotificationContentProcessor {
         guard let content = content.mutableCopy() as? UNMutableNotificationContent else {
             return
         }
-        content.sound = nil
+        if !content.isCritical { // 重要通知的声音可以无视静音模式，所以别把这特性给弄没了
+            content.sound = nil
+        }
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request)
     }
@@ -51,12 +53,10 @@ class CallProcessor: NotificationContentProcessor {
     /// 响铃结束时取消显示远程推送，因为已经用本地推送显示了一遍
     private func cancelRemoteNotification(content: UNMutableNotificationContent) {
         // 远程推送在响铃结束后静默不显示
-        // 至于iOS15以下的设备，因不支持这个特性会在响铃结束后再展示一次, 但会取消声音
+        // 至于iOS15以下的设备，因不支持这个特性会在响铃结束后再展示一次
         // 如果设置了 level 参数，就还是以 level 参数为准不做修改
         if #available(iOSApplicationExtension 15.0, *), self.content?.userInfo["level"] == nil {
             self.content?.interruptionLevel = .passive
-        } else {
-            content.sound = nil
         }
     }
     
@@ -150,5 +150,14 @@ class CallProcessor: NotificationContentProcessor {
         let observer = Unmanaged.passUnretained(self).toOpaque()
         let name = CFNotificationName(kStopCallProcessorKey as CFString)
         CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), observer, name, nil)
+    }
+}
+
+extension UNMutableNotificationContent {
+    var isCritical: Bool {
+        if #available(iOS 15, *) {
+            return self.interruptionLevel == .critical
+        }
+        return false
     }
 }

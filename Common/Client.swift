@@ -57,7 +57,7 @@ class Client: NSObject {
     
     func registerForRemoteNotifications() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) in
+        center.requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert], completionHandler: { (_ granted: Bool, _: Error?) in
             if granted {
                 dispatch_sync_safely_main_queue {
                     UIApplication.shared.registerForRemoteNotifications()
