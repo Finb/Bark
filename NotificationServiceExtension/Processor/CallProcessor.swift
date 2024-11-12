@@ -43,7 +43,7 @@ class CallProcessor: NotificationContentProcessor {
         guard let content = content.mutableCopy() as? UNMutableNotificationContent else {
             return
         }
-        if !content.isCritical { // 重要通知的声音可以无视静音模式，所以别把这特性给弄没了
+        if !content.isCritical { // 重要警告的声音可以无视静音模式，所以别把这特性给弄没了
             content.sound = nil
         }
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: nil)
@@ -150,14 +150,5 @@ class CallProcessor: NotificationContentProcessor {
         let observer = Unmanaged.passUnretained(self).toOpaque()
         let name = CFNotificationName(kStopCallProcessorKey as CFString)
         CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), observer, name, nil)
-    }
-}
-
-extension UNMutableNotificationContent {
-    var isCritical: Bool {
-        if #available(iOS 15, *) {
-            return self.interruptionLevel == .critical
-        }
-        return false
     }
 }
