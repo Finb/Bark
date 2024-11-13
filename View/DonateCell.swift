@@ -6,6 +6,7 @@
 //  Copyright © 2024 Fin. All rights reserved.
 //
 
+import SwiftyStoreKit
 import UIKit
 
 class DonateCell: UITableViewCell {
@@ -17,7 +18,19 @@ class DonateCell: UITableViewCell {
 
     var productId: String? = nil {
         didSet {
-            self.detailTextLabel?.text = ""
+            guard let productId else { return }
+            if let cachePriceStr = Settings["bark.price.\(productId)"] {
+                self.detailTextLabel?.text = cachePriceStr
+                return
+            }
+            // 查询价格
+            SwiftyStoreKit.retrieveProductsInfo([productId]) { result in
+                if let product = result.retrievedProducts.first, let price = product.localizedPrice {
+                    let priceStr = price + (product.localizedSubscriptionPeriod.isEmpty ? "" : " / \(product.localizedSubscriptionPeriod)")
+                    Settings["bark.price.\(productId)"] = priceStr
+                    self.detailTextLabel?.text = priceStr
+                }
+            }
         }
     }
 

@@ -10,6 +10,8 @@ import Material
 import RxCocoa
 import RxDataSources
 import RxSwift
+import SVProgressHUD
+import SwiftyStoreKit
 import UIKit
 import UniformTypeIdentifiers
 
@@ -36,7 +38,7 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
     }()
 
     private var headers: [String?] = []
-    private var footers: [String?] = []
+    private var footers: [MessageSettingSectionFooterProtocol?] = []
     
     override func makeUI() {
         self.title = NSLocalizedString("settings")
@@ -45,6 +47,24 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    
+        // 捐赠内购没有任何逻辑，就不往 ViewModel 里放了，在这里处理一下得了
+        self.tableView.rx.modelSelected(MessageSettingItem.self).asObservable().compactMap { item in
+            if case .donate(_, let productId) = item {
+                return productId
+            }
+            return nil
+        }.subscribe(onNext: { [weak self] productId in
+            SVProgressHUD.show()
+            SwiftyStoreKit.purchaseProduct(productId) { result in
+                SVProgressHUD.dismiss()
+                if case .success = result {
+                    let alert = UIAlertController(title: NSLocalizedString("successfulDonation"), message: NSLocalizedString("thankYouSupport"), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("donateOK"), style: .default, handler: nil))
+                    self?.present(alert, animated: true)
+                }
+            }
+        }).disposed(by: rx.disposeBag)
     }
     
     ///  导入、导出操作枚举
@@ -270,7 +290,19 @@ extension MessageSettingsViewController: UITableViewDelegate {
         guard self.footers.count > section, let footer = self.footers[section] else { return UIView() }
         
         let footerView = SettingSectionFooter()
-        footerView.titleLabel.text = footer
+        footerView.titleLabel.text = footer.title
+        if let footerUrl = footer.url, let url = URL(string: footerUrl) {
+            footerView.titleLabel.numberOfLines = 0
+            footerView.titleLabel.minimumScaleFactor = 0.5
+            footerView.titleLabel.adjustsFontSizeToFitWidth = true
+            
+            // 点击跳转
+            let tap = UITapGestureRecognizer()
+            footerView.addGestureRecognizer(tap)
+            tap.rx.event.asControlEvent().subscribe(onNext: { [weak self] _ in
+                self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+            }).disposed(by: footerView.rx.disposeBag)
+        }
         return footerView
     }
 }

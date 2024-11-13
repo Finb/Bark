@@ -8,6 +8,7 @@
 
 import CrashReporter
 import IQKeyboardManagerSwift
+import SwiftyStoreKit
 import UIKit
 import UserNotifications
 
@@ -114,6 +115,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         bar.backIndicatorTransitionMaskImage = UIImage(named: "back")
         bar.tintColor = BKColor.grey.darken4
 
+        // 内购
+        SwiftyStoreKit.completeTransactions { _ in }
         return true
     }
 

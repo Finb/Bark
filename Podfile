@@ -31,6 +31,7 @@ def pods
     pod 'DropDown'
     
     pod 'PLCrashReporter'
+    pod 'SwiftyStoreKit'
 end
 
 target 'Bark' do

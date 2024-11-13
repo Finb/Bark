@@ -169,7 +169,13 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             donateSettings.append(.donate(title: NSLocalizedString("continuousSupport"), productId: "bark.continuousSupport.18"))
             settings.append(
                 SectionModel(
-                    model: MessageSettingSection(header: "Donate"),
+                    model: MessageSettingSection(
+                        header: NSLocalizedString("donate"),
+                        footer: MessageSettingSectionFooter(
+                            title: "LICENSED APPLICATION END USER LICENSE AGREEMENT",
+                            url: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
+                        )
+                    ),
                     items: donateSettings
                 )
             )
@@ -242,7 +248,27 @@ enum MessageSettingItem {
     case donate(title: String, productId: String)
 }
 
+protocol MessageSettingSectionFooterProtocol {
+    var title: String? { get }
+    var url: String? { get }
+}
+
+extension String: MessageSettingSectionFooterProtocol {
+    var title: String? {
+        return self
+    }
+
+    var url: String? {
+        return nil
+    }
+}
+
+struct MessageSettingSectionFooter: MessageSettingSectionFooterProtocol {
+    var title: String?
+    var url: String?
+}
+
 struct MessageSettingSection {
     var header: String?
-    var footer: String?
+    var footer: MessageSettingSectionFooterProtocol?
 }

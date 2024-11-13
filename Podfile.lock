@@ -50,6 +50,7 @@ PODS:
     - SVProgressHUD/Core (= 2.3.1)
   - SVProgressHUD/Core (2.3.1)
   - SwiftyJSON (5.0.2)
+  - SwiftyStoreKit (0.16.1)
 
 DEPENDENCIES:
   - CryptoSwift
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - SwiftyJSON
+  - SwiftyStoreKit
 
 SPEC REPOS:
   trunk:
@@ -104,6 +106,7 @@ SPEC REPOS:
     - SnapKit
     - SVProgressHUD
     - SwiftyJSON
+    - SwiftyStoreKit
 
 EXTERNAL SOURCES:
   DefaultsKit:
@@ -148,7 +151,8 @@ SPEC CHECKSUMS:
   SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
   SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: c9560d9c6653dd0da638d1f49876c91a02632de6
+PODFILE CHECKSUM: c61d77544f2f3b62338f3ccb60fa5e617632a6c0
 
 COCOAPODS: 1.16.2
