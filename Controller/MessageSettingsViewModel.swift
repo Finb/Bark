@@ -25,14 +25,13 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
     }
 
     struct Output {
-        var settings: Driver<[SectionModel<String, MessageSettingItem>]>
+        var settings: Driver<[SectionModel<MessageSettingSection, MessageSettingItem>]>
         var openUrl: Driver<URL>
         var copyDeviceToken: Driver<String>
         var exportData: Driver<Data>
     }
 
     func transform(input: Input) -> Output {
-
         let restoreSuccess = input
             .restoreAction
             .compactMap { data -> Void? in
@@ -69,13 +68,12 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 return ()
             }.asObservable().share()
 
-        let settings: [MessageSettingItem] = {
-            var settings = [MessageSettingItem]()
-//            settings.append(.label(text: "iCloud"))
-//            settings.append(.iCloudStatus)
-//            settings.append(.label(text: NSLocalizedString("iCloudSync")))
-            settings.append(.label(text: NSLocalizedString("historyMessage")))
-            settings.append(.backup(viewModel: MutableTextCellViewModel(
+        let settings: [SectionModel<MessageSettingSection, MessageSettingItem>] = {
+            var settings = [SectionModel<MessageSettingSection, MessageSettingItem>]()
+            
+            // 历史消息
+            var messageSettings = [MessageSettingItem]()
+            messageSettings.append(.backup(viewModel: MutableTextCellViewModel(
                 title: "\(NSLocalizedString("export"))/\(NSLocalizedString("import"))",
                 text: Observable.merge([restoreSuccess, input.viewDidAppear])
                     .map { _ in
@@ -89,14 +87,22 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                     .map { count in
                         "\(count) \(NSLocalizedString("items"))"
                     }
-                    .asDriver(onErrorDriveWith: .empty()))
+                    .asDriver(onErrorDriveWith: .empty())
+            )
             ))
-            settings.append(.label(text: NSLocalizedString("exportOrImport")))
-            settings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: input.archiveSettingRelay)))
-            settings.append(.label(text: NSLocalizedString("archiveNote")))
-
-            settings.append(.label(text: NSLocalizedString("info")))
-            settings.append(.deviceToken(
+            
+            messageSettings.append(.archiveSetting(viewModel: ArchiveSettingCellViewModel(on: input.archiveSettingRelay)))
+            
+            settings.append(
+                SectionModel(
+                    model: MessageSettingSection(header: NSLocalizedString("historyMessage"), footer: NSLocalizedString("archiveNote")),
+                    items: messageSettings
+                )
+            )
+            
+            // 信息
+            var infosettings = [MessageSettingItem]()
+            infosettings.append(.deviceToken(
                 viewModel: MutableTextCellViewModel(
                     title: "Device Token",
                     text: input
@@ -107,39 +113,72 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                                 return "\(deviceToken.prefix(2))****\(deviceToken.suffix(4))"
                             }
                             return NSLocalizedString("unknown")
-                        })
+                        }
+                )
             ))
-            settings.append(.label(text: NSLocalizedString("deviceTokenInfo")))
 
             if let infoDict = Bundle.main.infoDictionary,
                let runId = infoDict["GitHub Run Id"] as? String
             {
-                settings.append(.detail(
+                infosettings.append(.detail(
                     title: "Github Run Id",
                     text: "\(runId)",
                     textColor: BKColor.grey.darken2,
-                    url: URL(string: "https://github.com/Finb/Bark/actions/runs/\(runId)")))
-                settings.append(.label(text: NSLocalizedString("buildDesc")))
+                    url: URL(string: "https://github.com/Finb/Bark/actions/runs/\(runId)")
+                ))
             }
-
-            settings.append(.label(text: NSLocalizedString("other")))
-            settings.append(.detail(
+            settings.append(
+                SectionModel(
+                    model: MessageSettingSection(header: NSLocalizedString("info"), footer: NSLocalizedString("buildDesc")),
+                    items: infosettings
+                )
+            )
+            
+            // 其他
+            var otherSettings = [MessageSettingItem]()
+            otherSettings.append(.detail(
                 title: NSLocalizedString("faq"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: NSLocalizedString("faqUrl"))))
+                url: URL(string: NSLocalizedString("faqUrl"))
+            ))
 
-            settings.append(.spacer(height: 0.5, color: BKColor.grey.lighten4))
-            settings.append(.detail(
+            otherSettings.append(.detail(
                 title: NSLocalizedString("documentation"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: NSLocalizedString("docUrl"))))
+                url: URL(string: NSLocalizedString("docUrl"))
+            ))
+            otherSettings.append(.detail(
+                title: NSLocalizedString("sourceCode"),
+                text: nil,
+                textColor: nil,
+                url: URL(string: "https://github.com/Finb/Bark")
+            ))
+            
+            settings.append(
+                SectionModel(
+                    model: MessageSettingSection(header: NSLocalizedString("other")),
+                    items: otherSettings
+                )
+            )
+            
+            // 捐赠
+            var donateSettings = [MessageSettingItem]()
+            donateSettings.append(.donate(title: NSLocalizedString("oneTimeDonation"), productId: "bark.oneTimeDonation.18"))
+            donateSettings.append(.donate(title: NSLocalizedString("continuousSupport"), productId: "bark.continuousSupport.18"))
+            settings.append(
+                SectionModel(
+                    model: MessageSettingSection(header: "Donate"),
+                    items: donateSettings
+                )
+            )
+            
             return settings
         }()
 
         let openUrl = input.itemSelected.compactMap { item -> URL? in
-            if case let MessageSettingItem.detail(_, _, _, url) = item {
+            if case MessageSettingItem.detail(_, _, _, let url) = item {
                 return url
             }
             return nil
@@ -175,11 +214,12 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             }
 
         return Output(
-            settings: Driver<[SectionModel<String, MessageSettingItem>]>
-                .just([SectionModel(model: "model", items: settings)]),
+            settings: Driver<[SectionModel<MessageSettingSection, MessageSettingItem>]>
+                .just(settings),
             openUrl: openUrl,
             copyDeviceToken: copyDeviceToken,
-            exportData: exportSuccess.asDriver(onErrorDriveWith: .empty()))
+            exportData: exportSuccess.asDriver(onErrorDriveWith: .empty())
+        )
     }
 }
 
@@ -198,4 +238,11 @@ enum MessageSettingItem {
     case deviceToken(viewModel: MutableTextCellViewModel)
     // 分隔线
     case spacer(height: CGFloat, color: UIColor?)
+    // 捐赠
+    case donate(title: String, productId: String)
+}
+
+struct MessageSettingSection {
+    var header: String?
+    var footer: String?
 }

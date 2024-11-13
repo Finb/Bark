@@ -547,6 +547,23 @@
         }
       }
     },
+    "continuousSupport" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Continuous support"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "持续支持"
+          }
+        }
+      }
+    },
     "Copy" : {
       "localizations" : {
         "en" : {
@@ -1005,29 +1022,6 @@
         }
       }
     },
-    "deviceTokenInfo" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Token for APNs. Click to copy."
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "APNs için token. Kopyalamak için tıklayın."
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "苹果推送的真实设备 Token ，请勿泄露，点击可复制到剪切板。"
-          }
-        }
-      }
-    },
     "documentation" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1235,29 +1229,6 @@
         }
       }
     },
-    "exportOrImport" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Export and import messages"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mesajları dışa ve içe aktarma"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "导出或导入消息列表"
-          }
-        }
-      }
-    },
     "faq" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1361,7 +1332,7 @@
         },
         "zh-Hans" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "分组 \"%@\" 已静音"
           }
         }
@@ -1909,6 +1880,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "推送铃声"
+          }
+        }
+      }
+    },
+    "oneTimeDonation" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "One-time donation"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一次性捐赠"
           }
         }
       }
@@ -2483,6 +2471,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择所有群组"
+          }
+        }
+      }
+    },
+    "sourceCode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source Code"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "源代码"
           }
         }
       }

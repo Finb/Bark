@@ -13,7 +13,7 @@ import UIKit
 class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     let backgroundPanel: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 3
+        view.layer.cornerRadius = 10
         view.clipsToBounds = true
         view.backgroundColor = BKColor.background.secondary
         return view

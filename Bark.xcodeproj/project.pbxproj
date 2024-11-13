@@ -61,6 +61,8 @@
 		0632CE2620EC9098003FDF46 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0632CE2420EC9098003FDF46 /* MainInterface.storyboard */; };
 		0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0633E80A256A091B00ED0680 /* MJRefresh+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0633E809256A091B00ED0680 /* MJRefresh+Rx.swift */; };
+		0635A8052CE47DFE0027E00F /* SettingSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0635A8042CE47DFE0027E00F /* SettingSectionHeader.swift */; };
+		0635A8072CE4883A0027E00F /* DonateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0635A8062CE4883A0027E00F /* DonateCell.swift */; };
 		0637FA7820E0926D00E80174 /* BarkTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7720E0926D00E80174 /* BarkTargetType.swift */; };
 		0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7920E092B300E80174 /* Observable+Extension.swift */; };
 		0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7B20E0930E00E80174 /* BarkApi.swift */; };
@@ -293,6 +295,8 @@
 		0632CE2520EC9098003FDF46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		0632CE2720EC9098003FDF46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0633E809256A091B00ED0680 /* MJRefresh+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MJRefresh+Rx.swift"; sourceTree = "<group>"; };
+		0635A8042CE47DFE0027E00F /* SettingSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingSectionHeader.swift; sourceTree = "<group>"; };
+		0635A8062CE4883A0027E00F /* DonateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonateCell.swift; sourceTree = "<group>"; };
 		0637FA7720E0926D00E80174 /* BarkTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTargetType.swift; sourceTree = "<group>"; };
 		0637FA7920E092B300E80174 /* Observable+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Observable+Extension.swift"; sourceTree = "<group>"; };
 		0637FA7B20E0930E00E80174 /* BarkApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkApi.swift; sourceTree = "<group>"; };
@@ -505,6 +509,8 @@
 				061894C429962EB900E001C2 /* GradientButton.swift */,
 				06F08EAE29B5D9FF006AB9CA /* HUD.swift */,
 				06787C382A710568008ABDD7 /* GesturePassTextView.swift */,
+				0635A8042CE47DFE0027E00F /* SettingSectionHeader.swift */,
+				0635A8062CE4883A0027E00F /* DonateCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1128,6 +1134,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0635A8072CE4883A0027E00F /* DonateCell.swift in Sources */,
 				06840DBB272298FB001B3193 /* BKColor.swift in Sources */,
 				06C2CF232685B88D0034B127 /* TextCell.swift in Sources */,
 				06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */,
@@ -1188,6 +1195,7 @@
 				065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */,
 				062B98C3251B2762004562E7 /* BKButton.swift in Sources */,
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
+				0635A8052CE47DFE0027E00F /* SettingSectionHeader.swift in Sources */,
 				06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */,
 				0608F06E2994D115006B8029 /* BKDropDownCell.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,

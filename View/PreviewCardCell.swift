@@ -50,7 +50,7 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
     let card: UIView = {
         let view = UIView()
         view.backgroundColor = BKColor.background.secondary
-        view.layer.cornerRadius = 2
+        view.layer.cornerRadius = 10
         view.clipsToBounds = true
         return view
     }()
