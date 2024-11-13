@@ -781,6 +781,40 @@
         }
       }
     },
+    "criticalAlert" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Alert"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重要警告"
+          }
+        }
+      }
+    },
+    "criticalAlertNotice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nVolume range: 1-10."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "重要警告会忽略静音设置和勿扰模式，无论设备是否静音，通知都会提示并播放声音。\n音量参数 volume 取值范围: 1-10。"
+          }
+        }
+      }
+    },
     "CustomedNotificationContent" : {
       "extractionState" : "manual",
       "localizations" : {

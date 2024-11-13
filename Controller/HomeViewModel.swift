@@ -86,6 +86,12 @@ class HomeViewModel: ViewModel, ViewModelType {
             moreViewModel: CryptoSettingViewModel()
         ),
         PreviewModel(
+            body: NSLocalizedString("criticalAlert"),
+            notice: NSLocalizedString("criticalAlertNotice"),
+            queryParameter: "level=critical&volume=5",
+            image: UIImage(named: "criticalAlert")
+        ),
+        PreviewModel(
             body: NSLocalizedString("interruptionLevel"),
             notice: NSLocalizedString("interruptionLevelNotice"),
             queryParameter: "level=timeSensitive"
