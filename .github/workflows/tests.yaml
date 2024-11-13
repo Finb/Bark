@@ -19,7 +19,7 @@ jobs:
     - name: Select Xcode Version
       uses: maxim-lobanov/setup-xcode@v1
       with:
-        xcode-version: 'latest'
+        xcode-version: 'latest-stable'
 
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
