@@ -150,10 +150,10 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 url: URL(string: NSLocalizedString("docUrl"))
             ))
             otherSettings.append(.detail(
-                title: NSLocalizedString("sourceCode"),
+                title: NSLocalizedString("privacyPolicy"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: "https://github.com/Finb/Bark")
+                url: URL(string: "https://api.day.app/privacy")
             ))
             
             settings.append(

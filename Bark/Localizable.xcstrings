@@ -2061,6 +2061,23 @@
         }
       }
     },
+    "privacyPolicy" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy Policy"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "隐私协议"
+          }
+        }
+      }
+    },
     "pushNotificationEncryption" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2543,30 +2560,13 @@
         }
       }
     },
-    "sourceCode" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Source Code"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "源代码"
-          }
-        }
-      }
-    },
     "successfulDonation" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Successful donation"
+            "value" : "Donation"
           }
         },
         "zh-Hans" : {
