@@ -75,6 +75,7 @@
 		063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B909A272149BF00431EC2 /* HomeViewModelTests.swift */; };
 		0642B55A27EB13F100453D91 /* MutableTextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0642B55927EB13F100453D91 /* MutableTextCell.swift */; };
 		0642B55C27EB149900453D91 /* MutableTextCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0642B55B27EB149900453D91 /* MutableTextCellViewModel.swift */; };
+		0647DB682CE604AA00102066 /* MessageSettingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0647DB672CE604AA00102066 /* MessageSettingFooter.swift */; };
 		064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */; };
 		064CABA6256BE9510018155C /* PreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064CABA5256BE9510018155C /* PreviewModel.swift */; };
 		0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */; };
@@ -309,6 +310,7 @@
 		063B909A272149BF00431EC2 /* HomeViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModelTests.swift; sourceTree = "<group>"; };
 		0642B55927EB13F100453D91 /* MutableTextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTextCell.swift; sourceTree = "<group>"; };
 		0642B55B27EB149900453D91 /* MutableTextCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableTextCellViewModel.swift; sourceTree = "<group>"; };
+		0647DB672CE604AA00102066 /* MessageSettingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingFooter.swift; sourceTree = "<group>"; };
 		064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewCardCellViewModel.swift; sourceTree = "<group>"; };
 		064CABA5256BE9510018155C /* PreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewModel.swift; sourceTree = "<group>"; };
 		0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingRelay.swift; sourceTree = "<group>"; };
@@ -511,6 +513,7 @@
 				06787C382A710568008ABDD7 /* GesturePassTextView.swift */,
 				0635A8042CE47DFE0027E00F /* SettingSectionHeader.swift */,
 				0635A8062CE4883A0027E00F /* DonateCell.swift */,
+				0647DB672CE604AA00102066 /* MessageSettingFooter.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -1209,6 +1212,7 @@
 				06EEF335291CD00000CA228A /* CryptoSettingViewModel.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
 				065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */,
+				0647DB682CE604AA00102066 /* MessageSettingFooter.swift in Sources */,
 				065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */,
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */,

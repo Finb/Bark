@@ -2073,7 +2073,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "隐私协议"
+            "value" : "隐私政策"
           }
         }
       }
@@ -2258,6 +2258,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "不输入或输入旧的Key"
+          }
+        }
+      }
+    },
+    "restoreSubscription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Restore Subscription"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "恢复订阅"
           }
         }
       }
@@ -2560,6 +2577,23 @@
         }
       }
     },
+    "sourceCode" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Source Code"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "开源代码"
+          }
+        }
+      }
+    },
     "successfulDonation" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2848,6 +2882,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "携带url参数时，点击推送会跳转到这个URL,支持跳转URL Scheme"
+          }
+        }
+      }
+    },
+    "userAgreement" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "User Agreement"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "用户协议"
           }
         }
       }

@@ -150,10 +150,10 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 url: URL(string: NSLocalizedString("docUrl"))
             ))
             otherSettings.append(.detail(
-                title: NSLocalizedString("privacyPolicy"),
+                title: NSLocalizedString("sourceCode"),
                 text: nil,
                 textColor: nil,
-                url: URL(string: "https://api.day.app/privacy")
+                url: URL(string: "https://github.com/Finb/Bark")
             ))
             
             settings.append(
@@ -171,10 +171,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 SectionModel(
                     model: MessageSettingSection(
                         header: NSLocalizedString("donate"),
-                        footer: MessageSettingSectionFooter(
-                            title: "LICENSED APPLICATION END USER LICENSE AGREEMENT",
-                            url: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/"
-                        )
+                        footer: nil
                     ),
                     items: donateSettings
                 )
@@ -248,27 +245,7 @@ enum MessageSettingItem {
     case donate(title: String, productId: String)
 }
 
-protocol MessageSettingSectionFooterProtocol {
-    var title: String? { get }
-    var url: String? { get }
-}
-
-extension String: MessageSettingSectionFooterProtocol {
-    var title: String? {
-        return self
-    }
-
-    var url: String? {
-        return nil
-    }
-}
-
-struct MessageSettingSectionFooter: MessageSettingSectionFooterProtocol {
-    var title: String?
-    var url: String?
-}
-
 struct MessageSettingSection {
     var header: String?
-    var footer: MessageSettingSectionFooterProtocol?
+    var footer: String?
 }

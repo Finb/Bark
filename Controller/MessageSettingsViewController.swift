@@ -33,12 +33,18 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         
+        let footer = MessageSettingFooter()
+        footer.openLinkHandler = { [weak self] link in
+            self?.openLink(link: link)
+        }
+        tableView.tableFooterView = footer
+        
         tableView.delegate = self
         return tableView
     }()
 
     private var headers: [String?] = []
-    private var footers: [MessageSettingSectionFooterProtocol?] = []
+    private var footers: [String?] = []
     
     override func makeUI() {
         self.title = NSLocalizedString("settings")
@@ -275,6 +281,24 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             
         }.disposed(by: rx.disposeBag)
     }
+    
+    func openLink(link: String) {
+        switch link {
+        case "privacyPolicy":
+            self.navigationController?.present(BarkSFSafariViewController(
+                url: URL(string: "https://api.day.app/privacy")!
+            ), animated: true, completion: nil)
+        case "userAgreement":
+            self.navigationController?.present(BarkSFSafariViewController(
+                url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula")!
+            ), animated: true, completion: nil)
+        case "restoreSubscription":
+            SwiftyStoreKit.restorePurchases { [weak self] _ in
+                self?.showSnackbar(text: NSLocalizedString("done"))
+            }
+        default: break
+        }
+    }
 }
 
 extension MessageSettingsViewController: UITableViewDelegate {
@@ -288,21 +312,8 @@ extension MessageSettingsViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard self.footers.count > section, let footer = self.footers[section] else { return UIView() }
-        
         let footerView = SettingSectionFooter()
-        footerView.titleLabel.text = footer.title
-        if let footerUrl = footer.url, let url = URL(string: footerUrl) {
-            footerView.titleLabel.numberOfLines = 0
-            footerView.titleLabel.minimumScaleFactor = 0.5
-            footerView.titleLabel.adjustsFontSizeToFitWidth = true
-            
-            // 点击跳转
-            let tap = UITapGestureRecognizer()
-            footerView.addGestureRecognizer(tap)
-            tap.rx.event.asControlEvent().subscribe(onNext: { [weak self] _ in
-                self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
-            }).disposed(by: footerView.rx.disposeBag)
-        }
+        footerView.titleLabel.text = footer
         return footerView
     }
 }
