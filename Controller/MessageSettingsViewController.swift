@@ -28,9 +28,7 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         tableView.register(SpacerCell.self, forCellReuseIdentifier: "\(SpacerCell.self)")
         tableView.register(DonateCell.self, forCellReuseIdentifier: "\(DonateCell.self)")
         
-        tableView.estimatedSectionFooterHeight = 10
         tableView.estimatedSectionHeaderHeight = 10
-        tableView.sectionFooterHeight = UITableView.automaticDimension
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         
         let footer = MessageSettingFooter()
@@ -315,5 +313,21 @@ extension MessageSettingsViewController: UITableViewDelegate {
         let footerView = SettingSectionFooter()
         footerView.titleLabel.text = footer
         return footerView
+    }
+    
+    /// FUCK iOS, insetGrouped 和 tableView.sectionFooterHeight = UITableView.automaticDimension 一起用有BUG，因参与计算的宽度口径不一致导致高度可能计算不准确
+    /// 只能自己计算了
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard self.footers.count > section, let footer = self.footers[section] else { return 10 }
+        // 16 是 tableView 左右的间距， 12 是 uilabel 左右的间距
+        let size = CGSize(width: tableView.frame.width - 16 * 2 - 12 * 2, height: .greatestFiniteMagnitude)
+        let rect = (footer as NSString).boundingRect(
+            with: size,
+            options: [.usesLineFragmentOrigin],
+            attributes: [.font: UIFont.preferredFont(ofSize: 12)],
+            context: nil
+        )
+        // 8: top offset, 6：bottom offset
+        return rect.height + 8 + 6
     }
 }

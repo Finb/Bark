@@ -48,9 +48,9 @@ class SettingSectionFooter: UIView {
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(8)
-            make.bottom.equalTo(-6)
+//            make.bottom.equalTo(-6)
             make.left.equalTo(12)
-            make.right.equalTo(-8)
+            make.right.equalTo(-12)
         }
     }
 
