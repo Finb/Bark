@@ -355,6 +355,12 @@
             "value" : "If you get a 'Decryption Failed' prompt, try adding '-w 0' after the base64 command."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "şifre çözme başarısız olduysa, base64 komutundan sonra '-i 0' eklemeyi deneyin."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -554,6 +560,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Continuous support"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sürekli destek"
           }
         },
         "zh-Hans" : {
@@ -756,6 +768,12 @@
             "value" : "You need to restart the app! \n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/en-us/faq\n\nBark will not upload any logs! If you need help (or wish to help the developer fix the crash), you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uygulamayı yeniden başlatmanız gerekiyor!\n\nSorun devam ederse bir çözüm olup olmadığını görmek için SSS'yi kontrol etmeyi deneyebilirsiniz.\nhttps://bark.day.app/#/en-us/faq\n\nBark herhangi bir günlük yüklemeyecek! Yardıma ihtiyacınız varsa (veya geliştiricinin çökmeyi düzeltmesine yardım etmek istiyorsanız), kilitlenme günlüğünü bana da gönderebilirsiniz; mümkün olan en kısa sürede sizinle iletişime geçeceğim.\n\nE-posta: to@day.app\nTelgraf: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Sorunları: https://github.com/Finb/Bark/issues"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -771,6 +789,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Crashed!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "düştü!"
           }
         },
         "zh-Hans" : {
@@ -790,6 +814,12 @@
             "value" : "Critical Alert"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kritik uyarı"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -805,6 +835,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nVolume range: 1-10."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kritik uyarı sessiz ve rahatsız etmeyin modlarını göz ardı edecektir.\nses aralığı: 1-10."
           }
         },
         "zh-Hans" : {
@@ -870,6 +906,12 @@
             "value" : "Custom Sounds"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "özel sesler"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -931,6 +973,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Default Sounds"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "varsayılan sesler"
           }
         },
         "zh-Hans" : {
@@ -1111,6 +1159,12 @@
             "value" : "Donate"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bağış yapmak"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1123,6 +1177,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🤝"
+          }
+        },
+        "tr" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "🤝"
@@ -1396,6 +1456,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Group \"%@\" muted!"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "\"%@\" grubunun sesi kapatıldı!"
           }
         },
         "zh-Hans" : {
@@ -1829,6 +1895,12 @@
             "value" : "Mute this group for 1 Hour"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bu grubu 1 saatliğine sessize alın"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1961,6 +2033,12 @@
             "value" : "One-time donation"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tek seferlik bağış"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2068,6 +2146,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Privacy Policy"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gizlilik politikası"
           }
         },
         "zh-Hans" : {
@@ -2250,8 +2334,8 @@
         },
         "tr" : {
           "stringUnit" : {
-            "state" : "needs_review",
-            "value" : ""
+            "state" : "translated",
+            "value" : "Fazladan girmeyin veya T ve OL anahtarını girmeyin"
           }
         },
         "zh-Hans" : {
@@ -2269,6 +2353,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Restore Subscription"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "aboneliği geri yükle"
           }
         },
         "zh-Hans" : {
@@ -2311,6 +2401,12 @@
             "value" : "Ringtone"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "zil sesi"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2326,6 +2422,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Ringtone for a notification"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bildirim için zil sesi"
           }
         },
         "zh-Hans" : {
@@ -2483,6 +2585,12 @@
             "value" : "Set As Default Server"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "varsayılan sunucu olarak ayarla"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2521,6 +2629,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Successfully set"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "başarıyla ayarlandı"
           }
         },
         "zh-Hans" : {
@@ -2586,6 +2700,12 @@
             "value" : "Source Code"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kaynak kodu"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2603,6 +2723,12 @@
             "value" : "Donation"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bağış"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2618,6 +2744,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Thank you for your kind support"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nazik desteğiniz için teşekkür ederim"
           }
         },
         "zh-Hans" : {
@@ -2821,6 +2953,12 @@
             "value" : "Upload Sound"
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ses yükle"
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2838,6 +2976,12 @@
             "value" : "Please convert the sound file to caf format, and make sure it's no longer than 30 seconds."
           }
         },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "lütfen ses dosyasını TOC AF formatına dönüştürün ve SU GYO'ları 30 saniyeden uzun olmayacak şekilde işaretleyin."
+          }
+        },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2853,6 +2997,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "convert the sound file to caf format"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ses dosyasını TOC AF formatına dönüştürün"
           }
         },
         "zh-Hans" : {
@@ -2893,6 +3043,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "User Agreement"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "kullanıcı sözleşmesi"
           }
         },
         "zh-Hans" : {
