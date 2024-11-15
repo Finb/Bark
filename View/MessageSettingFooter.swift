@@ -20,7 +20,7 @@ class MessageSettingFooter: UITextView, UITextViewDelegate {
         // build号
         let buildVersion = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? ""
         
-        let attr = NSMutableAttributedString(string: "Version \(appVersion) (Build \(buildVersion))\n", attributes: [.font: UIFont.preferredFont(ofSize: 12), .foregroundColor: BKColor.grey.darken1])
+        let attr = NSMutableAttributedString(string: "\(NSLocalizedString("version")) \(appVersion) (\(buildVersion))\n", attributes: [.font: UIFont.preferredFont(ofSize: 12), .foregroundColor: BKColor.grey.darken1])
         attr.append(NSAttributedString(string: NSLocalizedString("privacyPolicy"), attributes: [.link: "privacyPolicy"]))
         attr.append(NSAttributedString(string: "  ·  "))
         attr.append(NSAttributedString(string: NSLocalizedString("userAgreement"), attributes: [.link: "userAgreement"]))
@@ -32,7 +32,7 @@ class MessageSettingFooter: UITextView, UITextViewDelegate {
         attr.addAttribute(.paragraphStyle, value: style, range: NSRange(location: 0, length: attr.length))
         
         self.attributedText = attr
-        self.linkTextAttributes = [.foregroundColor: BKColor.grey.darken1, .underlineStyle: NSUnderlineStyle.single.rawValue]
+        self.linkTextAttributes = [.foregroundColor: BKColor.grey.darken1, .underlineStyle: NSUnderlineStyle.single.rawValue, .font: UIFont.preferredFont(ofSize: 12)]
         self.textAlignment = .center
     }
 

@@ -36,16 +36,6 @@ class Client: NSObject {
         }
     }
     
-    let appVersion: String = {
-        var version = "0.0.0"
-        if let infoDict = Bundle.main.infoDictionary {
-            if let appVersion = infoDict["CFBundleVersion"] as? String {
-                version = appVersion
-            }
-        }
-        return version
-    }()
-    
     enum ClienState: Int, Codable {
         case ok
         case unRegister
