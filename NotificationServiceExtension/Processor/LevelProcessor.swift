@@ -19,9 +19,9 @@ class LevelProcessor: NotificationContentProcessor {
         if level == "critical" {
             // 默认音量
             var audioVolume: Float = 0.5
-            // 指定音量，取值范围是 1 - 10 , 会转换成 0.1 - 1
+            // 指定音量，取值范围是 0 - 10 , 会转换成 0.0 - 1.0
             if let volume = bestAttemptContent.userInfo["volume"] as? String, let volume = Float(volume) {
-                audioVolume = max(0.1, min(1, volume / 10.0))
+                audioVolume = max(0.0, min(1, volume / 10.0))
             }
             // 设置重要警告 sound
             if let sound = bestAttemptContent.soundName {

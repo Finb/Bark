@@ -834,19 +834,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nIf volume isn't provided, it defaults to 5 (range: 1-10)."
+            "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nIf volume isn't provided, it defaults to 5 (range: 0-10)."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nIf volume isn't provided, it defaults to 5 (range: 1-10)."
+            "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nIf volume isn't provided, it defaults to 5 (range: 0-10)."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "重要警告会忽略静音设置和勿扰模式，无论设备是否静音，通知都会提示并播放声音。\n音量参数 volume 不传默认值为5， 取值范围: 1-10。"
+            "value" : "重要警告会忽略静音设置和勿扰模式，无论设备是否静音，通知都会提示并播放声音。\n音量参数 volume 不传默认值为5， 取值范围: 0-10。"
           }
         }
       }
