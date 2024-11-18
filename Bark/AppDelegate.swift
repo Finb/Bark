@@ -98,7 +98,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             actions.append(UNNotificationAction(identifier: "mute", title: NSLocalizedString("muteGroup1Hour"), options: UNNotificationActionOptions.foreground))
         }
         UNUserNotificationCenter.current().setNotificationCategories([
-            UNNotificationCategory(identifier: "myNotificationCategory", actions: actions, intentIdentifiers: [], options: [])
+            // customDismissAction 会在 clear 推送时，调起APP，这时可以顺便更新下 DeviceToken，防止过期。
+            UNNotificationCategory(identifier: "myNotificationCategory", actions: actions, intentIdentifiers: [], options: .customDismissAction)
         ])
 
         UNUserNotificationCenter.current().getNotificationSettings { settings in
@@ -133,6 +134,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        guard response.actionIdentifier != UNNotificationDismissActionIdentifier else {
+            // clear 推送时，不要弹出提示框
+            return
+        }
         notificatonHandler(userInfo: response.notification.request.content.userInfo)
     }
 
@@ -219,7 +224,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
-        ServerManager.shared.syncAllServers()
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉
         UIApplication.shared.applicationIconBadgeNumber = -1
