@@ -98,7 +98,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             actions.append(UNNotificationAction(identifier: "mute", title: NSLocalizedString("muteGroup1Hour"), options: UNNotificationActionOptions.foreground))
         }
         UNUserNotificationCenter.current().setNotificationCategories([
-            UNNotificationCategory(identifier: "myNotificationCategory", actions: actions, intentIdentifiers: [], options: .customDismissAction)
+            UNNotificationCategory(identifier: "myNotificationCategory", actions: actions, intentIdentifiers: [], options: [])
         ])
 
         UNUserNotificationCenter.current().getNotificationSettings { settings in
