@@ -148,7 +148,10 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }).disposed(by: rx.disposeBag)
         
         // 加载更多
+        // delay 是为了防止翻到 1+N 页时，切换分组操作（或其他）时会和 loadMore 同时触发，导致 Reentrancy anomaly，
+        // APP闪退报 “UITableView is trying to layout cells with a global row ...”。
         input.loadMore.asObservable()
+            .delay(.milliseconds(100), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
                 let messages = strongSelf.getNextPage()
