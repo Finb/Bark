@@ -47,6 +47,12 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         } else {
             UIPasteboard.general.string = notification.request.content.body
         }
+		
+		// 如果是长提醒，关闭铃声
+		if notification.request.content.userInfo["call"] as? String == "1"{
+			CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFNotificationName(kStopCallProcessorKey as CFString), nil, nil, true)
+		}
+		
     }
 
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
