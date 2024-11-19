@@ -95,7 +95,8 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     override func bindViewModel(model: MessageTableViewCellViewModel) {
         super.bindViewModel(model: model)
 
-        Observable.combineLatest(model.title, model.body, model.url).subscribe { title, body, url in
+        Observable.combineLatest(model.title, model.body, model.url).subscribe {[weak self] title, body, url in
+            guard let self else { return }
             
             let text = NSMutableAttributedString(
                 string: body,
