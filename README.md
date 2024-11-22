@@ -10,7 +10,7 @@ Additionally, Bark supports self-hosted servers and offers encrypted push notifi
 ## Feedback
 [Telegram](https://t.me/joinchat/OsCbLzovUAE0YjY1)
 
-## Sending Push Notifications
+## Usage
 1. Open the app and copy the test URL
 
 <img src="https://wx4.sinaimg.cn/mw2000/003rYfqply1grd1meqrvcj60bi08zt9i02.jpg" width=365 />
