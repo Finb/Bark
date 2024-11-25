@@ -238,6 +238,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        if url.scheme?.lowercased() == "bark" && url.host?.lowercased() == "addserver" {
+            // 提取参数
+            let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
+            let address = queryItems?.first(where: { $0.name == "address" })?.value
+
+            // 处理添加服务器的逻辑
+            if let serverAddress = try? address?.asURL() {
+                let server = Server(address: serverAddress.absoluteString, key: "")
+                ServerManager.shared.addServer(server: server)
+                ServerManager.shared.setCurrentServer(serverId: server.id)
+                ServerManager.shared.syncAllServers()
+                HUDSuccess(NSLocalizedString("AddedSuccessfully"))
+            }
+            return true
+        }
+        return false
+    }
+    
     /// 停止响铃
     func stopCallNotificationProcessor() {
         CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFNotificationName(kStopCallProcessorKey as CFString), nil, nil, true)

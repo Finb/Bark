@@ -194,6 +194,8 @@ class HomeViewModel: ViewModel, ViewModelType {
                 showSnackbar.accept(NSLocalizedString("ServerError"))
             default: break
             }
+            // 主要用于 url scheme 添加服务器时会有state状态改变事件，顺便更新下标题
+            title.accept(ServerManager.shared.currentServer.address)
         })
         .disposed(by: rx.disposeBag)
         

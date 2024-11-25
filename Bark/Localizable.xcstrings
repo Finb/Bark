@@ -7,7 +7,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Server has been added successfully."
+            "value" : "Server added successfully."
           }
         },
         "tr" : {
@@ -19,7 +19,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "修改成功！"
+            "value" : "添加成功！"
           }
         }
       }
