@@ -150,8 +150,8 @@ class HomeViewModel: ViewModel, ViewModelType {
             }
             .map { response -> Client.ClienState in
                 switch response {
-                case .failure:
-                    return .serverError
+                case .failure(let error):
+                    return .serverError(error: error)
                 default:
                     return .ok
                 }
@@ -190,8 +190,8 @@ class HomeViewModel: ViewModel, ViewModelType {
         input.clientState.drive(onNext: { state in
             switch state {
             case .ok: break
-            case .serverError:
-                showSnackbar.accept(NSLocalizedString("ServerError"))
+            case .serverError(let error):
+                showSnackbar.accept("\(NSLocalizedString("ServerError")): \(error.rawString())")
             default: break
             }
             // 主要用于 url scheme 添加服务器时会有state状态改变事件，顺便更新下标题

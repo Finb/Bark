@@ -23,6 +23,21 @@ class Server: Codable {
         self.key = key
         self.state = state
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case id
+        case address
+        case key
+    }
+    
+    // 解码
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        address = try container.decode(String.self, forKey: .address)
+        key = try container.decode(String.self, forKey: .key)
+        state = .ok
+    }
 }
 
 class ServerManager: NSObject {
@@ -68,8 +83,7 @@ class ServerManager: NSObject {
     func setCurrentServer(serverId: String) {
         if let server = servers.first(where: { $0.id == serverId }) {
             currentServer = server
-        }
-        else {
+        } else {
             currentServer = servers.first!
         }
         Settings[.currentServerId] = serverId
@@ -82,7 +96,7 @@ class ServerManager: NSObject {
     }
 
     func updateServerKey(server: Server) {
-        let foundServer = self.servers.first{ $0.id == server.id }
+        let foundServer = self.servers.first { $0.id == server.id }
         foundServer?.key = server.key
         saveServers()
     }
@@ -124,7 +138,8 @@ class ServerManager: NSObject {
                 .register(
                     address: server.address,
                     key: server.key,
-                    devicetoken: token))
+                    devicetoken: token
+                ))
                 .filterResponseError()
                 .map { result -> (Server, String, Client.ClienState) in
 
@@ -132,15 +147,14 @@ class ServerManager: NSObject {
                     case .success(let json):
                         if let key = json["data", "key"].rawString() {
                             return (server, key, .ok)
+                        } else {
+                            return (server, "", .serverError(error: .Error(info: "key not found")))
                         }
-                        else {
-                            return (server, "", .serverError)
-                        }
-                    case .failure:
-                        return (server, "", .serverError)
+                    case .failure(let error):
+                        return (server, "", .serverError(error: error))
                     }
-                }.catch { _ in
-                    Observable.just((server, "", .serverError))
+                }.catch { error in
+                    Observable.just((server, "", .serverError(error: .Error(info: error.localizedDescription))))
                 }
         }
 

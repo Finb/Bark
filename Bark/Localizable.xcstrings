@@ -2502,7 +2502,7 @@
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "服务器错误，不能使用推送服务"
+            "value" : "服务器错误"
           }
         }
       }

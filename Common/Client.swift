@@ -36,10 +36,22 @@ class Client: NSObject {
         }
     }
     
-    enum ClienState: Int, Codable {
+    enum ClienState {
         case ok
         case unRegister
-        case serverError
+        case serverError(error: ApiError)
+        static func == (lhs: ClienState, rhs: ClienState) -> Bool {
+            switch (lhs, rhs) {
+            case (.ok, .ok):
+                return true
+            case (.unRegister, .unRegister):
+                return true
+            case (.serverError(let error1), .serverError(let error2)):
+                return error1.localizedDescription == error2.localizedDescription
+            default:
+                return false
+            }
+        }
     }
 
     var deviceToken = BehaviorRelay<String?>(value: nil)
