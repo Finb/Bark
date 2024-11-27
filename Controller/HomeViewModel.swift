@@ -120,7 +120,7 @@ class HomeViewModel: ViewModel, ViewModelType {
     ]
     
     func transform(input: Input) -> Output {
-        let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentServer.address)?.host ?? "")
+        let title = BehaviorRelay(value: ServerManager.shared.currentServer.host)
         
         let sectionModel = SectionModel(
             model: "previews",
@@ -195,7 +195,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             default: break
             }
             // 主要用于 url scheme 添加服务器时会有state状态改变事件，顺便更新下标题
-            title.accept(ServerManager.shared.currentServer.address)
+            title.accept(ServerManager.shared.currentServer.host)
         })
         .disposed(by: rx.disposeBag)
         
@@ -207,7 +207,7 @@ class HomeViewModel: ViewModel, ViewModelType {
                 (model as! ServerListViewModel).currentServerChanged.asDriver(onErrorDriveWith: .empty())
             }
             .map { server -> String in
-                (try? server.address.asURL().host) ?? ""
+                server.host
             }
             .drive(title)
             .disposed(by: rx.disposeBag)

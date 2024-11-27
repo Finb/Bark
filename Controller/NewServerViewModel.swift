@@ -81,7 +81,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
                     ServerManager.shared.setCurrentServer(serverId: server.id)
                     ServerManager.shared.syncAllServers()
                     
-                    strongSelf.pop.accept(strongSelf.url)
+                    strongSelf.pop.accept(URL(string: strongSelf.url)?.host ?? "")
                     showSnackbar.accept(NSLocalizedString("AddedSuccessfully"))
                 case .failure(let error):
                     showSnackbar.accept("\(NSLocalizedString("InvalidServer"))\(error.rawString())")

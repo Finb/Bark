@@ -17,6 +17,11 @@ class Server: Codable {
     let address: String
     var key: String
     var state: Client.ClienState
+    
+    var host: String {
+        return URL(string: address)?.host ?? ""
+    }
+    
     init(id: String = UUID().uuidString, address: String, key: String, state: Client.ClienState = .ok) {
         self.id = id
         self.address = address
