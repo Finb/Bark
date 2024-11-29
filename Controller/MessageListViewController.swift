@@ -25,24 +25,24 @@ enum MessageDeleteType: Int {
             NSLocalizedString("lastHour"),
             NSLocalizedString("today"),
             NSLocalizedString("todayAndYesterday"),
-            NSLocalizedString("allTime"),
+            NSLocalizedString("allTime")
         ][self.rawValue]
     }
 }
 
 class MessageListViewController: BaseViewController<MessageListViewModel> {
-    let deleteButton: BKButton = {
+    let deleteButton: UIBarButtonItem = {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return btn
+        return UIBarButtonItem(customView: btn)
     }()
     
-    let groupButton: BKButton = {
+    let groupButton: UIBarButtonItem = {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_folder_open_black_24pt"), for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return btn
+        return UIBarButtonItem(customView: btn)
     }()
     
     let tableView: UITableView = {
@@ -50,7 +50,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         tableView.separatorStyle = .none
         tableView.backgroundColor = BKColor.background.primary
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "\(MessageTableViewCell.self)")
-        tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        // 设置了这个后，第一次进页面 LargeTitle 就会收缩成小标题，不设置这个LargeTitle就是大标题显示
+        // 谁特么能整的明白这个？
+        // tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
+        
+        // 替代 contentInset 设置一个 header
+        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+        
         return tableView
     }()
         
@@ -59,7 +65,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.delegate = self
         
-        navigationItem.setBarButtonItems(items: [UIBarButtonItem(customView: deleteButton), UIBarButtonItem(customView: groupButton)], position: .right)
+        navigationItem.setBarButtonItems(items: [deleteButton, groupButton], position: .right)
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -91,12 +97,14 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             }
             .subscribe(onNext: { [weak self] _ in
                 self?.tableView.refreshControl?.sendActions(for: .valueChanged)
-                self?.scrollToTop()
             }).disposed(by: rx.disposeBag)
     }
     
     override func bindViewModel() {
-        let batchDelete = deleteButton.rx
+        guard let deleteBtn = deleteButton.customView as? BKButton else {
+            return
+        }
+        let batchDelete = deleteBtn.rx
             .tap
             .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in
                 let relay = PublishRelay<MessageDeleteType>()
@@ -124,20 +132,33 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     alert(.allTime)
                 }))
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    alertController.modalPresentationStyle = .popover
+                    if #available(iOS 16.0, *) {
+                        alertController.popoverPresentationController?.sourceItem = self.deleteButton
+                    } else {
+                        alertController.popoverPresentationController?.barButtonItem = self.deleteButton
+                    }
+                }
                 self.navigationController?.present(alertController, animated: true, completion: nil)
                 
                 return relay
             }
         
+        guard let groupBtn = groupButton.customView as? BKButton else {
+            return
+        }
+        
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
                 refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
-                itemDelete: tableView.rx.itemDeleted.asDriver(),
-                itemSelected: tableView.rx.modelSelected(MessageTableViewCellViewModel.self).asDriver(),
+                itemDelete: tableView.rx.itemDeleted.asDriver().map { $0.row },
+                itemSelected: tableView.rx.itemSelected.asDriver().map { $0.row },
                 delete: batchDelete.asDriver(onErrorDriveWith: .empty()),
-                groupTap: groupButton.rx.tap.asDriver(),
-                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()))
+                groupTap: groupBtn.rx.tap.asDriver(),
+                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
+            ))
         
         // tableView 刷新状态
         output.refreshAction
@@ -149,7 +170,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             animationConfiguration: AnimationConfiguration(
                 insertAnimation: .none,
                 reloadAnimation: .none,
-                deleteAnimation: .left),
+                deleteAnimation: .left
+            ),
             configureCell: { _, tableView, _, item -> UITableViewCell in
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
                     return UITableViewCell()
@@ -158,7 +180,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 return cell
             }, canEditRowAtIndexPath: { _, _ in
                 true
-            })
+            }
+        )
         
         output.messages
             .drive(tableView.rx.items(dataSource: dataSource))
@@ -166,7 +189,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         // message操作alert
         output.alertMessage.drive(onNext: { [weak self] message in
-            self?.alertMessage(message: message)
+            self?.alertMessage(message: message.0, indexPath: IndexPath(row: message.1, section: 0))
         }).disposed(by: rx.disposeBag)
         
         // 选择群组
@@ -178,23 +201,27 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         // 标题
         output.title
             .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
-        
-        // 绑定数据后，滚动到顶部
-        self.scrollToTop()
     }
     
-    func alertMessage(message: String) {
+    func alertMessage(message: String, indexPath: IndexPath) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
-            (_: UIAlertAction) -> Void in
-            UIPasteboard.general.string = message
-            self?.showSnackbar(text: NSLocalizedString("Copy"))
+            (_: UIAlertAction) in
+                UIPasteboard.general.string = message
+                self?.showSnackbar(text: NSLocalizedString("Copy"))
         })
         
         let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in })
         
         alertController.addAction(copyAction)
         alertController.addAction(cancelAction)
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            alertController.modalPresentationStyle = .popover
+            if let cell = self.tableView.cellForRow(at: indexPath) {
+                alertController.popoverPresentationController?.sourceView = self.tableView
+                alertController.popoverPresentationController?.sourceRect = cell.frame
+            }
+        }
         
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }

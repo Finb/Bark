@@ -11,20 +11,22 @@ import UIKit
 
 class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let algorithmFeild = DropBoxView(values: ["AES128", "AES192", "AES256"])
-    let modeFeild = DropBoxView(values: ["CBC", "ECB"])
+    let modeFeild = DropBoxView(values: ["CBC", "ECB", "GCM"])
     let paddingField = DropBoxView(values: ["pkcs7"])
 
     let keyTextField: BorderTextField = {
         let textField = BorderTextField(title: "Key")
-        textField.font = UIFont.systemFont(ofSize: 14)
+        textField.font = UIFont.preferredFont(ofSize: 14)
+        textField.adjustsFontForContentSizeCategory = true
         textField.placeholder = String(format: NSLocalizedString("enterKey"), 16)
         return textField
     }()
 
     let ivTextField: BorderTextField = {
         let textField = BorderTextField(title: "IV")
-        textField.font = UIFont.systemFont(ofSize: 14)
-        textField.placeholder = NSLocalizedString("enterIv")
+        textField.font = UIFont.preferredFont(ofSize: 14)
+        textField.adjustsFontForContentSizeCategory = true
+        textField.placeholder = String(format: NSLocalizedString("enterIv"), 16) // todo: update iv length
         return textField
     }()
 
@@ -41,7 +43,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         let btn = GradientButton()
         btn.setTitle(NSLocalizedString("copyExample"), for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
-        btn.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: .medium)
+        btn.titleLabel?.font = UIFont.preferredFont(ofSize: 14, weight: .medium)
+        btn.titleLabel?.adjustsFontForContentSizeCategory = true
         btn.layer.cornerRadius = 8
         btn.clipsToBounds = true
         btn.applyGradient(
@@ -70,7 +73,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
         func getTitleLabel(title: String) -> UILabel {
             let label = UILabel()
-            label.font = UIFont.systemFont(ofSize: 14)
+            label.font = UIFont.preferredFont(ofSize: 14)
+            label.adjustsFontForContentSizeCategory = true
             label.textColor = BKColor.grey.darken4
             label.text = title
             return label
@@ -222,8 +226,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             .drive(self.paddingField.rx.values)
             .disposed(by: rx.disposeBag)
 
-        output.keyLenghtChanged.drive(onNext: { [weak self] keyLenght in
-            self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLenght)
+        output.keyLengthChanged.drive(onNext: { [weak self] keyLength in
+            self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLength)
         }).disposed(by: rx.disposeBag)
 
         output.showSnackbar.drive(onNext: { text in

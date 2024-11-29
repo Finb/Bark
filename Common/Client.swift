@@ -17,31 +17,41 @@ class Client: NSObject {
         super.init()
     }
 
-    var currentNavigationController: UINavigationController? {
-        let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-        let nav = (controller?.rootViewController as? UITabBarController)?.selectedViewController as? UINavigationController
-        return nav
+    var window: UIWindow? {
+        return UIApplication.shared.delegate?.window ?? nil
+    }
+
+    var currentSnackbarController: BarkSnackbarController? {
+        return self.window?.rootViewController as? BarkSnackbarController
     }
 
     var currentTabBarController: StateStorageTabBarController? {
-        let controller = UIApplication.shared.delegate?.window??.rootViewController as? BarkSnackbarController
-        return controller?.rootViewController as? StateStorageTabBarController
+        guard let snackbarController = self.currentSnackbarController else {
+            return nil
+        }
+        if #available(iOS 14, *), UIDevice.current.userInterfaceIdiom == .pad {
+            return (snackbarController.rootViewController as? BarkSplitViewController)?.compactController
+        } else {
+            return snackbarController.rootViewController as? BarkTabBarController
+        }
     }
     
-    let appVersion: String = {
-        var version = "0.0.0"
-        if let infoDict = Bundle.main.infoDictionary {
-            if let appVersion = infoDict["CFBundleVersion"] as? String {
-                version = appVersion
-            }
-        }
-        return version
-    }()
-    
-    enum ClienState: Int, Codable {
+    enum ClienState {
         case ok
         case unRegister
-        case serverError
+        case serverError(error: ApiError)
+        static func == (lhs: ClienState, rhs: ClienState) -> Bool {
+            switch (lhs, rhs) {
+            case (.ok, .ok):
+                return true
+            case (.unRegister, .unRegister):
+                return true
+            case (.serverError(let error1), .serverError(let error2)):
+                return error1.localizedDescription == error2.localizedDescription
+            default:
+                return false
+            }
+        }
     }
 
     var deviceToken = BehaviorRelay<String?>(value: nil)
@@ -49,13 +59,12 @@ class Client: NSObject {
     
     func registerForRemoteNotifications() {
         let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound, .badge], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
+        center.requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert], completionHandler: { (_ granted: Bool, _: Error?) in
             if granted {
                 dispatch_sync_safely_main_queue {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
-            }
-            else {
+            } else {
                 print("没有打开推送")
             }
         })
@@ -66,11 +75,10 @@ class Client: NSObject {
             UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly: true]) { success in
                 if !success {
                     // 打不开Universal Link时，则用内置 safari 打开
-                    self.currentNavigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                    self.currentSnackbarController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
                 }
             }
-        }
-        else {
+        } else {
             UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }

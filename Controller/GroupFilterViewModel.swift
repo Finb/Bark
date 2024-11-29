@@ -10,7 +10,7 @@ import RealmSwift
 import RxCocoa
 import RxDataSources
 import RxSwift
-import UIKit
+
 struct GroupFilterModel {
     var name: String?
     var checked: Bool
@@ -43,7 +43,7 @@ class GroupFilterViewModel: ViewModel, ViewModelType {
         
         // 点击显示所有群组或隐藏所有群组时，设置cell checked 勾选状态
         input.showAllGroups.drive(onNext: { isShowAllGroups in
-            groupCellModels.forEach { model in
+            for model in groupCellModels {
                 model.checked.accept(isShowAllGroups)
             }
         }).disposed(by: rx.disposeBag)

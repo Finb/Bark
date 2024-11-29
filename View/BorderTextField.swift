@@ -65,7 +65,8 @@ class BorderTextField: InsetTextField {
         self.insets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
 
         self.textColor = BKColor.grey.darken3
-        self.font = UIFont.systemFont(ofSize: 14)
+        self.font = UIFont.preferredFont(ofSize: 14)
+        self.adjustsFontForContentSizeCategory = true
         self.textAlignment = .left
         
         self.insertSubview(backgroundView, at: 0)
@@ -78,7 +79,7 @@ class BorderTextField: InsetTextField {
     override var placeholder: String? {
         didSet{
             self.attributedPlaceholder = NSAttributedString(string: placeholder ?? "" , attributes: [
-                .font: self.font ?? UIFont.systemFont(ofSize: 14),
+                .font: self.font ?? UIFont.preferredFont(ofSize: 14),
                 .foregroundColor: BKColor.grey.darken1
             ])
         }

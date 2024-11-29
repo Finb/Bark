@@ -13,6 +13,7 @@ import RxSwift
 import UIKit
 
 enum ServerActionType {
+    case select
     case copy
     case reset(key: String?)
     case delete
@@ -21,9 +22,10 @@ enum ServerActionType {
 func == (lhs: ServerActionType, rhs: ServerActionType) -> Bool {
     switch (lhs, rhs) {
     case (.copy, .copy),
-         (.delete, .delete):
+         (.delete, .delete),
+         (.select, .select):
         return true
-    case let (.reset(a), .reset(b)):
+    case (.reset(let a), .reset(let b)):
         return a == b
     default:
         return false
@@ -59,7 +61,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
             make.edges.equalToSuperview()
         }
         
-        closeButton.rx.tap.subscribe {[weak self] in
+        closeButton.rx.tap.subscribe { [weak self] in
             self?.dismiss(animated: true, completion: nil)
         } onError: { _ in
             
@@ -67,9 +69,12 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
     }
 
     override func bindViewModel() {
-
         let action = getServerAction()
 
+        // 选择 server
+        let selectServer = action.filter { $0.1 == ServerActionType.select }
+            .map { $0.0 }.asDriver(onErrorDriveWith: .empty())
+        
         // 复制 server
         let copyServer = action.filter { $0.1 == ServerActionType.copy }
             .map { $0.0 }.asDriver(onErrorDriveWith: .empty())
@@ -80,13 +85,14 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
 
         // 重置 server key
         let resetServer = action.compactMap { r -> (Server, String?)? in
-            if case let ServerActionType.reset(key) = r.1 {
+            if case ServerActionType.reset(let key) = r.1 {
                 return (r.0, key)
             }
             return nil
         }.asDriver(onErrorDriveWith: .empty())
 
         let output = viewModel.transform(input: ServerListViewModel.Input(
+            selectServer: selectServer,
             copyServer: copyServer,
             deleteServer: deleteServer,
             resetServer: resetServer
@@ -122,11 +128,13 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
     }
 
     func getServerAction() -> Driver<(Server, ServerActionType)> {
-
         return tableView.rx
-            .modelSelected(ServerListTableViewCellViewModel.self)
-            .flatMapLatest { viewModel -> PublishRelay<(Server, ServerActionType)> in
+            .itemSelected
+            .flatMapLatest { indexPath in
                 let relay = PublishRelay<(Server, ServerActionType)>()
+                guard let viewModel: ServerListTableViewCellViewModel = try? self.tableView.rx.model(at: indexPath) else {
+                    return relay
+                }
 
                 let alertController = UIAlertController(title: nil, message: "\(viewModel.address.value)", preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("copyAddressAndKey"), style: .default, handler: { _ in
@@ -145,6 +153,10 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                     self.navigationController?.present(alertController, animated: true, completion: nil)
                 }))
 
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("setAsDefaultServer"), style: .default, handler: { _ in
+                    relay.accept((viewModel.server, .select))
+                }))
+                
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("deleteServer"), style: .destructive, handler: { _ in
 
                     let alertController = UIAlertController(title: nil, message: NSLocalizedString("confirmDeleteServer"), preferredStyle: .alert)
@@ -157,6 +169,14 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                 }))
 
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    alertController.modalPresentationStyle = .popover
+                    if let cell = self.tableView.cellForRow(at: indexPath) {
+                        alertController.popoverPresentationController?.sourceView = self.tableView
+                        alertController.popoverPresentationController?.sourceRect = cell.frame
+                    }
+                }
                 self.navigationController?.present(alertController, animated: true, completion: nil)
 
                 return relay
