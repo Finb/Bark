@@ -142,9 +142,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
-        if UIApplication.shared.applicationState == .active {
-            stopCallNotificationProcessor()
-        }
         return .alert
     }
     
@@ -229,11 +226,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UIApplication.shared.applicationIconBadgeNumber = -1
     }
 
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // 如果有响铃通知，则关闭响铃
-        stopCallNotificationProcessor()
-    }
-
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
@@ -255,10 +247,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return true
         }
         return false
-    }
-    
-    /// 停止响铃
-    func stopCallNotificationProcessor() {
-        CFNotificationCenterPostNotification(CFNotificationCenterGetDarwinNotifyCenter(), CFNotificationName(kStopCallProcessorKey as CFString), nil, nil, true)
     }
 }

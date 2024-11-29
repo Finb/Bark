@@ -13,10 +13,6 @@ import Foundation
 let kBarkSoundPrefix = "bark.sounds.30s"
 
 class CallProcessor: NotificationContentProcessor {
-    /// 震动完毕后，返回的 content
-    var content: UNMutableNotificationContent? = nil
-    /// 是否需要停止震动，由主APP发出停止通知时赋值
-    var shouldStopVibration = false
     /// 铃声文件夹，扩展访问不到主APP中的铃声，需要先共享铃声文件
     let soundsDirectoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Sounds")
     
@@ -24,29 +20,8 @@ class CallProcessor: NotificationContentProcessor {
         guard let call = bestAttemptContent.userInfo["call"] as? String, call == "1" else {
             return bestAttemptContent
         }
-        self.content = bestAttemptContent
-        
         // 延长铃声到30s
-        self.processNotificationSound()
-        // 注册停止震动通知
-        self.registerObserver()
-        // 开始震动
-        await startVibrate()
-        
-        return bestAttemptContent
-    }
-    
-    func serviceExtensionTimeWillExpire(contentHandler: (UNNotificationContent) -> Void) {
-        shouldStopVibration = true
-        if let content {
-            contentHandler(content)
-        }
-    }
-        
-    deinit {
-        let observer = Unmanaged.passUnretained(self).toOpaque()
-        let name = CFNotificationName(kStopCallProcessorKey as CFString)
-        CFNotificationCenterRemoveObserver(CFNotificationCenterGetDarwinNotifyCenter(), observer, name, nil)
+        return self.processNotificationSound(content: bestAttemptContent)
     }
 }
 
@@ -54,10 +29,7 @@ class CallProcessor: NotificationContentProcessor {
 
 extension CallProcessor {
     // 将通知铃声延长到30s，并用30s的长铃声替换掉原铃声
-    func processNotificationSound() {
-        guard let content else {
-            return
-        }
+    func processNotificationSound(content: UNMutableNotificationContent) -> UNMutableNotificationContent {
         let sound = ((content.userInfo["aps"] as? [String: Any])?["sound"] as? String)?.split(separator: ".")
         let soundName: String
         let soundType: String
@@ -72,6 +44,7 @@ extension CallProcessor {
         if let longSoundUrl = getLongSound(soundName: soundName, soundType: soundType) {
             content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: longSoundUrl.lastPathComponent))
         }
+        return content
     }
     
     func getLongSound(soundName: String, soundType: String) -> URL? {
@@ -164,32 +137,5 @@ extension CallProcessor {
             print("Error processing CAF file: \(error)")
             return nil
         }
-    }
-}
-
-// MARK: - 震动
-
-extension CallProcessor {
-    // 开始手机震动
-    private func startVibrate() async {
-        guard shouldStopVibration == false else {
-            return
-        }
-        // 播放震动
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate)
-        // 震动间隔
-        try? await Task.sleep(nanoseconds: 2 * 1000000000)
-        await startVibrate()
-    }
-    
-    /// 注册停止通知
-    func registerObserver() {
-        let notification = CFNotificationCenterGetDarwinNotifyCenter()
-        let observer = Unmanaged.passUnretained(self).toOpaque()
-        CFNotificationCenterAddObserver(notification, observer, { _, pointer, _, _, _ in
-            guard let observer = pointer else { return }
-            let processor = Unmanaged<CallProcessor>.fromOpaque(observer).takeUnretainedValue()
-            processor.shouldStopVibration = true
-        }, kStopCallProcessorKey as CFString, nil, .deliverImmediately)
     }
 }
