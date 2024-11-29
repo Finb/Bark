@@ -89,3 +89,4 @@ https://api.day.app/yourkey/时效性通知?level=critical
 - [bark-jssdk](https://github.com/afeiship/bark-jssdk)
 - [java-bark-server](https://gitee.com/hotlcc/java-bark-server)
 - [Python for Bark](https://github.com/funny-cat-happy/barknotificator)
+- [uTools for Bark](https://u.tools/plugins/detail/PushOne/)

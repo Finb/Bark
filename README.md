@@ -79,6 +79,7 @@ https://api.day.app/yourkey/criticalAlert?level=critical
 
 Critical alerts will ignore silent and do not disturb modes, always playing the notification sound and displaying on the screen.
 ```
+
 ## Others
 - [Online Scheduled Sending](https://api.ihint.me/bark.html)
 - [Windows Push Client](https://github.com/HsuDan/BarkHelper)
@@ -89,3 +90,4 @@ Critical alerts will ignore silent and do not disturb modes, always playing the 
 - [bark-jssdk](https://github.com/afeiship/bark-jssdk)
 - [java-bark-server](https://gitee.com/hotlcc/java-bark-server)
 - [Python for Bark](https://github.com/funny-cat-happy/barknotificator)
+- [uTools for Bark](https://u.tools/plugins/detail/PushOne/)
