@@ -88,5 +88,6 @@ https://api.day.app/yourkey/时效性通知?level=critical
 - [Bark for Wox](https://github.com/Zeroto521/Wox.Plugin.Bark)
 - [bark-jssdk](https://github.com/afeiship/bark-jssdk)
 - [java-bark-server](https://gitee.com/hotlcc/java-bark-server)
+- [bark-java-sdk](https://github.com/MoshiCoCo/bark-java-sdk)
 - [Python for Bark](https://github.com/funny-cat-happy/barknotificator)
 - [uTools for Bark](https://u.tools/plugins/detail/PushOne/)
