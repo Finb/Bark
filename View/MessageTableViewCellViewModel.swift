@@ -11,14 +11,22 @@ import Foundation
 import RxCocoa
 import RxDataSources
 
+enum MessageListCellDateStyle {
+    /// 相对时间，例如 1分钟前、1小时前
+    case relative
+    /// 精确时间，例如 2024-01-01 12:00
+    case exact
+}
+
 class MessageTableViewCellViewModel: ViewModel {
     let message: Message
     
     let title: BehaviorRelay<String>
     let body: BehaviorRelay<String>
     let url: BehaviorRelay<String>
-    let date: BehaviorRelay<String>
     
+    let date = BehaviorRelay<String>(value: "")
+    var dateStyle = BehaviorRelay<MessageListCellDateStyle>(value: .relative)
     
     init(message: Message) {
         self.message = message
@@ -26,9 +34,19 @@ class MessageTableViewCellViewModel: ViewModel {
         self.title = BehaviorRelay<String>(value: message.title ?? "")
         self.body = BehaviorRelay<String>(value: message.body ?? "")
         self.url = BehaviorRelay<String>(value: message.url ?? "")
-        self.date = BehaviorRelay<String>(value: (message.createDate ?? Date()).agoFormatString())
 
         super.init()
+        
+        dateStyle.map { style in
+            switch style {
+            case .relative:
+                return self.message.createDate?.agoFormatString() ?? ""
+            case .exact:
+                return self.message.createDate?.formatString(format: "yyyy-MM-dd HH:mm") ?? ""
+            }
+        }
+        .bind(to: date)
+        .disposed(by: rx.disposeBag)
     }
 }
 
@@ -62,13 +80,11 @@ extension MessageTableViewCellViewModel: IdentifiableType {
         return "\(self.message.id)"
     }
     
-    // 移除掉，因会导致下拉刷新时，新的 MessageTableViewCellViewModel 没有绑定到 cell 上
-    // MessageListViewModel 监听了新的 MessageTableViewCellViewModel 的 urlTap ，但cell绑定的是旧的
-    // 导致 下拉刷新后， url 点击没反应。
-//    override func isEqual(_ object: Any?) -> Bool {
-//        if let obj = object as? MessageTableViewCellViewModel {
-//            return self.identity == obj.identity
-//        }
-//        return super.isEqual(object)
-//    }
+    override func isEqual(_ object: Any?) -> Bool {
+        if let obj = object as? MessageTableViewCellViewModel {
+            // 消息列表cell上显示的时间需要随着时间的变化而变化（1分钟前、2分钟前 ...），如果时间不一样的就需要刷新界面
+            return self.identity == obj.identity && self.date.value == obj.date.value
+        }
+        return super.isEqual(object)
+    }
 }

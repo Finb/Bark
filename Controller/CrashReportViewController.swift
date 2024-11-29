@@ -20,7 +20,8 @@ class CrashReportViewController: UIViewController {
 
         let crashedTitle = UILabel()
         crashedTitle.text = NSLocalizedString("crashed")
-        crashedTitle.font = UIFont.boldSystemFont(ofSize: 30)
+        crashedTitle.font = UIFont.preferredFont(ofSize: 30, weight: .bold)
+        crashedTitle.adjustsFontForContentSizeCategory = true
         crashedTitle.textColor = UIColor(r255: 239, g255: 77, b255: 77)
         self.view.addSubview(crashedTitle)
 
@@ -31,13 +32,15 @@ class CrashReportViewController: UIViewController {
         contentlabel.isScrollEnabled = false
         contentlabel.textContainerInset = .zero
         contentlabel.textContainer.lineFragmentPadding = 0
-        contentlabel.font = UIFont.systemFont(ofSize: 14)
+        contentlabel.font = UIFont.preferredFont(ofSize: 14)
+        contentlabel.adjustsFontForContentSizeCategory = true
         contentlabel.textColor = UIColor(r255: 51, g255: 51, b255: 51)
         contentlabel.text = NSLocalizedString("crashContent")
         self.view.addSubview(contentlabel)
 
         let copyButton = UIButton()
-        copyButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
+        copyButton.titleLabel?.font = UIFont.preferredFont(ofSize: 16, weight: .bold)
+        copyButton.titleLabel?.adjustsFontForContentSizeCategory = true
         copyButton.setTitleColor(UIColor.white, for: .normal)
         copyButton.setTitle(NSLocalizedString("copyCrashLog"), for: .normal)
         copyButton.backgroundColor = UIColor(r255: 239, g255: 77, b255: 77)

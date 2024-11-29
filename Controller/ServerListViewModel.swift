@@ -15,6 +15,7 @@ import SwiftyJSON
 
 class ServerListViewModel: ViewModel, ViewModelType {
     struct Input {
+        let selectServer: Driver<Server>
         let copyServer: Driver<Server>
         let deleteServer: Driver<Server>
         let resetServer: Driver<(Server, String?)>
@@ -142,8 +143,15 @@ class ServerListViewModel: ViewModel, ViewModelType {
                 )]
             }.asDriver(onErrorDriveWith: .empty())
 
+        // 选择首页预览服务器
+        let serverSelected = input.selectServer.asObservable().map { server in
+            ServerManager.shared.setCurrentServer(serverId: server.id)
+            showSnackbar.accept(NSLocalizedString("setSuccessfully"))
+            return ()
+        }
+        
         // 当前服务器有改动
-        let serverChanged = Observable.merge(serverDeleted, serverResetSuccess)
+        let serverChanged = Observable.merge(serverSelected, serverDeleted, serverResetSuccess)
             .share()
 
         serverChanged.map {

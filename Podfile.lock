@@ -1,22 +1,20 @@
 PODS:
-  - Alamofire (5.4.4)
-  - CryptoSwift (1.6.0)
+  - Alamofire (5.9.1)
+  - CryptoSwift (1.8.3)
   - DefaultsKit (0.2.0)
-  - DeviceKit (4.5.0)
+  - DeviceKit (5.5.0)
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
   - FDFullscreenPopGesture (1.1)
-  - IceCream (2.0.4):
-    - RealmSwift (< 10.8.0)
-  - IQKeyboardManagerSwift (6.5.10)
-  - Kingfisher (6.3.1)
+  - IQKeyboardManagerSwift (7.1.1)
+  - Kingfisher (8.0.3)
   - KVOController (1.2.0)
   - Material (3.1.8):
     - Material/Core (= 3.1.8)
   - Material/Core (3.1.8):
     - Motion (~> 3.1.1)
   - MercariQRScanner (1.9.0)
-  - MJRefresh (3.7.2)
+  - MJRefresh (3.7.9)
   - Motion (3.1.3):
     - Motion/Core (= 3.1.3)
   - Motion/Core (3.1.3)
@@ -27,29 +25,32 @@ PODS:
     - RxSwift (~> 6.0)
   - "NSObject+Rx (5.2.2)":
     - RxSwift (~> 6.2)
-  - ObjectMapper (4.2.0)
-  - PLCrashReporter (1.11.1)
-  - Realm (10.7.7):
-    - Realm/Headers (= 10.7.7)
-  - Realm/Headers (10.7.7)
-  - RealmSwift (10.7.7):
-    - Realm (= 10.7.7)
-  - RxCocoa (6.2.0):
-    - RxRelay (= 6.2.0)
-    - RxSwift (= 6.2.0)
+  - ObjectMapper (4.4.2)
+  - PLCrashReporter (1.11.2)
+  - Realm (20.0.0):
+    - Realm/Headers (= 20.0.0)
+  - Realm/Headers (20.0.0)
+  - RealmSwift (20.0.0):
+    - Realm (= 20.0.0)
+  - RxCocoa (6.8.0):
+    - RxRelay (= 6.8.0)
+    - RxSwift (= 6.8.0)
   - RxDataSources (5.0.0):
     - Differentiator (~> 5.0)
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxGesture (4.0.2):
+  - RxGesture (4.0.4):
     - RxCocoa (~> 6.0)
     - RxSwift (~> 6.0)
-  - RxRelay (6.2.0):
-    - RxSwift (= 6.2.0)
-  - RxSwift (6.2.0)
-  - SnapKit (5.0.1)
-  - SVProgressHUD (2.2.5)
-  - SwiftyJSON (5.0.1)
+  - RxRelay (6.8.0):
+    - RxSwift (= 6.8.0)
+  - RxSwift (6.8.0)
+  - SnapKit (5.7.1)
+  - SVProgressHUD (2.3.1):
+    - SVProgressHUD/Core (= 2.3.1)
+  - SVProgressHUD/Core (2.3.1)
+  - SwiftyJSON (5.0.2)
+  - SwiftyStoreKit (0.16.1)
 
 DEPENDENCIES:
   - CryptoSwift
@@ -57,7 +58,6 @@ DEPENDENCIES:
   - DeviceKit
   - DropDown
   - FDFullscreenPopGesture
-  - IceCream
   - IQKeyboardManagerSwift
   - Kingfisher
   - KVOController
@@ -68,6 +68,7 @@ DEPENDENCIES:
   - "NSObject+Rx"
   - ObjectMapper
   - PLCrashReporter
+  - RealmSwift
   - RxCocoa
   - RxDataSources
   - RxGesture
@@ -75,6 +76,7 @@ DEPENDENCIES:
   - SnapKit
   - SVProgressHUD
   - SwiftyJSON
+  - SwiftyStoreKit
 
 SPEC REPOS:
   trunk:
@@ -84,7 +86,6 @@ SPEC REPOS:
     - Differentiator
     - DropDown
     - FDFullscreenPopGesture
-    - IceCream
     - IQKeyboardManagerSwift
     - Kingfisher
     - KVOController
@@ -105,6 +106,7 @@ SPEC REPOS:
     - SnapKit
     - SVProgressHUD
     - SwiftyJSON
+    - SwiftyStoreKit
 
 EXTERNAL SOURCES:
   DefaultsKit:
@@ -121,36 +123,36 @@ CHECKOUT OPTIONS:
     :git: https://github.com/Finb/QRScanner
 
 SPEC CHECKSUMS:
-  Alamofire: f3b09a368f1582ab751b3fff5460276e0d2cf5c9
-  CryptoSwift: 562f8eceb40e80796fffc668b0cad9313284cfa6
+  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  CryptoSwift: 967f37cea5a3294d9cce358f78861652155be483
   DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
-  DeviceKit: b68cded46afdaefc5d2253d631d441ba7049a7fe
+  DeviceKit: d83e38ca196a4ebf0cc5f37d6f0316a24b794d5b
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  IceCream: 717d516a1c634eba8eaa8ce7d3d7bc5f7e40c2fa
-  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
-  Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
+  IQKeyboardManagerSwift: d7f3d3a562c237a0e7335e657cd598c452f57f1b
+  Kingfisher: bbf78af014cc845cf9a799363f627b5212784165
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
   MercariQRScanner: cd024685242f78fe40879cca9734bb7bb2fceb93
-  MJRefresh: 30997d30b347c8e9508a4db11e3a690da0c9b85a
+  MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
   Motion: cf1e060e489f6661126374d5c60dbd2ed991605c
   Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
   "NSObject+Rx": 61cf1f7306a73dcef8b36649198af0813ec18dfd
-  ObjectMapper: 1eb41f610210777375fa806bf161dc39fb832b81
-  PLCrashReporter: 5d2d3967afe0efad61b3048d617e2199a5d1b787
-  Realm: 8010af8b7a576ba501729bcbc54a3cd1f1f7dca3
-  RealmSwift: dc17e6d649c12a8996f9e962c3fe6cef356885c4
-  RxCocoa: 4baf94bb35f2c0ab31bc0cb9f1900155f646ba42
+  ObjectMapper: e6e4d91ff7f2861df7aecc536c92d8363f4c9677
+  PLCrashReporter: 499c53b0104f95c302d94fd723ebb03c56d9bac8
+  Realm: a799b5f9145623fb0bfe149fe81422863631dd0f
+  RealmSwift: f8c4354ebd5053343e6ab9f4eda244145308a51e
+  RxCocoa: 2d33c1e1e5d66492052ad46b11024ae287572880
   RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
-  RxGesture: f059f2aeef966fb17dad56ee440e76410f10e55f
-  RxRelay: e72dbfd157807478401ef1982e1c61c945c94b2f
-  RxSwift: d356ab7bee873611322f134c5f9ef379fa183d8f
-  SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
-  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
-  SwiftyJSON: 2f33a42c6fbc52764d96f13368585094bfd8aa5e
+  RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
+  RxRelay: 335c78b926a2aea8d863a6d25f1ed3b5ad8e8705
+  RxSwift: 4e28be97cbcfeee614af26d83415febbf2bf6f45
+  SnapKit: d612e99e678a2d3b95bf60b0705ed0a35c03484a
+  SVProgressHUD: 4837c74bdfe2e51e8821c397825996a8d7de6e22
+  SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 73cfda85b7a345d896330d72bc61822356f98586
+PODFILE CHECKSUM: c61d77544f2f3b62338f3ccb60fa5e617632a6c0
 
-COCOAPODS: 1.11.3
+COCOAPODS: 1.16.2

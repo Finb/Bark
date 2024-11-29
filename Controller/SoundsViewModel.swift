@@ -178,22 +178,53 @@ class SoundFileStorage: SoundFileStorageProtocol {
 
     /// 将指定文件保存在 Library/Sound，如果存在则覆盖
     func saveSound(url: URL) {
+        // 保存到Sounds文件夹
         let soundsDirectoryUrl = getSoundsDirectory()
         let soundUrl = soundsDirectoryUrl.appendingPathComponent(url.lastPathComponent)
         try? fileManager.copyItem(at: url, to: soundUrl)
+        
+        // 另外复制一份到共享目录
+        saveSoundToGroupDirectory(url: url)
     }
 
     func deleteSound(url: URL) {
+        // 删除sounds目录铃声文件
         try? fileManager.removeItem(at: url)
+        
+        // 再删除共享目录中对应的铃声文件
+        if let groupSoundUrl = getSoundsGroupDirectory()?.appendingPathComponent(url.lastPathComponent) {
+            try? fileManager.removeItem(at: groupSoundUrl)
+        }
     }
 
     /// 获取 Library 目录下的 Sounds 文件夹
     /// 如果不存在就创建
-    func getSoundsDirectory() -> URL {
+    private func getSoundsDirectory() -> URL {
         let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!.appending("/Sounds")
         if !fileManager.fileExists(atPath: soundsDirectoryUrl) {
             try? fileManager.createDirectory(atPath: soundsDirectoryUrl, withIntermediateDirectories: true, attributes: nil)
         }
         return URL(fileURLWithPath: soundsDirectoryUrl)
+    }
+    
+    /// 保存到共享文件夹，供 NotificationServiceExtension 使用（例如持续响铃需要拿到这个文件）
+    private func saveSoundToGroupDirectory(url: URL) {
+        guard let groupUrl = getSoundsGroupDirectory() else {
+            return
+        }
+        let soundUrl = groupUrl.appendingPathComponent(url.lastPathComponent)
+        try? fileManager.copyItem(at: url, to: soundUrl)
+    }
+    
+    /// 获取共享目录下的 Sounds 文件夹
+    /// 如果不存在就创建
+    private func getSoundsGroupDirectory() -> URL? {
+        if let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Sounds") {
+            if !fileManager.fileExists(atPath: directoryUrl.path) {
+                try? fileManager.createDirectory(atPath: directoryUrl.path, withIntermediateDirectories: true, attributes: nil)
+            }
+            return directoryUrl
+        }
+        return nil
     }
 }

@@ -25,7 +25,8 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
 
     let addressLabel: UILabel = {
         let label = UILabel()
-        label.font = RobotoFont.medium(with: 14)
+        label.font = UIFont.preferredFont(ofSize: 14, weight: .medium)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
         label.numberOfLines = 0
         return label
@@ -33,7 +34,8 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
 
     let keyLabel: UILabel = {
         let label = UILabel()
-        label.font = RobotoFont.regular(with: 12)
+        label.font = UIFont.preferredFont(ofSize: 12)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
         label.numberOfLines = 0
         return label

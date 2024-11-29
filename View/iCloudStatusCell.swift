@@ -22,8 +22,7 @@ class iCloudStatusCell: UITableViewCell {
                 switch status {
                 case .available:
                     self.detailTextLabel?.text = NSLocalizedString("available")
-
-                case .noAccount, .restricted:
+                case .noAccount, .restricted, .temporarilyUnavailable:
                     self.detailTextLabel?.text = NSLocalizedString("restricted")
                 case .couldNotDetermine:
                     self.detailTextLabel?.text = NSLocalizedString("unknown")

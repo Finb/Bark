@@ -137,12 +137,12 @@ extension SoundsViewController: UITableViewDelegate {
             string: fullText,
             attributes: [
                 NSAttributedString.Key.foregroundColor: BKColor.grey.darken3,
-                NSAttributedString.Key.font: RobotoFont.regular(with: 14)
+                NSAttributedString.Key.font: UIFont.preferredFont(ofSize: 14)
             ]
         )
         attrStr.setAttributes([
             NSAttributedString.Key.foregroundColor: BKColor.lightBlue.darken3,
-            NSAttributedString.Key.font: RobotoFont.regular(with: 14)
+            NSAttributedString.Key.font: UIFont.preferredFont(ofSize: 14)
         ], range: (fullText as NSString).range(of: highlightText))
         
         let label = UILabel()

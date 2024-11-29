@@ -6,7 +6,7 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-import IceCream
+//import IceCream
 import RealmSwift
 import UIKit
 class Message: Object {
@@ -29,5 +29,5 @@ class Message: Object {
     }
 }
 
-extension Message: CKRecordConvertible {}
-extension Message: CKRecordRecoverable {}
+//extension Message: CKRecordConvertible {}
+//extension Message: CKRecordRecoverable {}

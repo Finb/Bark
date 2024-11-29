@@ -13,7 +13,7 @@ import UIKit
 class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     let backgroundPanel: UIView = {
         let view = UIView()
-        view.layer.cornerRadius = 3
+        view.layer.cornerRadius = 10
         view.clipsToBounds = true
         view.backgroundColor = BKColor.background.secondary
         return view
@@ -27,15 +27,20 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         label.isScrollEnabled = false
         label.textContainerInset = .zero
         label.textContainer.lineFragmentPadding = 0
-        label.font = RobotoFont.regular(with: 14)
+        label.font = UIFont.preferredFont(ofSize: 14)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
         return label
     }()
     
     let dateLabel: UILabel = {
-        let label = UILabel()
-        label.font = RobotoFont.medium(with: 11)
+        let label = BKLabel()
+        label.hitTestSlop = UIEdgeInsets(top: -5, left: -5, bottom: -5, right: -5)
+        label.font = UIFont.preferredFont(ofSize: 11, weight: .medium)
+        label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.base
+        label.isUserInteractionEnabled = true
+        label.addGestureRecognizer(UITapGestureRecognizer())
         return label
     }()
 
@@ -56,33 +61,6 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
         contentView.addSubview(separatorLine)
 
         layoutView()
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(tap))
-        tap.name = "messageTap"
-        tap.delegate = self
-        bodyLabel.addGestureRecognizer(tap)
-    }
-    
-    @objc func tap() {
-        var view = self.superview
-        while view != nil, (view as? UITableView) == nil {
-            view = view?.superview
-        }
-        guard let tableView = view as? UITableView else {
-            return
-        }
-        
-        guard let indexPath = tableView.indexPath(for: self) else {
-            return
-        }
-        tableView.delegate?.tableView?(tableView, didSelectRowAt: indexPath)
-    }
-    // 单击手势如果没点击链接，则传递给UITableView didSelectRow
-    override func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer.name == "messageTap", otherGestureRecognizer.name == "UITextInteractionNameLinkTap" {
-            return true
-        }
-        return false
     }
     
     @available(*, unavailable)
@@ -91,7 +69,6 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     }
     
     func layoutView() {
-
         bodyLabel.snp.remakeConstraints { make in
             make.top.equalTo(16)
             make.left.equalTo(28)
@@ -118,23 +95,24 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     override func bindViewModel(model: MessageTableViewCellViewModel) {
         super.bindViewModel(model: model)
 
-        Observable.combineLatest(model.title, model.body, model.url).subscribe { title, body, url in
+        Observable.combineLatest(model.title, model.body, model.url).subscribe {[weak self] title, body, url in
+            guard let self else { return }
             
             let text = NSMutableAttributedString(
                 string: body,
-                attributes: [.font: RobotoFont.regular(with: 14), .foregroundColor: BKColor.grey.darken4]
+                attributes: [.font: UIFont.preferredFont(ofSize: 14), .foregroundColor: BKColor.grey.darken4]
             )
             
             if title.count > 0 {
                 // 插入一行空行当 spacer
                 text.insert(NSAttributedString(
                     string: "\n",
-                    attributes: [.font: RobotoFont.medium(with: 6)]
+                    attributes: [.font: UIFont.systemFont(ofSize: 6, weight: .medium)]
                 ), at: 0)
                 
                 text.insert(NSAttributedString(
                     string: title + "\n",
-                    attributes: [.font: RobotoFont.medium(with: 16), .foregroundColor: BKColor.grey.darken4]
+                    attributes: [.font: UIFont.preferredFont(ofSize: 16, weight: .medium), .foregroundColor: BKColor.grey.darken4]
                 ), at: 0)
             }
             
@@ -142,18 +120,28 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
                 // 插入一行空行当 spacer
                 text.append(NSAttributedString(
                     string: "\n ",
-                    attributes: [.font: RobotoFont.medium(with: 8)]
+                    attributes: [.font: UIFont.systemFont(ofSize: 8, weight: .medium)]
                 ))
                 
                 text.append(NSAttributedString(string: "\n\(url)", attributes: [
-                    .font: RobotoFont.regular(with: 14),
+                    .font: UIFont.preferredFont(ofSize: 14),
                     .foregroundColor: BKColor.grey.darken4,
                     .link: url
                 ]))
             }
             
             self.bodyLabel.attributedText = text
-        }.disposed(by: rx.disposeBag)
+        }.disposed(by: rx.reuseBag)
+        
         model.date.bind(to: self.dateLabel.rx.text).disposed(by: rx.reuseBag)
+        
+        // 切换时间显示样式
+        dateLabel.gestureRecognizers?.first?.rx.event.subscribe(onNext: { _ in
+            if model.dateStyle.value != .exact {
+                model.dateStyle.accept(.exact)
+            } else {
+                model.dateStyle.accept(.relative)
+            }
+        }).disposed(by: rx.reuseBag)
     }
 }

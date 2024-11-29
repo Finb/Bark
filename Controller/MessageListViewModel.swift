@@ -16,8 +16,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         var refresh: Driver<Void>
         var loadMore: Driver<Void>
-        var itemDelete: Driver<IndexPath>
-        var itemSelected: Driver<MessageTableViewCellViewModel>
+        var itemDelete: Driver<Int>
+        var itemSelected: Driver<Int>
         var delete: Driver<MessageDeleteType>
         var groupTap: Driver<Void>
         var searchText: Observable<String?>
@@ -26,7 +26,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
     struct Output {
         var messages: Driver<[MessageSection]>
         var refreshAction: Driver<MJRefreshAction>
-        var alertMessage: Driver<String>
+        var alertMessage: Driver<(String, Int)>
         var groupFilter: Driver<GroupFilterViewModel>
         var title: Driver<String>
     }
@@ -60,7 +60,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 return []
             }
             var messages: [Message] = []
-            for i in startIndex ..< endIndex {
+            for i in startIndex..<endIndex {
                 messages.append(result[i])
             }
             page += 1
@@ -70,8 +70,12 @@ class MessageListViewModel: ViewModel, ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let alertMessage = input.itemSelected.map { model -> String in
-            let message = model.message
+        let alertMessage = input.itemSelected.map { [weak self] index in
+            guard let results = self?.results else {
+                return ("", 0)
+            }
+            let message = results[index]
+//            let message = model.message
             
             var copyContent: String = ""
             if let title = message.title {
@@ -85,7 +89,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
             copyContent = String(copyContent.prefix(copyContent.count - 1))
             
-            return copyContent
+            return (copyContent, index)
         }
         // 标题
         let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
@@ -113,8 +117,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
             .subscribe(onNext: { filterGroups in
                 if filterGroups.count <= 0 {
                     titleRelay.accept(NSLocalizedString("historyMessage"))
-                }
-                else {
+                } else {
                     titleRelay.accept(filterGroups.map { $0 ?? NSLocalizedString("default") }.joined(separator: " , "))
                 }
             }).disposed(by: rx.disposeBag)
@@ -145,7 +148,10 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }).disposed(by: rx.disposeBag)
         
         // 加载更多
+        // delay 是为了防止翻到 1+N 页时，切换分组操作（或其他）时会和 loadMore 同时触发，导致 Reentrancy anomaly，
+        // APP闪退报 “UITableView is trying to layout cells with a global row ...”。
         input.loadMore.asObservable()
+            .delay(.milliseconds(10), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
                 let messages = strongSelf.getNextPage()
@@ -157,26 +163,24 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 if var section = messagesRelay.value.first {
                     section.messages.append(contentsOf: cellViewModels)
                     messagesRelay.accept([section])
-                }
-                else {
+                } else {
                     messagesRelay.accept([MessageSection(header: "model", messages: cellViewModels)])
                 }
             }).disposed(by: rx.disposeBag)
         
         // 删除message
-        input.itemDelete.drive(onNext: { [weak self] indexPath in
+        input.itemDelete.drive(onNext: { [weak self] index in
             if var section = messagesRelay.value.first {
                 if let realm = try? Realm() {
                     try? realm.write {
-                        let message = self?.results?[indexPath.row]
+                        let message = self?.results?[index]
                         message?.isDeleted = true
                     }
                 }
-                section.messages.remove(at: indexPath.row)
+                section.messages.remove(at: index)
                 messagesRelay.accept([section])
             }
         }).disposed(by: rx.disposeBag)
-        
         
         // 批量删除
         input.delete.drive(onNext: { [weak self] type in
@@ -198,10 +202,19 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 guard let messages = strongSelf.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@", date) else {
                     return
                 }
+                
+                // 不再使用icecream 了
+                // 所以需要手动删除
+//                try? realm.write {
+//                    for msg in messages {
+//                        msg.isDeleted = true
+//                    }
+//                }
                 try? realm.write {
                     for msg in messages {
                         msg.isDeleted = true
                     }
+                    realm.delete(messages)
                 }
             }
             

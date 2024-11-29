@@ -10,13 +10,15 @@ import Material
 import RxCocoa
 import RxDataSources
 import RxSwift
+import SVProgressHUD
+import SwiftyStoreKit
 import UIKit
 import UniformTypeIdentifiers
 
 class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel>, UIDocumentPickerDelegate {
-    let tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.separatorStyle = .none
+    lazy var tableView: UITableView = {
+        let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
+        tableView.separatorColor = BKColor.grey.lighten3
         tableView.backgroundColor = BKColor.background.primary
         tableView.register(LabelCell.self, forCellReuseIdentifier: "\(LabelCell.self)")
         tableView.register(iCloudStatusCell.self, forCellReuseIdentifier: "\(iCloudStatusCell.self)")
@@ -24,10 +26,24 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         tableView.register(DetailTextCell.self, forCellReuseIdentifier: "\(DetailTextCell.self)")
         tableView.register(MutableTextCell.self, forCellReuseIdentifier: "\(MutableTextCell.self)")
         tableView.register(SpacerCell.self, forCellReuseIdentifier: "\(SpacerCell.self)")
+        tableView.register(DonateCell.self, forCellReuseIdentifier: "\(DonateCell.self)")
         
+        tableView.estimatedSectionHeaderHeight = 10
+        tableView.sectionHeaderHeight = UITableView.automaticDimension
+        
+        let footer = MessageSettingFooter()
+        footer.openLinkHandler = { [weak self] link in
+            self?.openLink(link: link)
+        }
+        tableView.tableFooterView = footer
+        
+        tableView.delegate = self
         return tableView
     }()
 
+    private var headers: [String?] = []
+    private var footers: [String?] = []
+    
     override func makeUI() {
         self.title = NSLocalizedString("settings")
         
@@ -35,6 +51,24 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+    
+        // 捐赠内购没有任何逻辑，就不往 ViewModel 里放了，在这里处理一下得了
+        self.tableView.rx.modelSelected(MessageSettingItem.self).asObservable().compactMap { item in
+            if case .donate(_, let productId) = item {
+                return productId
+            }
+            return nil
+        }.subscribe(onNext: { [weak self] productId in
+            SVProgressHUD.show()
+            SwiftyStoreKit.purchaseProduct(productId) { result in
+                SVProgressHUD.dismiss()
+                if case .success = result {
+                    let alert = UIAlertController(title: NSLocalizedString("successfulDonation"), message: NSLocalizedString("thankYouSupport"), preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("donateOK"), style: .default, handler: nil))
+                    self?.present(alert, animated: true)
+                }
+            }
+        }).disposed(by: rx.disposeBag)
     }
     
     ///  导入、导出操作枚举
@@ -64,14 +98,18 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
     /// 生成导入导出事件
     func getBackupOrRestoreAction() -> (Driver<Void>, Driver<Data>) {
         let backupOrRestoreAction = self.tableView.rx
-            .modelSelected(MessageSettingItem.self)
-            .filter { item in
-                if case MessageSettingItem.backup = item {
+//            .modelSelected(MessageSettingItem.self)
+            .itemSelected
+            .filter { indexPath in
+                guard let viewModel: MessageSettingItem = try? self.tableView.rx.model(at: indexPath) else {
+                    return false
+                }
+                if case MessageSettingItem.backup = viewModel {
                     return true
                 }
                 return false
             }
-            .flatMapLatest { [weak self] _ in
+            .flatMapLatest { [weak self] indexPath in
                 guard let strongSelf = self else {
                     return Observable<BackupOrRestoreActionEnum>.empty()
                 }
@@ -91,7 +129,14 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                 }))
             
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
-                strongSelf.navigationController?.present(alertController, animated: true, completion: nil)
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    alertController.modalPresentationStyle = .popover
+                    if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
+                        alertController.popoverPresentationController?.sourceView = strongSelf.tableView
+                        alertController.popoverPresentationController?.sourceRect = cell.frame
+                    }
+                }
+                strongSelf.present(alertController, animated: true, completion: nil)
 
                 return strongSelf.backupOrRestoreActionRelay.asObservable()
             }
@@ -105,7 +150,7 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         
         let restoreAction = backupOrRestoreAction
             .compactMap { action in
-                if case let .import(data) = action { return data } else { return nil }
+                if case .import(let data) = action { return data } else { return nil }
             }
             .asDriver(onErrorDriveWith: .empty())
         
@@ -126,9 +171,9 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             )
         )
         
-        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, MessageSettingItem>> { _, tableView, _, item -> UITableViewCell in
+        let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<MessageSettingSection, MessageSettingItem>> { _, tableView, _, item -> UITableViewCell in
             switch item {
-            case let .label(text):
+            case .label(let text):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(LabelCell.self)") as? LabelCell {
                     cell.textLabel?.text = text
                     return cell
@@ -137,33 +182,39 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(iCloudStatusCell.self)") {
                     return cell
                 }
-            case let .backup(viewModel):
+            case .backup(let viewModel):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(MutableTextCell.self)") as? MutableTextCell {
                     cell.textLabel?.textColor = BKColor.blue.darken1
                     cell.bindViewModel(model: viewModel)
                     return cell
                 }
-            case let .archiveSetting(viewModel):
+            case .archiveSetting(let viewModel):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(ArchiveSettingCell.self)") as? ArchiveSettingCell {
                     cell.bindViewModel(model: viewModel)
                     return cell
                 }
-            case let .detail(title, text, textColor, _):
+            case .detail(let title, let text, let textColor, _):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailTextCell.self)") as? DetailTextCell {
                     cell.textLabel?.text = title
                     cell.detailTextLabel?.text = text
                     cell.detailTextLabel?.textColor = textColor
                     return cell
                 }
-            case let .deviceToken(viewModel):
+            case .deviceToken(let viewModel):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(MutableTextCell.self)") as? MutableTextCell {
                     cell.bindViewModel(model: viewModel)
                     return cell
                 }
-            case let .spacer(height, color):
+            case .spacer(let height, let color):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(SpacerCell.self)") as? SpacerCell {
                     cell.height = height
                     cell.backgroundColor = color
+                    return cell
+                }
+            case .donate(let title, let productId):
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "\(DonateCell.self)") as? DonateCell {
+                    cell.title = title
+                    cell.productId = productId
                     return cell
                 }
             }
@@ -171,6 +222,17 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             return UITableViewCell()
         }
         
+        // 设置项的 header、footer
+        output.settings
+            .drive(onNext: { [weak self] settings in
+                self?.headers.removeAll()
+                self?.footers.removeAll()
+                for section in settings {
+                    self?.headers.append(section.model.header)
+                    self?.footers.append(section.model.footer)
+                }
+            })
+            .disposed(by: rx.disposeBag)
         // 设置项数据源
         output.settings
             .drive(tableView.rx.items(dataSource: dataSource))
@@ -204,14 +266,68 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                     }
                 // 写入临时文件
                 try data.write(to: linkURL)
-            }
-            catch {
+            } catch {
                 // Hope nothing happens
             }
             
             let activityController = UIActivityViewController(activityItems: [linkURL], applicationActivities: nil)
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                activityController.popoverPresentationController?.sourceView = self?.view
+                activityController.popoverPresentationController?.sourceRect = self?.view.frame ?? .zero
+            }
             self?.navigationController?.present(activityController, animated: true, completion: nil)
             
         }.disposed(by: rx.disposeBag)
+    }
+    
+    func openLink(link: String) {
+        switch link {
+        case "privacyPolicy":
+            self.navigationController?.present(BarkSFSafariViewController(
+                url: URL(string: "https://api.day.app/privacy")!
+            ), animated: true, completion: nil)
+        case "userAgreement":
+            self.navigationController?.present(BarkSFSafariViewController(
+                url: URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula")!
+            ), animated: true, completion: nil)
+        case "restoreSubscription":
+            SwiftyStoreKit.restorePurchases { [weak self] _ in
+                self?.showSnackbar(text: NSLocalizedString("done"))
+            }
+        default: break
+        }
+    }
+}
+
+extension MessageSettingsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard self.headers.count > section, let header = self.headers[section] else { return UIView() }
+        
+        let headerView = SettingSectionHeader()
+        headerView.titleLabel.text = header
+        return headerView
+    }
+
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        guard self.footers.count > section, let footer = self.footers[section] else { return UIView() }
+        let footerView = SettingSectionFooter()
+        footerView.titleLabel.text = footer
+        return footerView
+    }
+    
+    /// FUCK iOS, insetGrouped 和 tableView.sectionFooterHeight = UITableView.automaticDimension 一起用有BUG，因参与计算的宽度口径不一致导致高度可能计算不准确
+    /// 只能自己计算了
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        guard self.footers.count > section, let footer = self.footers[section] else { return 10 }
+        // 16 是 tableView 左右的间距， 12 是 uilabel 左右的间距
+        let size = CGSize(width: tableView.frame.width - 16 * 2 - 12 * 2, height: .greatestFiniteMagnitude)
+        let rect = (footer as NSString).boundingRect(
+            with: size,
+            options: [.usesLineFragmentOrigin],
+            attributes: [.font: UIFont.preferredFont(ofSize: 12)],
+            context: nil
+        )
+        // 8: top offset, 6：bottom offset
+        return rect.height + 8 + 6
     }
 }

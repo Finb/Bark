@@ -39,79 +39,88 @@ class HomeViewModel: ViewModel, ViewModelType {
         let registerForRemoteNotifications: Driver<Void>
     }
     
-    let previews: [PreviewModel] = {
-        [
-            PreviewModel(
-                body: NSLocalizedString("CustomedNotificationContent"),
-                notice: NSLocalizedString("Notice1")
-            ),
-            PreviewModel(
-                title: NSLocalizedString("CustomedNotificationTitle"),
-                body: NSLocalizedString("CustomedNotificationContent"),
-                notice: NSLocalizedString("Notice2")
-            ),
-            PreviewModel(
-                body: NSLocalizedString("notificationSound"),
-                notice: NSLocalizedString("setSounds"),
-                queryParameter: "sound=minuet",
-                moreInfo: NSLocalizedString("viewAllSounds"),
-                moreViewModel: SoundsViewModel()
-            ),
-            PreviewModel(
-                body: NSLocalizedString("archiveNotificationMessageTitle"),
-                notice: NSLocalizedString("archiveNotificationMessage"),
-                queryParameter: "isArchive=1"
-            ),
-            PreviewModel(
-                body: NSLocalizedString("notificationIcon"),
-                notice: NSLocalizedString("notificationIconNotice"),
-                queryParameter: "icon=https://day.app/assets/images/avatar.jpg",
-                image: UIImage(named: "icon")
-            ),
-            PreviewModel(
-                body: NSLocalizedString("messageGroup"),
-                notice: NSLocalizedString("groupMessagesNotice"),
-                queryParameter: "group=groupName",
-                image: UIImage(named: "group")
-            ),
-            PreviewModel(
-                body: NSLocalizedString("pushNotificationEncryption"),
-                notice: NSLocalizedString("encryptionNotice"),
-                queryParameter: "ciphertext=ciphertext",
-                moreInfo: NSLocalizedString("encryptionSettings"),
-                moreViewModel: CryptoSettingViewModel()
-            ),
-            PreviewModel(
-                body: NSLocalizedString("interruptionLevel"),
-                notice: NSLocalizedString("interruptionLevelNotice"),
-                queryParameter: "level=timeSensitive"
-            ),
-            PreviewModel(
-                body: "URL Test",
-                notice: NSLocalizedString("urlParameter"),
-                queryParameter: "url=https://www.baidu.com"
-            ),
-            PreviewModel(
-                body: "Copy Test",
-                notice: NSLocalizedString("copyParameter"),
-                queryParameter: "copy=test",
-                image: UIImage(named: "copyTest")
-            ),
-            PreviewModel(
-                body: NSLocalizedString("badge"),
-                notice: NSLocalizedString("badgeNotice"),
-                queryParameter: "badge=1"
-            ),
-            PreviewModel(
-                body: NSLocalizedString("automaticallyCopyTitle"),
-                notice: NSLocalizedString("automaticallyCopy"),
-                queryParameter: "autoCopy=1&copy=optional"
-            )
-        ]
-    }()
+    let previews: [PreviewModel] = [
+        PreviewModel(
+            body: NSLocalizedString("CustomedNotificationContent"),
+            notice: NSLocalizedString("Notice1")
+        ),
+        PreviewModel(
+            title: NSLocalizedString("CustomedNotificationTitle"),
+            body: NSLocalizedString("CustomedNotificationContent"),
+            notice: NSLocalizedString("Notice2")
+        ),
+        PreviewModel(
+            body: NSLocalizedString("notificationSound"),
+            notice: NSLocalizedString("setSounds"),
+            queryParameter: "sound=minuet",
+            moreInfo: NSLocalizedString("viewAllSounds"),
+            moreViewModel: SoundsViewModel()
+        ),
+        PreviewModel(
+            body: NSLocalizedString("ringtone"),
+            notice: NSLocalizedString("ringtoneNotice"),
+            queryParameter: "call=1"
+        ),
+        PreviewModel(
+            body: NSLocalizedString("archiveNotificationMessageTitle"),
+            notice: NSLocalizedString("archiveNotificationMessage"),
+            queryParameter: "isArchive=1"
+        ),
+        PreviewModel(
+            body: NSLocalizedString("notificationIcon"),
+            notice: NSLocalizedString("notificationIconNotice"),
+            queryParameter: "icon=https://day.app/assets/images/avatar.jpg",
+            image: UIImage(named: "icon")
+        ),
+        PreviewModel(
+            body: NSLocalizedString("messageGroup"),
+            notice: NSLocalizedString("groupMessagesNotice"),
+            queryParameter: "group=groupName",
+            image: UIImage(named: "group")
+        ),
+        PreviewModel(
+            body: NSLocalizedString("pushNotificationEncryption"),
+            notice: NSLocalizedString("encryptionNotice"),
+            queryParameter: "ciphertext=ciphertext",
+            moreInfo: NSLocalizedString("encryptionSettings"),
+            moreViewModel: CryptoSettingViewModel()
+        ),
+        PreviewModel(
+            body: NSLocalizedString("criticalAlert"),
+            notice: NSLocalizedString("criticalAlertNotice"),
+            queryParameter: "level=critical&volume=5",
+            image: UIImage(named: "criticalAlert")
+        ),
+        PreviewModel(
+            body: NSLocalizedString("interruptionLevel"),
+            notice: NSLocalizedString("interruptionLevelNotice"),
+            queryParameter: "level=timeSensitive"
+        ),
+        PreviewModel(
+            body: "URL Test",
+            notice: NSLocalizedString("urlParameter"),
+            queryParameter: "url=https://www.baidu.com"
+        ),
+        PreviewModel(
+            body: "Copy Test",
+            notice: NSLocalizedString("copyParameter"),
+            queryParameter: "copy=test",
+            image: UIImage(named: "copyTest")
+        ),
+        PreviewModel(
+            body: NSLocalizedString("badge"),
+            notice: NSLocalizedString("badgeNotice"),
+            queryParameter: "badge=1"
+        ),
+        PreviewModel(
+            body: NSLocalizedString("automaticallyCopyTitle"),
+            notice: NSLocalizedString("automaticallyCopy"),
+            queryParameter: "autoCopy=1&copy=optional"
+        )
+    ]
     
     func transform(input: Input) -> Output {
-        let title = BehaviorRelay(value: URL(string: ServerManager.shared.currentServer.address)?.host ?? "")
+        let title = BehaviorRelay(value: ServerManager.shared.currentServer.host)
         
         let sectionModel = SectionModel(
             model: "previews",
@@ -141,8 +150,8 @@ class HomeViewModel: ViewModel, ViewModelType {
             }
             .map { response -> Client.ClienState in
                 switch response {
-                case .failure:
-                    return .serverError
+                case .failure(let error):
+                    return .serverError(error: error)
                 default:
                     return .ok
                 }
@@ -181,10 +190,12 @@ class HomeViewModel: ViewModel, ViewModelType {
         input.clientState.drive(onNext: { state in
             switch state {
             case .ok: break
-            case .serverError:
-                showSnackbar.accept(NSLocalizedString("ServerError"))
+            case .serverError(let error):
+                showSnackbar.accept("\(NSLocalizedString("ServerError")): \(error.rawString())")
             default: break
             }
+            // 主要用于 url scheme 添加服务器时会有state状态改变事件，顺便更新下标题
+            title.accept(ServerManager.shared.currentServer.host)
         })
         .disposed(by: rx.disposeBag)
         
@@ -196,7 +207,7 @@ class HomeViewModel: ViewModel, ViewModelType {
                 (model as! ServerListViewModel).currentServerChanged.asDriver(onErrorDriveWith: .empty())
             }
             .map { server -> String in
-                (try? server.address.asURL().host) ?? ""
+                server.host
             }
             .drive(title)
             .disposed(by: rx.disposeBag)
