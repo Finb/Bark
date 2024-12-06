@@ -15,7 +15,8 @@ class IconProcessor: NotificationContentProcessor {
             let userInfo = bestAttemptContent.userInfo
             
             guard let imageUrl = userInfo["icon"] as? String,
-                  let imageFileUrl = await ImageDownloader.downloadImage(imageUrl)
+                  let imageFileUrl = await ImageDownloader.downloadImage(imageUrl),
+                  let imageData = NSData(contentsOfFile: imageFileUrl)
             else {
                 return bestAttemptContent
             }
@@ -23,7 +24,7 @@ class IconProcessor: NotificationContentProcessor {
             var personNameComponents = PersonNameComponents()
             personNameComponents.nickname = bestAttemptContent.title
             
-            let avatar = INImage(imageData: NSData(contentsOfFile: imageFileUrl)! as Data)
+            let avatar = INImage(imageData: imageData as Data)
             let senderPerson = INPerson(
                 personHandle: INPersonHandle(value: "", type: .unknown),
                 nameComponents: personNameComponents,

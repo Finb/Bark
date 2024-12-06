@@ -216,10 +216,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         alertController.addAction(copyAction)
         alertController.addAction(cancelAction)
         if UIDevice.current.userInterfaceIdiom == .pad {
-            alertController.modalPresentationStyle = .popover
             if let cell = self.tableView.cellForRow(at: indexPath) {
                 alertController.popoverPresentationController?.sourceView = self.tableView
                 alertController.popoverPresentationController?.sourceRect = cell.frame
+                alertController.modalPresentationStyle = .popover
             }
         }
         

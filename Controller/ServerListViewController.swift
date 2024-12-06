@@ -171,10 +171,10 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
                 
                 if UIDevice.current.userInterfaceIdiom == .pad {
-                    alertController.modalPresentationStyle = .popover
                     if let cell = self.tableView.cellForRow(at: indexPath) {
                         alertController.popoverPresentationController?.sourceView = self.tableView
                         alertController.popoverPresentationController?.sourceRect = cell.frame
+                        alertController.modalPresentationStyle = .popover
                     }
                 }
                 self.navigationController?.present(alertController, animated: true, completion: nil)

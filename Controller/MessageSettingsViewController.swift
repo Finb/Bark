@@ -130,10 +130,10 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
                 if UIDevice.current.userInterfaceIdiom == .pad {
-                    alertController.modalPresentationStyle = .popover
                     if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
                         alertController.popoverPresentationController?.sourceView = strongSelf.tableView
                         alertController.popoverPresentationController?.sourceRect = cell.frame
+                        alertController.modalPresentationStyle = .popover
                     }
                 }
                 strongSelf.present(alertController, animated: true, completion: nil)
