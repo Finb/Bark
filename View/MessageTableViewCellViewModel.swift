@@ -40,12 +40,17 @@ class MessageTableViewCellViewModel: ViewModel {
         super.init()
         
         dateStyle.map { style in
+            var date: String
             switch style {
             case .relative:
-                return self.message.createDate?.agoFormatString() ?? ""
+                date = self.message.createDate?.agoFormatString() ?? ""
             case .exact:
-                return self.message.createDate?.formatString(format: "yyyy-MM-dd HH:mm") ?? ""
+                date = self.message.createDate?.formatString(format: "yyyy-MM-dd HH:mm") ?? ""
             }
+            if let expiryDate = self.message.expiryDate {
+                date += " · \(expiryDate.expiryTimeSinceNow)"
+            }
+            return date
         }
         .bind(to: date)
         .disposed(by: rx.disposeBag)

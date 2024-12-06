@@ -42,6 +42,25 @@ extension Date {
         }
         return NSLocalizedString("timeJustNow")
     }
+    
+    var expiryTimeSinceNow: String {
+        let timeInterval = self.timeIntervalSinceNow
+        if timeInterval > 60 * 60 * 24 * 365 {
+            return String(format: NSLocalizedString("expiryTimeYear"), Int(timeInterval / (60 * 60 * 24 * 365)))
+        } else if timeInterval > 60 * 60 * 24 * 30 {
+            return String(format: NSLocalizedString("expiryTimeMonth"), Int(timeInterval / (60 * 60 * 24 * 30)))
+        } else if timeInterval > 60 * 60 * 24 {
+            return String(format: NSLocalizedString("expiryTimeDay"), Int(timeInterval / (60 * 60 * 24)))
+        } else if timeInterval > 60 * 60 {
+            return String(format: NSLocalizedString("expiryTimeHour"), Int(timeInterval / (60 * 60)))
+        } else if timeInterval > 60 {
+            return String(format: NSLocalizedString("expiryTimeMinute"), Int(timeInterval / 60))
+        } else if timeInterval > 0 {
+            return String(format: NSLocalizedString("expiryTimeSecond"), Int(timeInterval))
+        } else {
+            return NSLocalizedString("expired")
+        }
+    }
 }
 
 extension Date {

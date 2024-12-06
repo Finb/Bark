@@ -16,6 +16,7 @@ class Message: Object {
     @objc dynamic var url: String?
     @objc dynamic var group: String?
     @objc dynamic var createDate: Date?
+    @objc dynamic var expiryDate: Date?
 
     override class func primaryKey() -> String? {
         return "id"

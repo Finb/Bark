@@ -29,6 +29,7 @@ class ArchiveProcessor: NotificationContentProcessor {
             let body = alert?["body"] as? String
             let url = userInfo["url"] as? String
             let group = userInfo["group"] as? String
+            let ttl = Double(userInfo["ttl"] as? String ?? "0") ?? 0
             
             try? realm?.write {
                 let message = Message()
@@ -37,6 +38,9 @@ class ArchiveProcessor: NotificationContentProcessor {
                 message.url = url
                 message.group = group
                 message.createDate = Date()
+                if ttl > 0 {
+                    message.expiryDate = Date() + TimeInterval(ttl * 60 * 60)
+                }
                 realm?.add(message)
             }
         }
