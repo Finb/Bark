@@ -83,13 +83,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 self?.scrollToTop()
             }).disposed(by: self.rx.disposeBag)
         
-        // 打开APP时，历史消息列表距离上次刷新超过1小时，则自动刷新一下
+        // 打开APP时，历史消息列表距离上次刷新超过5分钟，则自动刷新一下
         var lastAutoRefreshdate = Date()
         NotificationCenter.default.rx
             .notification(UIApplication.willEnterForegroundNotification)
             .filter { _ in
                 let now = Date()
-                if now.timeIntervalSince1970 - lastAutoRefreshdate.timeIntervalSince1970 > 60 * 60 {
+                if now.timeIntervalSince1970 - lastAutoRefreshdate.timeIntervalSince1970 > 60 * 5 {
                     lastAutoRefreshdate = now
                     return true
                 }
