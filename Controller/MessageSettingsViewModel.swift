@@ -79,7 +79,6 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                     .map { _ in
                         if let realm = try? Realm() {
                             return realm.objects(Message.self)
-                                .filter("isDeleted != true")
                                 .count
                         }
                         return 0
@@ -204,7 +203,6 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             .compactMap { _ in
                 if let realm = try? Realm() {
                     let messages = realm.objects(Message.self)
-                        .filter("isDeleted != true")
                         .sorted(byKeyPath: "createDate", ascending: false)
 
                     var arr = [[String: AnyObject]]()

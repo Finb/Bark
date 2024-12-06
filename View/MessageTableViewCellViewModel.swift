@@ -19,7 +19,9 @@ enum MessageListCellDateStyle {
 }
 
 class MessageTableViewCellViewModel: ViewModel {
+    // 不要在删除消息后，再次使用这个对象，否则会crash
     let message: Message
+    var identity: String
     
     let title: BehaviorRelay<String>
     let body: BehaviorRelay<String>
@@ -30,7 +32,7 @@ class MessageTableViewCellViewModel: ViewModel {
     
     init(message: Message) {
         self.message = message
-        
+        self.identity = message.id
         self.title = BehaviorRelay<String>(value: message.title ?? "")
         self.body = BehaviorRelay<String>(value: message.body ?? "")
         self.url = BehaviorRelay<String>(value: message.url ?? "")
@@ -75,10 +77,6 @@ extension MessageSection: AnimatableSectionModelType {
 
 extension MessageTableViewCellViewModel: IdentifiableType {
     typealias Identity = String
-    
-    var identity: String {
-        return "\(self.message.id)"
-    }
     
     override func isEqual(_ object: Any?) -> Bool {
         if let obj = object as? MessageTableViewCellViewModel {

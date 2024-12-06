@@ -37,7 +37,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
     private func getResults(filterGroups: [String?], searchText: String?) -> Results<Message>? {
         if let realm = try? Realm() {
             var results = realm.objects(Message.self)
-                .filter("isDeleted != true")
                 .sorted(byKeyPath: "createDate", ascending: false)
             if filterGroups.count > 0 {
                 results = results.filter("group in %@", filterGroups)
@@ -171,10 +170,9 @@ class MessageListViewModel: ViewModel, ViewModelType {
         // 删除message
         input.itemDelete.drive(onNext: { [weak self] index in
             if var section = messagesRelay.value.first {
-                if let realm = try? Realm() {
+                if let realm = try? Realm(), let message = self?.results?[index] {
                     try? realm.write {
-                        let message = self?.results?[index]
-                        message?.isDeleted = true
+                        realm.delete(message)
                     }
                 }
                 section.messages.remove(at: index)
@@ -203,17 +201,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                     return
                 }
                 
-                // 不再使用icecream 了
-                // 所以需要手动删除
-//                try? realm.write {
-//                    for msg in messages {
-//                        msg.isDeleted = true
-//                    }
-//                }
                 try? realm.write {
-                    for msg in messages {
-                        msg.isDeleted = true
-                    }
                     realm.delete(messages)
                 }
             }
@@ -227,7 +215,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
         let groupFilter = input.groupTap.compactMap { () -> GroupFilterViewModel? in
             if let realm = try? Realm() {
                 let groups = realm.objects(Message.self)
-                    .filter("isDeleted != true")
                     .distinct(by: ["group"])
                     .value(forKeyPath: "group") as? [String?]
                 
