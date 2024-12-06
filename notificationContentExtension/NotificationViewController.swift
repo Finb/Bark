@@ -20,9 +20,17 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         return label
     }()
 
+    /// 增加图片view
+    let imageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(self.noticeLabel)
+        self.view.addSubview(self.imageView)
         self.preferredContentSize = CGSize(width: 0, height: 1)
     }
 
@@ -37,6 +45,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
 
     func didReceive(_ notification: UNNotification) {
+        ///  处理图片显示
+        self.ImageHandler(notification)
+
         guard notification.request.content.userInfo["autocopy"] as? String == "1"
             || notification.request.content.userInfo["automaticallycopy"] as? String == "1"
         else {
@@ -59,7 +70,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             completion(.dismiss)
         }
     }
-    
+
     /// 复制
     func copyAction(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         let userInfo = response.notification.request.content.userInfo
@@ -73,20 +84,48 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         showTips(text: NSLocalizedString("Copy", comment: ""))
         completion(.doNotDismiss)
     }
-        
+
     /// 静音分组
     func muteAction(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         let groupName = response.notification.request.content.threadIdentifier
         // 静音一小时
         GroupMuteSettingManager().settings[groupName] = Date() + 60 * 60
-         
+
         showTips(text: String(format: NSLocalizedString("groupMuted", comment: ""), groupName.isEmpty ? "default" : groupName))
         completion(.doNotDismiss)
     }
-    
+
     func showTips(text: String) {
-        self.preferredContentSize = CGSize(width: 0, height: 40)
+        /// 调整页面整个大小为image的高度和label的高度总和
+        self.preferredContentSize = CGSize(width: 0, height: self.imageView.frame.height + 40)
         self.noticeLabel.text = text
-        self.noticeLabel.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: 40)
+        /// 调整 y的位置，如果复制内容，显示在图片的底部
+        self.noticeLabel.frame = CGRect(x: 0, y: self.imageView.frame.height, width: self.view.bounds.width, height: 40)
+    }
+}
+
+extension NotificationViewController {
+    ///  处理下拉显示大图
+    func ImageHandler(_ notification: UNNotification) {
+        Task {
+            guard let imageUrl = notification.request.content.userInfo["image"] as? String,
+                  let imageFileUrl = await ImageDownloader.downloadImage(imageUrl),
+                  let image = UIImage(contentsOfFile: imageFileUrl)
+            else {
+                self.imageView.frame = .zero
+                return
+            }
+            /// 计算图片的比例按照通知界面缩放
+            let viewWidth = view.bounds.size.width
+            let aspectRatio = image.size.width / image.size.height
+            let viewHeight = viewWidth / aspectRatio
+            let size = CGSize(width: viewWidth, height: viewHeight)
+
+            DispatchQueue.main.async {
+                self.preferredContentSize = size
+                self.imageView.image = image
+                self.imageView.frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            }
+        }
     }
 }
