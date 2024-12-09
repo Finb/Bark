@@ -48,7 +48,6 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-
         let showSnackbar = PublishRelay<String>()
 
         let modeList = input
@@ -63,7 +62,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     .compactMap { Algorithm(rawValue: $0.algorithm)?.keyLength },
                 input
                     .algorithmChanged
-                    .compactMap { Algorithm(rawValue: $0)?.keyLength },
+                    .compactMap { Algorithm(rawValue: $0)?.keyLength }
             ])
 
         // 保存配置
@@ -72,8 +71,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                 do {
                     _ = try AESCryptoModel(cryptoFields: fields)
                     return true
-                }
-                catch {
+                } catch {
                     showSnackbar.accept(error.rawString())
                     return false
                 }
@@ -90,14 +88,17 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     // 保存配置
                     self?.dependencies.settingFieldRelay.accept(fields)
                     return true
-                }
-                catch {
+                } catch {
                     showSnackbar.accept(error.rawString())
                     return false
                 }
             }
         let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
-            .map { fields, deviceKey,serverAddress in
+            .compactMap { fields, deviceKey, serverAddress -> String? in
+                guard fields.mode != "GCM" else {
+                    showSnackbar.accept(NSLocalizedString("gcmNotSupported"))
+                    return nil
+                }
                 let key = fields.key ?? ""
                 let iv = fields.iv ?? ""
                 return
@@ -129,14 +130,14 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     echo $ciphertext
                     
                     # \(NSLocalizedString("ciphertextComment"))
-                    curl --data-urlencode "ciphertext=$ciphertext"\( iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
+                    curl --data-urlencode "ciphertext=$ciphertext"\(iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
                     """
             }
 
         return Output(
             initial: Driver.just((
                 algorithmList: [Algorithm.aes128, Algorithm.aes192, Algorithm.aes256],
-                modeList: ["CBC", "ECB", /* "GCM" */],  // GCM 还没准备好示例代码，暂时禁用
+                modeList: ["CBC", "ECB", "GCM"],
                 paddingList: ["pkcs7"],
                 initialFields: dependencies.settingFieldRelay.value
             )),

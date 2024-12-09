@@ -1403,6 +1403,29 @@
         }
       }
     },
+    "gcmNotSupported" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GCM mode does not support copying script example."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GCM modu, script örneklerini kopyalamayı desteklemez."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GCM Mode 不支持复制脚本示例。"
+          }
+        }
+      }
+    },
     "group" : {
       "extractionState" : "manual",
       "localizations" : {

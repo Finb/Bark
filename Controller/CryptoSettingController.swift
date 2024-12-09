@@ -26,7 +26,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         let textField = BorderTextField(title: "IV")
         textField.font = UIFont.preferredFont(ofSize: 14)
         textField.adjustsFontForContentSizeCategory = true
-        textField.placeholder = String(format: NSLocalizedString("enterIv"), 16) // todo: update iv length
         return textField
     }()
 
@@ -50,7 +49,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         btn.applyGradient(
             withColours: [
                 UIColor(r255: 36, g255: 51, b255: 236),
-                UIColor(r255: 70, g255: 44, b255: 233),
+                UIColor(r255: 70, g255: 44, b255: 233)
             ],
             gradientOrientation: .horizontal
         )
@@ -174,7 +173,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     }
 
     override func bindViewModel() {
-
         func getFieldValues() -> CryptoSettingFields {
             return CryptoSettingFields(
                 algorithm: self.algorithmFeild.currentValue!,
@@ -216,6 +214,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 self?.keyTextField.text = fields.key
                 self?.ivTextField.text = fields.iv
             }
+            self?.setIvLengthPlaceholder(mode: self?.modeFeild.currentValue)
         }).disposed(by: rx.disposeBag)
 
         output.modeListChanged
@@ -229,6 +228,13 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         output.keyLengthChanged.drive(onNext: { [weak self] keyLength in
             self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLength)
         }).disposed(by: rx.disposeBag)
+        
+        self.modeFeild
+            .rx
+            .currentValueChanged
+            .subscribe(onNext: { [weak self] val in
+                self?.setIvLengthPlaceholder(mode: val)
+            }).disposed(by: rx.disposeBag)
 
         output.showSnackbar.drive(onNext: { text in
             HUDError(text)
@@ -242,5 +248,16 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             UIPasteboard.general.string = text
             HUDSuccess(NSLocalizedString("Copy"))
         }).disposed(by: rx.disposeBag)
+    }
+    
+    private func setIvLengthPlaceholder(mode: String?) {
+        guard let mode else {
+            return
+        }
+        if let length = ["CBC": 16, "GCM": 12][mode] {
+            self.ivTextField.placeholder = String(format: NSLocalizedString("enterIv"), length)
+        } else {
+            self.ivTextField.placeholder = ""
+        }
     }
 }
