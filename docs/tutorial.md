@@ -7,11 +7,12 @@
 可以发 GET 或者 POST 请求 ，请求成功会立即收到推送 
 
 ## URL格式
-URL由推送key、参数 title、参数 body 组成。有下面两种组合方式
+URL由推送key、参数 title、参数 subtitle、参数 body 组成。有下面三种组合方式
 
 ```
 /:key/:body 
 /:key/:title/:body 
+/:key/:title/:subtitle/:body 
 ```
 
 ## 请求方式
@@ -59,6 +60,7 @@ curl -X "POST" "https://api.day.app/push" \
 | 参数 | 说明 |
 | ----- | ----------- |
 | title | 推送标题 |
+| subtitle | 推送副标题 |
 | body | 推送内容 |
 | level | 推送中断级别。 <br>active：默认值，系统会立即亮屏显示通知<br>timeSensitive：时效性通知，可在专注状态下显示通知。<br>passive：仅将通知添加到通知列表，不会亮屏提醒。 |
 | badge | 推送角标，可以是任意数字 |

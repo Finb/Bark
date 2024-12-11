@@ -26,6 +26,7 @@ class ArchiveProcessor: NotificationContentProcessor {
         if isArchive {
             let alert = (userInfo["aps"] as? [String: Any])?["alert"] as? [String: Any]
             let title = alert?["title"] as? String
+            let subtitle = alert?["subtitle"] as? String
             let body = alert?["body"] as? String
             let url = userInfo["url"] as? String
             let group = userInfo["group"] as? String
@@ -33,6 +34,7 @@ class ArchiveProcessor: NotificationContentProcessor {
             try? realm?.write {
                 let message = Message()
                 message.title = title
+                message.subtitle = subtitle
                 message.body = body
                 message.url = url
                 message.group = group

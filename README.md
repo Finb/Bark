@@ -22,11 +22,11 @@ You can send GET or POST requests, and you'll receive a push notification immedi
 URL structure: The first part is the key, followed by three matches
 /:key/:body 
 /:key/:title/:body 
-/:key/:category/:title/:body 
+/:key/: title/:subtitle/:body 
 
 title: The push title, slightly larger than the body text 
+subtitle: The push subtitle
 body: The push content, use the newline character '\n' for line breaks 
-category: Reserved for additional features, currently not open for use, just ignore it 
 For POST requests, the parameter names are the same as above
 ```
 

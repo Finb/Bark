@@ -27,6 +27,10 @@ class CiphertextProcessor: NotificationContentProcessor {
                 bestAttemptContent.title = title
                 alert["title"] = title
             }
+            if let subtitle = map["subtitle"] as? String {
+                bestAttemptContent.title = subtitle
+                alert["subtitle"] = subtitle
+            }
             if let body = map["body"] as? String {
                 bestAttemptContent.body = body
                 alert["body"] = body

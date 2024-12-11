@@ -12,6 +12,7 @@ import UIKit
 class Message: Object {
     @objc dynamic var id = NSUUID().uuidString
     @objc dynamic var title: String?
+    @objc dynamic var subtitle: String?
     @objc dynamic var body: String?
     @objc dynamic var url: String?
     @objc dynamic var group: String?

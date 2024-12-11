@@ -95,13 +95,26 @@ class MessageTableViewCell: BaseTableViewCell<MessageTableViewCellViewModel> {
     override func bindViewModel(model: MessageTableViewCellViewModel) {
         super.bindViewModel(model: model)
 
-        Observable.combineLatest(model.title, model.body, model.url).subscribe {[weak self] title, body, url in
+        Observable.combineLatest(model.title, model.subtitle, model.body, model.url).subscribe { [weak self] title, subtitle, body, url in
             guard let self else { return }
             
             let text = NSMutableAttributedString(
                 string: body,
                 attributes: [.font: UIFont.preferredFont(ofSize: 14), .foregroundColor: BKColor.grey.darken4]
             )
+            
+            if subtitle.count > 0 {
+                // 插入一行空行当 spacer
+                text.insert(NSAttributedString(
+                    string: "\n",
+                    attributes: [.font: UIFont.systemFont(ofSize: 6, weight: .medium)]
+                ), at: 0)
+                
+                text.insert(NSAttributedString(
+                    string: subtitle + "\n",
+                    attributes: [.font: UIFont.preferredFont(ofSize: 16, weight: .medium), .foregroundColor: BKColor.grey.darken4]
+                ), at: 0)
+            }
             
             if title.count > 0 {
                 // 插入一行空行当 spacer

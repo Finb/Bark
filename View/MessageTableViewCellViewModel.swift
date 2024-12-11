@@ -24,6 +24,7 @@ class MessageTableViewCellViewModel: ViewModel {
     var identity: String
     
     let title: BehaviorRelay<String>
+    let subtitle: BehaviorRelay<String>
     let body: BehaviorRelay<String>
     let url: BehaviorRelay<String>
     
@@ -34,6 +35,7 @@ class MessageTableViewCellViewModel: ViewModel {
         self.message = message
         self.identity = message.id
         self.title = BehaviorRelay<String>(value: message.title ?? "")
+        self.subtitle = BehaviorRelay<String>(value: message.subtitle ?? "")
         self.body = BehaviorRelay<String>(value: message.body ?? "")
         self.url = BehaviorRelay<String>(value: message.url ?? "")
 

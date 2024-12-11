@@ -22,11 +22,11 @@ Bark 支持 iOS 通知的多项高级特性，包括推送分组、定制推送�
 URL 组成: 第一个部分是 key , 之后有三个匹配 
 /:key/:body 
 /:key/:title/:body 
-/:key/:category/:title/:body 
+/:key/:title/:subtitle/:body 
 
 title 推送标题 比 body 字号粗一点 
+subtitle 推送副标题
 body 推送内容 换行请使用换行符 '\n'
-category 另外的功能占用的字段，还没开放 忽略就行 
 post 请求 参数名也是上面这些
 ```
 
