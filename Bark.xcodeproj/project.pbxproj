@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 48;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -59,7 +59,7 @@
 		0632CE2020EC9098003FDF46 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0683487220510FB20024B6DA /* UserNotificationsUI.framework */; };
 		0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0632CE2220EC9098003FDF46 /* NotificationViewController.swift */; };
 		0632CE2620EC9098003FDF46 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0632CE2420EC9098003FDF46 /* MainInterface.storyboard */; };
-		0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 0632CE1E20EC9098003FDF46 /* NotificationContentExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		0633E80A256A091B00ED0680 /* MJRefresh+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0633E809256A091B00ED0680 /* MJRefresh+Rx.swift */; };
 		0635A8052CE47DFE0027E00F /* SettingSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0635A8042CE47DFE0027E00F /* SettingSectionHeader.swift */; };
 		0635A8072CE4883A0027E00F /* DonateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0635A8062CE4883A0027E00F /* DonateCell.swift */; };
@@ -136,7 +136,7 @@
 		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
 		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
 		06C595362481160F006B98F3 /* BKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C595352481160F006B98F3 /* BKLabel.swift */; };
-		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06CF784B21C7A51200A052D7 /* NotificationService.swift */; };
 		06D69E202C1159E200161A35 /* glass.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320500250B6DD3001561EC /* glass.caf */; };
 		06D69E212C1159E200161A35 /* sherwoodforest.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F5250B6DD2001561EC /* sherwoodforest.caf */; };
@@ -230,16 +230,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		0632CE2E20EC9098003FDF46 /* Embed App Extensions */ = {
+		0632CE2E20EC9098003FDF46 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed App Extensions */,
-				06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed App Extensions */,
+				0632CE2A20EC9098003FDF46 /* NotificationContentExtension.appex in Embed Foundation Extensions */,
+				06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed Foundation Extensions */,
 			);
-			name = "Embed App Extensions";
+			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -766,7 +766,7 @@
 				0661A53B204FDA4100965E4E /* Sources */,
 				0661A53C204FDA4100965E4E /* Frameworks */,
 				0661A53D204FDA4100965E4E /* Resources */,
-				0632CE2E20EC9098003FDF46 /* Embed App Extensions */,
+				0632CE2E20EC9098003FDF46 /* Embed Foundation Extensions */,
 				330C2B4092D535691BE03E9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -824,8 +824,9 @@
 		0661A537204FDA4100965E4E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 0930;
+				LastUpgradeCheck = 1600;
 				ORGANIZATIONNAME = Fin;
 				TargetAttributes = {
 					0632CE1D20EC9098003FDF46 = {
@@ -1377,7 +1378,11 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1400,7 +1405,11 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationContent;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1437,6 +1446,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1498,6 +1508,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1520,8 +1531,9 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -1538,7 +1550,10 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1562,7 +1577,10 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1586,7 +1604,11 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -1611,7 +1633,11 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
 				MARKETING_VERSION = 1.0.0;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.NotificationServiceExtension;
@@ -1635,7 +1661,11 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = BarkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkTests;
@@ -1660,7 +1690,11 @@
 				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = BarkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
