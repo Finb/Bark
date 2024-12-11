@@ -35,7 +35,6 @@ curl -X "POST" "https://api.day.app/your_key" \
   "body": "Test Bark Server",
   "title": "Test Title",
   "badge": 1,
-  "category": "myNotificationCategory",
   "sound": "minuet.caf",
   "icon": "https://day.app/assets/images/avatar.jpg",
   "group": "test",

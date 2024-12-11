@@ -47,7 +47,7 @@ Bknz. https://developer.apple.com/documentation/usernotifications/setting_up_a_r
             "title" : "Başlık",
             "body": "İçerik"
         },
-        "category": "bildirimGrubu",
+        "category": "myNotificationCategory",
         "sound": "minuet.caf"
     },
     "icon": "https://day.app/assets/images/avatar.jpg"

@@ -12,7 +12,6 @@ import UIKit
 class PreviewModel: NSObject {
     var title: String?
     var body: String?
-    var category: String?
     var notice: String?
     var queryParameter: String?
     var image: UIImage?
@@ -21,7 +20,6 @@ class PreviewModel: NSObject {
 
     init(title: String? = nil,
          body: String? = nil,
-         category: String? = nil,
          notice: String? = nil,
          queryParameter: String? = nil,
          image: UIImage? = nil,
@@ -30,7 +28,6 @@ class PreviewModel: NSObject {
     {
         self.title = title
         self.body = body
-        self.category = category
         self.notice = notice
         self.queryParameter = queryParameter
         self.image = image

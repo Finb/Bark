@@ -34,7 +34,6 @@ curl -X "POST" "https://api.day.app/your_key" \
   "body": "Test Bark Server",
   "title": "Test Başlık",
   "badge": 1,
-  "category": "benimBildirimGrubum",
   "sound": "minuet.caf",
   "icon": "https://day.app/assets/images/avatar.jpg",
   "group": "test",
