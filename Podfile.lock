@@ -1,13 +1,33 @@
 PODS:
-  - Alamofire (5.9.1)
+  - Alamofire (5.10.2)
   - CryptoSwift (1.8.3)
-  - DefaultsKit (0.2.0)
+  - DefaultsKit (0.3.2)
   - DeviceKit (5.5.0)
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
   - FDFullscreenPopGesture (1.1)
-  - IQKeyboardManagerSwift (7.1.1)
-  - Kingfisher (8.0.3)
+  - IQKeyboardCore (1.0.7)
+  - IQKeyboardManagerSwift/Core (8.0.0):
+    - IQKeyboardNotification
+    - IQTextInputViewNotification
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager (8.0.0):
+    - IQKeyboardManagerSwift/Core
+    - IQKeyboardToolbarManager
+  - IQKeyboardNotification (1.0.3)
+  - IQKeyboardToolbar (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Core (= 1.1.1)
+  - IQKeyboardToolbar/Core (1.1.1):
+    - IQKeyboardCore
+    - IQKeyboardToolbar/Placeholderable
+  - IQKeyboardToolbar/Placeholderable (1.1.1):
+    - IQKeyboardCore
+  - IQKeyboardToolbarManager (1.1.2):
+    - IQKeyboardToolbar
+    - IQTextInputViewNotification
+  - IQTextInputViewNotification (1.0.8):
+    - IQKeyboardCore
+  - Kingfisher (8.1.2)
   - KVOController (1.2.0)
   - Material (3.1.8):
     - Material/Core (= 3.1.8)
@@ -58,7 +78,7 @@ DEPENDENCIES:
   - DeviceKit
   - DropDown
   - FDFullscreenPopGesture
-  - IQKeyboardManagerSwift
+  - IQKeyboardManagerSwift/IQKeyboardToolbarManager
   - Kingfisher
   - KVOController
   - Material
@@ -79,14 +99,19 @@ DEPENDENCIES:
   - SwiftyStoreKit
 
 SPEC REPOS:
-  trunk:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - CryptoSwift
     - DeviceKit
     - Differentiator
     - DropDown
     - FDFullscreenPopGesture
+    - IQKeyboardCore
     - IQKeyboardManagerSwift
+    - IQKeyboardNotification
+    - IQKeyboardToolbar
+    - IQKeyboardToolbarManager
+    - IQTextInputViewNotification
     - Kingfisher
     - KVOController
     - Material
@@ -116,22 +141,27 @@ EXTERNAL SOURCES:
 
 CHECKOUT OPTIONS:
   DefaultsKit:
-    :commit: c51ad1d66c4a84f26330399046b72c76cd39ddfd
+    :commit: 44a67e92af2804074216efec2d756a371404788c
     :git: https://github.com/nmdias/DefaultsKit
   MercariQRScanner:
     :commit: 2b123c1b1492adc68f561a5f392727fdc3f31bb0
     :git: https://github.com/Finb/QRScanner
 
 SPEC CHECKSUMS:
-  Alamofire: f36a35757af4587d8e4f4bfa223ad10be2422b8c
+  Alamofire: 7193b3b92c74a07f85569e1a6c4f4237291e7496
   CryptoSwift: 967f37cea5a3294d9cce358f78861652155be483
-  DefaultsKit: 6c767941b2c3fe34c4d70e300e6c3b80c94964dd
+  DefaultsKit: ff9b29089d6fc08651b81be2d2387bee6eb98b75
   DeviceKit: d83e38ca196a4ebf0cc5f37d6f0316a24b794d5b
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  IQKeyboardManagerSwift: d7f3d3a562c237a0e7335e657cd598c452f57f1b
-  Kingfisher: bbf78af014cc845cf9a799363f627b5212784165
+  IQKeyboardCore: cb7f0a9a17dd32599569f2f478c1418dc28bcebb
+  IQKeyboardManagerSwift: 0c6fbbaa2e60739e48d7cf59f25661471a7a3a65
+  IQKeyboardNotification: d7382c4466c5a5adef92c7452ebf861b36050088
+  IQKeyboardToolbar: d4bdccfb78324aec2f3920659c77bb89acd33312
+  IQKeyboardToolbarManager: 6f4072ac620c2572d4af8c09f42a801f3e4909f7
+  IQTextInputViewNotification: f5e954d8881fd9808b744e49e024cc0d4bcfe572
+  Kingfisher: dc989619594e24713c83e5a98f89f08850e0c529
   KVOController: d72ace34afea42468329623b3379ab3cd1d286b6
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
   MercariQRScanner: cd024685242f78fe40879cca9734bb7bb2fceb93
@@ -153,6 +183,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 8e3a04159bc4dc5c1d4893aa65c650954647d770
+PODFILE CHECKSUM: 627db8cd65f46c8dfd8062fc03d3feeaceb76735
 
 COCOAPODS: 1.16.2

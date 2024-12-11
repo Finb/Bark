@@ -19,7 +19,7 @@ def pods
 #    pod 'IceCream'
     pod 'RealmSwift'
     pod 'CryptoSwift'
-    pod 'IQKeyboardManagerSwift'
+    pod 'IQKeyboardManagerSwift/IQKeyboardToolbarManager'
     
     pod 'RxSwift'
     pod 'RxCocoa'

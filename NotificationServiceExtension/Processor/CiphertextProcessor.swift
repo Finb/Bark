@@ -85,7 +85,7 @@ class CiphertextProcessor: NotificationContentProcessor {
         var result: [AnyHashable: Any] = [:]
         for (key, val) in map {
             // 将key重写为小写, 防止用户误输入大小写，全按小写处理
-            var key = key.lowercased()
+            let key = key.lowercased()
             // 将 value 全部转换成字符串，因为其他方式传参的结果都是字符串
             var val = val
             

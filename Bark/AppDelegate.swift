@@ -8,6 +8,7 @@
 
 import CrashReporter
 import IQKeyboardManagerSwift
+import IQKeyboardToolbarManager
 import SwiftyStoreKit
 import UIKit
 import UserNotifications
@@ -76,7 +77,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // 必须在应用一开始就配置，否则应用可能提前在配置之前试用了 Realm() ，则会创建两个独立数据库。
         setupRealm()
 
-        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.isEnabled = true
+        IQKeyboardToolbarManager.shared.isEnabled = true
         if #available(iOS 14, *), UIDevice.current.userInterfaceIdiom == .pad {
             let splitViewController = BarkSplitViewController(style: .doubleColumn)
             self.window?.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
