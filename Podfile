@@ -15,8 +15,7 @@ def pods
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
     pod 'DeviceKit'
-    pod 'DefaultsKit', :git => 'https://github.com/nmdias/DefaultsKit'
-#    pod 'IceCream'
+    pod 'DefaultsKit'
     pod 'RealmSwift'
     pod 'CryptoSwift'
     pod 'IQKeyboardManagerSwift/IQKeyboardToolbarManager'
@@ -47,7 +46,6 @@ end
 
 
 target 'NotificationServiceExtension' do
-#    pod 'IceCream'
     pod 'RealmSwift'
     pod 'Kingfisher'
     pod 'CryptoSwift'
@@ -66,8 +64,6 @@ post_install do |installer|
                 config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
             end
             config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
-            config.build_settings['ARCHS'] = nil
         end
-        
     end
 end

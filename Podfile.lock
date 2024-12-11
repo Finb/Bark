@@ -74,7 +74,7 @@ PODS:
 
 DEPENDENCIES:
   - CryptoSwift
-  - DefaultsKit (from `https://github.com/nmdias/DefaultsKit`)
+  - DefaultsKit
   - DeviceKit
   - DropDown
   - FDFullscreenPopGesture
@@ -102,6 +102,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - CryptoSwift
+    - DefaultsKit
     - DeviceKit
     - Differentiator
     - DropDown
@@ -134,15 +135,10 @@ SPEC REPOS:
     - SwiftyStoreKit
 
 EXTERNAL SOURCES:
-  DefaultsKit:
-    :git: https://github.com/nmdias/DefaultsKit
   MercariQRScanner:
     :git: https://github.com/Finb/QRScanner
 
 CHECKOUT OPTIONS:
-  DefaultsKit:
-    :commit: 44a67e92af2804074216efec2d756a371404788c
-    :git: https://github.com/nmdias/DefaultsKit
   MercariQRScanner:
     :commit: 2b123c1b1492adc68f561a5f392727fdc3f31bb0
     :git: https://github.com/Finb/QRScanner
@@ -183,6 +179,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 8352163efaa4a59a5ed82d6e53153580a4601b16
+PODFILE CHECKSUM: 5ff0ad6db7c674915eab257bcc3673bde7360e63
 
 COCOAPODS: 1.16.2
