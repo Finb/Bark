@@ -41,8 +41,8 @@ class CiphertextProcessor: NotificationContentProcessor {
                 soundName = sound
                 bestAttemptContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: sound))
             }
-            if let badge = map["badge"] as? Int {
-                bestAttemptContent.badge = badge as NSNumber
+            if let badge = map["badge"] as? String, let badgeValue = Int(badge) {
+                bestAttemptContent.badge = badgeValue as NSNumber
             }
             var aps: [String: Any] = ["alert": alert]
             if let soundName {
