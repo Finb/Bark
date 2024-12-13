@@ -74,8 +74,8 @@ class Client: NSObject {
         if ["http", "https"].contains(url.scheme?.lowercased() ?? "") {
             UIApplication.shared.open(url, options: [UIApplication.OpenExternalURLOptionsKey.universalLinksOnly: true]) { success in
                 if !success {
-                    // 打不开Universal Link时，则用内置 safari 打开
-                    self.currentSnackbarController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+                    // 打不开Universal Link时，则用 safari 打开
+                    UIApplication.shared.open(url, options: [:], completionHandler: nil)
                 }
             }
         } else {
