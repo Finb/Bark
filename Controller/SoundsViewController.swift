@@ -26,6 +26,10 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
     
     // 上传铃声文件事件序列
     let importSoundActionRelay = PublishRelay<URL>()
+	// 当前正在播放的音频资源ID
+	var currentSoundID: SystemSoundID = 0
+	// 当前正在播放的音频文件ULRL
+	var playingAudio: CFURL?
 
     override func makeUI() {
         self.title = NSLocalizedString("notificationSound")
@@ -82,11 +86,24 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
         }).disposed(by: rx.disposeBag)
 
         output.playAction.drive(onNext: { url in
-            var soundID: SystemSoundID = 0
-            AudioServicesCreateSystemSoundID(url, &soundID)
-            AudioServicesPlaySystemSoundWithCompletion(soundID) {
-                AudioServicesDisposeSystemSoundID(soundID)
-            }
+			/// 先结束正在播放的音频
+			AudioServicesDisposeSystemSoundID(self.currentSoundID)
+			/// 如果重复点击了当前音频，结束播放
+			if self.playingAudio == url{
+				self.playingAudio = nil
+				self.currentSoundID = 0
+				return
+			}
+			self.playingAudio = url
+			AudioServicesCreateSystemSoundID(url, &self.currentSoundID)
+			AudioServicesPlaySystemSoundWithCompletion(self.currentSoundID) {
+				/// 判断是否是当前播放的音频，防止逻辑错误
+				if self.playingAudio == url {
+					AudioServicesDisposeSystemSoundID(self.currentSoundID)
+					self.playingAudio = nil
+					self.currentSoundID = 0
+				}
+			}
         }).disposed(by: rx.disposeBag)
         
         output.pickerFile.drive(onNext: { [unowned self] _ in
