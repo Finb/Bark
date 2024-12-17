@@ -46,18 +46,28 @@ class IconProcessor: NotificationContentProcessor {
                 suggestionType: .none
             )
             
+            // 必须两个接受者，才能显示 subtitle, 别问为什么
+            let placeholderPerson = INPerson(
+                personHandle: INPersonHandle(value: "", type: .unknown),
+                nameComponents: personNameComponents,
+                displayName: personNameComponents.nickname,
+                image: avatar,
+                contactIdentifier: nil,
+                customIdentifier: nil
+            )
+            
             let intent = INSendMessageIntent(
-                recipients: [mePerson],
+                recipients: [mePerson, placeholderPerson],
                 outgoingMessageType: .outgoingMessageText,
                 content: bestAttemptContent.body,
-                speakableGroupName: INSpeakableString(spokenPhrase: personNameComponents.nickname ?? ""),
+                speakableGroupName: INSpeakableString(spokenPhrase: bestAttemptContent.subtitle),
                 conversationIdentifier: bestAttemptContent.threadIdentifier,
                 serviceName: nil,
                 sender: senderPerson,
                 attachments: nil
             )
             
-            intent.setImage(avatar, forParameterNamed: \.sender)
+            intent.setImage(avatar, forParameterNamed: \.speakableGroupName)
             
             let interaction = INInteraction(intent: intent, response: nil)
             interaction.direction = .incoming
