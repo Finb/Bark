@@ -1,6 +1,18 @@
 
 ### 个人用户
-暂不支持单个请求推送到多台设备，可通过分别发送的方式实现多设备推送。
+批量推送仅支持Json请求，需 bark-server 更新至 v2.1.9。（[https://api.day.app](https://api.day.app) 暂时不会更新至 v2.1.9, 目前还不支持批量推送）<br />
+用法:
+```sh
+curl -X "POST" "https://api.day.app/push" \
+     -H 'Content-Type: application/json; charset=utf-8' \
+     -d $'{
+  "title": "Title",
+  "body": "Body",
+  "sound": "minuet.caf",
+  "group": "test",
+  "device_keys": ["key1", "key2", ... ]
+}'
+```
 
 ### 中间服务
 如果你的服务需要大批量且及时地向用户发送推送，建议自建服务端。可以提供 Url Scheme 方便用户一键更改服务器。
