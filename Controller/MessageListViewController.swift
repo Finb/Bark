@@ -176,7 +176,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
                     return UITableViewCell()
                 }
-                cell.bindViewModel(model: item)
+                cell.message = item.message
                 return cell
             }, canEditRowAtIndexPath: { _, _ in
                 true

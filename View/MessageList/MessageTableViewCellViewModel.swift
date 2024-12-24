@@ -11,13 +11,6 @@ import Foundation
 import RxCocoa
 import RxDataSources
 
-enum MessageListCellDateStyle {
-    /// 相对时间，例如 1分钟前、1小时前
-    case relative
-    /// 精确时间，例如 2024-01-01 12:00
-    case exact
-}
-
 class MessageTableViewCellViewModel: ViewModel {
     // 不要在删除消息后，再次使用这个对象，否则会crash
     let message: Message

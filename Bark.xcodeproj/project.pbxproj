@@ -95,6 +95,9 @@
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
 		0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D191247D162C005DE2ED /* MessageTableViewCell.swift */; };
 		0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D193247D1BA0005DE2ED /* Date+Extension.swift */; };
+		066890082D1946D500E106F2 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066890072D1946D500E106F2 /* MessageItemView.swift */; };
+		0668900B2D19525400E106F2 /* ShowLessAndClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */; };
+		0668900D2D19582400E106F2 /* MessageGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */; };
 		066E0C8C2BB6AC9A00873838 /* AddSoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */; };
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
 		06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C382A710568008ABDD7 /* GesturePassTextView.swift */; };
@@ -332,6 +335,9 @@
 		0661A54E204FDA4100965E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0667D191247D162C005DE2ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		0667D193247D1BA0005DE2ED /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		066890072D1946D500E106F2 /* MessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemView.swift; sourceTree = "<group>"; };
+		0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLessAndClearView.swift; sourceTree = "<group>"; };
+		0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupHeaderView.swift; sourceTree = "<group>"; };
 		066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSoundCell.swift; sourceTree = "<group>"; };
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
@@ -487,11 +493,10 @@
 		0604F7DC20620D3400B32F09 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				066890092D19495400E106F2 /* MessageList */,
 				06BBB8C02567B3EF0076F63E /* BaseTableViewCell.swift */,
 				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
 				064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */,
-				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
-				067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */,
 				06C5952C2480E3F8006B98F3 /* LabelCell.swift */,
 				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
@@ -665,6 +670,18 @@
 				065752C02CB6844A001426D8 /* Localizable.xcstrings */,
 			);
 			path = Bark;
+			sourceTree = "<group>";
+		};
+		066890092D19495400E106F2 /* MessageList */ = {
+			isa = PBXGroup;
+			children = (
+				066890072D1946D500E106F2 /* MessageItemView.swift */,
+				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
+				067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */,
+				0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */,
+				0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */,
+			);
+			path = MessageList;
 			sourceTree = "<group>";
 		};
 		06CF784121C7A50300A052D7 /* NotificationServiceExtension */ = {
@@ -1205,6 +1222,7 @@
 				1EFB545D2C314A6800B8E51B /* BarkSplitViewController.swift in Sources */,
 				06BBB8C92567B6730076F63E /* Operators.swift in Sources */,
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
+				066890082D1946D500E106F2 /* MessageItemView.swift in Sources */,
 				0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */,
 				06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */,
 				0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */,
@@ -1218,6 +1236,7 @@
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
 				06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */,
 				06F08EA429B098DD006AB9CA /* CryptoSettingManager.swift in Sources */,
+				0668900B2D19525400E106F2 /* ShowLessAndClearView.swift in Sources */,
 				06BD4DAA2901352E003364DB /* Object+Dictionary.swift in Sources */,
 				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
 				068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */,
@@ -1277,6 +1296,7 @@
 				065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */,
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */,
+				0668900D2D19582400E106F2 /* MessageGroupHeaderView.swift in Sources */,
 				1E73F99E2C282822002BF649 /* SectionViewController-iPad.swift in Sources */,
 				0689CF4C2C7484A7007203A6 /* BarkTabBarController.swift in Sources */,
 				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,

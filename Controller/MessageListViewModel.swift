@@ -12,6 +12,13 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
+enum MessageListCellItem {
+    /// 单条消息
+    case message(model: Message)
+    /// 一组消息，可以收缩折叠
+    case messageGroup(group: [Message])
+}
+
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         var refresh: Driver<Void>
