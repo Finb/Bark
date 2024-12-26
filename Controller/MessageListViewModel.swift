@@ -12,28 +12,58 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
+enum MessageListType {
+    // 列表
+    case list
+    // 分组
+    case group
+}
+
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
+        /// 刷新
         var refresh: Driver<Void>
+        /// 加载更多
         var loadMore: Driver<Void>
+        /// 删除
         var itemDelete: Driver<Int>
+        /// 点击
         var itemSelected: Driver<Int>
+        /// 批量删除
         var delete: Driver<MessageDeleteType>
-        var groupTap: Driver<Void>
+        /// 切换群组和列表显示样式
+        var groupToggleTap: Driver<Void>
+        /// 搜索
         var searchText: Observable<String?>
     }
     
     struct Output {
+        /// 数据源
         var messages: Driver<[MessageSection]>
+        /// 刷新控件状态
         var refreshAction: Driver<MJRefreshAction>
+        /// 点击后，弹出提示
         var alertMessage: Driver<(String, Int)>
-        var groupFilter: Driver<GroupFilterViewModel>
+        /// 群组过滤
+        var type: Driver<MessageListType>
+        /// 标题
         var title: Driver<String>
     }
+
+    /// 当前显示类型
+    private var type: MessageListType = .list
     
+    /// 当前页数
+    private var page = 0
+    /// 每页数量
+    private let pageCount = 20
+    
+    /// 全部群组
+    private var groups: Results<Message>?
+    /// 全部数据（懒加载）
     private var results: Results<Message>?
     
-    // 根据群组获取消息
+    /// 获取筛选后的全部数据源 （懒加载）
     private func getResults(filterGroups: [String?], searchText: String?) -> Results<Message>? {
         if let realm = try? Realm() {
             var results = realm.objects(Message.self)
@@ -49,26 +79,78 @@ class MessageListViewModel: ViewModel, ViewModelType {
         return nil
     }
     
-    private var page = 0
-    private let pageCount = 20
-    private func getNextPage() -> [Message] {
-        if let result = results {
-            let startIndex = page * pageCount
-            let endIndex = min(startIndex + pageCount, result.count)
-            guard endIndex > startIndex else {
-                return []
-            }
-            var messages: [Message] = []
-            for i in startIndex..<endIndex {
-                // messages.append(result[i].freeze())
-                // 不用 freeze 是还没弄明白 freeze 冻结快照释放时机，先直接copy吧
-                // copy 是因为 message 可能在被删除后，还会被访问导致闪退
-                messages.append(result[i].copyMessage())
-            }
-            page += 1
-            return messages
+    /// 获取所有群组（懒加载）
+    private func getGroups() -> Results<Message>? {
+        if let realm = try? Realm() {
+            return realm.objects(Message.self)
+                .sorted(byKeyPath: "createDate", ascending: false)
+                .distinct(by: ["group"])
+//                .value(forKeyPath: "group") as? [String?] ?? []
         }
-        return []
+        return nil
+    }
+
+    /// 获取 message 列表下一页数据
+    private func getListNextPage() -> [MessageListCellItem] {
+        guard let result = results else {
+            return []
+        }
+        let startIndex = page * pageCount
+        let endIndex = min(startIndex + pageCount, result.count)
+        guard endIndex > startIndex else {
+            return []
+        }
+        var messages: [MessageListCellItem] = []
+        for i in startIndex..<endIndex {
+            // messages.append(result[i].freeze())
+            // 不用 freeze 是还没弄明白 freeze 冻结快照释放时机，先直接copy吧
+            // copy 是因为 message 可能在被删除后，还会被访问导致闪退
+            messages.append(.message(model: result[i].copyMessage()))
+        }
+        page += 1
+        return messages
+    }
+
+    /// 获取 group 列表下一页数据
+    private func getGroupNextPage() -> [MessageListCellItem] {
+        guard let groups, let results else {
+            return []
+        }
+        
+        let startIndex = page * pageCount
+        let endIndex = min(startIndex + pageCount, groups.count)
+        guard endIndex > startIndex else {
+            return []
+        }
+
+        var items: [MessageListCellItem] = []
+        
+        for i in startIndex..<endIndex {
+            let group = groups[i].group
+            let messageResult: Results<Message>
+            if let group {
+                messageResult = results.filter("group == %@", group)
+            } else {
+                messageResult = results.filter("group == nil")
+            }
+                
+            var messages: [Message] = []
+            for i in 0..<min(messageResult.count, 5) {
+                messages.append(messageResult[i].copyMessage())
+            }
+            if messages.count > 0 {
+                items.append(.messageGroup(name: group ?? NSLocalizedString("default"), totalCount: messageResult.count, messages: messages))
+            }
+        }
+        page += 1
+        return items
+    }
+    
+    private func getNextPage() -> [MessageListCellItem] {
+        if type == .list {
+            return getListNextPage()
+        }
+        return getGroupNextPage()
     }
     
     func transform(input: Input) -> Output {
@@ -126,22 +208,29 @@ class MessageListViewModel: ViewModel, ViewModelType {
             .combineLatest(filterGroups, input.searchText)
             .subscribe(onNext: { [weak self] groups, searchText in
                 self?.results = self?.getResults(filterGroups: groups, searchText: searchText)
+                self?.groups = self?.getGroups()
             }).disposed(by: rx.disposeBag)
+
+        // 群组筛选
+        let messageTypeChanged = input.groupToggleTap.compactMap { () -> MessageListType? in
+            self.type = self.type == .group ? .list : .group
+            return self.type
+        }
 
         // 切换分组和下拉刷新时，重新刷新列表
         Observable
             .merge(
                 input.refresh.asObservable().map { () },
                 filterGroups.map { _ in () },
-                input.searchText.asObservable().map { _ in () }
+                input.searchText.asObservable().map { _ in () },
+                messageTypeChanged.asObservable().map { _ in () }
             )
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
                 strongSelf.page = 0
+                let messages = strongSelf.getNextPage()
                 messagesRelay.accept(
-                    messagesToMessageSection(
-                        messages: strongSelf.getNextPage()
-                    )
+                    [MessageSection(header: "model", messages: messages)]
                 )
                 refreshAction.accept(.endRefresh)
             }).disposed(by: rx.disposeBag)
@@ -153,8 +242,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
             .delay(.milliseconds(10), scheduler: MainScheduler.instance)
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
-                let messages = strongSelf.getNextPage()
-                let items = messages.map { MessageListCellItem.message(model: $0) }
+                let items = strongSelf.getNextPage()
                 
                 refreshAction.accept(.endLoadmore)
                 if var section = messagesRelay.value.first {
@@ -205,48 +293,15 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
             
             strongSelf.page = 0
-            messagesRelay.accept(messagesToMessageSection(messages: strongSelf.getNextPage()))
+            messagesRelay.accept([MessageSection(header: "model", messages: strongSelf.getNextPage())])
             
         }).disposed(by: rx.disposeBag)
-        
-        // 群组筛选
-        let groupFilter = input.groupTap.compactMap { () -> GroupFilterViewModel? in
-            if let realm = try? Realm() {
-                let groups = realm.objects(Message.self)
-                    .distinct(by: ["group"])
-                    .value(forKeyPath: "group") as? [String?]
-                
-                let groupModels = groups?.compactMap { groupName -> GroupFilterModel in
-                    var check = true
-                    if filterGroups.value.count > 0 {
-                        check = filterGroups.value.contains(groupName)
-                    }
-                    return GroupFilterModel(name: groupName, checked: check)
-                }
-                
-                if let models = groupModels {
-                    let viewModel = GroupFilterViewModel(groups: models)
-                    
-                    // 保存选择的 group
-                    viewModel.done.subscribe(onNext: { filterGroups in
-                        Settings["me.fin.filterGroups"] = filterGroups
-                    }).disposed(by: viewModel.rx.disposeBag)
-                    
-                    // 将选择绑定到当前页面
-                    viewModel.done
-                        .bind(to: filterGroups)
-                        .disposed(by: viewModel.rx.disposeBag)
-                    return viewModel
-                }
-            }
-            return nil
-        }
         
         return Output(
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
             refreshAction: refreshAction.asDriver(),
             alertMessage: alertMessage,
-            groupFilter: groupFilter.asDriver(),
+            type: Driver.merge(messageTypeChanged.asDriver(), Driver.just(self.type)),
             title: titleRelay.asDriver()
         )
     }

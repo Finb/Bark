@@ -59,8 +59,8 @@ extension MessageListCellItem: IdentifiableType {
         switch self {
         case .message(let model):
             return model.id
-        case .messageGroup(let name, _, _):
-            return name
+        case .messageGroup(_, _, let messages):
+            return messages.first?.id ?? ""
         }
     }
 }

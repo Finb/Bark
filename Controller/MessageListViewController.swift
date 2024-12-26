@@ -40,10 +40,14 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     
     let groupButton: UIBarButtonItem = {
         let btn = BKButton()
-        btn.setImage(UIImage(named: "baseline_folder_open_black_24pt"), for: .normal)
+        btn.setImage(UIImage(named: "group_expand")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        btn.setImage(UIImage(named: "group_collapse")?.withRenderingMode(.alwaysTemplate), for: .selected)
+        btn.imageView?.tintColor = UIColor.black
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         return UIBarButtonItem(customView: btn)
     }()
+    
+    private var expandedGroup: Set<String> = []
     
     lazy var tableView: UITableView = {
         let tableView = UITableView()
@@ -128,11 +132,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                         self.tableView.performBatchUpdates {
                             cell?.isExpanded = false
                         }
+                        if let groupName = cell?.cellData?.groupName {
+                            self.expandedGroup.remove(groupName)
+                        }
                     }
                 }
-                cell.messages = messages
-                cell.groupName = title
-                cell.moreCount = max(0, totalCount - messages.count)
+                cell.cellData = (title, max(0, totalCount - messages.count), messages)
+                cell.isExpanded = self.expandedGroup.contains(title)
                 return cell
             }
 
@@ -155,6 +161,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                             cell.isExpanded = true
                         }
                     }
+                    if let groupName = cell.cellData?.groupName {
+                        self.expandedGroup.insert(groupName)
+                    }
                     return nil
                 }
             }
@@ -169,7 +178,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 itemDelete: tableView.rx.itemDeleted.asDriver().map { $0.row },
                 itemSelected: itemSelected,
                 delete: getBatchDeleteDriver(),
-                groupTap: groupBtn.rx.tap.asDriver(),
+                groupToggleTap: groupBtn.rx.tap.asDriver(),
                 searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
             ))
         
@@ -188,9 +197,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         }).disposed(by: rx.disposeBag)
         
         // 选择群组
-        output.groupFilter
-            .drive(onNext: { [weak self] groupModel in
-                self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
+        output.type
+            .drive(onNext: { [weak self] type in
+                (self?.groupButton.customView as? UIButton)?.isSelected = type == .group
             }).disposed(by: rx.disposeBag)
         
         // 标题

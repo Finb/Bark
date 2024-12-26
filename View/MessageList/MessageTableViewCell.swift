@@ -51,11 +51,11 @@ class MessageGroupTableViewCell: UITableViewCell {
 
     /// 消息列表，最多显示 5 条，如果不足5条，多余的会隐藏
     private let messageViews = [
-        MessageItemView(isShowShadow: true),
-        MessageItemView(isShowShadow: true),
-        MessageItemView(isShowShadow: true),
-        MessageItemView(isShowShadow: true),
-        MessageItemView(isShowShadow: true)
+        MessageItemView(),
+        MessageItemView(),
+        MessageItemView(),
+        MessageItemView(),
+        MessageItemView()
     ]
     
     /// 群组 header ，包含标题、折叠按钮、清除按钮
@@ -75,7 +75,7 @@ class MessageGroupTableViewCell: UITableViewCell {
     }
     
     /// 消息列表
-    var messages: [Message] = [] {
+    private var messages: [Message] = [] {
         didSet {
             for (index, item) in messageViews.enumerated() {
                 if index < messages.count {
@@ -85,19 +85,18 @@ class MessageGroupTableViewCell: UITableViewCell {
                     item.isHidden = true
                 }
             }
-            refreshLayout()
         }
     }
 
     /// 剩余消息数量
-    var moreCount: Int = 0 {
+    private var moreCount: Int = 0 {
         didSet {
             moreView.count = moreCount
         }
     }
     
     /// 群组名
-    var groupName: String? {
+    private var groupName: String? {
         set {
             if let newValue, !newValue.isEmpty {
                 groupHeader.groupName = newValue
@@ -107,6 +106,14 @@ class MessageGroupTableViewCell: UITableViewCell {
         }
         get {
             return groupHeader.groupName
+        }
+    }
+    
+    var cellData: (groupName: String?, moreCount: Int, messages: [Message])? {
+        didSet {
+            groupName = cellData?.groupName ?? ""
+            moreCount = cellData?.moreCount ?? 0
+            messages = cellData?.messages ?? []
         }
     }
     
@@ -199,6 +206,8 @@ class MessageGroupTableViewCell: UITableViewCell {
             item.snp.remakeConstraints { make in
                 make.left.right.equalToSuperview()
                 if isExpanded {
+                    item.isShowSubviews = true
+                    
                     if index == 0 {
                         make.top.equalTo(groupHeader.snp.bottom).offset(8)
                     } else {
@@ -215,11 +224,16 @@ class MessageGroupTableViewCell: UITableViewCell {
                 } else {
                     if index == 0 {
                         make.top.equalToSuperview()
+                        
+                        item.isShowSubviews = true
                         item.transform = .identity
+                        
                     } else {
                         // 底部边缘最多额外再显示1条消息
-                        make.top.equalToSuperview().offset(min(index * 8, 1 * 8))
-                        make.height.equalTo(messageViews[0])
+                        make.bottom.equalTo(messageViews[0].snp.bottom).offset(min(index * 8, 1 * 8))
+                        make.height.equalTo(40)
+                        
+                        item.isShowSubviews = false
                         // 根据 index 逐渐缩小
                         let scale = 1 - CGFloat(index) * 0.04
                         item.transform = CGAffineTransform(scaleX: scale, y: 1)

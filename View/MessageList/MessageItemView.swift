@@ -85,13 +85,12 @@ class MessageItemView: UIView {
             blackMaskView.alpha = maskAlpha
         }
     }
-
-    var isShowShadow: Bool = false {
+    
+    var isShowSubviews: Bool = true {
         didSet {
-            panel.layer.shadowColor = UIColor.black.withAlphaComponent(0.1).cgColor
-            panel.layer.shadowOffset = CGSize(width: 0, height: 5)
-            panel.layer.shadowRadius = 5
-            panel.layer.shadowOpacity = isShowShadow ? 0.05 : 0
+            for view in [bodyLabel, dateLabel] {
+                view.alpha = isShowSubviews ? 1 : 0
+            }
         }
     }
     
@@ -116,13 +115,6 @@ class MessageItemView: UIView {
         }).disposed(by: rx.disposeBag)
     }
 
-    convenience init(isShowShadow: Bool) {
-        self.init()
-        defer {
-            self.isShowShadow = isShowShadow
-        }
-    }
-    
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -142,7 +134,7 @@ class MessageItemView: UIView {
         
         panel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16).priority(.medium)
+            make.right.equalToSuperview().offset(-16)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }
