@@ -137,12 +137,12 @@ class MessageItemView: UIView {
         dateLabel.snp.makeConstraints { make in
             make.left.equalTo(bodyLabel)
             make.top.equalTo(bodyLabel.snp.bottom).offset(12)
-            make.bottom.equalTo(panel).offset(-12)
+            make.bottom.equalTo(panel).offset(-12).priority(.medium)
         }
         
         panel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
-            make.right.equalToSuperview().offset(-16)
+            make.right.equalToSuperview().offset(-16).priority(.medium)
             make.top.equalToSuperview()
             make.bottom.equalToSuperview()
         }

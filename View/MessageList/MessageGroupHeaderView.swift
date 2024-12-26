@@ -50,7 +50,7 @@ class MessageGroupHeaderView: UIView {
             make.bottom.equalTo(-10)
         }
         showLessAndClearView.snp.makeConstraints { make in
-            make.right.equalTo(-8)
+            make.right.equalToSuperview()
             make.centerY.equalTo(groupNameLabel)
         }
     }

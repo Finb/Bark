@@ -3150,6 +3150,29 @@
           }
         }
       }
+    },
+    "viewMoreMessages" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "View %d More Messages"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%d Daha Mesaj Görüntüle"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "查看更多%d条消息"
+          }
+        }
+      }
     }
   },
   "version" : "1.0"

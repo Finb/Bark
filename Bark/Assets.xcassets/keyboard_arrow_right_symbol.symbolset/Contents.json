@@ -1,0 +1,12 @@
+{
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  },
+  "symbols" : [
+    {
+      "filename" : "keyboard_arrow_right_keyboard_arrow_right_symbol.svg",
+      "idiom" : "universal"
+    }
+  ]
+}

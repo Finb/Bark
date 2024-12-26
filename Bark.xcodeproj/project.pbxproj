@@ -20,6 +20,7 @@
 		06172FDC27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06172FDB27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift */; };
 		061894C529962EB900E001C2 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C429962EB900E001C2 /* GradientButton.swift */; };
 		061894C729A75BEA00E001C2 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
+		061C17082D1BDA4B00891D66 /* MessageGroupMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */; };
 		0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABA298B6EA2002F3F69 /* DropBoxView.swift */; };
 		0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABC2990D615002F3F69 /* BorderTextField.swift */; };
 		062B98C3251B2762004562E7 /* BKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062B98C2251B2762004562E7 /* BKButton.swift */; };
@@ -261,6 +262,7 @@
 		06172FDB27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListTableViewCellViewModel.swift; sourceTree = "<group>"; };
 		061894C429962EB900E001C2 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		061894C629A75BEA00E001C2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
+		061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupMoreView.swift; sourceTree = "<group>"; };
 		0627DABA298B6EA2002F3F69 /* DropBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropBoxView.swift; sourceTree = "<group>"; };
 		0627DABC2990D615002F3F69 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		062B98C2251B2762004562E7 /* BKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKButton.swift; sourceTree = "<group>"; };
@@ -680,6 +682,7 @@
 				067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */,
 				0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */,
 				0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */,
+				061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */,
 			);
 			path = MessageList;
 			sourceTree = "<group>";
@@ -1287,6 +1290,7 @@
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
 				06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */,
 				06BBB8BC2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift in Sources */,
+				061C17082D1BDA4B00891D66 /* MessageGroupMoreView.swift in Sources */,
 				0642B55A27EB13F100453D91 /* MutableTextCell.swift in Sources */,
 				1EFB545F2C32514000B8E51B /* SectionViewModel-iPad.swift in Sources */,
 				06EEF335291CD00000CA228A /* CryptoSettingViewModel.swift in Sources */,
