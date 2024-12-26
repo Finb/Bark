@@ -45,17 +45,22 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         return UIBarButtonItem(customView: btn)
     }()
     
-    let tableView: UITableView = {
+    lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
         tableView.backgroundColor = BKColor.background.primary
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "\(MessageTableViewCell.self)")
+        tableView.register(MessageGroupTableViewCell.self, forCellReuseIdentifier: "\(MessageGroupTableViewCell.self)")
         // 设置了这个后，第一次进页面 LargeTitle 就会收缩成小标题，不设置这个LargeTitle就是大标题显示
         // 谁特么能整的明白这个？
         // tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         
         // 替代 contentInset 设置一个 header
         tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
+        
+        tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
+        tableView.mj_footer = MJRefreshAutoFooter()
+        tableView.refreshControl = UIRefreshControl()
         
         return tableView
     }()
@@ -71,9 +76,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
-        tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
-        tableView.mj_footer = MJRefreshAutoFooter()
-        tableView.refreshControl = UIRefreshControl()
 
         // 点击tab按钮，回到顶部
         Client.shared.currentTabBarController?
@@ -99,12 +101,108 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 self?.tableView.refreshControl?.sendActions(for: .valueChanged)
             }).disposed(by: rx.disposeBag)
     }
+
+    // tableView 数据源
+    private lazy var dataSource = RxTableViewSectionedAnimatedDataSource<MessageSection>(
+        animationConfiguration: AnimationConfiguration(
+            insertAnimation: .none,
+            reloadAnimation: .none,
+            deleteAnimation: .left
+        ),
+        configureCell: { _, tableView, _, item -> UITableViewCell in
+            
+            switch item {
+            case .message(let message):
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.message = message
+                return cell
+            case .messageGroup(let title, let totalCount, let messages):
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageGroupTableViewCell.self)") as? MessageGroupTableViewCell else {
+                    return UITableViewCell()
+                }
+                cell.showLessAction = { [weak self, weak cell] in
+                    guard let self else { return }
+                    UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.2) {
+                        self.tableView.performBatchUpdates {
+                            cell?.isExpanded = false
+                        }
+                    }
+                }
+                cell.messages = messages
+                cell.groupName = title
+                cell.moreCount = max(0, totalCount - messages.count)
+                return cell
+            }
+
+        }, canEditRowAtIndexPath: { _, _ in
+            true
+        }
+    )
     
     override func bindViewModel() {
-        guard let deleteBtn = deleteButton.customView as? BKButton else {
+        guard let groupBtn = groupButton.customView as? BKButton else {
             return
         }
-        let batchDelete = deleteBtn.rx
+        
+        let itemSelected = tableView.rx.itemSelected.asDriver().compactMap { [weak self] indexPath -> Int? in
+            guard let self else { return nil }
+            if let cell = self.tableView.cellForRow(at: indexPath) as? MessageGroupTableViewCell {
+                if !cell.isExpanded {
+                    UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.2) {
+                        self.tableView.performBatchUpdates {
+                            cell.isExpanded = true
+                        }
+                    }
+                    return nil
+                }
+            }
+            
+            return indexPath.row
+        }
+        
+        let output = viewModel.transform(
+            input: MessageListViewModel.Input(
+                refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
+                loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
+                itemDelete: tableView.rx.itemDeleted.asDriver().map { $0.row },
+                itemSelected: itemSelected,
+                delete: getBatchDeleteDriver(),
+                groupTap: groupBtn.rx.tap.asDriver(),
+                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
+            ))
+        
+        // tableView 刷新状态
+        output.refreshAction
+            .drive(tableView.rx.refreshAction)
+            .disposed(by: rx.disposeBag)
+        
+        output.messages
+            .drive(tableView.rx.items(dataSource: dataSource))
+            .disposed(by: rx.disposeBag)
+        
+        // message操作alert
+        output.alertMessage.drive(onNext: { [weak self] message in
+            self?.alertMessage(message: message.0, indexPath: IndexPath(row: message.1, section: 0))
+        }).disposed(by: rx.disposeBag)
+        
+        // 选择群组
+        output.groupFilter
+            .drive(onNext: { [weak self] groupModel in
+                self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
+            }).disposed(by: rx.disposeBag)
+        
+        // 标题
+        output.title
+            .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
+    }
+    
+    private func getBatchDeleteDriver() -> Driver<MessageDeleteType> {
+        guard let deleteBtn = deleteButton.customView as? BKButton else {
+            return Driver.never()
+        }
+        return deleteBtn.rx
             .tap
             .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in
                 let relay = PublishRelay<MessageDeleteType>()
@@ -144,66 +242,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 
                 return relay
             }
-        
-        guard let groupBtn = groupButton.customView as? BKButton else {
-            return
-        }
-        
-        let output = viewModel.transform(
-            input: MessageListViewModel.Input(
-                refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
-                loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
-                itemDelete: tableView.rx.itemDeleted.asDriver().map { $0.row },
-                itemSelected: tableView.rx.itemSelected.asDriver().map { $0.row },
-                delete: batchDelete.asDriver(onErrorDriveWith: .empty()),
-                groupTap: groupBtn.rx.tap.asDriver(),
-                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
-            ))
-        
-        // tableView 刷新状态
-        output.refreshAction
-            .drive(tableView.rx.refreshAction)
-            .disposed(by: rx.disposeBag)
-        
-        // tableView 数据源
-        let dataSource = RxTableViewSectionedAnimatedDataSource<MessageSection>(
-            animationConfiguration: AnimationConfiguration(
-                insertAnimation: .none,
-                reloadAnimation: .none,
-                deleteAnimation: .left
-            ),
-            configureCell: { _, tableView, _, item -> UITableViewCell in
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
-                    return UITableViewCell()
-                }
-                cell.message = item.message
-                return cell
-            }, canEditRowAtIndexPath: { _, _ in
-                true
-            }
-        )
-        
-        output.messages
-            .drive(tableView.rx.items(dataSource: dataSource))
-            .disposed(by: rx.disposeBag)
-        
-        // message操作alert
-        output.alertMessage.drive(onNext: { [weak self] message in
-            self?.alertMessage(message: message.0, indexPath: IndexPath(row: message.1, section: 0))
-        }).disposed(by: rx.disposeBag)
-        
-        // 选择群组
-        output.groupFilter
-            .drive(onNext: { [weak self] groupModel in
-                self?.navigationController?.present(BarkNavigationController(rootViewController: GroupFilterViewController(viewModel: groupModel)), animated: true, completion: nil)
-            }).disposed(by: rx.disposeBag)
-        
-        // 标题
-        output.title
-            .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
+            .asDriver(onErrorDriveWith: .empty())
     }
     
-    func alertMessage(message: String, indexPath: IndexPath) {
+    private func alertMessage(message: String, indexPath: IndexPath) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
             (_: UIAlertAction) in

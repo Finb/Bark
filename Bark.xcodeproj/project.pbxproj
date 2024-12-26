@@ -103,7 +103,7 @@
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
 		06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C382A710568008ABDD7 /* GesturePassTextView.swift */; };
 		06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */; };
-		067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */; };
+		067B2EB525693E38008B6BE1 /* MessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageSection.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		06840DBB272298FB001B3193 /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
 		0687F2A82CCB791A00B2A52F /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
@@ -344,7 +344,7 @@
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
 		06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReportViewController.swift; sourceTree = "<group>"; };
-		067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCellViewModel.swift; sourceTree = "<group>"; };
+		067B2EB425693E38008B6BE1 /* MessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSection.swift; sourceTree = "<group>"; };
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		0683487220510FB20024B6DA /* UserNotificationsUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotificationsUI.framework; path = System/Library/Frameworks/UserNotificationsUI.framework; sourceTree = SDKROOT; };
@@ -535,6 +535,7 @@
 			isa = PBXGroup;
 			children = (
 				06B1158E247BB1FB006D91FB /* Message.swift */,
+				067B2EB425693E38008B6BE1 /* MessageSection.swift */,
 				064CABA5256BE9510018155C /* PreviewModel.swift */,
 				06BD4DA92901352E003364DB /* Object+Dictionary.swift */,
 				061894C629A75BEA00E001C2 /* Algorithm.swift */,
@@ -679,7 +680,6 @@
 			children = (
 				066890072D1946D500E106F2 /* MessageItemView.swift */,
 				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
-				067B2EB425693E38008B6BE1 /* MessageTableViewCellViewModel.swift */,
 				0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */,
 				0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */,
 				061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */,
@@ -1266,7 +1266,7 @@
 				06AE311E266F54CC00B39FBB /* GroupCellViewModel.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
-				067B2EB525693E38008B6BE1 /* MessageTableViewCellViewModel.swift in Sources */,
+				067B2EB525693E38008B6BE1 /* MessageSection.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
 				06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */,
 				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,

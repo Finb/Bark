@@ -12,13 +12,6 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-enum MessageListCellItem {
-    /// 单条消息
-    case message(model: Message)
-    /// 一组消息，可以收缩折叠
-    case messageGroup(group: [Message])
-}
-
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         var refresh: Driver<Void>
@@ -67,7 +60,10 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
             var messages: [Message] = []
             for i in startIndex..<endIndex {
-                messages.append(result[i])
+                // messages.append(result[i].freeze())
+                // 不用 freeze 是还没弄明白 freeze 冻结快照释放时机，先直接copy吧
+                // copy 是因为 message 可能在被删除后，还会被访问导致闪退
+                messages.append(result[i].copyMessage())
             }
             page += 1
             return messages
@@ -81,7 +77,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 return ("", 0)
             }
             let message = results[index]
-//            let message = model.message
             
             var copyContent: String = ""
             if let title = message.title {
@@ -113,10 +108,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
         
         // Message 转 MessageSection
         func messagesToMessageSection(messages: [Message]) -> [MessageSection] {
-            let cellViewModels = messages.map { message -> MessageTableViewCellViewModel in
-                MessageTableViewCellViewModel(message: message)
-            }
-            return [MessageSection(header: "model", messages: cellViewModels)]
+            let items = messages.map { MessageListCellItem.message(model: $0) }
+            return [MessageSection(header: "model", messages: items)]
         }
         // 切换分组时，更新分组名
         filterGroups
@@ -161,16 +154,14 @@ class MessageListViewModel: ViewModel, ViewModelType {
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { return }
                 let messages = strongSelf.getNextPage()
-                let cellViewModels = messages.map { message -> MessageTableViewCellViewModel in
-                    MessageTableViewCellViewModel(message: message)
-                }
+                let items = messages.map { MessageListCellItem.message(model: $0) }
                 
                 refreshAction.accept(.endLoadmore)
                 if var section = messagesRelay.value.first {
-                    section.messages.append(contentsOf: cellViewModels)
+                    section.messages.append(contentsOf: items)
                     messagesRelay.accept([section])
                 } else {
-                    messagesRelay.accept([MessageSection(header: "model", messages: cellViewModels)])
+                    messagesRelay.accept([MessageSection(header: "model", messages: items)])
                 }
             }).disposed(by: rx.disposeBag)
         

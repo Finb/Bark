@@ -6,9 +6,9 @@
 //  Copyright © 2020 Fin. All rights reserved.
 //
 
-//import IceCream
 import RealmSwift
 import UIKit
+
 class Message: Object {
     @objc dynamic var id = NSUUID().uuidString
     @objc dynamic var title: String?
@@ -25,7 +25,16 @@ class Message: Object {
     override class func indexedProperties() -> [String] {
         return ["group", "createDate"]
     }
+    
+    func copyMessage() -> Message {
+        let message = Message()
+        message.id = self.id
+        message.title = self.title
+        message.subtitle = self.subtitle
+        message.body = self.body
+        message.url = self.url
+        message.group = self.group
+        message.createDate = self.createDate
+        return message
+    }
 }
-
-//extension Message: CKRecordConvertible {}
-//extension Message: CKRecordRecoverable {}
