@@ -142,6 +142,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     let controller = MessageListViewController(viewModel: viewModel)
                     self?.navigationController?.pushViewController(controller, animated: true)
                 }
+                cell.clearAction = { [weak self, weak cell] in
+                    guard let self, let cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
+                    self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
+                }
                 cell.cellData = (title, max(0, totalCount - messages.count), messages)
                 cell.isExpanded = self.expandedGroup.contains(title)
                 return cell
