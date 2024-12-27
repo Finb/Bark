@@ -136,6 +136,9 @@ class MessageGroupTableViewCell: UITableViewCell {
             groupHeader.clearAction = newValue
         }
     }
+
+    /// 查看群组所有消息
+    var showGroupMessageAction: ((_ group: String?) -> Void)? = nil
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -162,7 +165,12 @@ class MessageGroupTableViewCell: UITableViewCell {
             make.bottom.equalToSuperview().offset(-18)
             make.centerX.equalToSuperview()
         }
-
+        
+        moreView.addGestureRecognizer(UITapGestureRecognizer())
+        moreView.gestureRecognizers?.first?.rx.event.subscribe(onNext: { [weak self] _ in
+            self?.showGroupMessageAction?(self?.messages.first?.group)
+        }).disposed(by: self.rx.disposeBag)
+        
         refreshViewState()
     }
     

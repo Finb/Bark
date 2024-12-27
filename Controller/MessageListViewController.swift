@@ -137,6 +137,11 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                         }
                     }
                 }
+                cell.showGroupMessageAction = { [weak self] group in
+                    let viewModel = MessageListViewModel(sourceType: .group(group))
+                    let controller = MessageListViewController(viewModel: viewModel)
+                    self?.navigationController?.pushViewController(controller, animated: true)
+                }
                 cell.cellData = (title, max(0, totalCount - messages.count), messages)
                 cell.isExpanded = self.expandedGroup.contains(title)
                 return cell
@@ -205,6 +210,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         // 标题
         output.title
             .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
+        
+        output.groupToggleButtonHidden
+            .drive((groupButton.customView as! UIButton).rx.isHidden).disposed(by: rx.disposeBag)
     }
     
     private func getBatchDeleteDriver() -> Driver<MessageDeleteType> {
@@ -289,7 +297,7 @@ extension MessageListViewController: UITableViewDelegate {
         let action = UIContextualAction(style: .destructive, title: NSLocalizedString("removeMessage")) { [weak self] _, _, actionPerformed in
             guard let self else { return }
             
-            if let cell = self.tableView.cellForRow(at: indexPath) as? MessageTableViewCell {
+            if self.tableView.cellForRow(at: indexPath) is MessageTableViewCell {
                 // 单个消息直接删除，不弹出提示
                 self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
                 actionPerformed(true)

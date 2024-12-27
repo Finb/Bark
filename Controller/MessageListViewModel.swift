@@ -19,6 +19,13 @@ enum MessageListType: Int, Codable {
     case group
 }
 
+enum MessageSourceType {
+    /// 全部数据源
+    case all
+    /// 只查看某一个分组
+    case group(String?)
+}
+
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
         /// 刷新
@@ -48,6 +55,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var type: Driver<MessageListType>
         /// 标题
         var title: Driver<String>
+        /// 群组切换按钮是否隐藏
+        var groupToggleButtonHidden: Driver<Bool>
     }
 
     private static let typeKey = "me.fin.messageListType"
@@ -63,6 +72,9 @@ class MessageListViewModel: ViewModel, ViewModelType {
         }
     }
     
+    /// 数据源
+    private var sourceType: MessageSourceType = .all
+    
     /// 当前页数
     private var page = 0
     /// 每页数量
@@ -72,6 +84,11 @@ class MessageListViewModel: ViewModel, ViewModelType {
     private var groups: Results<Message>?
     /// 全部数据（懒加载）
     private var results: Results<Message>?
+    
+    convenience init(sourceType: MessageSourceType) {
+        self.init()
+        self.sourceType = sourceType
+    }
     
     /// 获取筛选后的全部数据源 （懒加载）
     private func getResults(filterGroups: [String?], searchText: String?) -> Results<Message>? {
@@ -157,6 +174,10 @@ class MessageListViewModel: ViewModel, ViewModelType {
     }
     
     private func getNextPage() -> [MessageListCellItem] {
+        if case .group = self.sourceType {
+            // 查看指定分组时，只能按列表查看
+            return getListNextPage()
+        }
         if type == .list {
             return getListNextPage()
         }
@@ -191,9 +212,12 @@ class MessageListViewModel: ViewModel, ViewModelType {
         // 刷新操作
         let refreshAction = BehaviorRelay<MJRefreshAction>(value: .none)
         // 切换群组
-        let filterGroups: BehaviorRelay<[String?]> = {
-            if let groups: [String?] = Settings["me.fin.filterGroups"] {
-                return BehaviorRelay<[String?]>(value: groups)
+        let filterGroups: BehaviorRelay<[String?]> = { [weak self] in
+            guard let self = self else {
+                return BehaviorRelay<[String?]>(value: [])
+            }
+            if case .group(let name) = self.sourceType {
+                return BehaviorRelay<[String?]>(value: [name])
             }
             return BehaviorRelay<[String?]>(value: [])
         }()
@@ -344,12 +368,21 @@ class MessageListViewModel: ViewModel, ViewModelType {
             
         }).disposed(by: rx.disposeBag)
         
+        // 查看指定分组时，隐藏分组切换按钮
+        let groupToggleButtonHidden = {
+            if case .group = self.sourceType {
+                return true
+            }
+            return false
+        }()
+        
         return Output(
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
             refreshAction: refreshAction.asDriver(),
             alertMessage: alertMessage,
             type: Driver.merge(messageTypeChanged.asDriver(), Driver.just(self.type)),
-            title: titleRelay.asDriver()
+            title: titleRelay.asDriver(),
+            groupToggleButtonHidden: Driver.just(groupToggleButtonHidden)
         )
     }
 }

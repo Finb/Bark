@@ -22,7 +22,18 @@ enum MessageListCellItem: Equatable {
         case (.message(let l), .message(let r)):
             return l.id == r.id && l.dateText == r.dateText
         case (.messageGroup(let l, _, let lMessages), .messageGroup(let r, _, let rMessages)):
-            return l == r && lMessages.first?.dateText == rMessages.first?.dateText
+            if l != r {
+                return false
+            }
+            if lMessages.first?.dateText != rMessages.first?.dateText {
+                return false
+            }
+            for (lMessage, rMessage) in zip(lMessages, rMessages) {
+                if lMessage.id != rMessage.id {
+                    return false
+                }
+            }
+            return true
         default:
             return false
         }
