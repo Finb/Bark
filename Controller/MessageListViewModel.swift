@@ -12,7 +12,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 
-enum MessageListType {
+enum MessageListType: Int, Codable {
     // 列表
     case list
     // 分组
@@ -50,8 +50,18 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var title: Driver<String>
     }
 
+    private static let typeKey = "me.fin.messageListType"
     /// 当前显示类型
-    private var type: MessageListType = .list
+    private var type: MessageListType = {
+        if let t: MessageListType = Settings[MessageListViewModel.typeKey] {
+            return t
+        }
+        return .list
+    }() {
+        didSet {
+            Settings[MessageListViewModel.typeKey] = type
+        }
+    }
     
     /// 当前页数
     private var page = 0
