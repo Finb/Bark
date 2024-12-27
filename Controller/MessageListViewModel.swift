@@ -106,6 +106,9 @@ class MessageListViewModel: ViewModel, ViewModelType {
         return nil
     }
     
+    /// 当前正在搜索的文字
+    private var searchText: String = ""
+    
     /// 获取所有群组（懒加载）
     private func getGroups() -> Results<Message>? {
         if let realm = try? Realm() {
@@ -178,7 +181,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
             // 查看指定分组时，只能按列表查看
             return getListNextPage()
         }
-        if type == .list {
+        if type == .list || !searchText.isEmpty {
+            // 搜索时，也必须按列表查看
             return getListNextPage()
         }
         return getGroupNextPage()
@@ -236,6 +240,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
         Observable
             .combineLatest(filterGroups, input.searchText)
             .subscribe(onNext: { [weak self] groups, searchText in
+                self?.searchText = searchText ?? ""
                 self?.results = self?.getResults(filterGroups: groups, searchText: searchText)
                 self?.groups = self?.getGroups()
             }).disposed(by: rx.disposeBag)
