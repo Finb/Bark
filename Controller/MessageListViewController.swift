@@ -42,7 +42,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         let btn = BKButton()
         btn.setImage(UIImage(named: "group_expand")?.withRenderingMode(.alwaysTemplate), for: .normal)
         btn.setImage(UIImage(named: "group_collapse")?.withRenderingMode(.alwaysTemplate), for: .selected)
-        btn.imageView?.tintColor = UIColor.black
+        btn.imageView?.tintColor = BKColor.black
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         return UIBarButtonItem(customView: btn)
     }()

@@ -34,6 +34,8 @@ class BKColor: NSObject {
     }
 
     public static let white = UIColor(named: "white")!
+    
+    public static let black = UIColor(named: "black")!
 
     enum background {
         public static let primary = UIColor(named: "background")!

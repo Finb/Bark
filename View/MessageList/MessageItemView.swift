@@ -19,7 +19,7 @@ class MessageItemView: UIView {
     let blackMaskView: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.backgroundColor = UIColor.black
+        view.backgroundColor = BKColor.black
         view.isUserInteractionEnabled = false
         view.alpha = 0
         return view
