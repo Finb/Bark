@@ -2254,6 +2254,29 @@
         }
       }
     },
+    "removeNotice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This will be permanently removed and cannot be undone."
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bu kalıcı olarak kaldırılacak ve geri alınamaz."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "将永久删除并且无法恢复。"
+          }
+        }
+      }
+    },
     "resetFailed" : {
       "extractionState" : "manual",
       "localizations" : {

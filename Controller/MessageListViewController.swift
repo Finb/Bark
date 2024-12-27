@@ -175,7 +175,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             input: MessageListViewModel.Input(
                 refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
-                itemDelete: tableView.rx.itemDeleted.asDriver().map { $0.row },
+                itemDelete: tableView.rx.modelDeleted(MessageListCellItem.self).asDriver(),
                 itemSelected: itemSelected,
                 delete: getBatchDeleteDriver(),
                 groupToggleTap: groupBtn.rx.tap.asDriver(),
@@ -287,8 +287,25 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
 extension MessageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let action = UIContextualAction(style: .destructive, title: NSLocalizedString("removeMessage")) { [weak self] _, _, actionPerformed in
-            self?.tableView.dataSource?.tableView?(self!.tableView, commit: .delete, forRowAt: indexPath)
-            actionPerformed(true)
+            guard let self else { return }
+            
+            if let cell = self.tableView.cellForRow(at: indexPath) as? MessageTableViewCell {
+                // 单个消息直接删除，不弹出提示
+                self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
+                actionPerformed(true)
+                return
+            }
+            
+            // 群组消息删除，弹出个确认提示
+            let alertView = UIAlertController(title: nil, message: NSLocalizedString("removeNotice"), preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: NSLocalizedString("removeMessage"), style: .destructive, handler: { _ in
+                self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
+                actionPerformed(true)
+            }))
+            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in
+                actionPerformed(false)
+            }))
+            self.present(alertView, animated: true, completion: nil)
         }
 
         let configuration = UISwipeActionsConfiguration(actions: [action])

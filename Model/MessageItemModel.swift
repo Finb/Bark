@@ -17,6 +17,8 @@ enum MessageListCellDateStyle {
 
 class MessageItemModel {
     var id: String = ""
+    var group: String?
+    
     var attributedText: NSAttributedString?
     var dateText: String?
     
@@ -33,6 +35,9 @@ class MessageItemModel {
     }
 
     init(message: Message) {
+        self.id = message.id
+        self.group = message.group
+        
         let title = message.title ?? ""
         let subtitle = message.subtitle ?? ""
         let body = message.body ?? ""
@@ -83,7 +88,6 @@ class MessageItemModel {
             ]))
         }
         
-        self.id = message.id
         self.attributedText = text
         self.createDate = message.createDate
         defer {

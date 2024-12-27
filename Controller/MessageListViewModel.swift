@@ -26,7 +26,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
         /// 加载更多
         var loadMore: Driver<Void>
         /// 删除
-        var itemDelete: Driver<Int>
+        var itemDelete: Driver<MessageListCellItem>
         /// 点击
         var itemSelected: Driver<Int>
         /// 批量删除
@@ -259,16 +259,58 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }).disposed(by: rx.disposeBag)
         
         // 删除message
-        input.itemDelete.drive(onNext: { [weak self] index in
-            if var section = messagesRelay.value.first {
-                if let realm = try? Realm(), let message = self?.results?[index] {
+        input.itemDelete.drive(onNext: { [weak self] item in
+            guard let self else { return }
+            
+            guard var section = messagesRelay.value.first else {
+                return
+            }
+            
+            // 根据类型删除数据
+            switch item {
+            case .message(let model):
+                // 删除数据库对应消息
+                if let realm = try? Realm(),
+                   let message = realm.objects(Message.self).filter("id == %@", model.id).first
+                {
                     try? realm.write {
                         realm.delete(message)
                     }
                 }
-                section.messages.remove(at: index)
-                messagesRelay.accept([section])
+                // 删除 cell item
+                section.messages.removeAll { cellItem in
+                    if case .message(let m) = cellItem {
+                        return m.id == model.id
+                    }
+                    return false
+                }
+            case .messageGroup(let groupName, _, let messages):
+                // 删除数据库中对应分组
+                if let realm = try? Realm(), let first = messages.first {
+                    let messageResult: Results<Message>?
+                    if let group = first.group {
+                        messageResult = self.results?.filter("group == %@", group)
+                    } else {
+                        messageResult = self.results?.filter("group == nil")
+                    }
+                    if let messageResult {
+                        try? realm.write {
+                            realm.delete(messageResult)
+                        }
+                    }
+                }
+                // 删除 cell item
+                section.messages.removeAll { cellItem in
+                    if case .messageGroup(let name, _, _) = cellItem {
+                        return name == groupName
+                    }
+                    return false
+                }
             }
+            
+            // 应用更改
+            messagesRelay.accept([section])
+            
         }).disposed(by: rx.disposeBag)
         
         // 批量删除
