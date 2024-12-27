@@ -14,7 +14,7 @@ import UIKit
 /// 单个消息 cell
 class MessageTableViewCell: UITableViewCell {
     private let messageView = MessageItemView()
-    var message: Message? {
+    var message: MessageItemModel? {
         get {
             return messageView.message
         }
@@ -75,7 +75,7 @@ class MessageGroupTableViewCell: UITableViewCell {
     }
     
     /// 消息列表
-    private var messages: [Message] = [] {
+    private var messages: [MessageItemModel] = [] {
         didSet {
             for (index, item) in messageViews.enumerated() {
                 if index < messages.count {
@@ -109,7 +109,7 @@ class MessageGroupTableViewCell: UITableViewCell {
         }
     }
     
-    var cellData: (groupName: String?, moreCount: Int, messages: [Message])? {
+    var cellData: (groupName: String?, moreCount: Int, messages: [MessageItemModel])? {
         didSet {
             groupName = cellData?.groupName ?? ""
             moreCount = cellData?.moreCount ?? 0
@@ -173,7 +173,7 @@ class MessageGroupTableViewCell: UITableViewCell {
     
     /// 更新UI
     private func refreshViewState() {
-        self.messageViews.first?.bodyLabel.isUserInteractionEnabled = isExpanded
+        self.messageViews.first?.panel.isUserInteractionEnabled = isExpanded
         self.contentView.gestureRecognizers?.first?.isEnabled = !isExpanded
         
         for (index, view) in messageViews.enumerated() {

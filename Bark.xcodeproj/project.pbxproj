@@ -21,6 +21,7 @@
 		061894C529962EB900E001C2 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C429962EB900E001C2 /* GradientButton.swift */; };
 		061894C729A75BEA00E001C2 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
 		061C17082D1BDA4B00891D66 /* MessageGroupMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */; };
+		061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E35852D1E5028009A2D6F /* MessageItemModel.swift */; };
 		0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABA298B6EA2002F3F69 /* DropBoxView.swift */; };
 		0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABC2990D615002F3F69 /* BorderTextField.swift */; };
 		062B98C3251B2762004562E7 /* BKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062B98C2251B2762004562E7 /* BKButton.swift */; };
@@ -263,6 +264,7 @@
 		061894C429962EB900E001C2 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
 		061894C629A75BEA00E001C2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupMoreView.swift; sourceTree = "<group>"; };
+		061E35852D1E5028009A2D6F /* MessageItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemModel.swift; sourceTree = "<group>"; };
 		0627DABA298B6EA2002F3F69 /* DropBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropBoxView.swift; sourceTree = "<group>"; };
 		0627DABC2990D615002F3F69 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		062B98C2251B2762004562E7 /* BKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKButton.swift; sourceTree = "<group>"; };
@@ -536,6 +538,7 @@
 			children = (
 				06B1158E247BB1FB006D91FB /* Message.swift */,
 				067B2EB425693E38008B6BE1 /* MessageSection.swift */,
+				061E35852D1E5028009A2D6F /* MessageItemModel.swift */,
 				064CABA5256BE9510018155C /* PreviewModel.swift */,
 				06BD4DA92901352E003364DB /* Object+Dictionary.swift */,
 				061894C629A75BEA00E001C2 /* Algorithm.swift */,
@@ -1288,6 +1291,7 @@
 				06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */,
 				068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
+				061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */,
 				06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */,
 				06BBB8BC2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift in Sources */,
 				061C17082D1BDA4B00891D66 /* MessageGroupMoreView.swift in Sources */,

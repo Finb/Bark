@@ -13,18 +13,31 @@ import RxDataSources
 
 enum MessageListCellItem: Equatable {
     /// 单条消息
-    case message(model: Message)
+    case message(model: MessageItemModel)
     /// 一组消息，可以收缩折叠
-    case messageGroup(name: String, totalCount: Int, messages: [Message])
+    case messageGroup(name: String, totalCount: Int, messages: [MessageItemModel])
     
     static func == (lhs: Self, rhs: Self) -> Bool {
         switch (lhs, rhs) {
         case (.message(let l), .message(let r)):
-            return l == r
-        case (.messageGroup(let l, _, _), .messageGroup(let r, _, _)):
-            return l == r
+            return l.id == r.id && l.dateText == r.dateText
+        case (.messageGroup(let l, _, let lMessages), .messageGroup(let r, _, let rMessages)):
+            return l == r && lMessages.first?.dateText == rMessages.first?.dateText
         default:
             return false
+        }
+    }
+}
+
+extension MessageListCellItem: IdentifiableType {
+    typealias Identity = String
+    
+    var identity: String {
+        switch self {
+        case .message(let model):
+            return "list_\(model.id)"
+        case .messageGroup(_, _, let messages):
+            return "group_\(messages.first?.id ?? "")"
         }
     }
 }
@@ -49,18 +62,5 @@ extension MessageSection: AnimatableSectionModelType {
     
     var identity: String {
         return header
-    }
-}
-
-extension MessageListCellItem: IdentifiableType {
-    typealias Identity = String
-    
-    var identity: String {
-        switch self {
-        case .message(let model):
-            return model.id
-        case .messageGroup(_, _, let messages):
-            return messages.first?.id ?? ""
-        }
     }
 }

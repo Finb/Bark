@@ -105,7 +105,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
             // messages.append(result[i].freeze())
             // 不用 freeze 是还没弄明白 freeze 冻结快照释放时机，先直接copy吧
             // copy 是因为 message 可能在被删除后，还会被访问导致闪退
-            messages.append(.message(model: result[i].copyMessage()))
+            messages.append(.message(model: MessageItemModel(message: result[i])))
         }
         page += 1
         return messages
@@ -134,9 +134,9 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 messageResult = results.filter("group == nil")
             }
                 
-            var messages: [Message] = []
+            var messages: [MessageItemModel] = []
             for i in 0..<min(messageResult.count, 5) {
-                messages.append(messageResult[i].copyMessage())
+                messages.append(MessageItemModel(message: messageResult[i]))
             }
             if messages.count > 0 {
                 items.append(.messageGroup(name: group ?? NSLocalizedString("default"), totalCount: messageResult.count, messages: messages))
@@ -188,11 +188,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
             return BehaviorRelay<[String?]>(value: [])
         }()
         
-        // Message 转 MessageSection
-        func messagesToMessageSection(messages: [Message]) -> [MessageSection] {
-            let items = messages.map { MessageListCellItem.message(model: $0) }
-            return [MessageSection(header: "model", messages: items)]
-        }
         // 切换分组时，更新分组名
         filterGroups
             .subscribe(onNext: { filterGroups in
