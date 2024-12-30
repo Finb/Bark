@@ -25,14 +25,8 @@ class MessageItemView: UIView {
         return view
     }()
     
-    let bodyLabel: UITextView = {
-        let label = UITextView()
-        label.backgroundColor = UIColor.clear
-        label.isEditable = false
-        label.dataDetectorTypes = [.phoneNumber, .link]
-        label.isScrollEnabled = false
-        label.textContainerInset = .zero
-        label.textContainer.lineFragmentPadding = 0
+    let bodyLabel: CustomTapTextView = {
+        let label = CustomTapTextView()
         label.font = UIFont.preferredFont(ofSize: 14)
         label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
@@ -73,6 +67,8 @@ class MessageItemView: UIView {
         }
     }
     
+    var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)?
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = BKColor.background.primary
@@ -93,6 +89,13 @@ class MessageItemView: UIView {
             }
             self.dateLabel.text = self.message?.dateText
         }).disposed(by: rx.disposeBag)
+        
+        self.bodyLabel.customTapAction = { [weak self] in
+            guard let self, let message = self.message else { return }
+            self.tapAction?(message, self)
+        }
+        
+        panel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
     }
 
     @available(*, unavailable)
@@ -121,6 +124,11 @@ class MessageItemView: UIView {
         blackMaskView.snp.makeConstraints { make in
             make.edges.equalTo(panel)
         }
+    }
+    
+    @objc func tap() {
+        guard let message else { return }
+        self.tapAction?(message, self)
     }
 }
 

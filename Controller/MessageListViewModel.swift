@@ -34,8 +34,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var loadMore: Driver<Void>
         /// 删除
         var itemDelete: Driver<MessageListCellItem>
-        /// 点击
-        var itemSelected: Driver<Int>
         /// 批量删除
         var delete: Driver<MessageDeleteType>
         /// 切换群组和列表显示样式
@@ -49,8 +47,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var messages: Driver<[MessageSection]>
         /// 刷新控件状态
         var refreshAction: Driver<MJRefreshAction>
-        /// 点击后，弹出提示
-        var alertMessage: Driver<(String, Int)>
         /// 群组过滤
         var type: Driver<MessageListType>
         /// 标题
@@ -189,26 +185,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
     }
     
     func transform(input: Input) -> Output {
-        let alertMessage = input.itemSelected.map { [weak self] index in
-            guard let results = self?.results else {
-                return ("", 0)
-            }
-            let message = results[index]
-            
-            var copyContent: String = ""
-            if let title = message.title {
-                copyContent += "\(title)\n"
-            }
-            if let body = message.body {
-                copyContent += "\(body)\n"
-            }
-            if let url = message.url {
-                copyContent += "\(url)\n"
-            }
-            copyContent = String(copyContent.prefix(copyContent.count - 1))
-            
-            return (copyContent, index)
-        }
         // 标题
         let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
         // 数据源
@@ -384,7 +360,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
         return Output(
             messages: messagesRelay.asDriver(onErrorJustReturn: []),
             refreshAction: refreshAction.asDriver(),
-            alertMessage: alertMessage,
             type: Driver.merge(messageTypeChanged.asDriver(), Driver.just(self.type)),
             title: titleRelay.asDriver(),
             groupToggleButtonHidden: Driver.just(groupToggleButtonHidden)

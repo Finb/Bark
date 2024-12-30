@@ -104,6 +104,23 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             .subscribe(onNext: { [weak self] _ in
                 self?.tableView.refreshControl?.sendActions(for: .valueChanged)
             }).disposed(by: rx.disposeBag)
+        
+        // 点击群组消息，展开群
+        tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
+            guard let self else { return }
+            if let cell = self.tableView.cellForRow(at: indexPath) as? MessageGroupTableViewCell {
+                if !cell.isExpanded {
+                    UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.2) {
+                        self.tableView.performBatchUpdates {
+                            cell.isExpanded = true
+                        }
+                    }
+                    if let groupName = cell.cellData?.groupName {
+                        self.expandedGroup.insert(groupName)
+                    }
+                }
+            }
+        }).disposed(by: rx.disposeBag)
     }
 
     // tableView 数据源
@@ -119,6 +136,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             case .message(let message):
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: "\(MessageTableViewCell.self)") as? MessageTableViewCell else {
                     return UITableViewCell()
+                }
+                cell.tapAction = { [weak self, weak cell] message, sourceView in
+                    guard let self else { return }
+                    self.alertMessage(message: message.attributedText?.string ?? "", sourceView: sourceView)
                 }
                 cell.message = message
                 return cell
@@ -146,6 +167,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     guard let self, let cell, let indexPath = self.tableView.indexPath(for: cell) else { return }
                     self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
                 }
+                cell.tapAction = { [weak self, weak cell] message, sourceView in
+                    guard let self else { return }
+                    self.alertMessage(message: message.attributedText?.string ?? "", sourceView: sourceView)
+                }
                 cell.cellData = (title, max(0, totalCount - messages.count), messages)
                 cell.isExpanded = self.expandedGroup.contains(title)
                 return cell
@@ -161,31 +186,11 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             return
         }
         
-        let itemSelected = tableView.rx.itemSelected.asDriver().compactMap { [weak self] indexPath -> Int? in
-            guard let self else { return nil }
-            if let cell = self.tableView.cellForRow(at: indexPath) as? MessageGroupTableViewCell {
-                if !cell.isExpanded {
-                    UIView.animate(withDuration: 0.6, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0.2) {
-                        self.tableView.performBatchUpdates {
-                            cell.isExpanded = true
-                        }
-                    }
-                    if let groupName = cell.cellData?.groupName {
-                        self.expandedGroup.insert(groupName)
-                    }
-                    return nil
-                }
-            }
-            
-            return indexPath.row
-        }
-        
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
                 refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.modelDeleted(MessageListCellItem.self).asDriver(),
-                itemSelected: itemSelected,
                 delete: getBatchDeleteDriver(),
                 groupToggleTap: groupBtn.rx.tap.asDriver(),
                 searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
@@ -199,11 +204,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         output.messages
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
-        
-        // message操作alert
-        output.alertMessage.drive(onNext: { [weak self] message in
-            self?.alertMessage(message: message.0, indexPath: IndexPath(row: message.1, section: 0))
-        }).disposed(by: rx.disposeBag)
         
         // 选择群组
         output.type
@@ -266,7 +266,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             .asDriver(onErrorDriveWith: .empty())
     }
     
-    private func alertMessage(message: String, indexPath: IndexPath) {
+    private func alertMessage(message: String, sourceView: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
             (_: UIAlertAction) in
@@ -279,11 +279,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         alertController.addAction(copyAction)
         alertController.addAction(cancelAction)
         if UIDevice.current.userInterfaceIdiom == .pad {
-            if let cell = self.tableView.cellForRow(at: indexPath) {
-                alertController.popoverPresentationController?.sourceView = self.tableView
-                alertController.popoverPresentationController?.sourceRect = cell.frame
-                alertController.modalPresentationStyle = .popover
-            }
+            alertController.popoverPresentationController?.sourceView = sourceView.superview
+            alertController.popoverPresentationController?.sourceRect = sourceView.frame
+            alertController.modalPresentationStyle = .popover
         }
         
         self.navigationController?.present(alertController, animated: true, completion: nil)

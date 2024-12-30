@@ -23,6 +23,12 @@ class MessageTableViewCell: UITableViewCell {
         }
     }
 
+    var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)? {
+        didSet {
+            messageView.tapAction = tapAction
+        }
+    }
+
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
@@ -136,6 +142,8 @@ class MessageGroupTableViewCell: UITableViewCell {
             groupHeader.clearAction = newValue
         }
     }
+    
+    var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)? = nil
 
     /// 查看群组所有消息
     var showGroupMessageAction: ((_ group: String?) -> Void)? = nil
@@ -170,6 +178,12 @@ class MessageGroupTableViewCell: UITableViewCell {
         moreView.gestureRecognizers?.first?.rx.event.subscribe(onNext: { [weak self] _ in
             self?.showGroupMessageAction?(self?.messages.first?.group)
         }).disposed(by: self.rx.disposeBag)
+       
+        for view in messageViews {
+            view.tapAction = { [weak self] message, sourceView in
+                self?.tapAction?(message, sourceView)
+            }
+        }
         
         refreshViewState()
     }

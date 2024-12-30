@@ -115,6 +115,7 @@
 		068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15727ED99C900D5D11E /* ServerListViewController.swift */; };
 		068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15927ED99E700D5D11E /* ServerListViewModel.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
+		0699473D2D223094008D5E40 /* CustomTapTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0699473C2D223094008D5E40 /* CustomTapTextView.swift */; };
 		06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */; };
 		06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */; };
 		06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */; };
@@ -357,6 +358,7 @@
 		068EC15727ED99C900D5D11E /* ServerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewController.swift; sourceTree = "<group>"; };
 		068EC15927ED99E700D5D11E /* ServerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewModel.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
+		0699473C2D223094008D5E40 /* CustomTapTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTapTextView.swift; sourceTree = "<group>"; };
 		06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewController.swift; sourceTree = "<group>"; };
 		06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewModel.swift; sourceTree = "<group>"; };
 		06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
@@ -681,6 +683,7 @@
 		066890092D19495400E106F2 /* MessageList */ = {
 			isa = PBXGroup;
 			children = (
+				0699473C2D223094008D5E40 /* CustomTapTextView.swift */,
 				066890072D1946D500E106F2 /* MessageItemView.swift */,
 				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
 				0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */,
@@ -1238,6 +1241,7 @@
 				0642B55C27EB149900453D91 /* MutableTextCellViewModel.swift in Sources */,
 				062B98C8251B27AE004562E7 /* UINavigationItem+Extension.swift in Sources */,
 				060481EE250F404500BC9799 /* SoundsViewController.swift in Sources */,
+				0699473D2D223094008D5E40 /* CustomTapTextView.swift in Sources */,
 				06EEF333291CCFF400CA228A /* CryptoSettingController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
 				06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */,
