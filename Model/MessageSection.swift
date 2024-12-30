@@ -28,6 +28,9 @@ enum MessageListCellItem: Equatable {
             if lMessages.first?.dateText != rMessages.first?.dateText {
                 return false
             }
+            if lMessages.count != rMessages.count {
+                return false
+            }
             for (lMessage, rMessage) in zip(lMessages, rMessages) {
                 if lMessage.id != rMessage.id {
                     return false

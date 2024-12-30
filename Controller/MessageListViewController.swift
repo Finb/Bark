@@ -171,7 +171,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     guard let self else { return }
                     self.alertMessage(message: message.attributedText?.string ?? "", sourceView: sourceView)
                 }
-                cell.cellData = (title, max(0, totalCount - messages.count), messages)
+                cell.cellData = (title, totalCount, messages)
                 cell.isExpanded = self.expandedGroup.contains(title)
                 return cell
             }

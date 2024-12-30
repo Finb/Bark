@@ -25,7 +25,7 @@ class MessageGroupMoreView: UIView {
     
     var count: Int = 0 {
         didSet {
-            moreLabel.text = NSLocalizedString("viewMoreMessages").format(count)
+            moreLabel.text = NSLocalizedString("viewAllMessages").format(count)
         }
     }
     

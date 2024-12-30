@@ -95,9 +95,9 @@ class MessageGroupTableViewCell: UITableViewCell {
     }
 
     /// 剩余消息数量
-    private var moreCount: Int = 0 {
+    private var totalCount: Int = 0 {
         didSet {
-            moreView.count = moreCount
+            moreView.count = totalCount
         }
     }
     
@@ -115,10 +115,10 @@ class MessageGroupTableViewCell: UITableViewCell {
         }
     }
     
-    var cellData: (groupName: String?, moreCount: Int, messages: [MessageItemModel])? {
+    var cellData: (groupName: String?, totalCount: Int, messages: [MessageItemModel])? {
         didSet {
             groupName = cellData?.groupName ?? ""
-            moreCount = cellData?.moreCount ?? 0
+            totalCount = cellData?.totalCount ?? 0
             messages = cellData?.messages ?? []
         }
     }
@@ -236,11 +236,7 @@ class MessageGroupTableViewCell: UITableViewCell {
                         make.top.equalTo(messageViews[index - 1].snp.bottom).offset(8)
                     }
                     if index == maxCount - 1 {
-                        if moreCount > 0 {
-                            make.bottom.equalTo(moreView.snp.top).offset(-18)
-                        } else {
-                            make.bottom.equalToSuperview().offset(-18)
-                        }
+                        make.bottom.equalTo(moreView.snp.top).offset(-18)
                     }
                     item.transform = .identity
                 } else {
