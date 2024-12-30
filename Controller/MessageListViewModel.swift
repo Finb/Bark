@@ -173,7 +173,11 @@ class MessageListViewModel: ViewModel, ViewModelType {
             for i in 0..<min(messageResult.count, 5) {
                 messages.append(MessageItemModel(message: messageResult[i]))
             }
-            if messages.count > 0 {
+            if messages.count == 1 {
+                // 只有一条，就不要折叠
+                items.append(.message(model: messages[0]))
+            } else if messages.count > 0 {
+                // 多条消息时，折叠显示
                 items.append(.messageGroup(name: group ?? NSLocalizedString("default"), totalCount: messageResult.count, messages: messages))
             }
         }
