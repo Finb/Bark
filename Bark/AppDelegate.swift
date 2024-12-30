@@ -199,6 +199,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 let controller = Client.shared.window?.rootViewController
                 let activityController = UIActivityViewController(activityItems: items,
                                                                   applicationActivities: nil)
+                if let popover = activityController.popoverPresentationController {
+                    popover.sourceView = controller?.view
+                    popover.sourceRect = CGRect(x: controller?.view.bounds.midX ?? 0, y: controller?.view.bounds.midY ?? 0, width: 0, height: 0)
+                }
                 controller?.present(activityController, animated: true, completion: nil)
             }))
             alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
