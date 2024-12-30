@@ -53,6 +53,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var title: Driver<String>
         /// 群组切换按钮是否隐藏
         var groupToggleButtonHidden: Driver<Bool>
+        /// 错误提示
+        var errorAlert: Driver<String>
     }
 
     private static let typeKey = "me.fin.messageListType"
@@ -81,6 +83,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
     /// 全部数据（懒加载）
     private var results: Results<Message>?
     
+    private var errorAlert: PublishRelay<String> = PublishRelay()
+    
     convenience init(sourceType: MessageSourceType) {
         self.init()
         self.sourceType = sourceType
@@ -88,7 +92,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
     
     /// 获取筛选后的全部数据源 （懒加载）
     private func getResults(filterGroups: [String?], searchText: String?) -> Results<Message>? {
-        if let realm = try? Realm() {
+        do {
+            let realm = try Realm()
             var results = realm.objects(Message.self)
                 .sorted(byKeyPath: "createDate", ascending: false)
             if filterGroups.count > 0 {
@@ -98,6 +103,11 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 results = results.filter("title CONTAINS[c] %@ OR subtitle CONTAINS[c] %@ OR body CONTAINS[c] %@", text, text, text)
             }
             return results
+        } catch {
+            // 延迟1秒后触发, 防止事件还没监听
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                self.errorAlert.accept(error.localizedDescription)
+            }
         }
         return nil
     }
@@ -111,7 +121,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
             return realm.objects(Message.self)
                 .sorted(byKeyPath: "createDate", ascending: false)
                 .distinct(by: ["group"])
-//                .value(forKeyPath: "group") as? [String?] ?? []
         }
         return nil
     }
@@ -218,7 +227,10 @@ class MessageListViewModel: ViewModel, ViewModelType {
             .subscribe(onNext: { [weak self] groups, searchText in
                 self?.searchText = searchText ?? ""
                 self?.results = self?.getResults(filterGroups: groups, searchText: searchText)
-                self?.groups = self?.getGroups()
+                if case .all = self?.sourceType {
+                    // 只有显示全部数据源时，才需要获取群组
+                    self?.groups = self?.getGroups()
+                }
             }).disposed(by: rx.disposeBag)
 
         // 群组筛选
@@ -362,7 +374,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
             refreshAction: refreshAction.asDriver(),
             type: Driver.merge(messageTypeChanged.asDriver(), Driver.just(self.type)),
             title: titleRelay.asDriver(),
-            groupToggleButtonHidden: Driver.just(groupToggleButtonHidden)
+            groupToggleButtonHidden: Driver.just(groupToggleButtonHidden),
+            errorAlert: errorAlert.asDriver(onErrorDriveWith: .empty())
         )
     }
 }

@@ -215,6 +215,17 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         output.title
             .drive(self.navigationItem.rx.title).disposed(by: rx.disposeBag)
         
+        // 数据库初始化出错错误提示
+        output.errorAlert
+            .drive(onNext: { [weak self] error in
+                let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { _ in
+                    UIPasteboard.general.string = error
+                }))
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                self?.present(alertController, animated: true, completion: nil)
+            }).disposed(by: rx.disposeBag)
+        
         output.groupToggleButtonHidden
             .drive((groupButton.customView as! UIButton).rx.isHidden).disposed(by: rx.disposeBag)
     }
