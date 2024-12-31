@@ -53,10 +53,16 @@ class MessageGroupHeaderView: UIView {
             make.right.equalToSuperview()
             make.centerY.equalTo(groupNameLabel)
         }
+        
+        self.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
     }
 
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    @objc func tap() {
+        showLessAction?()
     }
 }
