@@ -15,6 +15,8 @@ class CustomTapTextView: UITextView, UIGestureRecognizerDelegate {
     private lazy var tapGesture = UITapGestureRecognizer(target: self, action: #selector(tap))
     /// 双击手势，只是为了让 tapGesture 不要在双击选中文本时触发，没有其他作用
     private let doubleTapGesture = UITapGestureRecognizer()
+    /// UITextView 自带的点击链接手势
+    private var linkTapGesture: UIGestureRecognizer? = nil
     
     /// 额外的单击事件
     var customTapAction: (() -> Void)?
@@ -30,8 +32,9 @@ class CustomTapTextView: UITextView, UIGestureRecognizerDelegate {
         self.textContainer.lineFragmentPadding = 0
         
         tapGesture.delegate = self
-        tapGesture.require(toFail: doubleTapGesture)
         self.addGestureRecognizer(tapGesture)
+        
+        self.linkTapGesture = self.gestureRecognizers?.first { $0 is UITapGestureRecognizer && $0.name == "UITextInteractionNameLinkTap" }
         
         doubleTapGesture.numberOfTapsRequired = 2
         doubleTapGesture.delegate = self
@@ -61,5 +64,17 @@ class CustomTapTextView: UITextView, UIGestureRecognizerDelegate {
             }
         }
         return super.gestureRecognizerShouldBegin(gestureRecognizer)
+    }
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRequireFailureOf otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if gestureRecognizer == tapGesture {
+            if otherGestureRecognizer == doubleTapGesture {
+                return true
+            }
+            if otherGestureRecognizer == linkTapGesture {
+                return true
+            }
+        }
+        return false
     }
 }
