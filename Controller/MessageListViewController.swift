@@ -47,10 +47,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         return UIBarButtonItem(customView: btn)
     }()
     
-    private var expandedGroup: Set<String> = []
-    
-    private let itemDeleteInGroupRelay = PublishRelay<MessageItemModel>()
-    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -66,10 +62,19 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         tableView.mj_footer = MJRefreshAutoFooter()
-        tableView.refreshControl = UIRefreshControl()
         
         return tableView
     }()
+    
+    /// 展开的群组
+    private var expandedGroup: Set<String> = []
+    /// 下拉刷新标记字段
+    private var canRefresh = true
+    
+    /// 群组中删除消息的事件流
+    private let itemDeleteInGroupRelay = PublishRelay<MessageItemModel>()
+    /// 下拉刷新事件流
+    private let refreshRelay = PublishRelay<Void>()
         
     override func makeUI() {
         navigationItem.searchController = UISearchController(searchResultsController: nil)
@@ -104,7 +109,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 return false
             }
             .subscribe(onNext: { [weak self] _ in
-                self?.tableView.refreshControl?.sendActions(for: .valueChanged)
+                self?.refreshRelay.accept(())
             }).disposed(by: rx.disposeBag)
         
         // 点击群组消息，展开群
@@ -190,7 +195,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
-                refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
+                refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.modelDeleted(MessageListCellItem.self).asDriver(),
                 itemDeleteInGroup: itemDeleteInGroupRelay.asDriver(onErrorDriveWith: .empty()),
@@ -369,6 +374,23 @@ extension MessageListViewController: UISearchControllerDelegate {
              */
             searchController.searchBar.searchTextField.text = nil
             searchController.searchBar.searchTextField.sendActions(for: .editingDidEnd)
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+        if offset <= -10 && canRefresh {
+            // 触发下拉刷新，并震动
+            canRefresh = false
+            UIImpactFeedbackGenerator(style: .light).impactOccurred()
+            refreshRelay.accept(())
+        }
+    }
+
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.y + scrollView.adjustedContentInset.top
+        if offset >= 0 && !canRefresh {
+            canRefresh = true
         }
     }
 }

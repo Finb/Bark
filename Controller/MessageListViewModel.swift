@@ -253,7 +253,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
         Observable
             .merge(
                 input.refresh.asObservable().map { () },
-                filterGroups.map { _ in () },
                 input.searchText.asObservable().map { _ in () },
                 messageTypeChanged.asObservable().map { _ in () }
             )
