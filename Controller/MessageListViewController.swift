@@ -49,6 +49,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     
     private var expandedGroup: Set<String> = []
     
+    private let itemDeleteInGroupRelay = PublishRelay<MessageItemModel>()
+    
     lazy var tableView: UITableView = {
         let tableView = UITableView()
         tableView.separatorStyle = .none
@@ -138,8 +140,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     return UITableViewCell()
                 }
                 cell.tapAction = { [weak self, weak cell] message, sourceView in
-                    guard let self else { return }
-                    self.alertMessage(message: message.attributedText?.string ?? "", sourceView: sourceView)
+                    guard let self, let cell else { return }
+                    self.alertMessage(message: message, sourceView: sourceView, sourceCell: cell)
                 }
                 cell.message = message
                 return cell
@@ -168,8 +170,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                     self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
                 }
                 cell.tapAction = { [weak self, weak cell] message, sourceView in
-                    guard let self else { return }
-                    self.alertMessage(message: message.attributedText?.string ?? "", sourceView: sourceView)
+                    guard let self, let cell else { return }
+                    self.alertMessage(message: message, sourceView: sourceView, sourceCell: cell)
                 }
                 cell.cellData = (title, totalCount, messages)
                 cell.isExpanded = self.expandedGroup.contains(title)
@@ -191,6 +193,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 refresh: tableView.refreshControl!.rx.controlEvent(.valueChanged).asDriver(),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.modelDeleted(MessageListCellItem.self).asDriver(),
+                itemDeleteInGroup: itemDeleteInGroupRelay.asDriver(onErrorDriveWith: .empty()),
                 delete: getBatchDeleteDriver(),
                 groupToggleTap: groupBtn.rx.tap.asDriver(),
                 searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
@@ -277,18 +280,30 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             .asDriver(onErrorDriveWith: .empty())
     }
     
-    private func alertMessage(message: String, sourceView: UIView) {
+    private func alertMessage(message: MessageItemModel, sourceView: UIView, sourceCell: UITableViewCell) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-        let copyAction = UIAlertAction(title: NSLocalizedString("CopyAll"), style: .default, handler: { [weak self]
+        
+        // 复制
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { [weak self]
             (_: UIAlertAction) in
-                UIPasteboard.general.string = message
+                UIPasteboard.general.string = message.attributedText?.string
                 self?.showSnackbar(text: NSLocalizedString("Copy"))
-        })
+        }))
+        // 删除
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("removeMessage"), style: .destructive, handler: { [weak self]
+            (_: UIAlertAction) in
+                guard let self, let indexPath = self.tableView.indexPath(for: sourceCell) else { return }
+                if sourceCell is MessageTableViewCell {
+                    // 单个消息，把cell删除
+                    self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
+                } else if sourceCell is MessageGroupTableViewCell {
+                    // 群组消息，只能删除群组中需删除的消息
+                    self.itemDeleteInGroupRelay.accept(message)
+                }
+        }))
+        // 取消
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in }))
         
-        let cancelAction = UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in })
-        
-        alertController.addAction(copyAction)
-        alertController.addAction(cancelAction)
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = sourceView.superview
             alertController.popoverPresentationController?.sourceRect = sourceView.frame

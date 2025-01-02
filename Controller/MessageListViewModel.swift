@@ -34,6 +34,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var loadMore: Driver<Void>
         /// 删除
         var itemDelete: Driver<MessageListCellItem>
+        /// 删除群组中某一条消息
+        var itemDeleteInGroup: Driver<MessageItemModel>
         /// 批量删除
         var delete: Driver<MessageDeleteType>
         /// 切换群组和列表显示样式
@@ -162,12 +164,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
         
         for i in startIndex..<endIndex {
             let group = groups[i].group
-            let messageResult: Results<Message>
-            if let group {
-                messageResult = results.filter("group == %@", group)
-            } else {
-                messageResult = results.filter("group == nil")
-            }
+            let messageResult = getMessages(in: results, group: group)
                 
             var messages: [MessageItemModel] = []
             for i in 0..<min(messageResult.count, 5) {
@@ -183,6 +180,15 @@ class MessageListViewModel: ViewModel, ViewModelType {
         }
         page += 1
         return items
+    }
+
+    /// 使用 groupName 获取 messages
+    func getMessages(in results: Results<Message>, group: String?) -> Results<Message> {
+        if let group {
+            return results.filter("group == %@", group)
+        } else {
+            return results.filter("group == nil")
+        }
     }
     
     private func getNextPage() -> [MessageListCellItem] {
@@ -330,6 +336,47 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }
             
             // 应用更改
+            messagesRelay.accept([section])
+            
+        }).disposed(by: rx.disposeBag)
+        
+        // 删除群组中某一条消息
+        input.itemDeleteInGroup.drive(onNext: { [weak self] model in
+            guard let self, let results else { return }
+            
+            guard var section = messagesRelay.value.first else {
+                return
+            }
+            
+            // 删除数据库里的 message
+            if let realm = try? Realm(),
+               let message = realm.objects(Message.self).filter("id == %@", model.id).first
+            {
+                try? realm.write {
+                    realm.delete(message)
+                }
+            }
+            
+            if let index = section.messages.firstIndex(where: { item in
+                if case .messageGroup(_, _, let messages) = item {
+                    return messages.contains { item in
+                        return item.id == model.id
+                    }
+                }
+                return false
+            }) {
+                // 用最新的数据，重新生成 cellItem
+                if case .messageGroup(let name, _, var messages) = section.messages[index] {
+                    let messagesResult = self.getMessages(in: results, group: messages.first?.group)
+                    messages = messagesResult.prefix(5).map { MessageItemModel(message: $0) }
+                    if messages.count == 0 {
+                        section.messages.remove(at: index)
+                    } else {
+                        section.messages[index] = .messageGroup(name: name, totalCount: messagesResult.count, messages: messages)
+                    }
+                }
+            }
+            
             messagesRelay.accept([section])
             
         }).disposed(by: rx.disposeBag)
