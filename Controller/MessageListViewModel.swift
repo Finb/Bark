@@ -42,6 +42,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
         var groupToggleTap: Driver<Void>
         /// 搜索
         var searchText: Observable<String?>
+        /// 重新刷新已加载的页的数据 （最多10页，超过则不刷新）
+        var reload: Driver<Void>
     }
     
     struct Output {
@@ -128,7 +130,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
     }
 
     /// 获取 message 列表下一页数据
-    private func getListNextPage() -> [MessageListCellItem] {
+    private func getListNextPage(page: Int, pageCount: Int) -> [MessageListCellItem] {
         guard let result = results else {
             return []
         }
@@ -144,12 +146,11 @@ class MessageListViewModel: ViewModel, ViewModelType {
             // copy 是因为 message 可能在被删除后，还会被访问导致闪退
             messages.append(.message(model: MessageItemModel(message: result[i])))
         }
-        page += 1
         return messages
     }
 
     /// 获取 group 列表下一页数据
-    private func getGroupNextPage() -> [MessageListCellItem] {
+    private func getGroupNextPage(page: Int, pageCount: Int) -> [MessageListCellItem] {
         guard let groups, let results else {
             return []
         }
@@ -178,7 +179,6 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 items.append(.messageGroup(name: group ?? NSLocalizedString("default"), totalCount: messageResult.count, messages: messages))
             }
         }
-        page += 1
         return items
     }
 
@@ -191,16 +191,23 @@ class MessageListViewModel: ViewModel, ViewModelType {
         }
     }
     
-    private func getNextPage() -> [MessageListCellItem] {
+    private func getPage(page: Int, pageCount: Int) -> [MessageListCellItem] {
         if case .group = self.sourceType {
             // 查看指定分组时，只能按列表查看
-            return getListNextPage()
+            return getListNextPage(page: page, pageCount: pageCount)
         }
         if type == .list || !searchText.isEmpty {
             // 搜索时，也必须按列表查看
-            return getListNextPage()
+            return getListNextPage(page: page, pageCount: pageCount)
         }
-        return getGroupNextPage()
+        return getGroupNextPage(page: page, pageCount: pageCount)
+    }
+    
+    private func getNextPage() -> [MessageListCellItem] {
+        defer {
+            page += 1
+        }
+        return getPage(page: self.page, pageCount: self.pageCount)
     }
     
     func transform(input: Input) -> Output {
@@ -283,6 +290,16 @@ class MessageListViewModel: ViewModel, ViewModelType {
                     messagesRelay.accept([MessageSection(header: "model", messages: items)])
                 }
             }).disposed(by: rx.disposeBag)
+        
+        // 重新加载已加载的页的数据，最多10页
+        input.reload.drive(onNext: { [weak self] _ in
+            guard let self, self.page > 0, self.page <= 10 else { return }
+            // 刷新已加载的页的数据
+            let messages = self.getPage(page: 0, pageCount: self.page * self.pageCount)
+            messagesRelay.accept(
+                [MessageSection(header: "model", messages: messages)]
+            )
+        }).disposed(by: rx.disposeBag)
         
         // 删除message
         input.itemDelete.drive(onNext: { [weak self] item in

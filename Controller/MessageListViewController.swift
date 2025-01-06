@@ -75,6 +75,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     private let itemDeleteInGroupRelay = PublishRelay<MessageItemModel>()
     /// 下拉刷新事件流
     private let refreshRelay = PublishRelay<Void>()
+    /// 重新刷新已加载的页的数据 （最多10页）
+    private let reloadRelay = PublishRelay<Void>()
         
     override func makeUI() {
         navigationItem.searchController = UISearchController(searchResultsController: nil)
@@ -96,20 +98,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 self?.scrollToTop()
             }).disposed(by: self.rx.disposeBag)
         
-        // 打开APP时，历史消息列表距离上次刷新超过5分钟，则自动刷新一下
-        var lastAutoRefreshdate = Date()
         NotificationCenter.default.rx
             .notification(UIApplication.willEnterForegroundNotification)
-            .filter { _ in
-                let now = Date()
-                if now.timeIntervalSince1970 - lastAutoRefreshdate.timeIntervalSince1970 > 60 * 5 {
-                    lastAutoRefreshdate = now
-                    return true
-                }
-                return false
-            }
             .subscribe(onNext: { [weak self] _ in
-                self?.refreshRelay.accept(())
+                self?.reloadRelay.accept(())
             }).disposed(by: rx.disposeBag)
         
         // 点击群组消息，展开群
@@ -201,7 +193,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 itemDeleteInGroup: itemDeleteInGroupRelay.asDriver(onErrorDriveWith: .empty()),
                 delete: getBatchDeleteDriver(),
                 groupToggleTap: groupBtn.rx.tap.asDriver(),
-                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable()
+                searchText: navigationItem.searchController!.searchBar.rx.text.asObservable(),
+                reload: reloadRelay.asDriver(onErrorDriveWith: .empty())
             ))
         
         // tableView 刷新状态
