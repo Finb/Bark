@@ -163,6 +163,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 }
                 return nil
             }()
+            
+            if let action = userInfo["action"] as? String, action == "none" {
+                return
+            }
 
             // URL 直接打开
             if let url = url {
