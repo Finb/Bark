@@ -78,7 +78,21 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         if let copy = userInfo["copy"] as? String {
             UIPasteboard.general.string = copy
         } else {
-            UIPasteboard.general.string = response.notification.request.content.body
+            var content = ""
+            if !response.notification.request.content.title.isEmpty {
+                content += "\(response.notification.request.content.title)\n"
+            }
+            if !response.notification.request.content.subtitle.isEmpty {
+                content += "\(response.notification.request.content.subtitle)\n"
+            }
+            if !response.notification.request.content.body.isEmpty {
+                content += "\(response.notification.request.content.body)\n"
+            }
+            if let url = userInfo["url"] as? String, !url.isEmpty {
+                content += "\(url)\n"
+            }
+            content = content.trimmingCharacters(in: .whitespacesAndNewlines)
+            UIPasteboard.general.string = content
         }
 
         showTips(text: NSLocalizedString("Copy", comment: ""))

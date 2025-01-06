@@ -155,6 +155,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         func presentController() {
             let alert = (userInfo["aps"] as? [String: Any])?["alert"] as? [String: Any]
             let title = alert?["title"] as? String
+            let subtitle = alert?["subtitle"] as? String
             let body = alert?["body"] as? String
             let url: URL? = {
                 if let url = userInfo["url"] as? String {
@@ -182,11 +183,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 if let title = title {
                     shareContent += "\(title)\n"
                 }
+                if let subtitle = subtitle {
+                    shareContent += "\(subtitle)\n"
+                }
                 if let body = body {
                     shareContent += "\(body)\n"
                 }
                 for (key, value) in userInfo {
-                    if ["aps", "title", "body", "url"].contains((key as? String) ?? "") {
+                    if ["aps", "title", "subtitle", "body", "url"].contains((key as? String) ?? "") {
                         continue
                     }
                     shareContent += "\(key): \(value) \n"
