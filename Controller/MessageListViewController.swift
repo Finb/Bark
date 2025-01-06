@@ -100,6 +100,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         NotificationCenter.default.rx
             .notification(UIApplication.willEnterForegroundNotification)
+            .delay(.milliseconds(500), scheduler: MainScheduler.instance) // 延迟0.5秒，等待数据库 Results 更新到最新数据集
             .subscribe(onNext: { [weak self] _ in
                 self?.reloadRelay.accept(())
             }).disposed(by: rx.disposeBag)
