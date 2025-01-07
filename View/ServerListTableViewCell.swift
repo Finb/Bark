@@ -10,13 +10,12 @@ import Material
 import UIKit
 
 class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewModel> {
-
     let backgroundPanel: UIView = {
         let view = UIView()
         view.layer.cornerRadius = 3
         view.clipsToBounds = true
         view.backgroundColor = BKColor.background.secondary
-        view.layer.cornerRadius = 25
+
         view.clipsToBounds = true
         view.layer.borderColor = BKColor.grey.lighten3.cgColor
         view.layer.borderWidth = 1
@@ -29,6 +28,7 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
         label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
         label.numberOfLines = 0
+        label.lineBreakMode = .byCharWrapping
         return label
     }()
 
@@ -53,8 +53,7 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
         didSet {
             if state {
                 stateImageView.image = UIImage(named: "online")
-            }
-            else {
+            } else {
                 stateImageView.image = UIImage(named: "offline")
             }
         }
@@ -75,7 +74,6 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
             make.right.equalToSuperview().offset(-18)
             make.top.equalToSuperview().offset(5)
             make.bottom.equalToSuperview().offset(-5)
-            make.height.equalTo(50)
         }
 
         stateImageView.snp.makeConstraints { make in
@@ -85,12 +83,13 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
         }
         addressLabel.snp.makeConstraints { make in
             make.left.equalTo(stateImageView.snp.right).offset(8)
-            make.top.equalTo(backgroundPanel).offset(8)
-            make.right.equalTo(backgroundPanel).offset(-8)
+            make.top.equalTo(backgroundPanel).offset(10)
+            make.right.equalTo(backgroundPanel).offset(-18)
         }
         keyLabel.snp.makeConstraints { make in
             make.top.equalTo(addressLabel.snp.bottom).offset(1)
             make.left.right.equalTo(addressLabel)
+            make.bottom.equalTo(backgroundPanel).offset(-10)
         }
     }
 
@@ -115,5 +114,10 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
                 self.state = state
             } onError: { _ in }
             .disposed(by: rx.reuseBag)
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.backgroundPanel.layer.cornerRadius = self.backgroundPanel.bounds.height / 2
     }
 }
