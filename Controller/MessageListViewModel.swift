@@ -37,7 +37,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
         /// 删除群组中某一条消息
         var itemDeleteInGroup: Driver<MessageItemModel>
         /// 批量删除
-        var delete: Driver<MessageDeleteType>
+        var delete: Driver<MessageDeleteTimeRange>
         /// 切换群组和列表显示样式
         var groupToggleTap: Driver<Void>
         /// 搜索
@@ -398,23 +398,11 @@ class MessageListViewModel: ViewModel, ViewModelType {
         }).disposed(by: rx.disposeBag)
         
         // 批量删除
-        input.delete.drive(onNext: { [weak self] type in
-            guard let strongSelf = self else { return }
-            
-            var date = Date()
-            switch type {
-            case .allTime:
-                date = Date(timeIntervalSince1970: 0)
-            case .todayAndYesterday:
-                date = Date.yesterday
-            case .today:
-                date = Date().noon
-            case .lastHour:
-                date = Date.lastHour
-            }
+        input.delete.drive(onNext: { [weak self] range in
+            guard let self else { return }
             
             if let realm = try? Realm() {
-                guard let messages = strongSelf.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@", date) else {
+                guard let messages = self.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@ and createDate <= %@ ", range.startDate, range.endDate) else {
                     return
                 }
                 
@@ -423,8 +411,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 }
             }
             
-            strongSelf.page = 0
-            messagesRelay.accept([MessageSection(header: "model", messages: strongSelf.getNextPage())])
+            self.page = 0
+            messagesRelay.accept([MessageSection(header: "model", messages: self.getNextPage())])
             
         }).disposed(by: rx.disposeBag)
         

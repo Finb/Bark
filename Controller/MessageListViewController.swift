@@ -14,28 +14,38 @@ import RxDataSources
 import RxSwift
 import UIKit
 
-enum MessageDeleteType: Int {
-    case lastHour = 0
-    case today
-    case todayAndYesterday
-    case allTime
-    
-    var string: String {
-        return [
-            NSLocalizedString("lastHour"),
-            NSLocalizedString("today"),
-            NSLocalizedString("todayAndYesterday"),
-            NSLocalizedString("allTime")
-        ][self.rawValue]
-    }
-}
-
 class MessageListViewController: BaseViewController<MessageListViewModel> {
-    let deleteButton: UIBarButtonItem = {
-        let btn = BKButton()
-        btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
-        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        return UIBarButtonItem(customView: btn)
+    lazy var deleteButton: UIBarButtonItem = {
+        if #available(iOS 14.0, *) {
+            var menuElements = [UIMenuElement]()
+            for range in [MessageDeleteTimeRange.lastHour, .today, .todayAndYesterday, .lastMonth, .allTime] {
+                let action = UIAction(title: range.string) { [weak self] _ in
+                    self?.clearAlert(range)
+                }
+                menuElements.append(action)
+            }
+            
+            var subMenuElements = [UIMenuElement]()
+            for range in [MessageDeleteTimeRange.beforeOneHour, .beforeToday, .beforeYesterday, .beforeOneMonth] {
+                let action = UIAction(title: range.string) { [weak self] _ in
+                    self?.clearAlert(range)
+                }
+                subMenuElements.append(action)
+            }
+            menuElements.append(UIMenu(title: NSLocalizedString("more"), children: subMenuElements))
+
+            let addNewMenu = UIMenu(
+                title: NSLocalizedString("clearFrom"),
+                children: menuElements
+            )
+            return UIBarButtonItem(image: UIImage(named: "baseline_delete_outline_black_24pt"), menu: addNewMenu)
+        } else {
+            let btn = BKButton()
+            btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
+            btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            return UIBarButtonItem(customView: btn)
+        }
+        
     }()
     
     let groupButton: UIBarButtonItem = {
@@ -77,7 +87,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     private let refreshRelay = PublishRelay<Void>()
     /// 重新刷新已加载的页的数据 （最多10页）
     private let reloadRelay = PublishRelay<Void>()
-        
+    /// 按时间范围清除消息事件流
+    private let clearRelay = PublishRelay<MessageDeleteTimeRange>()
+
     override func makeUI() {
         navigationItem.searchController = UISearchController(searchResultsController: nil)
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
@@ -90,6 +102,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             make.edges.equalToSuperview()
         }
 
+        if #available(iOS 14.0, *) {
+            // iOS 14 以上，使用 UIMenu
+        } else {
+            // 使用 UIAlertController
+            subscribeDeleteTap()
+        }
+        
         // 点击tab按钮，回到顶部
         Client.shared.currentTabBarController?
             .tabBarItemDidClick
@@ -130,7 +149,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             reloadAnimation: .none,
             deleteAnimation: .left
         ),
-        configureCell: { _, tableView, _, item -> UITableViewCell in
+        configureCell: { [weak self] _, tableView, _, item -> UITableViewCell in
+            guard let self else { return UITableViewCell() }
             
             switch item {
             case .message(let message):
@@ -192,7 +212,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.modelDeleted(MessageListCellItem.self).asDriver(),
                 itemDeleteInGroup: itemDeleteInGroupRelay.asDriver(onErrorDriveWith: .empty()),
-                delete: getBatchDeleteDriver(),
+                delete: clearRelay.asDriver(onErrorDriveWith: .empty()),
                 groupToggleTap: groupBtn.rx.tap.asDriver(),
                 searchText: navigationItem.searchController!.searchBar.rx.text.asObservable(),
                 reload: reloadRelay.asDriver(onErrorDriveWith: .empty())
@@ -232,51 +252,46 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             .drive((groupButton.customView as! UIButton).rx.isHidden).disposed(by: rx.disposeBag)
     }
     
-    private func getBatchDeleteDriver() -> Driver<MessageDeleteType> {
+    private func subscribeDeleteTap() {
         guard let deleteBtn = deleteButton.customView as? BKButton else {
-            return Driver.never()
+            return
         }
-        return deleteBtn.rx
-            .tap
-            .flatMapLatest { _ -> PublishRelay<MessageDeleteType> in
-                let relay = PublishRelay<MessageDeleteType>()
-                
-                func alert(_ type: MessageDeleteType) {
-                    let alertController = UIAlertController(title: nil, message: "\(NSLocalizedString("clearFrom"))\n\(type.string)", preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("clear"), style: .destructive, handler: { _ in
-                        relay.accept(type)
-                    }))
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
-                    self.navigationController?.present(alertController, animated: true, completion: nil)
+        deleteBtn.rx.tap.subscribe(onNext: { [weak self] _ in
+            guard let self else { return }
+            
+            let alertController = UIAlertController(title: nil, message: NSLocalizedString("clearFrom"), preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("lastHour"), style: .default, handler: { [weak self] _ in
+                self?.clearAlert(.lastHour)
+            }))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("today"), style: .default, handler: { [weak self] _ in
+                self?.clearAlert(.today)
+            }))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("todayAndYesterday"), style: .default, handler: { [weak self] _ in
+                self?.clearAlert(.todayAndYesterday)
+            }))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("allTime"), style: .default, handler: { [weak self] _ in
+                self?.clearAlert(.allTime)
+            }))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+            if UIDevice.current.userInterfaceIdiom == .pad {
+                alertController.modalPresentationStyle = .popover
+                if #available(iOS 16.0, *) {
+                    alertController.popoverPresentationController?.sourceItem = self.deleteButton
+                } else {
+                    alertController.popoverPresentationController?.barButtonItem = self.deleteButton
                 }
-                
-                let alertController = UIAlertController(title: nil, message: NSLocalizedString("clearFrom"), preferredStyle: .actionSheet)
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("lastHour"), style: .default, handler: { _ in
-                    alert(.lastHour)
-                }))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("today"), style: .default, handler: { _ in
-                    alert(.today)
-                }))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("todayAndYesterday"), style: .default, handler: { _ in
-                    alert(.todayAndYesterday)
-                }))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("allTime"), style: .default, handler: { _ in
-                    alert(.allTime)
-                }))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    alertController.modalPresentationStyle = .popover
-                    if #available(iOS 16.0, *) {
-                        alertController.popoverPresentationController?.sourceItem = self.deleteButton
-                    } else {
-                        alertController.popoverPresentationController?.barButtonItem = self.deleteButton
-                    }
-                }
-                self.navigationController?.present(alertController, animated: true, completion: nil)
-                
-                return relay
             }
-            .asDriver(onErrorDriveWith: .empty())
+            self.navigationController?.present(alertController, animated: true, completion: nil)
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func clearAlert(_ range: MessageDeleteTimeRange) {
+        let alertController = UIAlertController(title: nil, message: "\(NSLocalizedString("clearFrom"))\n\(range.string)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("clear"), style: .destructive, handler: { [weak self] _ in
+            self?.clearRelay.accept(range)
+        }))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+        self.navigationController?.present(alertController, animated: true, completion: nil)
     }
     
     private func alertMessage(message: MessageItemModel, sourceView: UIView, sourceCell: UITableViewCell) {
