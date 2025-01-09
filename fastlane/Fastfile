@@ -50,7 +50,7 @@ platform :ios do
     upload_to_testflight
 
     bark_key = ENV["BARK_KEY"]
-    %x( 'curl' 'https://api.day.app/#{bark_key}/Bark%20has%20completed%20processing?isArchive=0&url=https%3A%2F%2Fgithub.com%2FFinb%2FBark%2Factions%2Fruns%2F#{run_id}' )
+    %x( 'curl' 'https://api.day.app/#{bark_key}/Bark%20#{version}(#{build})%20has%20completed%20processing?group=Github%20Actions&url=https%3A%2F%2Fgithub.com%2FFinb%2FBark%2Factions%2Fruns%2F#{run_id}' )
     
   end
 
