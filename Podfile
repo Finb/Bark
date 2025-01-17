@@ -8,13 +8,11 @@ use_modular_headers!
 def pods
     pod 'SnapKit'
     pod 'Material'
-    pod 'KVOController'
     pod 'SVProgressHUD'
     pod 'FDFullscreenPopGesture'
     pod 'Moya/RxSwift'
     pod 'ObjectMapper'
     pod 'SwiftyJSON'
-    pod 'DeviceKit'
     pod 'DefaultsKit'
     pod 'RealmSwift'
     pod 'CryptoSwift'
@@ -31,7 +29,6 @@ def pods
     pod 'MercariQRScanner', :git => 'https://github.com/Finb/QRScanner'
     pod 'DropDown'
     
-    pod 'PLCrashReporter'
     pod 'SwiftyStoreKit'
 end
 
