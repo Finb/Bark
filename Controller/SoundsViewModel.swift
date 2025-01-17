@@ -66,7 +66,8 @@ class SoundsViewModel: ViewModel, ViewModelType {
         do {
             let files = try fileManager.contentsOfDirectory(atPath: directory)
             return files.compactMap { file -> URL? in
-                if file.hasSuffix(suffix) {
+                if file.hasSuffix(suffix), !file.hasPrefix(kBarkSoundPrefix) {
+                    // 不要包含 kBarkSoundPrefix 开头的，这些是为了 call=1 合成的 30s 长铃声,不算用户上传的
                     return URL(fileURLWithPath: directory).appendingPathComponent(file)
                 }
                 return nil
@@ -104,13 +105,15 @@ class SoundsViewModel: ViewModel, ViewModelType {
         ).share(replay: 1)
         
         // 所有铃声列表，包含自定义铃声和默认铃声
-        let sounds: Observable<([SoundItem], [SoundItem])> = soundsListUpdated.map { _ in
+        let sounds: Observable<([SoundItem], [SoundItem])> = soundsListUpdated.map { [weak self] _ in
+            guard let self else { return ([], []) }
+            
             let defaultSounds = self.getSounds(
                 urls: Bundle.main.urls(forResourcesWithExtension: "caf", subdirectory: nil) ?? []
             )
 
             let customSounds: [SoundItem] = {
-                guard let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first?.appending("/Sounds") else {
+                guard let soundsDirectoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Library/Sounds").path else {
                     return [.addSound]
                 }
                 return self.getSounds(
@@ -179,52 +182,27 @@ class SoundFileStorage: SoundFileStorageProtocol {
     /// 将指定文件保存在 Library/Sound，如果存在则覆盖
     func saveSound(url: URL) {
         // 保存到Sounds文件夹
-        let soundsDirectoryUrl = getSoundsDirectory()
+        guard let soundsDirectoryUrl = getSoundsDirectory() else {
+            return
+        }
         let soundUrl = soundsDirectoryUrl.appendingPathComponent(url.lastPathComponent)
         try? fileManager.copyItem(at: url, to: soundUrl)
-        
-        // 另外复制一份到共享目录
-        saveSoundToGroupDirectory(url: url)
     }
 
     func deleteSound(url: URL) {
         // 删除sounds目录铃声文件
         try? fileManager.removeItem(at: url)
-        
-        // 再删除共享目录中对应的铃声文件
-        if let groupSoundUrl = getSoundsGroupDirectory()?.appendingPathComponent(url.lastPathComponent) {
-            try? fileManager.removeItem(at: groupSoundUrl)
-        }
     }
 
     /// 获取 Library 目录下的 Sounds 文件夹
     /// 如果不存在就创建
-    private func getSoundsDirectory() -> URL {
-        let soundsDirectoryUrl = NSSearchPathForDirectoriesInDomains(.libraryDirectory, .userDomainMask, true).first!.appending("/Sounds")
-        if !fileManager.fileExists(atPath: soundsDirectoryUrl) {
-            try? fileManager.createDirectory(atPath: soundsDirectoryUrl, withIntermediateDirectories: true, attributes: nil)
+    private func getSoundsDirectory() -> URL? {
+        guard let soundsDirectoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Library/Sounds") else {
+            return nil
         }
-        return URL(fileURLWithPath: soundsDirectoryUrl)
-    }
-    
-    /// 保存到共享文件夹，供 NotificationServiceExtension 使用（例如持续响铃需要拿到这个文件）
-    private func saveSoundToGroupDirectory(url: URL) {
-        guard let groupUrl = getSoundsGroupDirectory() else {
-            return
+        if !fileManager.fileExists(atPath: soundsDirectoryUrl.path) {
+            try? fileManager.createDirectory(atPath: soundsDirectoryUrl.path, withIntermediateDirectories: true, attributes: nil)
         }
-        let soundUrl = groupUrl.appendingPathComponent(url.lastPathComponent)
-        try? fileManager.copyItem(at: url, to: soundUrl)
-    }
-    
-    /// 获取共享目录下的 Sounds 文件夹
-    /// 如果不存在就创建
-    private func getSoundsGroupDirectory() -> URL? {
-        if let directoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Sounds") {
-            if !fileManager.fileExists(atPath: directoryUrl.path) {
-                try? fileManager.createDirectory(atPath: directoryUrl.path, withIntermediateDirectories: true, attributes: nil)
-            }
-            return directoryUrl
-        }
-        return nil
+        return URL(fileURLWithPath: soundsDirectoryUrl.path)
     }
 }
