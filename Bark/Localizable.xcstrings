@@ -2605,19 +2605,19 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Keep playing the ringtone for 30 seconds. "
+            "value" : "Keep playing the ringtone for 30 seconds. With the level=critical parameter, it can ring continuously even in silent mode."
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Zili 30 saniye boyunca çalmaya devam ettir. "
+            "value" : "Zil sesi 30 saniye boyunca kesintisiz çalar. level=critical parametresi ile sessiz modda bile sürekli çalabilir."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "持续播放铃声 30 秒。"
+            "value" : "持续播放铃声 30 秒，配合 level=critical 参数可在静音模式下持续响铃。"
           }
         }
       }
