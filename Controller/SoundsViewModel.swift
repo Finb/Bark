@@ -91,7 +91,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
             guard case SoundItem.sound(let model) = item else {
                 return
             }
-            self.dependencies.soundFileStorage.deleteSound(url: model.model.url)
+            self.dependencies.soundFileStorage.deleteSound(name: model.model.url.lastPathComponent)
         }).disposed(by: rx.disposeBag)
         
         // 铃声列表有更新
@@ -169,7 +169,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
 /// 保存铃声文件协议
 protocol SoundFileStorageProtocol {
     func saveSound(url: URL)
-    func deleteSound(url: URL)
+    func deleteSound(name: String)
 }
 
 /// 用于将铃声文件保存在  /Library/Sounds 文件夹中
@@ -189,9 +189,16 @@ class SoundFileStorage: SoundFileStorageProtocol {
         try? fileManager.copyItem(at: url, to: soundUrl)
     }
 
-    func deleteSound(url: URL) {
-        // 删除sounds目录铃声文件
-        try? fileManager.removeItem(at: url)
+    func deleteSound(name: String) {
+        guard let soundsDirectoryUrl = getSoundsDirectory() else {
+            return
+        }
+        let soundUrl = soundsDirectoryUrl.appendingPathComponent(name)
+        let callSoundUrl = soundsDirectoryUrl.appendingPathComponent("\(kBarkSoundPrefix).\(name)")
+        // 删除 sounds 目录铃声文件
+        try? fileManager.removeItem(at: soundUrl)
+        // 删除 call=1 生成的铃声文件
+        try? fileManager.removeItem(at: callSoundUrl)
     }
 
     /// 获取 Library 目录下的 Sounds 文件夹
