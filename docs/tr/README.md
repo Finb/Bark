@@ -28,7 +28,6 @@ Sponsorlar：[https://github.com/sponsors/Finb](https://github.com/sponsors/Finb
   - [SSS](/tr/faq)
 - **Sunucu**
   - [Dağıtım](/tr/deploy)
-  - [Doğrudan Gönderim](/tr/apns)
   - [Oluşturmak](/tr/build)
   - [Sertifika](/tr/cert)
 - [Gizlilik](/tr/privacy)
