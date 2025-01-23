@@ -32,6 +32,7 @@ class HomeViewModel: ViewModel, ViewModelType {
         let clienStateChanged: Driver<Client.ClienState>
         let tableViewHidden: Driver<Bool>
         let showSnackbar: Driver<String>
+        let alertServerError: Driver<String>
         let startButtonEnable: Driver<Bool>
         let copy: Driver<String>
         let preview: Driver<URL>
@@ -119,6 +120,9 @@ class HomeViewModel: ViewModel, ViewModelType {
         )
     ]
     
+    /// 记录服务器错误的次数，如果错误次数大于2次，弹出提示引导用户查看FAQ。
+    private var serverErrorCount = 0
+    
     func transform(input: Input) -> Output {
         let title = BehaviorRelay(value: ServerManager.shared.currentServer.host)
         
@@ -166,6 +170,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             .asDriver(onErrorJustReturn: false)
         
         let showSnackbar = PublishRelay<String>()
+        let alertServerError = PublishRelay<String>()
         
         // 点击注册按钮后，如果不允许推送，弹出提示
         tableViewHidden
@@ -187,11 +192,18 @@ class HomeViewModel: ViewModel, ViewModelType {
             .map { _ in () }
 
         // client state 变化时，发出相应错误提醒
-        input.clientState.drive(onNext: { state in
+        input.clientState.drive(onNext: { [weak self] state in
+            guard let self else { return }
+            
             switch state {
             case .ok: break
             case .serverError(let error):
-                showSnackbar.accept("\(NSLocalizedString("ServerError")): \(error.rawString())")
+                if serverErrorCount < 2 {
+                    showSnackbar.accept("\(NSLocalizedString("ServerError")): \(error.rawString())")
+                } else {
+                    alertServerError.accept(error.rawString())
+                }
+                serverErrorCount += 1
             default: break
             }
             // 主要用于 url scheme 添加服务器时会有state状态改变事件，顺便更新下标题
@@ -220,6 +232,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             clienStateChanged: clienState.asDriver(onErrorDriveWith: .empty()),
             tableViewHidden: tableViewHidden,
             showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty()),
+            alertServerError: alertServerError.asDriver(onErrorDriveWith: .empty()),
             startButtonEnable: Driver.just(true),
             copy: Driver.merge(sectionModel.items.map { $0.copy.asDriver(onErrorDriveWith: .empty()) }),
             preview: Driver.merge(sectionModel.items.map { $0.preview.asDriver(onErrorDriveWith: .empty()) }),

@@ -51,7 +51,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         
         navigationItem.setBarButtonItems(items: [
             UIBarButtonItem(customView: newButton),
-            UIBarButtonItem(customView: serversButton),
+            UIBarButtonItem(customView: serversButton)
         ], position: .right)
         
         self.view.addSubview(self.tableView)
@@ -87,7 +87,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let startRequestAuthorization: () -> Observable<Bool> = {
             Single<Bool>.create { single -> Disposable in
                 let center = UNUserNotificationCenter.current()
-                center.requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert], completionHandler: { (_ granted: Bool, _: Error?) -> Void in
+                center.requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert], completionHandler: { (_ granted: Bool, _: Error?) in
                     single(.success(granted))
                 })
                 return Disposables.create()
@@ -166,6 +166,13 @@ class HomeViewController: BaseViewController<HomeViewModel> {
             })
             .disposed(by: rx.disposeBag)
         
+        // 弹出服务器错误提示，引导用户跳转FAQ
+        output.alertServerError
+            .drive(onNext: { [weak self] error in
+                self?.alertServerError(error: error)
+            })
+            .disposed(by: rx.disposeBag)
+        
         // startButton是否可点击
         output.startButtonEnable
             .drive(self.startButton.rx.isEnabled)
@@ -198,11 +205,9 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         var viewController: UIViewController?
         if let viewModel = viewModel as? NewServerViewModel {
             viewController = NewServerViewController(viewModel: viewModel)
-        }
-        else if let viewModel = viewModel as? SoundsViewModel {
+        } else if let viewModel = viewModel as? SoundsViewModel {
             viewController = SoundsViewController(viewModel: viewModel)
-        }
-        else if let viewModel = viewModel as? CryptoSettingViewModel {
+        } else if let viewModel = viewModel as? CryptoSettingViewModel {
             self.navigationController?.present(BarkNavigationController(rootViewController: CryptoSettingController(viewModel: viewModel)), animated: true)
             return
         }
@@ -218,5 +223,17 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                     rootViewController: ServerListViewController(viewModel: viewModel)))
             self.navigationController?.present(controller, animated: true, completion: nil)
         }
+    }
+    
+    func alertServerError(error: String) {
+        let alertController = UIAlertController(title: NSLocalizedString("ServerError"), message: error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("faq"), style: .default, handler: { [weak self] _ in
+            guard let url = try? NSLocalizedString("faqUrl").asURL() else {
+                return
+            }
+            self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
+        }))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+        self.present(alertController, animated: true, completion: nil)
     }
 }
