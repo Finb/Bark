@@ -1,10 +1,11 @@
-#### 杭州地区无法访问 https://api.day.app
-杭州地区运营商阻断了请求（通常可能会持续一段时间，几天或几周都有可能），可以自部署服务端或暂时替换下域名使用 <br>
+#### 杭州移动无法访问 https://api.day.app
+杭州移动运营商阻断了请求（通常可能会持续一段时间，几天或几周都有可能），可以自部署服务端或暂时替换下域名使用 <br>
 https://api.day.app <br>
 替换为 <br>
-http://api.bbark.top <br>
-注意 https 改成 http，只在发送端改即可， app 只是个接收端改不改无所谓。<br>
-(过一段时间后需改回 api.day.app，这是个临时域名会在3月份失效)
+https://api.bbark.top <br>
+
+这两个域名是同一台服务器，通常只需简单的在发送端修改下域名即可（key不用改）， app 只是个接收端改不改无所谓。 <br>
+也可以在 APP 内新增 https://api.bbark.top 服务器长期使用。
 
 #### 无法收到推送
 在 App 设置中检查 Device Token 是否正常。如果不正常，参考 [这里](#DeviceToken显示未知)<br/>
