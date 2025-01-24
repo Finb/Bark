@@ -15,7 +15,7 @@ class LevelProcessor: NotificationContentProcessor {
             return bestAttemptContent
         }
         
-        if let level = bestAttemptContent.userInfo["level"] as? String, level == "critical" {
+        if bestAttemptContent.isCritical {
             // 设置重要警告音效
             LevelProcessor.setCriticalSound(content: bestAttemptContent)
             return bestAttemptContent
@@ -39,7 +39,7 @@ class LevelProcessor: NotificationContentProcessor {
 
 extension LevelProcessor {
     class func setCriticalSound(content bestAttemptContent: UNMutableNotificationContent, soundName: String? = nil) {
-        guard let level = bestAttemptContent.userInfo["level"] as? String, level == "critical" else {
+        guard bestAttemptContent.isCritical else {
             return
         }
         // 默认音量

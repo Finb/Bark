@@ -40,7 +40,7 @@ extension CallProcessor {
         }
         
         if let longSoundUrl = getLongSound(soundName: soundName, soundType: soundType) {
-            if let level = content.userInfo["level"] as? String, level == "critical" {
+            if content.isCritical {
                 LevelProcessor.setCriticalSound(content: content, soundName: longSoundUrl.lastPathComponent)
             } else {
                 content.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: longSoundUrl.lastPathComponent))
