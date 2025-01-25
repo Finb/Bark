@@ -24,7 +24,6 @@ class NotificationService: UNNotificationServiceExtension {
             
             // 所有的 processor， 按顺序从上往下对推送进行处理
             // ciphertext 需要放在最前面，有可能所有的推送数据都在密文里
-            // call 需要放在最后面，因为这个 Processor 不会主动退出， 会一直等到 ServiceExtension 被终止
             let processors: [NotificationContentProcessorItem] = [
                 .ciphertext,
                 .level,

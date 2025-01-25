@@ -8,6 +8,4 @@
 
 import Foundation
 
-
-let kStopCallProcessorKey = "stopCallProcessorNotification"
 let kBarkSoundPrefix = "bark.sounds.30s"
