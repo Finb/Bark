@@ -30,7 +30,7 @@ Note: The bark-server uses the /data directory by default to store data. Ensure 
 ## Cloudflare Worker
 [https://github.com/cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
 
-## 测试
+## Test
 ```
 curl http://0.0.0.0:8080/ping
 ```
@@ -69,8 +69,6 @@ services:
 ## 其他
 
 1. The app sends the <a href="https://developer.apple.com/documentation/uikit/uiapplicationdelegate/1622958-application">DeviceToken</a>to the server.<br>The server sends push requests to Apple’s servers.
-
 2. Server code: <a href='https://github.com/Finb/bark-server'>https://github.com/Finb/bark-server</a><br>
-
 3. App code: <a href="https://github.com/Finb/Bark">https://github.com/Finb/Bark</a>
 

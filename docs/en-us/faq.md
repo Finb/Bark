@@ -19,7 +19,7 @@ Just exit APP when you are on history message page. When you open APP again, it 
 
 #### Does push API support POST request?
 Bark supports GET POST , supports using Json <br>
-No matter which request method, parameter names are the same. Refer to [usage tutorial](/tutorial)
+No matter which request method, parameter names are the same. Refer to [usage tutorial](/en-us/tutorial)
 
 #### Pushing special characters causes push failure. For example: Push content contains link or Push abnormal such as + becomes space 
 This is because of the problem of irregular link. It often happens<br>
