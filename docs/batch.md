@@ -8,7 +8,7 @@ curl -X "POST" "https://api.day.app/push" \
      -d $'{
   "title": "Title",
   "body": "Body",
-  "sound": "minuet.caf",
+  "sound": "minuet",
   "group": "test",
   "device_keys": ["key1", "key2", ... ]
 }'

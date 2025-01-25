@@ -5,7 +5,7 @@
   - [FAQs](/en-us/faq)
 - **Server**
   - [Deploy](/en-us/deploy)
-  - [Direct Push](/en-us/apns)
+  - [Batch Push](/en-us/batch)
   - [Build](/en-us/build)
   - [Certificate](/en-us/cert)
 - [Privacy](/en-us/privacy)

@@ -28,6 +28,7 @@ Sponsors：[https://github.com/sponsors/Finb](https://github.com/sponsors/Finb)
   - [FAQs](/en-us/faq)
 - **Server**
   - [Deploy](/en-us/deploy)
+  - [Batch Push](/en-us/batch)
   - [Build](/en-us/build)
   - [Certificate](/en-us/cert)
 - [Privacy](/en-us/privacy)
