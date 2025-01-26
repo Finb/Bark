@@ -10,6 +10,12 @@
             "value" : "Server added successfully."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーが正常に追加されました。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -31,6 +37,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Add a Server"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーを追加"
           }
         },
         "tr" : {
@@ -56,6 +68,12 @@
             "value" : "Algorithm"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アルゴリズム"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -77,6 +95,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notifications have been turned off. Please allow notifications in the Settings app."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知がオフになっています。設定アプリで通知を許可してください。"
           }
         },
         "tr" : {
@@ -102,6 +126,12 @@
             "value" : "All time"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全期間"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -123,6 +153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "App Source Code"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アプリのソースコード"
           }
         },
         "tr" : {
@@ -148,6 +184,12 @@
             "value" : "Archive notifications by default if the 'isArchive' parameter is unset."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'isArchive'パラメータが未設定の場合、デフォルトで通知をアーカイブします。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -169,6 +211,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archive a notification by passing 'isArchive=1'. Prevent archiving by passing 'isArchive=0'. Default settings will apply if the parameter is unset."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'isArchive=1'を渡して通知をアーカイブします。'isArchive=0'を渡してアーカイブを防止します。パラメータが未設定の場合、デフォルト設定が適用されます。"
           }
         },
         "tr" : {
@@ -194,6 +242,12 @@
             "value" : "Archive Notification"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知をアーカイブ"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -215,6 +269,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Automatically copy the body text of a notification, only for iOS 14.4 and below. For iOS 14.5 and above, long press or pull down the notification to copy."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知の本文を自動的にコピーします（iOS 14.4以下のみ）。iOS 14.5以上では、通知を長押しまたは引き下げてコピーします。"
           }
         },
         "tr" : {
@@ -240,6 +300,12 @@
             "value" : "Auto Copy Body Text (iOS 14.4 and below)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本文を自動コピー（iOS 14.4以下）"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -261,6 +327,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enabled"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "有効"
           }
         },
         "tr" : {
@@ -286,6 +358,12 @@
             "value" : "Backend Source Code"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バックエンドのソースコード"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -307,6 +385,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Badge Count"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バッジカウント"
           }
         },
         "tr" : {
@@ -332,6 +416,12 @@
             "value" : "Specify a number on Bark app’s icon when a notification arrives."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知が到着したときにBarkアプリのアイコンに数字を指定します。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -353,6 +443,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "If you get a 'Decryption Failed' prompt, try adding '-w 0' after the base64 command."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "「復号に失敗しました」というプロンプトが表示された場合、base64コマンドの後に「-w 0」を追加してみてください。"
           }
         },
         "tr" : {
@@ -378,6 +474,12 @@
             "value" : "Before a month"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1ヶ月前"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -399,6 +501,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Before an hour"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1時間前"
           }
         },
         "tr" : {
@@ -424,6 +532,12 @@
             "value" : "Before today"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日より前"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -445,6 +559,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Before yesterday"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "昨日より前"
           }
         },
         "tr" : {
@@ -470,6 +590,12 @@
             "value" : "Bark uses GitHub Actions to build and publish itself to the App Store. You can verify the ‘run_id’ in the URL to ensure Bark was built from its original open-source codebase."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BarkはGitHub Actionsを使用して自身をビルドし、App Storeに公開します。URL内の「run_id」を確認して、Barkがオリジナルのオープンソースコードベースからビルドされたことを確認できます。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -491,6 +617,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Cancel"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キャンセル"
           }
         },
         "tr" : {
@@ -516,6 +648,12 @@
             "value" : "URL encoding the ciphertext, there may be special characters."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号文をURLエンコードします。特殊文字が含まれる場合があります。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -537,6 +675,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Clear"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリア"
           }
         },
         "tr" : {
@@ -562,6 +706,12 @@
             "value" : "Clear from:"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリア範囲:"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -583,6 +733,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Confirm"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "確認"
           }
         },
         "tr" : {
@@ -608,6 +764,12 @@
             "value" : "Are you sure you want to delete this server?"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このサーバーを削除してもよろしいですか？"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -629,6 +791,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The console will print"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コンソールに表示されます"
           }
         },
         "tr" : {
@@ -654,6 +822,12 @@
             "value" : "Continuous support"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "継続的なサポート"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -674,6 +848,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copied!"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コピーしました！"
           }
         },
         "tr" : {
@@ -699,6 +879,12 @@
             "value" : "Copy"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "コピー"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -720,6 +906,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy Address and Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アドレスとキーをコピー"
           }
         },
         "tr" : {
@@ -745,6 +937,12 @@
             "value" : "Copy All"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてをコピー"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -766,6 +964,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy the Content"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "内容をコピー"
           }
         },
         "tr" : {
@@ -791,6 +995,12 @@
             "value" : "Copy Crash Log"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クラッシュログをコピー"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -812,6 +1022,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Copy Send Script Example"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送信スクリプトの例をコピー"
           }
         },
         "tr" : {
@@ -837,6 +1053,12 @@
             "value" : "Specify clipboard content by passing through the 'copy' parameter"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "'copy'パラメータを介してクリップボードの内容を指定します"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -858,6 +1080,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "You need to restart the app! \n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/en-us/faq\n\nBark will not upload any logs! If you need help (or wish to help the developer fix the crash), you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "問題が解決しない場合は、FAQを確認して解決策があるかどうかを確認できます。  \nhttps://bark.day.app/#/en-us/faq  \n\nBarkはログをアップロードしません！助けが必要な場合（または開発者がクラッシュを修正するのを手伝いたい場合）、クラッシュログを私に送ってください。できるだけ早く連絡します。  \n\nメール: to@day.app  \nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1  \nGithub Issue: https://github.com/Finb/Bark/issues  "
           }
         },
         "tr" : {
@@ -883,6 +1111,12 @@
             "value" : "Crashed!"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クラッシュしました！"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -904,6 +1138,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Critical Alert"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緊急アラート"
           }
         },
         "tr" : {
@@ -929,6 +1169,12 @@
             "value" : "Critical Alert will ignore silent and Do Not Disturb modes. \nIf volume isn't provided, it defaults to 5 (range: 0-10)."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "緊急アラートはサイレントモードとおやすみモードを無視します。  \n音量が指定されていない場合、デフォルトは5です（範囲: 0-10）。 "
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -950,6 +1196,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Body Text"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "本文"
           }
         },
         "tr" : {
@@ -975,6 +1227,12 @@
             "value" : "Title"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "タイトル"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -996,6 +1254,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Custom Sounds"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "カスタムサウンド "
           }
         },
         "tr" : {
@@ -1021,6 +1285,12 @@
             "value" : "Default"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルト"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1042,6 +1312,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Archive by Default"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルトでアーカイブ"
           }
         },
         "tr" : {
@@ -1067,6 +1343,12 @@
             "value" : "Default Sounds"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルトサウンド "
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1088,6 +1370,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Server has been deleted successfully."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーが正常に削除されました。"
           }
         },
         "tr" : {
@@ -1113,6 +1401,12 @@
             "value" : "You must have at least one server configured."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "少なくとも1つのサーバーを設定する必要があります。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1134,6 +1428,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Delete Server"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーを削除"
           }
         },
         "tr" : {
@@ -1159,6 +1459,12 @@
             "value" : "Deploy a self-hosted Bark server"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "セルフホスト型Barkサーバーをデプロイ"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1182,10 +1488,16 @@
             "value" : "https://bark.day.app/#/en-us/deploy"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/deploy"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://bark.day.app/#/tr/deploy"
+            "value" : "https://bark.day.app/#/en-us/deploy"
           }
         },
         "zh-Hans" : {
@@ -1203,6 +1515,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Documentation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ドキュメント"
           }
         },
         "tr" : {
@@ -1228,10 +1546,16 @@
             "value" : "https://bark.day.app/#/en-us/?id=bark"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/?id=bark"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://bark.day.app/#/tr/?id=bark"
+            "value" : "https://bark.day.app/#/en-us/?id=bark"
           }
         },
         "zh-Hans" : {
@@ -1249,6 +1573,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Donate"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寄付"
           }
         },
         "tr" : {
@@ -1269,6 +1599,12 @@
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🤝"
+          }
+        },
+        "ja" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "🤝"
@@ -1297,6 +1633,12 @@
             "value" : "Done"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "完了"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1318,6 +1660,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Uses a custom key to encrypt and decrypt the push content when sending and receiving. In this way, the push content will not be obtained or leaked by Bark server and Apple APNs server during transmission."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "送受信時にカスタムキーを使用してプッシュ内容を暗号化および復号化します。これにより、プッシュ内容がBarkサーバーやApple APNsサーバーによって取得または漏洩されることはありません。"
           }
         },
         "tr" : {
@@ -1343,6 +1691,12 @@
             "value" : "Encryption Settings"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化設定"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1366,10 +1720,16 @@
             "value" : "https://bark.day.app/#/en-us/encryption"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/encryption"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://bark.day.app/#/tr/encryption"
+            "value" : "https://bark.day.app/#/en-us/encryption"
           }
         },
         "zh-Hans" : {
@@ -1387,6 +1747,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Please enter %d-bytes Iv"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dバイトのIvを入力してください "
           }
         },
         "tr" : {
@@ -1412,6 +1778,12 @@
             "value" : "Please enter %d-bytes Key"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dバイトのKeyを入力してください"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1433,6 +1805,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Export"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "エクスポート"
           }
         },
         "tr" : {
@@ -1458,6 +1836,12 @@
             "value" : "FAQs"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "よくある質問"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1481,10 +1865,16 @@
             "value" : "https://bark.day.app/#/en-us/faq"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/faq"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "https://bark.day.app/#/tr/faq"
+            "value" : "https://bark.day.app/#/en-us/faq"
           }
         },
         "zh-Hans" : {
@@ -1502,6 +1892,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "GCM mode does not support copying script example."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "GCMモードはスクリプト例のコピーをサポートしていません。"
           }
         },
         "tr" : {
@@ -1527,6 +1923,12 @@
             "value" : "Groups"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グループ"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1548,6 +1950,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Let iOS sort notifications by groups."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOSに通知をグループごとに並べ替えさせます"
           }
         },
         "tr" : {
@@ -1573,6 +1981,12 @@
             "value" : "Group \"%@\" muted!"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "グループ「%@」をミュートしました！"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1594,6 +2008,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unselect All Groups"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのグループの選択を解除"
           }
         },
         "tr" : {
@@ -1619,6 +2039,12 @@
             "value" : "Message History"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メッセージ履歴"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1640,6 +2066,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iCloud Sync"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloud同期"
           }
         },
         "tr" : {
@@ -1665,6 +2097,12 @@
             "value" : "Sync notifications through iCloud"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iCloudを通じて通知を同期"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1686,6 +2124,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Import"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "インポート"
           }
         },
         "tr" : {
@@ -1711,6 +2155,12 @@
             "value" : "Info"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "情報"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1732,6 +2182,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Insecure Connection (HTTP)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安全でない接続（HTTP）"
           }
         },
         "tr" : {
@@ -1757,6 +2213,12 @@
             "value" : "Time Sensitive Notifications"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "時間感応通知"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1778,6 +2240,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Set importance and delivery timing of a notification. Available values:\nactive (default): presents the notification immediately, lights up the screen, and can play a sound.\ntimeSensitive: similar to active, but can break through system controls such as Notification Summary and Focus.\npassive: adds the notification to the notification list without lighting up the screen or playing a sound."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知の重要度と配信タイミングを設定します。利用可能な値:  \nactive（デフォルト）: 通知を即時に表示し、画面を点灯させ、音を再生することができます。  \ntimeSensitive: activeと似ていますが、通知サマリーやフォーカスなどのシステム制御を突破できます。  \npassive: 通知を通知リストに追加しますが、画面を点灯させたり音を再生したりしません。"
           }
         },
         "tr" : {
@@ -1803,6 +2271,12 @@
             "value" : "Server address is invalid."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーアドレスが無効です。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1824,6 +2298,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "URL is invalid."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URLが無効です。"
           }
         },
         "tr" : {
@@ -1849,6 +2329,12 @@
             "value" : "messages"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "メッセージ"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1870,6 +2356,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "IV can be randomly generated, but if it is random, it needs to be passed in the iv parameter."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "IVはランダムに生成できますが、ランダムな場合はivパラメータで渡す必要があります。"
           }
         },
         "tr" : {
@@ -1895,6 +2387,12 @@
             "value" : "Must be %d bit long"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%dビット長でなければなりません"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1916,6 +2414,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The last hour"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "過去1時間"
           }
         },
         "tr" : {
@@ -1941,6 +2445,12 @@
             "value" : "The last month"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "過去1ヶ月"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -1962,6 +2472,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Notification Grouping"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知グループ化"
           }
         },
         "tr" : {
@@ -1987,6 +2503,12 @@
             "value" : "Mode"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "モード"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2008,6 +2530,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "More"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細"
           }
         },
         "tr" : {
@@ -2033,6 +2561,12 @@
             "value" : "More Actions"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "その他のアクション"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2054,6 +2588,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Mute this group for 1 Hour"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このグループを1時間ミュート"
           }
         },
         "tr" : {
@@ -2079,6 +2619,12 @@
             "value" : "Use the buttons to copy and open sample URLs"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ボタンを使用してサンプルURLをコピーおよび開く"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2100,6 +2646,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Customize notification title and body text"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知のタイトルと本文をカスタマイズ"
           }
         },
         "tr" : {
@@ -2125,6 +2677,12 @@
             "value" : "Icon"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アイコン"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2146,6 +2704,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Display a custom icon on a notification."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知にカスタムアイコンを表示"
           }
         },
         "tr" : {
@@ -2171,6 +2735,12 @@
             "value" : "Alert Sound"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "アラートサウンド"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2192,6 +2762,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "One-time donation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "一度きりの寄付"
           }
         },
         "tr" : {
@@ -2217,6 +2793,12 @@
             "value" : "openssl requires Hex encoding of manual keys and IVs, not ASCII encoding."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opensslでは、手動キーとIVをASCIIエンコードではなくHexエンコードする必要があります。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2238,6 +2820,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Other"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "その他"
           }
         },
         "tr" : {
@@ -2263,6 +2851,12 @@
             "value" : "Preview"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プレビュー"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2284,6 +2878,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Click to Play"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "クリックして再生"
           }
         },
         "tr" : {
@@ -2309,6 +2909,12 @@
             "value" : "Privacy Policy"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プライバシーポリシー"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2330,6 +2936,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Push Notification Encryption"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プッシュ通知暗号化"
           }
         },
         "tr" : {
@@ -2355,6 +2967,12 @@
             "value" : "Register Device"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスを登録"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2376,6 +2994,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Remove"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "削除"
           }
         },
         "tr" : {
@@ -2401,6 +3025,12 @@
             "value" : "This will be permanently removed and cannot be undone."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "これは永久に削除され、元に戻せません。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2422,6 +3052,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset Failed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "リセット失敗"
           }
         },
         "tr" : {
@@ -2447,6 +3083,12 @@
             "value" : "Bark could not get a DeviceToken from the server."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "BarkはサーバーからDeviceTokenを取得できませんでした。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2468,6 +3110,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Reset or Restore Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーをリセットまたは復元"
           }
         },
         "tr" : {
@@ -2493,6 +3141,12 @@
             "value" : "Leave blank to reset. Enter an old key to restore."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "空白のままにしてリセットします。古いキーを入力して復元します。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2514,6 +3168,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Do not enter or enter the old Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "古いキーを入力しないか、空白のままにします"
           }
         },
         "tr" : {
@@ -2539,6 +3199,12 @@
             "value" : "Restore Subscription"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サブスクリプションを復元"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2560,6 +3226,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Disabled"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "無効"
           }
         },
         "tr" : {
@@ -2585,6 +3257,12 @@
             "value" : "Ringtone"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "着信音"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2606,6 +3284,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Keep playing the ringtone for 30 seconds. With the level=critical parameter, it can ring continuously even in silent mode."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "着信音を30秒間再生し続けます。level=criticalパラメータを使用すると、サイレントモードでも連続して鳴らすことができます。"
           }
         },
         "tr" : {
@@ -2631,6 +3315,12 @@
             "value" : "Secure Connection (HTTPS)"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "安全な接続（HTTPS）"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2652,6 +3342,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Server Address"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーアドレス"
           }
         },
         "tr" : {
@@ -2677,6 +3373,12 @@
             "value" : "Server Error"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーエラー"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2698,6 +3400,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Enter the server address, e.g., https://api.day.app"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーアドレスを入力してください。例: https://api.day.app"
           }
         },
         "tr" : {
@@ -2723,6 +3431,12 @@
             "value" : "Server List"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サーバーリスト"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2744,6 +3458,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Service"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サービス"
           }
         },
         "tr" : {
@@ -2769,6 +3489,12 @@
             "value" : "Set As Default Server"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デフォルトサーバーとして設定"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2790,6 +3516,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Select an alert sound for a notification."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知のアラートサウンドを選択"
           }
         },
         "tr" : {
@@ -2815,6 +3547,12 @@
             "value" : "Successfully set"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "正常に設定されました"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2836,6 +3574,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Settings"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "設定"
           }
         },
         "tr" : {
@@ -2861,6 +3605,12 @@
             "value" : "Select All Groups"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべてのグループを選択"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2882,6 +3632,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Show less"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "詳細を表示しない"
           }
         },
         "tr" : {
@@ -2907,6 +3663,12 @@
             "value" : "Source Code"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ソースコード"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2928,6 +3690,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Donation"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "寄付"
           }
         },
         "tr" : {
@@ -2953,6 +3721,12 @@
             "value" : "Thank you for your kind support"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ご支援ありがとうございます"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -2974,6 +3748,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$d hour ago"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$d時間前"
           }
         },
         "tr" : {
@@ -2999,6 +3779,12 @@
             "value" : "Just now"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "たった今"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3020,6 +3806,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$d minute ago"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$d分前"
           }
         },
         "tr" : {
@@ -3045,6 +3837,12 @@
             "value" : "%1$d hour %2$d minutes ago"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$d時間%2$d分前"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3066,6 +3864,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Today"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日"
           }
         },
         "tr" : {
@@ -3091,6 +3895,12 @@
             "value" : "Today and yesterday"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "今日と昨日"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3112,6 +3922,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Unknown Status"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不明なステータス"
           }
         },
         "tr" : {
@@ -3137,6 +3953,12 @@
             "value" : "Unregistered Device"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未登録デバイス"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3158,6 +3980,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Upload Sound"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サウンドをアップロード"
           }
         },
         "tr" : {
@@ -3183,6 +4011,12 @@
             "value" : "Please convert the sound file to caf format, and make sure it's no longer than 30 seconds."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サウンドファイルをcaf形式に変換し、30秒以内であることを確認してください。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3204,6 +4038,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "convert the sound file to caf format"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "サウンドファイルをcaf形式に変換"
           }
         },
         "tr" : {
@@ -3229,6 +4069,12 @@
             "value" : "Open an URL by clicking on a notification, URL schemes are supported."
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "通知をクリックしてURLを開きます。URLスキームがサポートされています。"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3250,6 +4096,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "User Agreement"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "利用規約"
           }
         },
         "tr" : {
@@ -3275,6 +4127,12 @@
             "value" : "Version"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "バージョン"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3298,6 +4156,12 @@
             "value" : "View all %d messages"
           }
         },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべての%d件のメッセージを表示"
+          }
+        },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
@@ -3319,6 +4183,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Click here to view all available sounds."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ここをクリックして利用可能なすべてのサウンドを表示します。"
           }
         },
         "tr" : {
