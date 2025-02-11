@@ -22,7 +22,7 @@ You can send GET or POST requests, and you'll receive a push notification immedi
 URL structure: The first part is the key, followed by three matches
 /:key/:body 
 /:key/:title/:body 
-/:key/: title/:subtitle/:body 
+/:key/:title/:subtitle/:body 
 
 title: The push title, slightly larger than the body text 
 subtitle: The push subtitle
