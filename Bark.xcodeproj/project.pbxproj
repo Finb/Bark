@@ -179,6 +179,7 @@
 		06D69E3E2C1159E200161A35 /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F3250B6DD1001561EC /* alarm.caf */; };
 		06D69E3F2C1159E200161A35 /* fanfare.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FB250B6DD2001561EC /* fanfare.caf */; };
 		06D69E412C11983E00161A35 /* CallProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D69E402C11983E00161A35 /* CallProcessor.swift */; };
+		06E62C112D670F62004DC82B /* PushToCurrentIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E62C102D670F5D004DC82B /* PushToCurrentIntent.swift */; };
 		06E944682C06E40600AC86AB /* NotificationContentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */; };
 		06E9446A2C06E4A200AC86AB /* CiphertextProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944692C06E4A200AC86AB /* CiphertextProcessor.swift */; };
 		06E9446D2C06FEC900AC86AB /* LevelProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E9446C2C06FEC900AC86AB /* LevelProcessor.swift */; };
@@ -193,6 +194,9 @@
 		06EE1FD326843E9300586708 /* BarkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EE1FD226843E9300586708 /* BarkTests.swift */; };
 		06EEF333291CCFF400CA228A /* CryptoSettingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EEF332291CCFF400CA228A /* CryptoSettingController.swift */; };
 		06EEF335291CD00000CA228A /* CryptoSettingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EEF334291CD00000CA228A /* CryptoSettingViewModel.swift */; };
+		06EF49152D682A99008B91D2 /* PushResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EF49142D682A96008B91D2 /* PushResponse.swift */; };
+		06EF49172D682AC4008B91D2 /* OptionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EF49162D682AC3008B91D2 /* OptionsProvider.swift */; };
+		06EF49192D682B3B008B91D2 /* PushToOtherIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06EF49182D682B34008B91D2 /* PushToOtherIntent.swift */; };
 		06F08EA429B098DD006AB9CA /* CryptoSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */; };
 		06F08EA529B1DDA7006AB9CA /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
 		06F08EA729B1DDFE006AB9CA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
@@ -391,6 +395,7 @@
 		06CF784421C7A50300A052D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06CF784B21C7A51200A052D7 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		06D69E402C11983E00161A35 /* CallProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallProcessor.swift; sourceTree = "<group>"; };
+		06E62C102D670F5D004DC82B /* PushToCurrentIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushToCurrentIntent.swift; sourceTree = "<group>"; };
 		06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContentProcessor.swift; sourceTree = "<group>"; };
 		06E944692C06E4A200AC86AB /* CiphertextProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CiphertextProcessor.swift; sourceTree = "<group>"; };
 		06E9446C2C06FEC900AC86AB /* LevelProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProcessor.swift; sourceTree = "<group>"; };
@@ -406,6 +411,9 @@
 		06EE1FD426843E9300586708 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06EEF332291CCFF400CA228A /* CryptoSettingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingController.swift; sourceTree = "<group>"; };
 		06EEF334291CD00000CA228A /* CryptoSettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingViewModel.swift; sourceTree = "<group>"; };
+		06EF49142D682A96008B91D2 /* PushResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushResponse.swift; sourceTree = "<group>"; };
+		06EF49162D682AC3008B91D2 /* OptionsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionsProvider.swift; sourceTree = "<group>"; };
+		06EF49182D682B34008B91D2 /* PushToOtherIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushToOtherIntent.swift; sourceTree = "<group>"; };
 		06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingManager.swift; sourceTree = "<group>"; };
 		06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLocalizedString+Extension.swift"; sourceTree = "<group>"; };
@@ -675,6 +683,7 @@
 		0661A541204FDA4100965E4E /* Bark */ = {
 			isa = PBXGroup;
 			children = (
+				06EF49132D682A82008B91D2 /* Intents */,
 				0683486A2050F1310024B6DA /* Bark.entitlements */,
 				0661A542204FDA4100965E4E /* AppDelegate.swift */,
 				0661A549204FDA4100965E4E /* Assets.xcassets */,
@@ -736,6 +745,17 @@
 				068A4B952D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift */,
 			);
 			path = BarkTests;
+			sourceTree = "<group>";
+		};
+		06EF49132D682A82008B91D2 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				06EF49162D682AC3008B91D2 /* OptionsProvider.swift */,
+				06EF49142D682A96008B91D2 /* PushResponse.swift */,
+				06E62C102D670F5D004DC82B /* PushToCurrentIntent.swift */,
+				06EF49182D682B34008B91D2 /* PushToOtherIntent.swift */,
+			);
+			path = Intents;
 			sourceTree = "<group>";
 		};
 		99BD309BDB7F62B5DC0CECE1 /* Frameworks */ = {
@@ -1239,6 +1259,7 @@
 				06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */,
 				0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */,
 				0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */,
+				06E62C112D670F62004DC82B /* PushToCurrentIntent.swift in Sources */,
 				0633E80A256A091B00ED0680 /* MJRefresh+Rx.swift in Sources */,
 				0637FA8C20E0D7A700E80174 /* BaseViewController.swift in Sources */,
 				0642B55C27EB149900453D91 /* MutableTextCellViewModel.swift in Sources */,
@@ -1286,6 +1307,7 @@
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
 				06E944762C07013000AC86AB /* RealmConfiguration.swift in Sources */,
+				06EF49152D682A99008B91D2 /* PushResponse.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
 				06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */,
 				064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */,
@@ -1308,6 +1330,7 @@
 				06EEF335291CD00000CA228A /* CryptoSettingViewModel.swift in Sources */,
 				0637FA8020E0981E00E80174 /* BarkSettings.swift in Sources */,
 				065BE4402563D649002A8CA4 /* SoundsViewModel.swift in Sources */,
+				06EF49192D682B3B008B91D2 /* PushToOtherIntent.swift in Sources */,
 				0647DB682CE604AA00102066 /* MessageSettingFooter.swift in Sources */,
 				065BE4462563D7E5002A8CA4 /* ViewModelType.swift in Sources */,
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
@@ -1318,6 +1341,7 @@
 				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,
 				06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
+				06EF49172D682AC4008B91D2 /* OptionsProvider.swift in Sources */,
 				06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */,
 				065AE76B2987777F00323230 /* ArchiveSettingRelay.swift in Sources */,
 				06F08EAC29B1DECD006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
