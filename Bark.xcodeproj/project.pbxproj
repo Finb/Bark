@@ -118,10 +118,6 @@
 		068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15927ED99E700D5D11E /* ServerListViewModel.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
 		0699473D2D223094008D5E40 /* CustomTapTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0699473C2D223094008D5E40 /* CustomTapTextView.swift */; };
-		06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */; };
-		06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */; };
-		06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */; };
-		06AE311E266F54CC00B39FBB /* GroupCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06AE311D266F54CC00B39FBB /* GroupCellViewModel.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
@@ -367,10 +363,6 @@
 		068EC15927ED99E700D5D11E /* ServerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewModel.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
 		0699473C2D223094008D5E40 /* CustomTapTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTapTextView.swift; sourceTree = "<group>"; };
-		06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewController.swift; sourceTree = "<group>"; };
-		06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupFilterViewModel.swift; sourceTree = "<group>"; };
-		06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupTableViewCell.swift; sourceTree = "<group>"; };
-		06AE311D266F54CC00B39FBB /* GroupCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupCellViewModel.swift; sourceTree = "<group>"; };
 		06B1158C247BA6D5006D91FB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		06B1158E247BB1FB006D91FB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
@@ -492,8 +484,6 @@
 				06BBB8B62567AC140076F63E /* MessageSettingsViewModel.swift */,
 				060481ED250F404500BC9799 /* SoundsViewController.swift */,
 				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
-				06AE3117266F4E2E00B39FBB /* GroupFilterViewController.swift */,
-				06AE3119266F4E6600B39FBB /* GroupFilterViewModel.swift */,
 				06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */,
 				068EC15727ED99C900D5D11E /* ServerListViewController.swift */,
 				068EC15927ED99E700D5D11E /* ServerListViewModel.swift */,
@@ -525,8 +515,6 @@
 				062B98C2251B2762004562E7 /* BKButton.swift */,
 				06C595352481160F006B98F3 /* BKLabel.swift */,
 				062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */,
-				06AE311B266F54A500B39FBB /* GroupTableViewCell.swift */,
-				06AE311D266F54CC00B39FBB /* GroupCellViewModel.swift */,
 				06C2CF222685B88D0034B127 /* TextCell.swift */,
 				06C2CF242685BDB80034B127 /* SpacerCell.swift */,
 				0642B55927EB13F100453D91 /* MutableTextCell.swift */,
@@ -1256,7 +1244,6 @@
 				0603706920E1F89500F4CA05 /* PreviewCardCell.swift in Sources */,
 				066890082D1946D500E106F2 /* MessageItemView.swift in Sources */,
 				0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */,
-				06AE311C266F54A500B39FBB /* GroupTableViewCell.swift in Sources */,
 				0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */,
 				0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */,
 				06E62C112D670F62004DC82B /* PushToCurrentIntent.swift in Sources */,
@@ -1268,7 +1255,6 @@
 				0699473D2D223094008D5E40 /* CustomTapTextView.swift in Sources */,
 				06EEF333291CCFF400CA228A /* CryptoSettingController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
-				06AE311A266F4E6600B39FBB /* GroupFilterViewModel.swift in Sources */,
 				06F08EA429B098DD006AB9CA /* CryptoSettingManager.swift in Sources */,
 				0668900B2D19525400E106F2 /* ShowLessAndClearView.swift in Sources */,
 				06BD4DAA2901352E003364DB /* Object+Dictionary.swift in Sources */,
@@ -1295,12 +1281,10 @@
 				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
 				06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */,
 				065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */,
-				06AE311E266F54CC00B39FBB /* GroupCellViewModel.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,
 				0637FA8A20E0D58800E80174 /* NewServerViewController.swift in Sources */,
 				067B2EB525693E38008B6BE1 /* MessageSection.swift in Sources */,
 				0637FA8220E09C4B00E80174 /* BarkNavigationController.swift in Sources */,
-				06AE3118266F4E2E00B39FBB /* GroupFilterViewController.swift in Sources */,
 				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,
 				060481F0250F51CA00BC9799 /* SoundCell.swift in Sources */,
 				0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */,
