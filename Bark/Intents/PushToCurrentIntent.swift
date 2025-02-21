@@ -46,10 +46,11 @@ struct PushToCurrentIntent: AppIntent {
         var params: [String: Any] = [:]
         
         if let title {
-            params["title"] = title
+            params["title"] = title.urlDecoded()
         }
         if let body {
-            params["body"] = body
+            // url解码 body
+            params["body"] = body.urlDecoded()
         }
         if title == nil, body == nil {
             params["body"] = "Empty Notification"
