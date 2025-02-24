@@ -40,15 +40,17 @@ struct PushToOtherIntent: AppIntent {
     var group: String?
     
     func perform() async throws -> some IntentResult & ReturnsValue<Bool> {
-        let url = ServerManager.shared.currentServer.address + "/\(ServerManager.shared.currentServer.key)"
+        guard let address = URL(string: address) else {
+            throw "Invalid URL"
+        }
         
         var params: [String: Any] = [:]
         
-        if let title {
-            params["title"] = title
+        if let title, !title.isEmpty {
+            params["title"] = title.urlDecoded()
         }
-        if let body {
-            params["body"] = body
+        if let body, !body.isEmpty {
+            params["body"] = body.urlDecoded()
         }
         if title == nil, body == nil {
             params["body"] = "Empty Notification"
@@ -62,17 +64,17 @@ struct PushToOtherIntent: AppIntent {
         if isCall {
             params["call"] = 1
         }
-        if let sound {
+        if let sound, !sound.isEmpty {
             params["sound"] = sound
         }
         if let icon {
             params["icon"] = icon.absoluteString
         }
-        if let group {
+        if let group, !group.isEmpty {
             params["group"] = group
         }
         
-        let response = await AF.request(url, method: .post, parameters: params, encoding: JSONEncoding.default)
+        let response = await AF.request(address, method: .post, parameters: params, encoding: JSONEncoding.default)
             .serializingDecodable(PushResponse.self)
             .response
         
