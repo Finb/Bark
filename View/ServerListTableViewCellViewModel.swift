@@ -12,15 +12,19 @@ import UIKit
 class ServerListTableViewCellViewModel: ViewModel {
     let server: Server
     
-    let address: BehaviorRelay<String>
+    let name: BehaviorRelay<String>
     let key: BehaviorRelay<String>
     let state: BehaviorRelay<Bool>
     
     init(server: Server) {
         self.server = server
         
-        self.address = BehaviorRelay<String>(value: {
-            URL(string: server.address)?.host ?? "Invalid Server"
+        self.name = BehaviorRelay<String>(value: {
+            var serverName = URL(string: server.address)?.host ?? "Invalid Server"
+            if let name = server.name, !name.isEmpty {
+                serverName = name + "\n" + serverName
+            }
+            return serverName
         }())
         self.key = BehaviorRelay<String>(value: !server.key.isEmpty ? server.key : "none")
         self.state = BehaviorRelay<Bool>(value: server.state == .ok)

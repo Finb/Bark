@@ -101,7 +101,7 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
     override func bindViewModel(model: ServerListTableViewCellViewModel) {
         super.bindViewModel(model: model)
 
-        model.address
+        model.name
             .bind(to: addressLabel.rx.text)
             .disposed(by: rx.reuseBag)
 

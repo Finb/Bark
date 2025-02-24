@@ -19,6 +19,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         let copyServer: Driver<Server>
         let deleteServer: Driver<Server>
         let resetServer: Driver<(Server, String?)>
+        let setServerName: Driver<(Server, String?)>
     }
 
     struct Output {
@@ -37,6 +38,11 @@ class ServerListViewModel: ViewModel, ViewModelType {
         let copy = input.copyServer.map { server -> String in
             "\(server.address)/\(server.key)/"
         }
+        
+        // 设置服务器名称
+        input.setServerName.drive(onNext: { server, name in
+            ServerManager.shared.setServerName(server: server, name: name)
+        }).disposed(by: rx.disposeBag)
 
         // 删除检查，需要至少保留一个服务器
         let deleteCheck = input.deleteServer.map { server -> Server? in
@@ -134,7 +140,8 @@ class ServerListViewModel: ViewModel, ViewModelType {
             .merge(
                 Observable.just(()),
                 serverDeleted,
-                serverResetSuccess
+                serverResetSuccess,
+                input.setServerName.map { _ in () }.asObservable()
             )
             .map {
                 [SectionModel(

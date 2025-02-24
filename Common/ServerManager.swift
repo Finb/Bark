@@ -17,6 +17,7 @@ class Server: Codable {
     let address: String
     var key: String
     var state: Client.ClienState
+    var name: String?
     
     var host: String {
         return URL(string: address)?.host ?? ""
@@ -33,6 +34,7 @@ class Server: Codable {
         case id
         case address
         case key
+        case name
     }
     
     // 解码
@@ -41,6 +43,7 @@ class Server: Codable {
         id = try container.decode(String.self, forKey: .id)
         address = try container.decode(String.self, forKey: .address)
         key = try container.decode(String.self, forKey: .key)
+        name = try container.decode(String.self, forKey: .name)
         state = .ok
     }
 }
@@ -181,5 +184,10 @@ class ServerManager: NSObject {
             } onCompleted: {
                 self.saveServers()
             }
+    }
+    
+    func setServerName(server: Server, name: String?) {
+        server.name = name
+        saveServers()
     }
 }

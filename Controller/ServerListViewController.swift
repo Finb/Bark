@@ -17,6 +17,7 @@ enum ServerActionType {
     case copy
     case reset(key: String?)
     case delete
+    case setName(name: String?)
 }
 
 func == (lhs: ServerActionType, rhs: ServerActionType) -> Bool {
@@ -90,12 +91,21 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
             }
             return nil
         }.asDriver(onErrorDriveWith: .empty())
+        
+        // 设置服务器名称
+        let setServerName = action.compactMap { r -> (Server, String?)? in
+            if case ServerActionType.setName(let name) = r.1 {
+                return (r.0, name)
+            }
+            return nil
+        }.asDriver(onErrorDriveWith: .empty())
 
         let output = viewModel.transform(input: ServerListViewModel.Input(
             selectServer: selectServer,
             copyServer: copyServer,
             deleteServer: deleteServer,
-            resetServer: resetServer
+            resetServer: resetServer,
+            setServerName: setServerName
         ))
 
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<String, ServerListTableViewCellViewModel>> { _, tableView, _, item -> UITableViewCell in
@@ -136,7 +146,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                     return relay
                 }
 
-                let alertController = UIAlertController(title: nil, message: "\(viewModel.address.value)", preferredStyle: .actionSheet)
+                let alertController = UIAlertController(title: nil, message: "\(URL(string: viewModel.server.address)?.host ?? "")", preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("copyAddressAndKey"), style: .default, handler: { _ in
                     relay.accept((viewModel.server, .copy))
                 }))
@@ -155,6 +165,18 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
 
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("setAsDefaultServer"), style: .default, handler: { _ in
                     relay.accept((viewModel.server, .select))
+                }))
+                
+                alertController.addAction(UIAlertAction(title: NSLocalizedString("setServerName"), style: .default, handler: { _ in
+                    let alertController = UIAlertController(title: NSLocalizedString("setServerName"), message: nil, preferredStyle: .alert)
+                    alertController.addTextField { textField in
+                        textField.text = viewModel.server.name
+                    }
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("confirm"), style: .default, handler: { _ in
+                        relay.accept((viewModel.server, .setName(name: alertController.textFields?.first?.text)))
+                    }))
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                    self.navigationController?.present(alertController, animated: true, completion: nil)
                 }))
                 
                 alertController.addAction(UIAlertAction(title: NSLocalizedString("deleteServer"), style: .destructive, handler: { _ in
