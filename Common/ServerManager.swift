@@ -43,7 +43,7 @@ class Server: Codable {
         id = try container.decode(String.self, forKey: .id)
         address = try container.decode(String.self, forKey: .address)
         key = try container.decode(String.self, forKey: .key)
-        name = try container.decode(String.self, forKey: .name)
+        name = try? container.decode(String?.self, forKey: .name)
         state = .ok
     }
 }
