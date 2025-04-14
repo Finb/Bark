@@ -4,6 +4,11 @@ Bark 是一款推送通知工具 App。它免费、简单且安全，依赖 APNs
 Bark 支持 iOS 通知的多项高级特性，包括推送分组、定制推送图标、铃声，发送时效性通知、重要警告等等。<br/>
 此外，Bark 允许用户自行部署服务端，还有推送加密，APP由开源代码自动构建与发布等措施保证隐私安全。<br/>
 
+## 下载
+<a target='_blank' href='https://apps.apple.com/app/bark-custom-notifications/id1403753865'>
+<img src='http://ww2.sinaimg.cn/large/0060lm7Tgw1f1hgrs1ebwj308102q0sp.jpg' width='144' height='49' />
+</a>
+
 ## 使用文档
 [https://bark.day.app](https://bark.day.app)
 
