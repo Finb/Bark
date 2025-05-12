@@ -3,6 +3,7 @@
 ```
 docker run -dt --name bark -p 8080:8080 -v `pwd`/bark-data:/data finab/bark-server
 ```
+*镜像也可使用 ghcr.io/finb/bark-server*
 
 ## Docker-Compose 
 ```
