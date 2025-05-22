@@ -6,6 +6,8 @@
 //  Copyright © 2024 Fin. All rights reserved.
 //
 
+import ImageViewer_swift
+import Kingfisher
 import UIKit
 
 class MessageItemView: UIView {
@@ -13,6 +15,7 @@ class MessageItemView: UIView {
         let view = UIView()
         view.layer.cornerRadius = 10
         view.backgroundColor = BKColor.background.secondary
+        view.clipsToBounds = true
         return view
     }()
     
@@ -31,6 +34,22 @@ class MessageItemView: UIView {
         label.adjustsFontForContentSizeCategory = true
         label.textColor = BKColor.grey.darken4
         return label
+    }()
+    
+    let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 4
+        imageView.clipsToBounds = true
+        return imageView
+    }()
+    
+    let contentStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 8
+        stackView.alignment = .fill
+        return stackView
     }()
     
     let dateLabel: UILabel = {
@@ -69,13 +88,23 @@ class MessageItemView: UIView {
     
     var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)?
     
+    /// 用于查找通知扩展缓存的图片
+    lazy var imageCache: ImageCache = {
+        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
+        let cache = try? ImageCache(name: "shared", cacheDirectoryURL: groupUrl)
+        
+        return cache ?? KingfisherManager.shared.cache
+    }()
+    
     init() {
         super.init(frame: .zero)
         self.backgroundColor = BKColor.background.primary
         self.addSubview(panel)
-        panel.addSubview(bodyLabel)
+        panel.addSubview(contentStackView)
         panel.addSubview(dateLabel)
         panel.addSubview(blackMaskView)
+        contentStackView.addArrangedSubview(bodyLabel)
+        contentStackView.addArrangedSubview(imageView)
 
         layoutView()
         
@@ -104,17 +133,20 @@ class MessageItemView: UIView {
     }
     
     func layoutView() {
-        bodyLabel.snp.makeConstraints { make in
+        contentStackView.snp.makeConstraints { make in
             make.top.equalTo(16)
             make.left.equalTo(12)
             make.right.equalTo(-12)
         }
+        imageView.snp.makeConstraints { make in
+            make.width.equalTo(UIScreen.main.bounds.width - 24)
+            make.height.equalTo((UIScreen.main.bounds.width - 24) / 2)
+        }
         dateLabel.snp.makeConstraints { make in
-            make.left.equalTo(bodyLabel)
-            make.top.equalTo(bodyLabel.snp.bottom).offset(12)
+            make.left.equalTo(contentStackView)
+            make.top.equalTo(contentStackView.snp.bottom).offset(12)
             make.bottom.equalTo(panel).offset(-12).priority(.medium)
         }
-        
         panel.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(16)
             make.right.equalToSuperview().offset(-16)
@@ -136,5 +168,15 @@ extension MessageItemView {
     func setMessage(message: MessageItemModel) {
         self.bodyLabel.attributedText = message.attributedText
         self.dateLabel.text = message.dateText
+        if let image = message.image {
+            imageView.isHidden = false
+            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache)]) { [weak self] _ in
+                // 获取系统是否是夜间模式
+                let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+                self?.imageView.setupImageViewer(options: [.closeIcon(UIImage(named: "back")!), .theme(isDarkMode ? .dark : .light)])
+            }
+        } else {
+            imageView.isHidden = true
+        }
     }
 }

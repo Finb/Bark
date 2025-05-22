@@ -30,6 +30,7 @@ class ArchiveProcessor: NotificationContentProcessor {
             let body = alert?["body"] as? String
             let url = userInfo["url"] as? String
             let group = userInfo["group"] as? String
+            let image = userInfo["image"] as? String
             
             try? realm?.write {
                 let message = Message()
@@ -37,6 +38,7 @@ class ArchiveProcessor: NotificationContentProcessor {
                 message.subtitle = subtitle
                 message.body = body
                 message.url = url
+                message.image = image
                 message.group = group
                 message.createDate = Date()
                 realm?.add(message)

@@ -28,6 +28,7 @@ def pods
     pod 'Kingfisher'
     pod 'MercariQRScanner', :git => 'https://github.com/Finb/QRScanner'
     pod 'DropDown'
+    pod 'ImageViewer.swift'
     
     pod 'SwiftyStoreKit'
 end

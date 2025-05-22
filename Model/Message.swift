@@ -15,6 +15,7 @@ class Message: Object {
     @objc dynamic var subtitle: String?
     @objc dynamic var body: String?
     @objc dynamic var url: String?
+    @objc dynamic var image: String?
     @objc dynamic var group: String?
     @objc dynamic var createDate: Date?
 

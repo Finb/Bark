@@ -6,6 +6,7 @@
 //  Copyright © 2024 Fin. All rights reserved.
 //
 
+import Kingfisher
 import UIKit
 
 enum MessageListCellDateStyle {
@@ -21,6 +22,8 @@ class MessageItemModel {
     
     var attributedText: NSAttributedString?
     var dateText: String?
+    
+    var image: String?
     
     var createDate: Date?
     var dateStyle: MessageListCellDateStyle = .relative {
@@ -90,6 +93,7 @@ class MessageItemModel {
         
         self.attributedText = text
         self.createDate = message.createDate
+        self.image = message.image
         defer {
             self.dateStyle = .relative
         }
