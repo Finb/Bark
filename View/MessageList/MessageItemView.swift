@@ -48,7 +48,7 @@ class MessageItemView: UIView {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.spacing = 8
-        stackView.alignment = .fill
+        stackView.alignment = .leading
         return stackView
     }()
     
@@ -139,8 +139,9 @@ class MessageItemView: UIView {
             make.right.equalTo(-12)
         }
         imageView.snp.makeConstraints { make in
-            make.width.equalTo(UIScreen.main.bounds.width - 24)
-            make.height.equalTo((UIScreen.main.bounds.width - 24) / 2)
+            make.width.equalTo(panel).inset(12).priority(.low)
+            make.width.lessThanOrEqualTo(500)
+            make.height.equalTo(imageView.snp.width).multipliedBy(0.55)
         }
         dateLabel.snp.makeConstraints { make in
             make.left.equalTo(contentStackView)
@@ -170,7 +171,8 @@ extension MessageItemView {
         self.dateLabel.text = message.dateText
         if let image = message.image {
             imageView.isHidden = false
-            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache)]) { [weak self] _ in
+            // loadDiskFileSynchronously
+            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading]) { [weak self] _ in
                 // 获取系统是否是夜间模式
                 let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
                 self?.imageView.setupImageViewer(options: [.closeIcon(UIImage(named: "back")!), .theme(isDarkMode ? .dark : .light)])
