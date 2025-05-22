@@ -138,11 +138,6 @@ class MessageItemView: UIView {
             make.left.equalTo(12)
             make.right.equalTo(-12)
         }
-        imageView.snp.makeConstraints { make in
-            make.width.equalTo(panel).inset(12).priority(.low)
-            make.width.lessThanOrEqualTo(500)
-            make.height.equalTo(imageView.snp.width).multipliedBy(0.55)
-        }
         dateLabel.snp.makeConstraints { make in
             make.left.equalTo(contentStackView)
             make.top.equalTo(contentStackView.snp.bottom).offset(12)
@@ -172,13 +167,28 @@ extension MessageItemView {
         if let image = message.image {
             imageView.isHidden = false
             // loadDiskFileSynchronously
-            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading]) { [weak self] _ in
+            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading, .loadDiskFileSynchronously]) { [weak self] result in
                 // 获取系统是否是夜间模式
                 let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
                 self?.imageView.setupImageViewer(options: [.closeIcon(UIImage(named: "back")!), .theme(isDarkMode ? .dark : .light)])
+                guard let self else { return }
+                guard let image = try? result.get().image else {
+                    return
+                }
+                layoutImageView(image: image)
             }
         } else {
             imageView.isHidden = true
+        }
+    }
+    
+    func layoutImageView(image: UIImage) {
+        // iPad 下，图片宽度不超过 500。如果图片尺寸小于控件宽度，则以实际图片尺寸作为宽度
+        let panelWidth = min(min(500, UIScreen.main.bounds.width - 32 - 24), image.width)
+        
+        imageView.snp.remakeConstraints { make in
+            make.width.equalTo(panelWidth)
+            make.height.equalTo(self.imageView.snp.width).multipliedBy(image.size.height / image.size.width)
         }
     }
 }
