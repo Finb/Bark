@@ -87,7 +87,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let startRequestAuthorization: () -> Observable<Bool> = {
             Single<Bool>.create { single -> Disposable in
                 let center = UNUserNotificationCenter.current()
-                center.requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert, .provisional], completionHandler: { (_ granted: Bool, _: Error?) in
+                center.requestAuthorization(options: [.alert, .sound, .badge, .criticalAlert], completionHandler: { (_ granted: Bool, _: Error?) in
                     single(.success(granted))
                 })
                 return Disposables.create()
