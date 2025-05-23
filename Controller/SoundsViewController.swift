@@ -186,10 +186,8 @@ extension SoundsViewController: UIDocumentPickerDelegate {
     /// 选择 caf 文件
     func pickerSoundFile() {
         if #available(iOS 14.0, *) {
-            let types = UTType.types(tag: "caf",
-                                     tagClass: UTTagClass.filenameExtension,
-                                     conformingTo: nil)
-            let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: types)
+            /// 直接修改文件扩展为 .audio iOS 支持的音频格式
+            let documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: [.audio])
             documentPicker.delegate = self
             documentPicker.allowsMultipleSelection = false
             documentPicker.modalPresentationStyle = .pageSheet
@@ -208,8 +206,58 @@ extension SoundsViewController: UIDocumentPickerDelegate {
         let fileCoordinator = NSFileCoordinator()
         let err = NSErrorPointer(nilLiteral: ())
         fileCoordinator.coordinate(readingItemAt: url, error: err) { url in
-            self.importSoundActionRelay.accept(url)
+            // 检查文件扩展名是否为 caf
+            if url.pathExtension.lowercased() == "caf" {
+                // 如果是 caf 文件，直接导入
+                self.importSoundActionRelay.accept(url)
+            } else {
+                // 如果不是 caf 文件，先转换为 caf 格式
+                convertAudioToCAF(inputURL: url) { url in
+                    if let url {
+                        // 转换成功后导入
+                        self.importSoundActionRelay.accept(url)
+                    }
+                }
+            }
         }
         url.stopAccessingSecurityScopedResource()
+    }
+    
+    /// 将音频文件转换为 CAF 格式
+    /// - Parameters:
+    ///   - inputURL: 输入音频文件的 URL
+    ///   - completion: 转换完成后的回调，返回转换后的 CAF 文件 URL，如果转换失败则返回 nil
+    func convertAudioToCAF(inputURL: URL, completion: @escaping (URL?) -> Void) {
+        let fileName = inputURL.deletingPathExtension().lastPathComponent
+        let outputURL = FileManager.default.temporaryDirectory.appendingPathComponent("\(fileName).caf")
+
+        do {
+            if FileManager.default.fileExists(atPath: outputURL.path) {
+                try FileManager.default.removeItem(at: outputURL)
+            }
+
+            let asset = AVAsset(url: inputURL)
+            guard let exportSession = AVAssetExportSession(asset: asset, presetName: AVAssetExportPresetPassthrough) else {
+                completion(nil)
+                return
+            }
+
+            let maxDuration = CMTime(seconds: 29.9, preferredTimescale: 600)
+            if asset.duration > maxDuration {
+                exportSession.timeRange = CMTimeRange(start: .zero, duration: maxDuration)
+            }
+
+            exportSession.outputFileType = .caf
+            exportSession.outputURL = outputURL
+
+            exportSession.exportAsynchronously {
+                DispatchQueue.main.async {
+                    completion(exportSession.status == .completed ? outputURL : nil)
+                }
+            }
+
+        } catch {
+            completion(nil)
+        }
     }
 }
