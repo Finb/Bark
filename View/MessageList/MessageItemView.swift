@@ -8,6 +8,8 @@
 
 import ImageViewer_swift
 import Kingfisher
+import Photos
+import SVProgressHUD
 import UIKit
 
 class MessageItemView: UIView {
@@ -168,13 +170,25 @@ extension MessageItemView {
             imageView.isHidden = false
             // loadDiskFileSynchronously
             imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading, .loadDiskFileSynchronously]) { [weak self] result in
-                // 获取系统是否是夜间模式
-                let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
-                self?.imageView.setupImageViewer(options: [.closeIcon(UIImage(named: "back")!), .theme(isDarkMode ? .dark : .light)])
                 guard let self else { return }
                 guard let image = try? result.get().image else {
                     return
                 }
+                
+                // 获取系统是否是夜间模式
+                let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+                var options: [ImageViewerOption] = [
+                    .closeIcon(UIImage(named: "back")!),
+                    .theme(isDarkMode ? .dark : .light)
+                ]
+                if #available(iOS 14.0, *) {
+                    options.append(.rightNavItemTitle(NSLocalizedString("save"), onTap: { _ in
+                        // 保存 image 到相册
+                        self.saveImageToAlbum(image)
+                    }))
+                }
+                self.imageView.setupImageViewer(options: options)
+                
                 layoutImageView(image: image)
             }
         } else {
@@ -196,6 +210,31 @@ extension MessageItemView {
         imageView.snp.remakeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(height)
+        }
+    }
+}
+
+@available(iOS 14.0, *)
+extension MessageItemView {
+    func saveImageToAlbum(_ image: UIImage) {
+        PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
+            guard status == .authorized || status == .limited else {
+                DispatchQueue.main.async {
+                    SVProgressHUD.showInfo(withStatus: NSLocalizedString("noPermission"))
+                }
+                return
+            }
+            PHPhotoLibrary.shared().performChanges({
+                PHAssetChangeRequest.creationRequestForAsset(from: image)
+            }) { success, error in
+                DispatchQueue.main.async {
+                    if success {
+                        SVProgressHUD.showSuccess(withStatus: NSLocalizedString("saveSuccess"))
+                    } else {
+                        SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                    }
+                }
+            }
         }
     }
 }
