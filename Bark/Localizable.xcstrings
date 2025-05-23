@@ -2117,6 +2117,64 @@
         }
       }
     },
+    "imageParameter" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To show a picture in a push banner and message list"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "プッシュバナーやメッセージ一覧に画像を表示するには、画像のURLを渡す必要があります。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gönderim afişlerinde ve mesaj listelerinde görsel göstermek için görsel URL’si iletilmelidir."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "在推送横幅与消息列表中显示图片，需传递图片url。"
+          }
+        }
+      }
+    },
+    "imagePushNotification" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Image Push Notification"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "画像プッシュ通知"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Görsel Bildirim Uyarısı"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "图片推送通知"
+          }
+        }
+      }
+    },
     "import" : {
       "extractionState" : "manual",
       "localizations" : {

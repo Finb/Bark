@@ -103,6 +103,11 @@ class HomeViewModel: ViewModel, ViewModelType {
             queryParameter: "url=https://www.baidu.com"
         ),
         PreviewModel(
+            body: NSLocalizedString("imagePushNotification"),
+            notice: NSLocalizedString("imageParameter"),
+            queryParameter: "image=https://day.app/assets/images/avatar.jpg"
+        ),
+        PreviewModel(
             body: "Copy Test",
             notice: NSLocalizedString("copyParameter"),
             queryParameter: "copy=test",
