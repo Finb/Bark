@@ -88,7 +88,7 @@ class MessageItemView: UIView {
         }
     }
     
-    var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)?
+    var tapAction: ((_ message: MessageItemModel, _ sourceView: MessageItemView) -> Void)?
     
     /// 用于查找通知扩展缓存的图片
     lazy var imageCache: ImageCache = {

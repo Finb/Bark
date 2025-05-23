@@ -13,6 +13,7 @@ import RxCocoa
 import RxDataSources
 import RxSwift
 import UIKit
+import UniformTypeIdentifiers
 
 class MessageListViewController: BaseViewController<MessageListViewModel> {
     lazy var deleteButton: UIBarButtonItem = {
@@ -294,13 +295,22 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }
     
-    private func alertMessage(message: MessageItemModel, sourceView: UIView, sourceCell: UITableViewCell) {
+    private func alertMessage(message: MessageItemModel, sourceView: MessageItemView, sourceCell: UITableViewCell) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         // 复制
         alertController.addAction(UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { [weak self]
             (_: UIAlertAction) in
-                UIPasteboard.general.string = message.attributedText?.string
+                if #available(iOS 14.0, *) {
+                    var items = [[String: Any]]()
+                    items.append([UTType.utf8PlainText.identifier: message.attributedText?.string ?? ""])
+                    if let image = sourceView.imageView.image {
+                        items.append([UTType.image.identifier: image])
+                    }
+                    UIPasteboard.general.items = items
+                } else {
+                    UIPasteboard.general.string = message.attributedText?.string ?? ""
+                }
                 self?.showSnackbar(text: NSLocalizedString("Copy"))
         }))
         // 删除

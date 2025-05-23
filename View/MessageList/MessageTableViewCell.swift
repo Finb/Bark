@@ -23,7 +23,7 @@ class MessageTableViewCell: UITableViewCell {
         }
     }
 
-    var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)? {
+    var tapAction: ((_ message: MessageItemModel, _ sourceView: MessageItemView) -> Void)? {
         didSet {
             messageView.tapAction = tapAction
         }
@@ -143,7 +143,7 @@ class MessageGroupTableViewCell: UITableViewCell {
         }
     }
     
-    var tapAction: ((_ message: MessageItemModel, _ sourceView: UIView) -> Void)? = nil
+    var tapAction: ((_ message: MessageItemModel, _ sourceView: MessageItemView) -> Void)? = nil
 
     /// 查看群组所有消息
     var showGroupMessageAction: ((_ group: String?) -> Void)? = nil
