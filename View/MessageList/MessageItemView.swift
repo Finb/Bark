@@ -183,12 +183,19 @@ extension MessageItemView {
     }
     
     func layoutImageView(image: UIImage) {
+        let scale = image.size.height / image.size.width
         // iPad 下，图片宽度不超过 500。如果图片尺寸小于控件宽度，则以实际图片尺寸作为宽度
-        let panelWidth = min(min(500, UIScreen.main.bounds.width - 32 - 24), image.width)
+        var width = min(min(500, UIScreen.main.bounds.width - 32 - 24), image.width)
+        var height = width * scale
+        
+        if height > 400 {
+            width = 400 / scale
+            height = 400
+        }
         
         imageView.snp.remakeConstraints { make in
-            make.width.equalTo(panelWidth)
-            make.height.equalTo(self.imageView.snp.width).multipliedBy(image.size.height / image.size.width)
+            make.width.equalTo(width)
+            make.height.equalTo(height)
         }
     }
 }
