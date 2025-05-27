@@ -168,10 +168,13 @@ extension MessageItemView {
         self.dateLabel.text = message.dateText
         if let image = message.image {
             imageView.isHidden = false
+            remakeImageViewConstraints(width: 0, height: 0)
+            
             // loadDiskFileSynchronously
             imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading, .loadDiskFileSynchronously]) { [weak self] result in
                 guard let self else { return }
                 guard let image = try? result.get().image else {
+                    self.imageView.isHidden = true
                     return
                 }
                 
@@ -182,9 +185,9 @@ extension MessageItemView {
                     .theme(isDarkMode ? .dark : .light)
                 ]
                 if #available(iOS 14.0, *) {
-                    options.append(.rightNavItemTitle(NSLocalizedString("save"), onTap: { _ in
+                    options.append(.rightNavItemTitle(NSLocalizedString("save"), onTap: { [weak self] _ in
                         // 保存 image 到相册
-                        self.saveImageToAlbum(image)
+                        self?.saveImageToAlbum(image)
                     }))
                 }
                 self.imageView.setupImageViewer(options: options)
@@ -193,6 +196,7 @@ extension MessageItemView {
             }
         } else {
             imageView.isHidden = true
+            remakeImageViewConstraints(width: 0, height: 0)
         }
     }
     
@@ -207,6 +211,10 @@ extension MessageItemView {
             height = 400
         }
         
+        remakeImageViewConstraints(width: width, height: height)
+    }
+    
+    func remakeImageViewConstraints(width: CGFloat, height: CGFloat) {
         imageView.snp.remakeConstraints { make in
             make.width.equalTo(width)
             make.height.equalTo(height)
