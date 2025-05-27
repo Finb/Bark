@@ -40,7 +40,7 @@ class MessageItemView: UIView {
     
     let imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleAspectFit
         imageView.layer.cornerRadius = 4
         imageView.clipsToBounds = true
         return imageView
@@ -168,13 +168,16 @@ extension MessageItemView {
         self.dateLabel.text = message.dateText
         if let image = message.image {
             imageView.isHidden = false
-            remakeImageViewConstraints(width: 0, height: 0)
+            // 图片未缓存时，使用的默认尺寸
+            remakeImageViewConstraints(width: 200, height: 100)
+            // 移除图片查看器
+            imageView.removeImageViewer()
             
             // loadDiskFileSynchronously
             imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading, .loadDiskFileSynchronously]) { [weak self] result in
                 guard let self else { return }
                 guard let image = try? result.get().image else {
-                    self.imageView.isHidden = true
+                    self.imageView.image = nil
                     return
                 }
                 
@@ -182,7 +185,8 @@ extension MessageItemView {
                 let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
                 var options: [ImageViewerOption] = [
                     .closeIcon(UIImage(named: "back")!),
-                    .theme(isDarkMode ? .dark : .light)
+                    .theme(isDarkMode ? .dark : .light),
+                    .contentMode(.scaleAspectFit)
                 ]
                 if #available(iOS 14.0, *) {
                     options.append(.rightNavItemTitle(NSLocalizedString("save"), onTap: { [weak self] _ in
@@ -243,6 +247,21 @@ extension MessageItemView {
                     }
                 }
             }
+        }
+    }
+}
+
+extension UIImageView {
+    func removeImageViewer() {
+        var _tapRecognizer: UIGestureRecognizer?
+        gestureRecognizers?.forEach {
+            // 手势类名是 TapWithDataRecognizer
+            if "\(type(of: $0))" == "TapWithDataRecognizer" {
+                _tapRecognizer = $0
+            }
+        }
+        if let _tapRecognizer {
+            self.removeGestureRecognizer(_tapRecognizer)
         }
     }
 }
