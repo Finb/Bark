@@ -90,13 +90,9 @@ class MessageItemView: UIView {
     
     var tapAction: ((_ message: MessageItemModel, _ sourceView: MessageItemView) -> Void)?
     
+    static var imageCache: ImageCache?
+    static var imageCacheCreatedTime: Date?
     /// 用于查找通知扩展缓存的图片
-    lazy var imageCache: ImageCache = {
-        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
-        let cache = try? ImageCache(name: "shared", cacheDirectoryURL: groupUrl)
-        
-        return cache ?? KingfisherManager.shared.cache
-    }()
     
     init() {
         super.init(frame: .zero)
@@ -163,6 +159,22 @@ class MessageItemView: UIView {
 }
 
 extension MessageItemView {
+    /// 获取图片缓存，用于查找由通知扩展缓存的图片
+    /// - Note: 如果创建的图片缓存时间点在传入 date 之前，则需要重新创建图片缓存。因为 Kingfisher/DiskStorage 会在创建时，使用 maybeCached Set 缓存图片路径。
+    /// 由于 Bark 会在 NotificationServiceExtension 使用新的 ImageCache 示例缓存图片， 导致新缓存的图片没有更新到主 APP 的 ImageCache 实例中的 maybeCached，于是被误认为没有缓存导致问题
+    /// - Parameter date: 图片缓存有效时间点
+    /// - Returns: 图片缓存
+    func getImageCache(date: Date) -> ImageCache {
+        if let cache = MessageItemView.imageCache, let createdTime = MessageItemView.imageCacheCreatedTime, createdTime > date {
+            return cache
+        }
+        let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
+        let cache = try? ImageCache(name: "shared", cacheDirectoryURL: groupUrl)
+        MessageItemView.imageCache = cache
+        MessageItemView.imageCacheCreatedTime = Date()
+        return cache ?? ImageCache.default
+    }
+
     func setMessage(message: MessageItemModel) {
         self.bodyLabel.attributedText = message.attributedText
         self.dateLabel.text = message.dateText
@@ -174,7 +186,7 @@ extension MessageItemView {
             imageView.removeImageViewer()
             
             // loadDiskFileSynchronously
-            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(imageCache), .keepCurrentImageWhileLoading, .loadDiskFileSynchronously]) { [weak self] result in
+            imageView.kf.setImage(with: URL(string: image), options: [.targetCache(getImageCache(date: message.createDate ?? Date())), .keepCurrentImageWhileLoading, .loadDiskFileSynchronously]) { [weak self] result in
                 guard let self else { return }
                 guard let image = try? result.get().image else {
                     self.imageView.image = nil
