@@ -1,6 +1,6 @@
 
 ### 个人用户
-批量推送仅支持Json请求，需 bark-server 更新至 v2.1.9。（[https://api.day.app](https://api.day.app) 暂时不会更新至 v2.1.9, 目前还不支持批量推送）<br />
+批量推送仅支持Json请求，需 bark-server 更新至 v2.1.9。<br />
 用法:
 ```sh
 curl -X "POST" "https://api.day.app/push" \
