@@ -1,5 +1,5 @@
 //
-//  MessageTableViewCellViewModel.swift
+//  MessageSection.swift
 //  Bark
 //
 //  Created by huangfeng on 2020/11/21.
@@ -51,9 +51,9 @@ extension MessageListCellItem: IdentifiableType {
     var identity: String {
         switch self {
         case .message(let model):
-            return "list_\(model.id)"
+            return "list_\(model.id)_\(model.createDate?.timeInterval ?? 0)"
         case .messageGroup(_, _, let messages):
-            return "group_\(messages.first?.group ?? NSLocalizedString("Default"))"
+            return "group_\(messages.first?.group ?? NSLocalizedString("Default"))_\(messages.first?.createDate?.timeInterval ?? 0)"
         }
     }
 }

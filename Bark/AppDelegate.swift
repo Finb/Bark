@@ -101,7 +101,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
         notificatonHandler(userInfo: response.notification.request.content.userInfo)
     }
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        guard let delete = userInfo["delete"] as? String, delete == "1", let id = userInfo["id"] as? String else {
+            completionHandler(.noData)
+            return
+        }
+        
+        // 删除通知中心推送
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [id])
 
+        // 删除历史记录
+        if let realm = try? Realm(),
+           let message = realm.objects(Message.self).filter("id == %@", id).first
+        {
+            try? realm.write {
+                realm.delete(message)
+            }
+        }
+
+        completionHandler(.newData)
+    }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         return .alert
     }
