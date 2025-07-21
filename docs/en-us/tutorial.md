@@ -76,3 +76,5 @@ List of supported parameters, specific effects can be previewed in the APP.
 | isArchive | Pass 1 to save the push, pass other values to not save the push, if not passed, it will be decided by the APP settings whether to save. |
 | url | URL to jump to when the push is clicked, supports URL Scheme and Universal Link |
 | action | Pass "none" to prevent a popup when the push is clicked |
+| id | When using the same ID value, it will update the corresponding push notification content<br>Requires Bark v1.5.2, bark-server v2.2.5 or above |
+| delete | Pass "1" to delete the notification from the system notification center and APP history, must be used with the id parameter |

@@ -76,6 +76,8 @@ curl -X "POST" "https://api.day.app/push" \
 | isArchive | 传 1 保存推送，传其他的不保存推送，不传按APP内设置来决定是否保存。 |
 | url | 点击推送时，跳转的URL ，支持URL Scheme 和 Universal Link |
 | action | 传 "none" 时，点击推送不会弹窗 |
+| id | 使用相同的ID值时，将更新对应推送的通知内容<br>需 Bark v1.5.2, bark-server v2.2.5 以上 |
+| delete | 传 "1" 时，将从系统通知中心和APP内历史记录中删除通知，需搭配 id 参数使用 |
 
 ## 快捷指令
 Bark 支持快捷指令直接发送推送，以下是当收到交警短信时，忽略静音模式持续响铃提醒用户的自动化示例。
