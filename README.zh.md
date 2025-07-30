@@ -85,6 +85,7 @@ https://api.day.app/yourkey/时效性通知?level=critical
 重要警告会忽略静音和勿扰模式，始终播放通知声音并在屏幕上显示。
 ```
 ## 其他
+- [浏览器扩展](https://github.com/ij369/bark-sender)
 - [在线定时发送](https://api.ihint.me/bark.html)
 - [Windows推送客户端](https://github.com/HsuDan/BarkHelper)
 - [跨平台的命令行应用](https://github.com/JasonkayZK/bark-cli)

@@ -79,6 +79,12 @@ curl -X "POST" "https://api.day.app/push" \
 | id | 使用相同的ID值时，将更新对应推送的通知内容<br>需 Bark v1.5.2, bark-server v2.2.5 以上 |
 | delete | 传 "1" 时，将从系统通知中心和APP内历史记录中删除通知，需搭配 id 参数使用<br>需在设置里开启”后台App刷新“，否则无效。|
 
+## Bark 支持的应用程序和插件
+* [SmsForwarder](https://github.com/pppscn/SmsForwarder) 监控 Android 手机短信、来电、APP通知，并根据指定规则转发到Bark。
+* [acme.sh](https://github.com/acmesh-official/acme.sh/wiki/notify#16-set-notification-for-ios-bark) 从 ZeroSSL，Let's Encrypt 等 CA 生成免费的证书。可以使用 Bark 接收 acme.sh cronjob 任务通知。
+* [Uptime-Kuma](https://github.com/louislam/uptime-kuma) 自托管监控工具, 支持Bark作为告警通道。
+* [Apprise](https://github.com/caronc/apprise) 可以给几乎所有平台发送通知，支持Bark。
+* [浏览器扩展][https://github.com/ij369/bark-sender](https://github.com/ij369/bark-sender) 将网页内容发送到手机
 
 ## 快捷指令
 Bark 支持快捷指令直接发送推送，以下是当收到交警短信时，忽略静音模式持续响铃提醒用户的自动化示例。

@@ -86,6 +86,7 @@ Critical alerts will ignore silent and do not disturb modes, always playing the 
 ```
 
 ## Others
+- [Browser Extension](https://github.com/ij369/bark-sender)
 - [Online Scheduled Sending](https://api.ihint.me/bark.html)
 - [Windows Push Client](https://github.com/HsuDan/BarkHelper)
 - [Cross-platform Command Line Application](https://github.com/JasonkayZK/bark-cli)
