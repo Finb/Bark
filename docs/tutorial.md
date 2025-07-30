@@ -84,7 +84,7 @@ curl -X "POST" "https://api.day.app/push" \
 * [acme.sh](https://github.com/acmesh-official/acme.sh/wiki/notify#16-set-notification-for-ios-bark) 从 ZeroSSL，Let's Encrypt 等 CA 生成免费的证书。可以使用 Bark 接收 acme.sh cronjob 任务通知。
 * [Uptime-Kuma](https://github.com/louislam/uptime-kuma) 自托管监控工具, 支持Bark作为告警通道。
 * [Apprise](https://github.com/caronc/apprise) 可以给几乎所有平台发送通知，支持Bark。
-* [浏览器扩展][https://github.com/ij369/bark-sender](https://github.com/ij369/bark-sender) 将网页内容发送到手机
+* [浏览器扩展](https://github.com/ij369/bark-sender) 将网页内容发送到手机
 
 ## 快捷指令
 Bark 支持快捷指令直接发送推送，以下是当收到交警短信时，忽略静音模式持续响铃提醒用户的自动化示例。
