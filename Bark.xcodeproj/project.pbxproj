@@ -105,6 +105,8 @@
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
 		06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C382A710568008ABDD7 /* GesturePassTextView.swift */; };
 		06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */; };
+		067AFB1C2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */; };
+		067AFB1D2E5D8BED00AE78E7 /* UNNotificationContent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */; };
 		067B2EB525693E38008B6BE1 /* MessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageSection.swift */; };
 		06802E5320ECC40C00767047 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		06840DBB272298FB001B3193 /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
@@ -350,6 +352,7 @@
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
 		06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReportViewController.swift; sourceTree = "<group>"; };
+		067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UNNotificationContent+Extension.swift"; path = "notificationContentExtension/UNNotificationContent+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		067B2EB425693E38008B6BE1 /* MessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSection.swift; sourceTree = "<group>"; };
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -595,6 +598,7 @@
 				0632CE2220EC9098003FDF46 /* NotificationViewController.swift */,
 				0632CE2420EC9098003FDF46 /* MainInterface.storyboard */,
 				0632CE2720EC9098003FDF46 /* Info.plist */,
+				067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */,
 			);
 			path = NotificationContentExtension;
 			sourceTree = "<group>";
@@ -1225,6 +1229,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19BE8EBF2D03514A009BF080 /* ImageDownloader.swift in Sources */,
+				067AFB1C2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift in Sources */,
 				0687F2AA2CCB7FA500B2A52F /* UIFont+Extension.swift in Sources */,
 				0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */,
 				06BCAE572CDB19420092867A /* GroupMuteSettingManager.swift in Sources */,
@@ -1342,6 +1347,7 @@
 				06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */,
 				06FB04052C53575400F3A213 /* SharedDefines.swift in Sources */,
 				06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
+				067AFB1D2E5D8BED00AE78E7 /* UNNotificationContent+Extension.swift in Sources */,
 				0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */,
 				06E9446F2C06FF1E00AC86AB /* BadgeProcessor.swift in Sources */,
 				06BCAE582CDB19420092867A /* GroupMuteSettingManager.swift in Sources */,

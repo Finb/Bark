@@ -17,7 +17,7 @@ class AutoCopyProcessor: NotificationContentProcessor {
             if let copy = userInfo["copy"] as? String {
                 UIPasteboard.general.string = copy
             } else {
-                UIPasteboard.general.string = bestAttemptContent.body
+                UIPasteboard.general.string = bestAttemptContent.bodyText
             }
         }
         return bestAttemptContent

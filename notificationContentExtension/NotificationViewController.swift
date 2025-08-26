@@ -56,7 +56,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         if let copy = notification.request.content.userInfo["copy"] as? String {
             UIPasteboard.general.string = copy
         } else {
-            UIPasteboard.general.string = notification.request.content.body
+            UIPasteboard.general.string = notification.request.content.bodyText
         }
     }
 
@@ -85,8 +85,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             if !response.notification.request.content.subtitle.isEmpty {
                 content += "\(response.notification.request.content.subtitle)\n"
             }
-            if !response.notification.request.content.body.isEmpty {
-                content += "\(response.notification.request.content.body)\n"
+            if !response.notification.request.content.bodyText.isEmpty {
+                content += "\(response.notification.request.content.bodyText)\n"
             }
             if let url = userInfo["url"] as? String, !url.isEmpty {
                 content += "\(url)\n"
