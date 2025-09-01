@@ -53,7 +53,7 @@ extension MessageListCellItem: IdentifiableType {
         case .message(let model):
             return "list_\(model.id)_\(model.createDate?.timeInterval ?? 0)"
         case .messageGroup(_, _, let messages):
-            return "group_\(messages.first?.group ?? NSLocalizedString("Default"))_\(messages.first?.createDate?.timeInterval ?? 0)"
+            return "group_\(messages.first?.group ?? NSLocalizedString("default"))_\(messages.first?.createDate?.timeInterval ?? 0)"
         }
     }
 }
