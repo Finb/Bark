@@ -103,6 +103,9 @@ class MessageItemView: UIView {
         panel.addSubview(blackMaskView)
         contentStackView.addArrangedSubview(bodyLabel)
         contentStackView.addArrangedSubview(imageView)
+        
+        self.isAccessibilityElement = true
+        self.subviews.forEach { $0.isAccessibilityElement = false }
 
         layoutView()
         
@@ -177,6 +180,7 @@ extension MessageItemView {
 
     func setMessage(message: MessageItemModel) {
         self.bodyLabel.attributedText = message.attributedText
+        self.accessibilityLabel = message.attributedText?.string
         self.dateLabel.text = message.dateText
         if let image = message.image {
             imageView.isHidden = false

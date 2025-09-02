@@ -39,11 +39,14 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 title: NSLocalizedString("clearFrom"),
                 children: menuElements
             )
-            return UIBarButtonItem(image: UIImage(named: "baseline_delete_outline_black_24pt"), menu: addNewMenu)
+            let item = UIBarButtonItem(image: UIImage(named: "baseline_delete_outline_black_24pt"), menu: addNewMenu)
+            item.accessibilityLabel = NSLocalizedString("clear")
+            return item
         } else {
             let btn = BKButton()
             btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
             btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            btn.accessibilityLabel = NSLocalizedString("clear")
             return UIBarButtonItem(customView: btn)
         }
         
@@ -55,6 +58,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         btn.setImage(UIImage(named: "group_collapse")?.withRenderingMode(.alwaysTemplate), for: .selected)
         btn.imageView?.tintColor = BKColor.black
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        btn.accessibilityLabel = "toggle"
         return UIBarButtonItem(customView: btn)
     }()
     
