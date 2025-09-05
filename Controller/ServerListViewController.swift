@@ -40,7 +40,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
         closeButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         closeButton.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
         closeButton.tintColor = BKColor.grey.darken4
-        closeButton.accessibilityLabel = NSLocalizedString("close")
+        closeButton.accessibilityLabel = "close".localized
         return closeButton
     }()
 
@@ -54,7 +54,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
     }()
 
     override func makeUI() {
-        self.title = NSLocalizedString("serverList")
+        self.title = "serverList".localized
 
         navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: closeButton))
 
@@ -126,7 +126,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
         output.copy
             .drive(onNext: { [weak self] text in
                 UIPasteboard.general.string = text
-                self?.showSnackbar(text: NSLocalizedString("Copy"))
+                self?.showSnackbar(text: "Copy".localized)
             })
             .disposed(by: rx.disposeBag)
 
@@ -148,50 +148,50 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                 }
 
                 let alertController = UIAlertController(title: nil, message: "\(URL(string: viewModel.server.address)?.host ?? "")", preferredStyle: .actionSheet)
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("copyAddressAndKey"), style: .default, handler: { _ in
+                alertController.addAction(UIAlertAction(title: "copyAddressAndKey".localized, style: .default, handler: { _ in
                     relay.accept((viewModel.server, .copy))
                 }))
 
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("resetKey"), style: .default, handler: { _ in
-                    let alertController = UIAlertController(title: NSLocalizedString("resetKey"), message: NSLocalizedString("resetKeyDesc"), preferredStyle: .alert)
+                alertController.addAction(UIAlertAction(title: "resetKey".localized, style: .default, handler: { _ in
+                    let alertController = UIAlertController(title: "resetKey".localized, message: "resetKeyDesc".localized, preferredStyle: .alert)
                     alertController.addTextField { textField in
-                        textField.placeholder = NSLocalizedString("resetKeyPlaceholder")
+                        textField.placeholder = "resetKeyPlaceholder".localized
                     }
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("confirm"), style: .default, handler: { _ in
+                    alertController.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { _ in
                         relay.accept((viewModel.server, .reset(key: alertController.textFields?.first?.text)))
                     }))
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                    alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                     self.navigationController?.present(alertController, animated: true, completion: nil)
                 }))
 
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("setAsDefaultServer"), style: .default, handler: { _ in
+                alertController.addAction(UIAlertAction(title: "setAsDefaultServer".localized, style: .default, handler: { _ in
                     relay.accept((viewModel.server, .select))
                 }))
-                
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("setServerName"), style: .default, handler: { _ in
-                    let alertController = UIAlertController(title: NSLocalizedString("setServerName"), message: nil, preferredStyle: .alert)
+
+                alertController.addAction(UIAlertAction(title: "setServerName".localized, style: .default, handler: { _ in
+                    let alertController = UIAlertController(title: "setServerName".localized, message: nil, preferredStyle: .alert)
                     alertController.addTextField { textField in
                         textField.text = viewModel.server.name
                     }
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("confirm"), style: .default, handler: { _ in
+                    alertController.addAction(UIAlertAction(title: "confirm".localized, style: .default, handler: { _ in
                         relay.accept((viewModel.server, .setName(name: alertController.textFields?.first?.text)))
                     }))
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                    alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                     self.navigationController?.present(alertController, animated: true, completion: nil)
                 }))
-                
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("deleteServer"), style: .destructive, handler: { _ in
 
-                    let alertController = UIAlertController(title: nil, message: NSLocalizedString("confirmDeleteServer"), preferredStyle: .alert)
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("confirm"), style: .destructive, handler: { _ in
+                alertController.addAction(UIAlertAction(title: "deleteServer".localized, style: .destructive, handler: { _ in
+
+                    let alertController = UIAlertController(title: nil, message: "confirmDeleteServer".localized, preferredStyle: .alert)
+                    alertController.addAction(UIAlertAction(title: "confirm".localized, style: .destructive, handler: { _ in
                         relay.accept((viewModel.server, .delete))
                     }))
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                    alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                     self.navigationController?.present(alertController, animated: true, completion: nil)
 
                 }))
 
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     if let cell = self.tableView.cellForRow(at: indexPath) {

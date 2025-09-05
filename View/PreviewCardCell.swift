@@ -12,13 +12,13 @@ import UIKit
 class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
     let previewButton: IconButton = {
         let button = IconButton(image: Icon.cm.skipForward, tintColor: BKColor.grey.base)
-        button.accessibilityLabel = NSLocalizedString("demo")
+        button.accessibilityLabel = "demo".localized
         return button
     }()
     
     let copyButton: IconButton = {
         let button = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
-        button.accessibilityLabel = NSLocalizedString("copy")
+        button.accessibilityLabel = "copy".localized
         return button
     }()
     

@@ -62,7 +62,7 @@ struct AESCryptoModel {
         }
 
         guard algorithm.keyLength == key.count else {
-            throw String(format: NSLocalizedString("enterKey"), algorithm.keyLength)
+            throw String(format: "enterKey".localized, algorithm.keyLength)
         }
 
         var iv = ""
@@ -74,9 +74,8 @@ struct AESCryptoModel {
 
             if let ivField = cryptoFields.iv, ivField.count == expectIVLength {
                 iv = ivField
-            }
-            else {
-                throw String(format: NSLocalizedString("enterIv"), expectIVLength)
+            } else {
+                throw String(format: "enterIv".localized, expectIVLength)
             }
         }
 
@@ -103,6 +102,6 @@ struct AESCryptoModel {
     }
 
     func decrypt(ciphertext: String) throws -> String {
-        return String(data: Data(try aes.decrypt(Array(base64: ciphertext))), encoding: .utf8) ?? ""
+        return try String(data: Data(aes.decrypt(Array(base64: ciphertext))), encoding: .utf8) ?? ""
     }
 }

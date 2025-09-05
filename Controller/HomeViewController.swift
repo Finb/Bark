@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  HomeViewController.swift
 //  Bark
 //
 //  Created by huangfeng on 2018/3/7.
@@ -19,7 +19,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         btn.setImage(Icon.add, for: .normal)
         btn.imageView?.tintColor = BKColor.grey.darken4
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.accessibilityIdentifier = NSLocalizedString("AddServer")
+        btn.accessibilityIdentifier = "AddServer".localized
         return btn
     }()
     
@@ -28,12 +28,12 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         btn.setImage(UIImage(named: "baseline_filter_drama_black_24pt"), for: .normal)
         btn.imageView?.tintColor = BKColor.grey.darken4
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.accessibilityIdentifier = NSLocalizedString("serverList")
+        btn.accessibilityIdentifier = "serverList".localized
         return btn
     }()
     
     let startButton: FABButton = {
-        let button = FABButton(title: NSLocalizedString("RegisterDevice"))
+        let button = FABButton(title: "RegisterDevice".localized)
         button.backgroundColor = BKColor.grey.lighten5
         button.transition([.scale(0.75), .opacity(0)])
         return button
@@ -184,7 +184,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         output.copy
             .drive(onNext: { [weak self] text in
                 UIPasteboard.general.string = text
-                self?.showSnackbar(text: NSLocalizedString("Copy"))
+                self?.showSnackbar(text: "Copy".localized)
             })
             .disposed(by: rx.disposeBag)
         
@@ -228,14 +228,14 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     }
     
     func alertServerError(error: String) {
-        let alertController = UIAlertController(title: NSLocalizedString("ServerError"), message: error, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("faq"), style: .default, handler: { [weak self] _ in
-            guard let url = try? NSLocalizedString("faqUrl").asURL() else {
+        let alertController = UIAlertController(title: "ServerError".localized, message: error, preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "faq".localized, style: .default, handler: { [weak self] _ in
+            guard let url = try? "faqUrl".localized.asURL() else {
                 return
             }
             self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         self.present(alertController, animated: true, completion: nil)
     }
 }

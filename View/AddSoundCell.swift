@@ -11,7 +11,7 @@ import UIKit
 class AddSoundCell: UITableViewCell {
     let button: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle(NSLocalizedString("uploadSound"), for: .normal)
+        button.setTitle("uploadSound".localized, for: .normal)
         button.setImage(UIImage(named: "music_note-music_note_symbol"), for: .normal)
         button.setTitleColor(BKColor.lightBlue.darken3, for: .normal)
         button.tintColor = BKColor.lightBlue.darken3
@@ -31,8 +31,8 @@ class AddSoundCell: UITableViewCell {
         }
     }
     
+    @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

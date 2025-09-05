@@ -33,14 +33,14 @@ extension Date {
         }
         if hour > 0 {
             if minute > 0 {
-                return String(format: NSLocalizedString("timeMinHourAgo"), hour, minute)
+                return "timeMinHourAgo".localized(with: hour, minute)
             }
-            return String(format: NSLocalizedString("timeHourAgo"), hour)
+            return "timeHourAgo".localized(with: hour)
         }
         if minute > 1 {
-            return String(format: NSLocalizedString("timeMinAgo"), minute)
+            return "timeMinAgo".localized(with: minute)
         }
-        return NSLocalizedString("timeJustNow")
+        return "timeJustNow".localized
     }
 }
 

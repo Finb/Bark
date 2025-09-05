@@ -86,7 +86,7 @@ private class ShowLessView: UIView {
         let label = UILabel()
         label.font = UIFont.preferredFont(ofSize: 12)
         label.textColor = BKColor.grey.darken3
-        label.text = NSLocalizedString("showLess")
+        label.text = "showLess".localized
         return label
     }()
     
@@ -148,7 +148,7 @@ private class ClearView: UIView {
         let label = UILabel()
         label.font = UIFont.preferredFont(ofSize: 12)
         label.textColor = BKColor.grey.darken3
-        label.text = NSLocalizedString("clear")
+        label.text = "clear".localized
         label.alpha = 0
         return label
     }()

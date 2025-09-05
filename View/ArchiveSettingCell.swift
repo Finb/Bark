@@ -18,7 +18,7 @@ class ArchiveSettingCell: BaseTableViewCell<ArchiveSettingCellViewModel> {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.selectionStyle = .none
         self.backgroundColor = BKColor.background.secondary
-        self.textLabel?.text = NSLocalizedString("defaultArchiveSettings")
+        self.textLabel?.text = "defaultArchiveSettings".localized
 
         contentView.addSubview(switchButton)
         switchButton.snp.makeConstraints { make in

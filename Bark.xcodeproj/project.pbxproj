@@ -104,7 +104,6 @@
 		066E0C8C2BB6AC9A00873838 /* AddSoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */; };
 		0672CB06256903F700570C9D /* MessageListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0672CB05256903F700570C9D /* MessageListViewModel.swift */; };
 		06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C382A710568008ABDD7 /* GesturePassTextView.swift */; };
-		06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */; };
 		067AFB1C2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */; };
 		067AFB1D2E5D8BED00AE78E7 /* UNNotificationContent+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */; };
 		067B2EB525693E38008B6BE1 /* MessageSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 067B2EB425693E38008B6BE1 /* MessageSection.swift */; };
@@ -119,6 +118,8 @@
 		068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15727ED99C900D5D11E /* ServerListViewController.swift */; };
 		068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15927ED99E700D5D11E /* ServerListViewModel.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
+		069332222E6A8E3100F9387F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
+		069332232E6A8E3100F9387F /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
 		0699473D2D223094008D5E40 /* CustomTapTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0699473C2D223094008D5E40 /* CustomTapTextView.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
@@ -199,8 +200,6 @@
 		06F08EA529B1DDA7006AB9CA /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
 		06F08EA729B1DDFE006AB9CA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
 		06F08EA829B1DE0A006AB9CA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
-		06F08EAC29B1DECD006AB9CA /* NSLocalizedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */; };
-		06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */; };
 		06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAE29B5D9FF006AB9CA /* HUD.swift */; };
 		06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
 		06FB04042C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
@@ -351,7 +350,6 @@
 		066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSoundCell.swift; sourceTree = "<group>"; };
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
-		06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrashReportViewController.swift; sourceTree = "<group>"; };
 		067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UNNotificationContent+Extension.swift"; path = "notificationContentExtension/UNNotificationContent+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		067B2EB425693E38008B6BE1 /* MessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSection.swift; sourceTree = "<group>"; };
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
@@ -411,7 +409,6 @@
 		06EF49182D682B34008B91D2 /* PushToOtherIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushToOtherIntent.swift; sourceTree = "<group>"; };
 		06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingManager.swift; sourceTree = "<group>"; };
 		06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
-		06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSLocalizedString+Extension.swift"; sourceTree = "<group>"; };
 		06F08EAE29B5D9FF006AB9CA /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		06FB04032C53575400F3A213 /* SharedDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefines.swift; sourceTree = "<group>"; };
@@ -492,7 +489,6 @@
 				068EC15927ED99E700D5D11E /* ServerListViewModel.swift */,
 				06EEF332291CCFF400CA228A /* CryptoSettingController.swift */,
 				06EEF334291CD00000CA228A /* CryptoSettingViewModel.swift */,
-				06787C3A2AB82BDB008ABDD7 /* CrashReportViewController.swift */,
 				1E73F99D2C282822002BF649 /* SectionViewController-iPad.swift */,
 				1EFB545E2C32514000B8E51B /* SectionViewModel-iPad.swift */,
 				1EFB545C2C314A6800B8E51B /* BarkSplitViewController.swift */,
@@ -625,7 +621,6 @@
 				06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */,
 				0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */,
 				06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */,
-				06F08EAB29B1DECD006AB9CA /* NSLocalizedString+Extension.swift */,
 				06E944742C07012E00AC86AB /* RealmConfiguration.swift */,
 				0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */,
 				06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */,
@@ -1232,6 +1227,7 @@
 				067AFB1C2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift in Sources */,
 				0687F2AA2CCB7FA500B2A52F /* UIFont+Extension.swift in Sources */,
 				0632CE2320EC9098003FDF46 /* NotificationViewController.swift in Sources */,
+				069332222E6A8E3100F9387F /* String+Extension.swift in Sources */,
 				06BCAE572CDB19420092867A /* GroupMuteSettingManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1298,7 +1294,6 @@
 				06E944762C07013000AC86AB /* RealmConfiguration.swift in Sources */,
 				06EF49152D682A99008B91D2 /* PushResponse.swift in Sources */,
 				0603706720E1E31600F4CA05 /* Defines.swift in Sources */,
-				06787C3B2AB82BDB008ABDD7 /* CrashReportViewController.swift in Sources */,
 				064CAB9E256BE9090018155C /* PreviewCardCellViewModel.swift in Sources */,
 				065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */,
 				062B98C3251B2762004562E7 /* BKButton.swift in Sources */,
@@ -1333,7 +1328,6 @@
 				06EF49172D682AC4008B91D2 /* OptionsProvider.swift in Sources */,
 				06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */,
 				065AE76B2987777F00323230 /* ArchiveSettingRelay.swift in Sources */,
-				06F08EAC29B1DECD006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,7 +1340,6 @@
 				06E9447A2C0704E500AC86AB /* ImageDownloader.swift in Sources */,
 				06CF784C21C7A51200A052D7 /* NotificationService.swift in Sources */,
 				06FB04052C53575400F3A213 /* SharedDefines.swift in Sources */,
-				06F08EAD29B1DED6006AB9CA /* NSLocalizedString+Extension.swift in Sources */,
 				067AFB1D2E5D8BED00AE78E7 /* UNNotificationContent+Extension.swift in Sources */,
 				0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */,
 				06E9446F2C06FF1E00AC86AB /* BadgeProcessor.swift in Sources */,
@@ -1357,6 +1350,7 @@
 				06F08EA529B1DDA7006AB9CA /* Algorithm.swift in Sources */,
 				06E944782C0701F300AC86AB /* IconProcessor.swift in Sources */,
 				06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */,
+				069332232E6A8E3100F9387F /* String+Extension.swift in Sources */,
 				06D69E412C11983E00161A35 /* CallProcessor.swift in Sources */,
 				06B11591247BC132006D91FB /* Message.swift in Sources */,
 				06E9447C2C07052F00AC86AB /* ImageProcessor.swift in Sources */,

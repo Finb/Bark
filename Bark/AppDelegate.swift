@@ -53,10 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         UNUserNotificationCenter.current().delegate = self
         var actions = [
-            UNNotificationAction(identifier: "copy", title: NSLocalizedString("Copy2"), options: UNNotificationActionOptions.foreground)
+            UNNotificationAction(identifier: "copy", title: "Copy2".localized, options: UNNotificationActionOptions.foreground)
         ]
         if #available(iOSApplicationExtension 15.0, *) {
-            actions.append(UNNotificationAction(identifier: "mute", title: NSLocalizedString("muteGroup1Hour"), options: UNNotificationActionOptions.foreground))
+            actions.append(UNNotificationAction(identifier: "mute", title: "muteGroup1Hour".localized, options: UNNotificationActionOptions.foreground))
         }
         UNUserNotificationCenter.current().setNotificationCategories([
             // customDismissAction 会在 clear 推送时，调起APP，这时可以顺便更新下 DeviceToken，防止过期。
@@ -171,7 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 ServerManager.shared.addServer(server: server)
                 ServerManager.shared.setCurrentServer(serverId: server.id)
                 ServerManager.shared.syncAllServers()
-                HUDSuccess(NSLocalizedString("AddedSuccessfully"))
+                HUDSuccess("AddedSuccessfully".localized)
             }
             return true
         }
@@ -188,14 +188,14 @@ extension AppDelegate {
         let url = try? (userInfo["url"] as? String)?.asURL()
 
         let alertController = UIAlertController(title: title, message: body, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("CopyContent"), style: .default, handler: { _ in
+        alertController.addAction(UIAlertAction(title: "CopyContent".localized, style: .default, handler: { _ in
             if let copy = userInfo["copy"] as? String {
                 UIPasteboard.general.string = copy
             } else {
                 UIPasteboard.general.string = body
             }
         }))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("MoreActions"), style: .default, handler: { _ in
+        alertController.addAction(UIAlertAction(title: "MoreActions".localized, style: .default, handler: { _ in
             var shareContent = ""
             if let title = title {
                 shareContent += "\(title)\n"
@@ -226,7 +226,7 @@ extension AppDelegate {
             }
             controller?.present(activityController, animated: true, completion: nil)
         }))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
 
         let viewController = Client.shared.currentSnackbarController
         

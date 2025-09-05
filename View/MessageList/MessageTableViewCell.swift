@@ -107,7 +107,7 @@ class MessageGroupTableViewCell: UITableViewCell {
             if let newValue, !newValue.isEmpty {
                 groupHeader.groupName = newValue
             } else {
-                groupHeader.groupName = NSLocalizedString("default")
+                groupHeader.groupName = "default".localized
             }
         }
         get {

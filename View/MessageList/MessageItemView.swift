@@ -205,7 +205,7 @@ extension MessageItemView {
                     .contentMode(.scaleAspectFit)
                 ]
                 if #available(iOS 14.0, *) {
-                    options.append(.rightNavItemTitle(NSLocalizedString("save"), onTap: { [weak self] _ in
+                    options.append(.rightNavItemTitle("save".localized, onTap: { [weak self] _ in
                         // 保存 image 到相册
                         self?.saveImageToAlbum(image)
                     }))
@@ -248,7 +248,7 @@ extension MessageItemView {
         PHPhotoLibrary.requestAuthorization(for: .addOnly) { status in
             guard status == .authorized || status == .limited else {
                 DispatchQueue.main.async {
-                    SVProgressHUD.showInfo(withStatus: NSLocalizedString("noPermission"))
+                    SVProgressHUD.showInfo(withStatus: "noPermission".localized)
                 }
                 return
             }
@@ -257,7 +257,7 @@ extension MessageItemView {
             }) { success, error in
                 DispatchQueue.main.async {
                     if success {
-                        SVProgressHUD.showSuccess(withStatus: NSLocalizedString("saveSuccess"))
+                        SVProgressHUD.showSuccess(withStatus: "saveSuccess".localized)
                     } else {
                         SVProgressHUD.showError(withStatus: error?.localizedDescription)
                     }

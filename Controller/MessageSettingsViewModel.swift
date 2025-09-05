@@ -74,7 +74,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             // 历史消息
             var messageSettings = [MessageSettingItem]()
             messageSettings.append(.backup(viewModel: MutableTextCellViewModel(
-                title: "\(NSLocalizedString("export"))/\(NSLocalizedString("import"))",
+                title: "\("export".localized)/\("import".localized)",
                 text: Observable.merge([restoreSuccess, input.viewDidAppear])
                     .map { _ in
                         if let realm = try? Realm() {
@@ -84,7 +84,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                         return 0
                     }
                     .map { count in
-                        "\(count) \(NSLocalizedString("items"))"
+                        "\(count) \("items".localized)"
                     }
                     .asDriver(onErrorDriveWith: .empty())
             )
@@ -94,7 +94,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             
             settings.append(
                 SectionModel(
-                    model: MessageSettingSection(header: NSLocalizedString("historyMessage"), footer: NSLocalizedString("archiveNote")),
+                    model: MessageSettingSection(header: "historyMessage".localized, footer: "archiveNote".localized),
                     items: messageSettings
                 )
             )
@@ -111,7 +111,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                             if let deviceToken = deviceToken {
                                 return "\(deviceToken.prefix(2))****\(deviceToken.suffix(4))"
                             }
-                            return NSLocalizedString("unknown")
+                            return "unknown".localized
                         }
                 )
             ))
@@ -128,7 +128,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             }
             settings.append(
                 SectionModel(
-                    model: MessageSettingSection(header: NSLocalizedString("info"), footer: NSLocalizedString("buildDesc")),
+                    model: MessageSettingSection(header: "info".localized, footer: "buildDesc".localized),
                     items: infosettings
                 )
             )
@@ -136,20 +136,20 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             // 其他
             var otherSettings = [MessageSettingItem]()
             otherSettings.append(.detail(
-                title: NSLocalizedString("faq"),
+                title: "faq".localized,
                 text: nil,
                 textColor: nil,
-                url: URL(string: NSLocalizedString("faqUrl"))
+                url: URL(string: "faqUrl".localized)
             ))
 
             otherSettings.append(.detail(
-                title: NSLocalizedString("documentation"),
+                title: "documentation".localized,
                 text: nil,
                 textColor: nil,
-                url: URL(string: NSLocalizedString("docUrl"))
+                url: URL(string: "docUrl".localized)
             ))
             otherSettings.append(.detail(
-                title: NSLocalizedString("sourceCode"),
+                title: "sourceCode".localized,
                 text: nil,
                 textColor: nil,
                 url: URL(string: "https://github.com/Finb/Bark")
@@ -157,19 +157,19 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             
             settings.append(
                 SectionModel(
-                    model: MessageSettingSection(header: NSLocalizedString("other")),
+                    model: MessageSettingSection(header: "other".localized),
                     items: otherSettings
                 )
             )
             
             // 捐赠
             var donateSettings = [MessageSettingItem]()
-            donateSettings.append(.donate(title: NSLocalizedString("oneTimeDonation"), productId: "bark.oneTimeDonation.18"))
-            donateSettings.append(.donate(title: NSLocalizedString("continuousSupport"), productId: "bark.continuousSupport.18"))
+            donateSettings.append(.donate(title: "oneTimeDonation".localized, productId: "bark.oneTimeDonation.18"))
+            donateSettings.append(.donate(title: "continuousSupport".localized, productId: "bark.continuousSupport.18"))
             settings.append(
                 SectionModel(
                     model: MessageSettingSection(
-                        header: NSLocalizedString("donate"),
+                        header: "donate".localized,
                         footer: nil
                     ),
                     items: donateSettings

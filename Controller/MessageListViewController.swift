@@ -33,20 +33,20 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 }
                 subMenuElements.append(action)
             }
-            menuElements.append(UIMenu(title: NSLocalizedString("more"), children: subMenuElements))
+            menuElements.append(UIMenu(title: "more".localized, children: subMenuElements))
 
             let addNewMenu = UIMenu(
-                title: NSLocalizedString("clearFrom"),
+                title: "clearFrom".localized,
                 children: menuElements
             )
             let item = UIBarButtonItem(image: UIImage(named: "baseline_delete_outline_black_24pt"), menu: addNewMenu)
-            item.accessibilityLabel = NSLocalizedString("clear")
+            item.accessibilityLabel = "clear".localized
             return item
         } else {
             let btn = BKButton()
             btn.setImage(UIImage(named: "baseline_delete_outline_black_24pt"), for: .normal)
             btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-            btn.accessibilityLabel = NSLocalizedString("clear")
+            btn.accessibilityLabel = "clear".localized
             return UIBarButtonItem(customView: btn)
         }
         
@@ -246,10 +246,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         output.errorAlert
             .drive(onNext: { [weak self] error in
                 let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { _ in
+                alertController.addAction(UIAlertAction(title: "Copy2".localized, style: .default, handler: { _ in
                     UIPasteboard.general.string = error
                 }))
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+                alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 self?.present(alertController, animated: true, completion: nil)
             }).disposed(by: rx.disposeBag)
         
@@ -264,20 +264,20 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         deleteBtn.rx.tap.subscribe(onNext: { [weak self] _ in
             guard let self else { return }
             
-            let alertController = UIAlertController(title: nil, message: NSLocalizedString("clearFrom"), preferredStyle: .actionSheet)
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("lastHour"), style: .default, handler: { [weak self] _ in
+            let alertController = UIAlertController(title: nil, message: "clearFrom".localized, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "lastHour".localized, style: .default, handler: { [weak self] _ in
                 self?.clearAlert(.lastHour)
             }))
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("today"), style: .default, handler: { [weak self] _ in
+            alertController.addAction(UIAlertAction(title: "today".localized, style: .default, handler: { [weak self] _ in
                 self?.clearAlert(.today)
             }))
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("todayAndYesterday"), style: .default, handler: { [weak self] _ in
+            alertController.addAction(UIAlertAction(title: "todayAndYesterday".localized, style: .default, handler: { [weak self] _ in
                 self?.clearAlert(.todayAndYesterday)
             }))
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("allTime"), style: .default, handler: { [weak self] _ in
+            alertController.addAction(UIAlertAction(title: "allTime".localized, style: .default, handler: { [weak self] _ in
                 self?.clearAlert(.allTime)
             }))
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
             if UIDevice.current.userInterfaceIdiom == .pad {
                 alertController.modalPresentationStyle = .popover
                 if #available(iOS 16.0, *) {
@@ -291,11 +291,11 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     }
     
     func clearAlert(_ range: MessageDeleteTimeRange) {
-        let alertController = UIAlertController(title: nil, message: "\(NSLocalizedString("clearFrom"))\n\(range.string)", preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("clear"), style: .destructive, handler: { [weak self] _ in
+        let alertController = UIAlertController(title: nil, message: "\("clearFrom".localized)\n\(range.string)", preferredStyle: .alert)
+        alertController.addAction(UIAlertAction(title: "clear".localized, style: .destructive, handler: { [weak self] _ in
             self?.clearRelay.accept(range)
         }))
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }
     
@@ -303,7 +303,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         // 复制
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Copy2"), style: .default, handler: { [weak self]
+        alertController.addAction(UIAlertAction(title: "Copy2".localized, style: .default, handler: { [weak self]
             (_: UIAlertAction) in
                 if #available(iOS 14.0, *) {
                     var items = [[String: Any]]()
@@ -315,10 +315,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 } else {
                     UIPasteboard.general.string = message.attributedText?.string ?? ""
                 }
-                self?.showSnackbar(text: NSLocalizedString("Copy"))
+                self?.showSnackbar(text: "Copy".localized)
         }))
         // 删除
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("removeMessage"), style: .destructive, handler: { [weak self]
+        alertController.addAction(UIAlertAction(title: "removeMessage".localized, style: .destructive, handler: { [weak self]
             (_: UIAlertAction) in
                 guard let self, let indexPath = self.tableView.indexPath(for: sourceCell) else { return }
                 if sourceCell is MessageTableViewCell {
@@ -330,7 +330,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 }
         }))
         // 取消
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in }))
+        alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { _ in }))
         
         if UIDevice.current.userInterfaceIdiom == .pad {
             alertController.popoverPresentationController?.sourceView = sourceView.superview
@@ -350,7 +350,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
 
 extension MessageListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let action = UIContextualAction(style: .destructive, title: NSLocalizedString("removeMessage")) { [weak self] _, _, actionPerformed in
+        let action = UIContextualAction(style: .destructive, title: "removeMessage".localized) { [weak self] _, _, actionPerformed in
             guard let self else { return }
             
             if self.tableView.cellForRow(at: indexPath) is MessageTableViewCell {
@@ -361,12 +361,12 @@ extension MessageListViewController: UITableViewDelegate {
             }
             
             // 群组消息删除，弹出个确认提示
-            let alertView = UIAlertController(title: nil, message: NSLocalizedString("removeNotice"), preferredStyle: .alert)
-            alertView.addAction(UIAlertAction(title: NSLocalizedString("removeMessage"), style: .destructive, handler: { _ in
+            let alertView = UIAlertController(title: nil, message: "removeNotice".localized, preferredStyle: .alert)
+            alertView.addAction(UIAlertAction(title: "removeMessage".localized, style: .destructive, handler: { _ in
                 self.tableView.dataSource?.tableView?(self.tableView, commit: .delete, forRowAt: indexPath)
                 actionPerformed(true)
             }))
-            alertView.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: { _ in
+            alertView.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { _ in
                 actionPerformed(false)
             }))
             self.present(alertView, animated: true, completion: nil)

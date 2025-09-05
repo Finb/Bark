@@ -27,8 +27,8 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
     lazy var addressTextField: TextField = {
         let textField = TextField()
         textField.keyboardType = .URL
-        textField.placeholder = NSLocalizedString("ServerAddress")
-        textField.detail = NSLocalizedString("ServerExample")
+        textField.placeholder = "ServerAddress".localized
+        textField.detail = "ServerExample".localized
         textField.transition([.scale(0.85), .opacity(0)])
         textField.detailLabel.transition([.scale(0.85), .opacity(0)])
         textField.textColor = BKColor.grey.darken4
@@ -42,7 +42,7 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
     
     let noticeLabel: UILabel = {
         let label = UILabel()
-        label.text = NSLocalizedString("DeploymentDocuments")
+        label.text = "DeploymentDocuments".localized
         label.textColor = BKColor.blue.base
         label.font = UIFont.preferredFont(ofSize: 12)
         label.adjustsFontForContentSizeCategory = true
@@ -63,8 +63,8 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
     
     override func makeUI() {
         self.navigationItem.largeTitleDisplayMode = .never
-        navigationItem.title = NSLocalizedString("AddServer")
-        
+        navigationItem.title = "AddServer".localized
+
         self.view.layout(addressTextField)
             .top(kNavigationHeight + 40).left(10).right(10)
         
@@ -79,7 +79,7 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
         // 点击提醒按钮事件
         let noticeTap = noticeLabel.gestureRecognizers!.first!.rx
             .event
-            .map { _ -> () in
+            .map { _ in
                 ()
             }
             .asDriver(onErrorJustReturn: ())
@@ -98,7 +98,7 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
             .asDriver(onErrorDriveWith: .empty())
         
         // 扫描二维码事件
-        let scannerDidScan = self.scanButton.rx.tap.flatMapLatest {[weak self] _ -> Observable<String> in
+        let scannerDidScan = self.scanButton.rx.tap.flatMapLatest { [weak self] _ -> Observable<String> in
             let controller = QRScannerViewController()
             self?.navigationController?.present(controller, animated: true, completion: nil)
             return controller.scannerDidSuccess
@@ -116,8 +116,7 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
         output.showKeyboard.drive(onNext: { [weak self] show in
             if show {
                 _ = self?.addressTextField.becomeFirstResponder()
-            }
-            else {
+            } else {
                 self?.addressTextField.resignFirstResponder()
             }
         }).disposed(by: rx.disposeBag)

@@ -45,7 +45,7 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
     private var footers: [String?] = []
     
     override func makeUI() {
-        self.title = NSLocalizedString("settings")
+        self.title = "settings".localized
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
@@ -63,8 +63,8 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             SwiftyStoreKit.purchaseProduct(productId) { result in
                 SVProgressHUD.dismiss()
                 if case .success = result {
-                    let alert = UIAlertController(title: NSLocalizedString("successfulDonation"), message: NSLocalizedString("thankYouSupport"), preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("donateOK"), style: .default, handler: nil))
+                    let alert = UIAlertController(title: "successfulDonation".localized, message: "thankYouSupport".localized, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "donateOK".localized, style: .default, handler: nil))
                     self?.present(alert, animated: true)
                 }
             }
@@ -115,11 +115,11 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                 }
             
                 let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("export"), style: .default, handler: { _ in
+                alertController.addAction(UIAlertAction(title: "export".localized, style: .default, handler: { _ in
                     strongSelf.backupOrRestoreActionRelay.accept(.export)
                 }))
-            
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("import"), style: .default, handler: { [weak self] _ in
+
+                alertController.addAction(UIAlertAction(title: "import".localized, style: .default, handler: { [weak self] _ in
                     if #available(iOS 14.0, *) {
                         let supportedType: [UTType] = [UTType.json]
                         let pickerViewController = UIDocumentPickerViewController(forOpeningContentTypes: supportedType, asCopy: false)
@@ -127,8 +127,8 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                         self?.present(pickerViewController, animated: true, completion: nil)
                     }
                 }))
-            
-                alertController.addAction(UIAlertAction(title: NSLocalizedString("Cancel"), style: .cancel, handler: nil))
+
+                alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
                         alertController.popoverPresentationController?.sourceView = strongSelf.tableView
@@ -246,7 +246,7 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         // 复制 deviceToken 操作
         output.copyDeviceToken.drive { [weak self] deviceToken in
             UIPasteboard.general.string = deviceToken
-            self?.showSnackbar(text: NSLocalizedString("Copy"))
+            self?.showSnackbar(text: "Copy".localized)
         }.disposed(by: rx.disposeBag)
         
         // 导出数据
@@ -292,7 +292,7 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             ), animated: true, completion: nil)
         case "restoreSubscription":
             SwiftyStoreKit.restorePurchases { [weak self] _ in
-                self?.showSnackbar(text: NSLocalizedString("done"))
+                self?.showSnackbar(text: "done".localized)
             }
         default: break
         }

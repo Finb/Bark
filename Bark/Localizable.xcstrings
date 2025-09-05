@@ -814,6 +814,7 @@
       }
     },
     "Copy" : {
+      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {

@@ -38,7 +38,7 @@ class NewServerViewModel: ViewModel, ViewModelType {
         let showSnackbar = PublishRelay<String>()
 
         let notice = input.noticeClick
-            .map { URL(string: NSLocalizedString("deployUrl"))! }
+            .map { URL(string: "deployUrl".localized)! }
             .asDriver()
         
         input.viewDidAppear
@@ -66,9 +66,8 @@ class NewServerViewModel: ViewModel, ViewModelType {
                     return BarkApi.provider
                         .request(.ping(baseURL: url))
                         .filterResponseError()
-                }
-                else {
-                    showSnackbar.accept(NSLocalizedString("InvalidURL"))
+                } else {
+                    showSnackbar.accept("InvalidURL".localized)
                     return .empty()
                 }
             }
@@ -82,9 +81,9 @@ class NewServerViewModel: ViewModel, ViewModelType {
                     ServerManager.shared.syncAllServers()
                     
                     strongSelf.pop.accept(URL(string: strongSelf.url)?.host ?? "")
-                    showSnackbar.accept(NSLocalizedString("AddedSuccessfully"))
+                    showSnackbar.accept("AddedSuccessfully".localized)
                 case .failure(let error):
-                    showSnackbar.accept("\(NSLocalizedString("InvalidServer"))\(error.rawString())")
+                    showSnackbar.accept("\("InvalidServer".localized)\(error.rawString())")
                 }
             }).disposed(by: rx.disposeBag)
 

@@ -95,7 +95,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             UIPasteboard.general.string = content
         }
 
-        showTips(text: NSLocalizedString("Copy", comment: ""))
+        showTips(text: "Copy".localized)
         completion(.doNotDismiss)
     }
 
@@ -105,7 +105,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         // 静音一小时
         GroupMuteSettingManager().settings[groupName] = Date() + 60 * 60
 
-        showTips(text: String(format: NSLocalizedString("groupMuted", comment: ""), groupName.isEmpty ? "default" : groupName))
+        showTips(text: String(format: "groupMuted".localized, groupName.isEmpty ? "default".localized : groupName))
         completion(.doNotDismiss)
     }
 

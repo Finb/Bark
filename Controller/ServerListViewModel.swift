@@ -54,7 +54,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
 
         // 删除检查错误提示
         deleteCheck.filter { $0 == nil }
-            .map { _ in NSLocalizedString("deleteFailed") }
+            .map { _ in "deleteFailed".localized }
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
@@ -79,7 +79,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
             }.share()
 
         // 弹出删除提示
-        serverDeleted.map { NSLocalizedString("deletedSuccessfully") }
+        serverDeleted.map { "deletedSuccessfully".localized }
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
@@ -90,7 +90,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
 
         // 重置检查错误提示
         resetServer.filter { ($0.2?.count ?? 0) <= 0 }
-            .map { _ in NSLocalizedString("resetFailed2") }
+            .map { _ in "resetFailed2".localized }
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
@@ -131,7 +131,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
 
         // 重置失败提示
         serverReseted.filter { $0 == nil }
-            .map { _ in NSLocalizedString("resetFailed") }
+            .map { _ in "resetFailed".localized }
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
@@ -153,7 +153,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         // 选择首页预览服务器
         let serverSelected = input.selectServer.asObservable().map { server in
             ServerManager.shared.setCurrentServer(serverId: server.id)
-            showSnackbar.accept(NSLocalizedString("setSuccessfully"))
+            showSnackbar.accept("setSuccessfully".localized)
             return ()
         }
         

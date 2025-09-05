@@ -42,85 +42,85 @@ class HomeViewModel: ViewModel, ViewModelType {
     
     let previews: [PreviewModel] = [
         PreviewModel(
-            body: NSLocalizedString("CustomedNotificationContent"),
-            notice: NSLocalizedString("Notice1")
+            body: "CustomedNotificationContent".localized,
+            notice: "Notice1".localized
         ),
         PreviewModel(
-            title: NSLocalizedString("CustomedNotificationTitle"),
-            body: NSLocalizedString("CustomedNotificationContent"),
-            notice: NSLocalizedString("Notice2")
+            title: "CustomedNotificationTitle".localized,
+            body: "CustomedNotificationContent".localized,
+            notice: "Notice2".localized
         ),
         PreviewModel(
-            body: NSLocalizedString("notificationSound"),
-            notice: NSLocalizedString("setSounds"),
+            body: "notificationSound".localized,
+            notice: "setSounds".localized,
             queryParameter: "sound=minuet",
-            moreInfo: NSLocalizedString("viewAllSounds"),
+            moreInfo: "viewAllSounds".localized,
             moreViewModel: SoundsViewModel()
         ),
         PreviewModel(
-            body: NSLocalizedString("ringtone"),
-            notice: NSLocalizedString("ringtoneNotice"),
+            body: "ringtone".localized,
+            notice: "ringtoneNotice".localized,
             queryParameter: "call=1"
         ),
         PreviewModel(
-            body: NSLocalizedString("archiveNotificationMessageTitle"),
-            notice: NSLocalizedString("archiveNotificationMessage"),
+            body: "archiveNotificationMessageTitle".localized,
+            notice: "archiveNotificationMessage".localized,
             queryParameter: "isArchive=1"
         ),
         PreviewModel(
-            body: NSLocalizedString("notificationIcon"),
-            notice: NSLocalizedString("notificationIconNotice"),
+            body: "notificationIcon".localized,
+            notice: "notificationIconNotice".localized,
             queryParameter: "icon=https://day.app/assets/images/avatar.jpg",
             image: UIImage(named: "icon")
         ),
         PreviewModel(
-            body: NSLocalizedString("messageGroup"),
-            notice: NSLocalizedString("groupMessagesNotice"),
+            body: "messageGroup".localized,
+            notice: "groupMessagesNotice".localized,
             queryParameter: "group=groupName",
             image: UIImage(named: "group")
         ),
         PreviewModel(
-            body: NSLocalizedString("pushNotificationEncryption"),
-            notice: NSLocalizedString("encryptionNotice"),
+            body: "pushNotificationEncryption".localized,
+            notice: "encryptionNotice".localized,
             queryParameter: "ciphertext=ciphertext",
-            moreInfo: NSLocalizedString("encryptionSettings"),
+            moreInfo: "encryptionSettings".localized,
             moreViewModel: CryptoSettingViewModel()
         ),
         PreviewModel(
-            body: NSLocalizedString("criticalAlert"),
-            notice: NSLocalizedString("criticalAlertNotice"),
+            body: "criticalAlert".localized,
+            notice: "criticalAlertNotice".localized,
             queryParameter: "level=critical&volume=5",
             image: UIImage(named: "criticalAlert")
         ),
         PreviewModel(
-            body: NSLocalizedString("interruptionLevel"),
-            notice: NSLocalizedString("interruptionLevelNotice"),
+            body: "interruptionLevel".localized,
+            notice: "interruptionLevelNotice".localized,
             queryParameter: "level=timeSensitive"
         ),
         PreviewModel(
             body: "URL Test",
-            notice: NSLocalizedString("urlParameter"),
+            notice: "urlParameter".localized,
             queryParameter: "url=https://www.baidu.com"
         ),
         PreviewModel(
-            body: NSLocalizedString("imagePushNotification"),
-            notice: NSLocalizedString("imageParameter"),
+            body: "imagePushNotification".localized,
+            notice: "imageParameter".localized,
             queryParameter: "image=https://day.app/assets/images/avatar.jpg"
         ),
         PreviewModel(
             body: "Copy Test",
-            notice: NSLocalizedString("copyParameter"),
+            notice: "copyParameter".localized,
             queryParameter: "copy=test",
             image: UIImage(named: "copyTest")
         ),
         PreviewModel(
-            body: NSLocalizedString("badge"),
-            notice: NSLocalizedString("badgeNotice"),
+            body: "badge".localized,
+            notice: "badgeNotice".localized,
             queryParameter: "badge=1"
         ),
         PreviewModel(
-            body: NSLocalizedString("automaticallyCopyTitle"),
-            notice: NSLocalizedString("automaticallyCopy"),
+            body: "automaticallyCopyTitle".localized,
+            notice: "automaticallyCopy".localized,
             queryParameter: "autoCopy=1&copy=optional"
         )
     ]
@@ -182,7 +182,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             .skip(1)
             .compactMap { granted -> String? in
                 if !granted {
-                    return NSLocalizedString("AllowNotifications")
+                    return "AllowNotifications".localized
                 }
                 return nil
             }
@@ -204,7 +204,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             case .ok: break
             case .serverError(let error):
                 if serverErrorCount < 2 {
-                    showSnackbar.accept("\(NSLocalizedString("ServerError")): \(error.rawString())")
+                    showSnackbar.accept("\("ServerError".localized): \(error.rawString())")
                 } else {
                     alertServerError.accept(error.rawString())
                 }

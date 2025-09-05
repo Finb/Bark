@@ -32,23 +32,23 @@ enum MessageDeleteTimeRange {
     var string: String {
         switch self {
         case .lastHour:
-            return NSLocalizedString("lastHour")
+            return "lastHour".localized
         case .today:
-            return NSLocalizedString("today")
+            return "today".localized
         case .todayAndYesterday:
-            return NSLocalizedString("todayAndYesterday")
+            return "todayAndYesterday".localized
         case .lastMonth:
-            return NSLocalizedString("lastMonth")
+            return "lastMonth".localized
         case .allTime:
-            return NSLocalizedString("allTime")
+            return "allTime".localized
         case .beforeOneHour:
-            return NSLocalizedString("beforeAnHour")
+            return "beforeAnHour".localized
         case .beforeToday:
-            return NSLocalizedString("beforeToday")
+            return "beforeToday".localized
         case .beforeYesterday:
-            return NSLocalizedString("beforeYesterday")
+            return "beforeYesterday".localized
         case .beforeOneMonth:
-            return NSLocalizedString("beforeAMonth")
+            return "beforeAMonth".localized
         }
     }
     

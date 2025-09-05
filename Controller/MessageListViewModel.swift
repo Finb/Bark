@@ -176,7 +176,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 items.append(.message(model: messages[0]))
             } else if messages.count > 0 {
                 // 多条消息时，折叠显示
-                items.append(.messageGroup(name: group ?? NSLocalizedString("default"), totalCount: messageResult.count, messages: messages))
+                items.append(.messageGroup(name: group ?? "default".localized, totalCount: messageResult.count, messages: messages))
             }
         }
         return items
@@ -212,7 +212,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
     
     func transform(input: Input) -> Output {
         // 标题
-        let titleRelay = BehaviorRelay<String>(value: NSLocalizedString("historyMessage"))
+        let titleRelay = BehaviorRelay<String>(value: "historyMessage".localized)
         // 数据源
         let messagesRelay = BehaviorRelay<[MessageSection]>(value: [])
         // 刷新操作
@@ -232,9 +232,9 @@ class MessageListViewModel: ViewModel, ViewModelType {
         filterGroups
             .subscribe(onNext: { filterGroups in
                 if filterGroups.count <= 0 {
-                    titleRelay.accept(NSLocalizedString("historyMessage"))
+                    titleRelay.accept("historyMessage".localized)
                 } else {
-                    titleRelay.accept(filterGroups.map { $0 ?? NSLocalizedString("default") }.joined(separator: " , "))
+                    titleRelay.accept(filterGroups.map { $0 ?? "default".localized }.joined(separator: " , "))
                 }
             }).disposed(by: rx.disposeBag)
         

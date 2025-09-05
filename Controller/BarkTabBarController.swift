@@ -20,9 +20,9 @@ class BarkTabBarController: StateStorageTabBarController {
             BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
         ]
         
-        let tabBarItems = [UITabBarItem(title: NSLocalizedString("service"), image: UIImage(named: "baseline_gite_black_24pt"), tag: 0),
-                           UITabBarItem(title: NSLocalizedString("historyMessage"), image: Icon.history, tag: 1),
-                           UITabBarItem(title: NSLocalizedString("settings"), image: UIImage(named: "baseline_manage_accounts_black_24pt"), tag: 2)]
+        let tabBarItems = [UITabBarItem(title: "service".localized, image: UIImage(named: "baseline_gite_black_24pt"), tag: 0),
+                           UITabBarItem(title: "historyMessage".localized, image: Icon.history, tag: 1),
+                           UITabBarItem(title: "settings".localized, image: UIImage(named: "baseline_manage_accounts_black_24pt"), tag: 2)]
         for (index, viewController) in self.viewControllers!.enumerated() {
             viewController.tabBarItem = tabBarItems[index]
         }

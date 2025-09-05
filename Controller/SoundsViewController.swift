@@ -26,13 +26,13 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
     
     // 上传铃声文件事件序列
     let importSoundActionRelay = PublishRelay<URL>()
-	// 当前正在播放的音频资源ID
-	var currentSoundID: SystemSoundID = 0
-	// 当前正在播放的音频文件ULRL
-	var playingAudio: CFURL?
+    // 当前正在播放的音频资源ID
+    var currentSoundID: SystemSoundID = 0
+    // 当前正在播放的音频文件ULRL
+    var playingAudio: CFURL?
 
     override func makeUI() {
-        self.title = NSLocalizedString("notificationSound")
+        self.title = "notificationSound".localized
 
         self.view.addSubview(self.tableView)
         self.tableView.delegate = self
@@ -82,28 +82,28 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
 
         output.copyNameAction.drive(onNext: { [unowned self] name in
             UIPasteboard.general.string = name.trimmingCharacters(in: .whitespacesAndNewlines)
-            self.navigationController?.showSnackbar(text: NSLocalizedString("Copy"))
+            self.navigationController?.showSnackbar(text: "Copy".localized)
         }).disposed(by: rx.disposeBag)
 
         output.playAction.drive(onNext: { url in
-			/// 先结束正在播放的音频
-			AudioServicesDisposeSystemSoundID(self.currentSoundID)
-			/// 如果重复点击了当前音频，结束播放
-			if self.playingAudio == url{
-				self.playingAudio = nil
-				self.currentSoundID = 0
-				return
-			}
-			self.playingAudio = url
-			AudioServicesCreateSystemSoundID(url, &self.currentSoundID)
-			AudioServicesPlaySystemSoundWithCompletion(self.currentSoundID) {
-				/// 判断是否是当前播放的音频，防止逻辑错误
-				if self.playingAudio == url {
-					AudioServicesDisposeSystemSoundID(self.currentSoundID)
-					self.playingAudio = nil
-					self.currentSoundID = 0
-				}
-			}
+            /// 先结束正在播放的音频
+            AudioServicesDisposeSystemSoundID(self.currentSoundID)
+            /// 如果重复点击了当前音频，结束播放
+            if self.playingAudio == url {
+                self.playingAudio = nil
+                self.currentSoundID = 0
+                return
+            }
+            self.playingAudio = url
+            AudioServicesCreateSystemSoundID(url, &self.currentSoundID)
+            AudioServicesPlaySystemSoundWithCompletion(self.currentSoundID) {
+                /// 判断是否是当前播放的音频，防止逻辑错误
+                if self.playingAudio == url {
+                    AudioServicesDisposeSystemSoundID(self.currentSoundID)
+                    self.playingAudio = nil
+                    self.currentSoundID = 0
+                }
+            }
         }).disposed(by: rx.disposeBag)
         
         output.pickerFile.drive(onNext: { [unowned self] _ in
@@ -121,7 +121,7 @@ extension SoundsViewController: UITableViewDelegate {
         guard section == 0 else {
             return 0
         }
-        return NSLocalizedString("uploadSoundNoticeFullText").count <= 30 ? 50 : 60
+        return "uploadSoundNoticeFullText".localized.count <= 30 ? 50 : 60
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -130,7 +130,7 @@ extension SoundsViewController: UITableViewDelegate {
         let view = UIView()
         
         let label = UILabel()
-        label.text = NSLocalizedString(sectionTitle)
+        label.text = sectionTitle.localized
         label.fontSize = 14
         label.textColor = BKColor.grey.darken3
         view.addSubview(label)
@@ -147,9 +147,9 @@ extension SoundsViewController: UITableViewDelegate {
             return nil
         }
         let view = UIView()
-        
-        let fullText = NSLocalizedString("uploadSoundNoticeFullText")
-        let highlightText = NSLocalizedString("uploadSoundNoticeHighlightText")
+
+        let fullText = "uploadSoundNoticeFullText".localized
+        let highlightText = "uploadSoundNoticeHighlightText".localized
         let attrStr = NSMutableAttributedString(
             string: fullText,
             attributes: [

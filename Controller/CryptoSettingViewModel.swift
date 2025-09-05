@@ -96,7 +96,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
             .compactMap { fields, deviceKey, serverAddress -> String? in
                 guard fields.mode != "GCM" else {
-                    showSnackbar.accept(NSLocalizedString("gcmNotSupported"))
+                    showSnackbar.accept("gcmNotSupported".localized)
                     return nil
                 }
                 let key = fields.key ?? ""
@@ -105,7 +105,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     """
                     #!/usr/bin/env bash
                     
-                    # Documentation: \(NSLocalizedString("encryptionUrl"))
+                    # Documentation: \("encryptionUrl".localized)
                     
                     set -e
 
@@ -114,22 +114,22 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                     # push payload
                     json='{"body": "test", "sound": "birdsong"}'
 
-                    # \(String(format: NSLocalizedString("keyComment"), Int(fields.algorithm.suffix(3))! / 8))
+                    # \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8)) )
                     key='\(key)'
-                    # \(NSLocalizedString("ivComment"))
+                    # \("ivComment".localized)
                     iv='\(iv)'
 
-                    # \(NSLocalizedString("opensslEncodingComment"))
+                    # \("opensslEncodingComment".localized)
                     key=$(printf $key | xxd -ps -c 200)
                     iv=$(printf $iv | xxd -ps -c 200)
                     
-                    # \(NSLocalizedString("base64Notice"))
+                    # \("base64Notice".localized)
                     ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
 
-                    # \(NSLocalizedString("consoleComment")) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
+                    # \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
                     echo $ciphertext
                     
-                    # \(NSLocalizedString("ciphertextComment"))
+                    # \("ciphertextComment".localized)
                     curl --data-urlencode "ciphertext=$ciphertext"\(iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
                     """
             }

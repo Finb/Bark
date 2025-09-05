@@ -18,7 +18,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         let textField = BorderTextField(title: "Key")
         textField.font = UIFont.preferredFont(ofSize: 14)
         textField.adjustsFontForContentSizeCategory = true
-        textField.placeholder = String(format: NSLocalizedString("enterKey"), 16)
+        textField.placeholder = "enterKey".localized(with: 16)
         return textField
     }()
 
@@ -31,7 +31,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
     let doneButton: BKButton = {
         let btn = BKButton()
-        btn.setTitle(NSLocalizedString("done"), for: .normal)
+        btn.setTitle("done".localized, for: .normal)
         btn.setTitleColor(BKColor.lightBlue.darken3, for: .normal)
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         btn.fontSize = 14
@@ -40,7 +40,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
     let copyButton: UIButton = {
         let btn = GradientButton()
-        btn.setTitle(NSLocalizedString("copyExample"), for: .normal)
+        btn.setTitle("copyExample".localized, for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
         btn.titleLabel?.font = UIFont.preferredFont(ofSize: 14, weight: .medium)
         btn.titleLabel?.adjustsFontForContentSizeCategory = true
@@ -62,7 +62,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     }
 
     override func makeUI() {
-        self.title = NSLocalizedString("encryptionSettings")
+        self.title = "encryptionSettings".localized
         self.navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: doneButton))
 
         self.view.addSubview(scrollView)
@@ -79,8 +79,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             return label
         }
 
-        let algorithmLabel = getTitleLabel(title: NSLocalizedString("algorithm"))
-        let modeLabel = getTitleLabel(title: NSLocalizedString("mode"))
+        let algorithmLabel = getTitleLabel(title: "algorithm".localized)
+        let modeLabel = getTitleLabel(title: "mode".localized)
         let paddingLabel = getTitleLabel(title: "Padding")
         let keyLabel = getTitleLabel(title: "Key")
         let ivLabel = getTitleLabel(title: "Iv")
@@ -226,7 +226,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             .disposed(by: rx.disposeBag)
 
         output.keyLengthChanged.drive(onNext: { [weak self] keyLength in
-            self?.keyTextField.placeholder = String(format: NSLocalizedString("enterKey"), keyLength)
+            self?.keyTextField.placeholder = "enterKey".localized(with: keyLength)
         }).disposed(by: rx.disposeBag)
         
         self.modeFeild
@@ -246,7 +246,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
         output.copy.drive(onNext: { text in
             UIPasteboard.general.string = text
-            HUDSuccess(NSLocalizedString("Copy"))
+            HUDSuccess("Copy".localized)
         }).disposed(by: rx.disposeBag)
     }
     
@@ -255,7 +255,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             return
         }
         if let length = ["CBC": 16, "GCM": 12][mode] {
-            self.ivTextField.placeholder = String(format: NSLocalizedString("enterIv"), length)
+            self.ivTextField.placeholder = "enterIv".localized(with: length)
         } else {
             self.ivTextField.placeholder = ""
         }
