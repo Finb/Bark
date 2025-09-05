@@ -227,8 +227,6 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
 enum MessageSettingItem {
     // 普通标题标签
     case label(text: String)
-    // iCloud 状态
-    case iCloudStatus
     // 默认保存
     case archiveSetting(viewModel: ArchiveSettingCellViewModel)
     // 带 详细按钮的 文本cell

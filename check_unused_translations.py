@@ -3,7 +3,9 @@
 Bark项目本地化字符串分析工具
 
 这个脚本会扫描整个Bark项目，找出 Localizable.xcstrings 中未使用的翻译key。
-检测方式：任何在双引号内且在本地化文件中定义的字符串都会被认为是被使用的key。
+检测方式：
+1. 任何在双引号内且在本地化文件中定义的字符串都会被认为是被使用的key
+2. "key".localized 和 "key".localized(with:) 模式
 
 使用方法:
     python3 check_unused_translations.py
@@ -45,7 +47,7 @@ class BarkLocalizationAnalyzer:
     def extract_used_keys_from_file(self, file_path, all_defined_keys):
         """从Swift文件中提取使用的本地化key"""
         used_keys = set()
-        nslocalizedstring_keys = set()  # 新增：专门收集NSLocalizedString中的key
+        localized_keys = set()  # 收集.localized中的key
         
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
@@ -61,26 +63,27 @@ class BarkLocalizationAnalyzer:
                 if quoted_string and quoted_string in all_defined_keys:
                     used_keys.add(quoted_string)
             
-            # 方法2: 专门查找 NSLocalizedString("key") 模式
-            nslocalizedstring_patterns = [
-                r'NSLocalizedString\s*\(\s*"([^"]+)"\s*\)',     # NSLocalizedString("key")
-                r'NSLocalizedString\s*\(\s*\'([^\']+)\'\s*\)',   # NSLocalizedString('key')
-                r'NSLocalizedString\s*\(\s*@"([^"]+)"\s*\)',     # NSLocalizedString(@"key")
+            # 方法2: 查找 "key".localized 和 "key".localized(with:) 模式
+            localized_patterns = [
+                r'"([^"]+)"\s*\.\s*localized\b',                    # "key".localized
+                r'"([^"]+)"\s*\.\s*localized\s*\(\s*with:',         # "key".localized(with:
+                r'\'([^\']+)\'\s*\.\s*localized\b',                 # 'key'.localized
+                r'\'([^\']+)\'\s*\.\s*localized\s*\(\s*with:',      # 'key'.localized(with:
             ]
             
-            for pattern in nslocalizedstring_patterns:
+            for pattern in localized_patterns:
                 matches = re.findall(pattern, content, re.MULTILINE | re.DOTALL)
                 for match in matches:
                     match = match.strip()
                     if match:
-                        nslocalizedstring_keys.add(match)  # 收集所有NSLocalizedString中的key
+                        localized_keys.add(match)  # 收集所有.localized中的key
                         if match in all_defined_keys:
                             used_keys.add(match)
             
         except Exception as e:
             print(f"⚠️  读取文件失败 {file_path}: {e}")
         
-        return used_keys, nslocalizedstring_keys
+        return used_keys, localized_keys
     
     def find_all_used_keys(self, all_defined_keys):
         """在整个项目中查找所有使用的本地化 key"""
@@ -90,20 +93,20 @@ class BarkLocalizationAnalyzer:
         
         # 提取使用的key
         used_keys = set()
-        all_nslocalizedstring_keys = set()  # 新增：收集所有NSLocalizedString中的key
+        all_localized_keys = set()  # 收集所有.localized中的key
         files_with_keys = 0
         
         for file_path in swift_files:
-            file_keys, nsl_keys = self.extract_used_keys_from_file(file_path, all_defined_keys)
+            file_keys, localized_keys = self.extract_used_keys_from_file(file_path, all_defined_keys)
             if file_keys:
                 files_with_keys += 1
                 used_keys.update(file_keys)
-            all_nslocalizedstring_keys.update(nsl_keys)
+            all_localized_keys.update(localized_keys)
         
         print(f"🔑 在 {files_with_keys} 个文件中找到 {len(used_keys)} 个使用的key")
         
-        # 计算在NSLocalizedString中使用但未在本地化文件中定义的key
-        missing_in_localization = all_nslocalizedstring_keys - all_defined_keys
+        # 计算在代码中使用但未在本地化文件中定义的key
+        missing_in_localization = all_localized_keys - all_defined_keys
         
         return used_keys, files_with_keys, missing_in_localization
     
@@ -160,7 +163,7 @@ class BarkLocalizationAnalyzer:
         print(f"使用中的key数量: {result['used_keys']}")
         print(f"未使用的key数量: {result['unused_keys']}")
         print(f"缺失的key数量: {result['missing_keys']} (代码中使用但未定义)")
-        print(f"NSLocalizedString中缺失的key: {result['missing_in_localization']} 个")
+        print(f"代码中缺失的key: {result['missing_in_localization']} 个")
         
         if result['unused_keys_list']:
             print(f"\n🗑️  未使用的翻译key ({result['unused_keys']} 个):")
@@ -173,7 +176,7 @@ class BarkLocalizationAnalyzer:
                 print(f"   {i:2d}. {key}")
         
         if result['missing_in_localization_list']:
-            print(f"\n❌ NSLocalizedString中使用但未在Localizable.xcstrings中定义的key ({result['missing_in_localization']} 个):")
+            print(f"\n❌ 代码中使用但未在Localizable.xcstrings中定义的key ({result['missing_in_localization']} 个):")
             for i, key in enumerate(result['missing_in_localization_list'], 1):
                 print(f"   {i:2d}. {key}")
         
@@ -210,7 +213,7 @@ def main():
         if result['missing_keys'] > 0:
             print(f"   - 为 {result['missing_keys']} 个缺失的key添加翻译")
         if result['missing_in_localization'] > 0:
-            print(f"   - 为 {result['missing_in_localization']} 个NSLocalizedString中的key添加本地化定义")
+            print(f"   - 为 {result['missing_in_localization']} 个代码中使用的key添加本地化定义")
         
         print("   - 检查是否有动态构建的key名称(脚本可能无法检测)")
         print("   - 手动检查Storyboard/XIB文件中的硬编码字符串")

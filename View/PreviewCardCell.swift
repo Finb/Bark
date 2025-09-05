@@ -18,7 +18,7 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
     
     let copyButton: IconButton = {
         let button = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
-        button.accessibilityLabel = "copy".localized
+        button.accessibilityLabel = "Copy".localized
         return button
     }()
     

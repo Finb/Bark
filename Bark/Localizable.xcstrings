@@ -291,35 +291,6 @@
         }
       }
     },
-    "available" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Enabled"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "有効"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Etkin"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "已开启"
-          }
-        }
-      }
-    },
     "badge" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -929,35 +900,6 @@
         }
       }
     },
-    "copyCrashLog" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Copy Crash Log"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "クラッシュログをコピー"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Copy Crash Log"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "复制闪退日志"
-          }
-        }
-      }
-    },
     "copyExample" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1012,64 +954,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "下拉推送、锁屏界面左滑查看推送时，可以选择复制推送内容\n携带copy参数时，将只复制copy参数的值"
-          }
-        }
-      }
-    },
-    "crashContent" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "You need to restart the app! \n\nIf the problem persists, you can try to check the FAQ to see if there is a solution.\nhttps://bark.day.app/#/en-us/faq\n\nBark will not upload any logs! If you need help (or wish to help the developer fix the crash), you can also send the crash log to me, and I will contact you as soon as possible.\n\nEmail: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Issue: https://github.com/Finb/Bark/issues\n"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "問題が解決しない場合は、FAQを確認して解決策があるかどうかを確認できます。  \nhttps://bark.day.app/#/en-us/faq  \n\nBarkはログをアップロードしません！助けが必要な場合（または開発者がクラッシュを修正するのを手伝いたい場合）、クラッシュログを私に送ってください。できるだけ早く連絡します。  \n\nメール: to@day.app  \nTelegram: https://t.me/joinchat/OsCbLzovUAE0YjY1  \nGithub Issue: https://github.com/Finb/Bark/issues  "
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Uygulamayı yeniden başlatmanız gerekiyor!\n\nSorun devam ederse bir çözüm olup olmadığını görmek için SSS'yi kontrol etmeyi deneyebilirsiniz.\nhttps://bark.day.app/#/en-us/faq\n\nBark herhangi bir günlük yüklemeyecek! Yardıma ihtiyacınız varsa (veya geliştiricinin çökmeyi düzeltmesine yardım etmek istiyorsanız), kilitlenme günlüğünü bana da gönderebilirsiniz; mümkün olan en kısa sürede sizinle iletişime geçeceğim.\n\nE-posta: to@day.app\nTelgraf: https://t.me/joinchat/OsCbLzovUAE0YjY1\nGithub Sorunları: https://github.com/Finb/Bark/issues"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "您需要重启APP！\n\n如还是提示闪退，可以尝试查看FAQ看是否有解决办法\nhttps://bark.day.app/#/faq\n\nBark 不会上传任何日志！如您需帮助(或帮助作者修复闪退)，可以将闪退日志手动复制发送给我，我会尽快与您联系。\n\n邮箱: to@day.app\nTelegram: https://t.me/joinchat/OsCbLzov\nGithub Issue: https://github.com/Finb/Bark/issues\n"
-          }
-        }
-      }
-    },
-    "crashed" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Crashed!"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "クラッシュしました！"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "düştü!"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "好像闪退了！"
           }
         }
       }
@@ -1997,35 +1881,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "历史消息"
-          }
-        }
-      }
-    },
-    "iCloudSatatus" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud Sync"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud同期"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud Senkronizasyonu"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "iCloud 同步"
           }
         }
       }
@@ -3128,35 +2983,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "恢复订阅"
-          }
-        }
-      }
-    },
-    "restricted" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Disabled"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "無効"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Devre Dışı"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "未开启"
           }
         }
       }

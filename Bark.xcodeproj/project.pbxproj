@@ -140,7 +140,6 @@
 		06C2CF232685B88D0034B127 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF222685B88D0034B127 /* TextCell.swift */; };
 		06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF242685BDB80034B127 /* SpacerCell.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
-		06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */; };
 		06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953024811392006B98F3 /* ArchiveSettingCell.swift */; };
 		06C595362481160F006B98F3 /* BKLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C595352481160F006B98F3 /* BKLabel.swift */; };
 		06CF784721C7A50300A052D7 /* NotificationServiceExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -380,7 +379,6 @@
 		06C2CF222685B88D0034B127 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		06C2CF242685BDB80034B127 /* SpacerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCell.swift; sourceTree = "<group>"; };
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
-		06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iCloudStatusCell.swift; sourceTree = "<group>"; };
 		06C5953024811392006B98F3 /* ArchiveSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCell.swift; sourceTree = "<group>"; };
 		06C5953224811505006B98F3 /* ArchiveSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingManager.swift; sourceTree = "<group>"; };
 		06C595352481160F006B98F3 /* BKLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLabel.swift; sourceTree = "<group>"; };
@@ -505,7 +503,6 @@
 				0603706820E1F89500F4CA05 /* PreviewCardCell.swift */,
 				064CAB9D256BE9090018155C /* PreviewCardCellViewModel.swift */,
 				06C5952C2480E3F8006B98F3 /* LabelCell.swift */,
-				06C5952E248107F5006B98F3 /* iCloudStatusCell.swift */,
 				06C5953024811392006B98F3 /* ArchiveSettingCell.swift */,
 				06BBB8BB2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift */,
 				060481EF250F51CA00BC9799 /* SoundCell.swift */,
@@ -1279,7 +1276,6 @@
 				064CABA6256BE9510018155C /* PreviewModel.swift in Sources */,
 				0637FA7E20E0969800E80174 /* Client.swift in Sources */,
 				0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */,
-				06C5952F248107F5006B98F3 /* iCloudStatusCell.swift in Sources */,
 				06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */,
 				065BE44B2563D8E1002A8CA4 /* Reusable.swift in Sources */,
 				0637FA8620E0AB6600E80174 /* UIColor+Extension.swift in Sources */,

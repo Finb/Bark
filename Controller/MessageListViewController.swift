@@ -58,7 +58,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         btn.setImage(UIImage(named: "group_collapse")?.withRenderingMode(.alwaysTemplate), for: .selected)
         btn.imageView?.tintColor = BKColor.black
         btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-        btn.accessibilityLabel = "toggle"
+        btn.accessibilityLabel = "toggle".localized
         return UIBarButtonItem(customView: btn)
     }()
     
