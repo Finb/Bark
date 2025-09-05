@@ -20,6 +20,7 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
         button.frame = CGRect(x: 0, y: 0, width: 24, height: 24)
         button.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
         button.tintColor = BKColor.grey.darken3
+        button.isAccessibilityElement = false
         return button
     }()
     

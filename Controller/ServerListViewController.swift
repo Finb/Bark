@@ -40,6 +40,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
         closeButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         closeButton.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
         closeButton.tintColor = BKColor.grey.darken4
+        closeButton.accessibilityLabel = NSLocalizedString("close")
         return closeButton
     }()
 

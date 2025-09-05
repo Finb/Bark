@@ -11,7 +11,12 @@ import Material
 import UIKit
 
 class SoundCell: BaseTableViewCell<SoundCellViewModel> {
-    let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
+    let copyButton: IconButton = {
+        let button = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
+        button.accessibilityLabel = NSLocalizedString("copy")
+        return button
+    }()
+    
     let nameLabel: UILabel = {
         let label = UILabel()
         label.fontSize = 14

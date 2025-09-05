@@ -10,8 +10,17 @@ import Material
 import UIKit
 
 class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
-    let previewButton = IconButton(image: Icon.cm.skipForward, tintColor: BKColor.grey.base)
-    let copyButton = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
+    let previewButton: IconButton = {
+        let button = IconButton(image: Icon.cm.skipForward, tintColor: BKColor.grey.base)
+        button.accessibilityLabel = NSLocalizedString("demo")
+        return button
+    }()
+    
+    let copyButton: IconButton = {
+        let button = IconButton(image: UIImage(named: "baseline_file_copy_white_24pt"), tintColor: BKColor.grey.base)
+        button.accessibilityLabel = NSLocalizedString("copy")
+        return button
+    }()
     
     let titleLabel: UILabel = {
         let label = UILabel()
