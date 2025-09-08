@@ -107,17 +107,12 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
         
         let titleStackView = UIStackView()
         titleStackView.axis = .vertical
+        titleStackView.isLayoutMarginsRelativeArrangement = true
+        titleStackView.layoutMargins = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 0)
         titleStackView.addArrangedSubview(titleLabel)
         titleStackView.addArrangedSubview(bodyLabel)
         
         card.addSubview(titleStackView)
-
-        titleLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(15)
-        }
-        bodyLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(15)
-        }
         
         titleStackView.snp.makeConstraints { make in
             make.centerY.equalTo(copyButton)
@@ -132,20 +127,9 @@ class PreviewCardCell: BaseTableViewCell<PreviewCardCellViewModel> {
         card.addSubview(contentStackView)
         
         contentStackView.addArrangedSubview(contentImageView)
-        contentStackView.addArrangedSubview(contentLabel)
-        contentStackView.addArrangedSubview(noticeLabel)
+        contentStackView.addArrangedSubview(InsetView(subView: contentLabel, insets: .init(top: 0, left: 12, bottom: 0, right: 12)))
+        contentStackView.addArrangedSubview(InsetView(subView: noticeLabel, insets: .init(top: 0, left: 10, bottom: 0, right: 10)))
         
-        contentLabel.snp.makeConstraints { make in
-            make.left.equalToSuperview().offset(12)
-            make.right.equalToSuperview().offset(-12)
-        }
-        contentImageView.snp.remakeConstraints { make in
-            make.left.right.equalToSuperview()
-        }
-        noticeLabel.snp.makeConstraints { make in
-            make.left.equalTo(10)
-            make.right.equalTo(-10)
-        }
         contentStackView.snp.makeConstraints { make in
             make.left.right.equalToSuperview()
             make.top.equalTo(previewButton.snp.bottom).offset(20)

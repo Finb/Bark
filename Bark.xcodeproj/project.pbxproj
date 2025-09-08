@@ -137,6 +137,7 @@
 		06BCAE582CDB19420092867A /* GroupMuteSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */; };
 		06BCAE5B2CDB25120092867A /* MuteProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE5A2CDB25120092867A /* MuteProcessor.swift */; };
 		06BD4DAA2901352E003364DB /* Object+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BD4DA92901352E003364DB /* Object+Dictionary.swift */; };
+		06BE84042E6EAE7100E6F856 /* InsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BE84032E6EAE7100E6F856 /* InsetView.swift */; };
 		06C2CF232685B88D0034B127 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF222685B88D0034B127 /* TextCell.swift */; };
 		06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF242685BDB80034B127 /* SpacerCell.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
@@ -376,6 +377,7 @@
 		06BCAE592CDB19590092867A /* NotificationContentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationContentExtension.entitlements; sourceTree = "<group>"; };
 		06BCAE5A2CDB25120092867A /* MuteProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteProcessor.swift; sourceTree = "<group>"; };
 		06BD4DA92901352E003364DB /* Object+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+Dictionary.swift"; sourceTree = "<group>"; };
+		06BE84032E6EAE7100E6F856 /* InsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetView.swift; sourceTree = "<group>"; };
 		06C2CF222685B88D0034B127 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		06C2CF242685BDB80034B127 /* SpacerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCell.swift; sourceTree = "<group>"; };
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -527,6 +529,7 @@
 				0635A8042CE47DFE0027E00F /* SettingSectionHeader.swift */,
 				0635A8062CE4883A0027E00F /* DonateCell.swift */,
 				0647DB672CE604AA00102066 /* MessageSettingFooter.swift */,
+				06BE84032E6EAE7100E6F856 /* InsetView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -862,7 +865,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1300;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1640;
 				ORGANIZATIONNAME = Fin;
 				TargetAttributes = {
 					0632CE1D20EC9098003FDF46 = {
@@ -1301,6 +1304,7 @@
 				06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */,
 				068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */,
 				0637FA7C20E0930E00E80174 /* BarkApi.swift in Sources */,
+				06BE84042E6EAE7100E6F856 /* InsetView.swift in Sources */,
 				061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */,
 				06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */,
 				06BBB8BC2567B3AD0076F63E /* ArchiveSettingCellViewModel.swift in Sources */,
@@ -1416,7 +1420,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1443,7 +1446,6 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationContentExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1497,6 +1499,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1559,6 +1562,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -1588,7 +1592,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1615,7 +1618,6 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = Bark/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1642,7 +1644,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1671,7 +1672,6 @@
 				CODE_SIGN_IDENTITY = "Apple Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = NotificationServiceExtension/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1699,7 +1699,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = BarkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1728,7 +1727,6 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				INFOPLIST_FILE = BarkTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
