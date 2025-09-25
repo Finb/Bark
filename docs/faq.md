@@ -1,6 +1,6 @@
 #### 江苏部分地区无法访问 https://api.day.app
 江苏部分地区存在DNS污染和网络阻断，预计会持续一到两周。<br/>
-可以尝试更换DNS或者翻墙，如果无法解决，可暂时使用 https://api.bbark.top，只需在发送端将 api.day.app 改为 api.bbark.top。<br/>（api.bbark.top是临时域名，随时可能终止解析，请勿长期使用）
+可以尝试更换DNS或者翻墙，如果无法解决，可暂时使用 https://api.bbark.top。 只需在发送端将 api.day.app 改为 api.bbark.top。<br/>（api.bbark.top是临时域名，随时可能终止解析，请勿长期使用）
 
 #### 无法收到推送
 在 App 设置中检查 Device Token 是否正常。如果不正常，参考 [这里](#DeviceToken显示未知)<br/>
