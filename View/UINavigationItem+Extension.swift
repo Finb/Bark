@@ -28,14 +28,24 @@ extension UINavigationItem {
     }
 
     func setBarButtonItems(items: [UIBarButtonItem], position: UINavigationItemPosition) {
+        if #available(iOS 26.0, *) {
+            // iOS 26 之后的版本，不再微调间距
+            if position == .left {
+                self.leftBarButtonItems = items
+            } else {
+                self.rightBarButtonItems = items
+            }
+            return
+        }
+        
         guard items.count > 0 else {
             self.leftBarButtonItems = nil
             return
         }
         var buttonItems = items
         if #available(iOS 11.0, *) {
-            buttonItems.forEach { item in
-                guard let view = item.customView else { return }
+            for item in buttonItems {
+                guard let view = item.customView else { continue }
                 item.customView?.translatesAutoresizingMaskIntoConstraints = false
                 (item.customView as? HitTestSlopable)?.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
                 (item.customView as? AlignmentRectInsetsOverridable)?.alignmentRectInsetsOverride = UIEdgeInsets(top: 0, left: position == .left ? 8 : -8, bottom: 0, right: position == .left ? -8 : 8)
@@ -45,16 +55,14 @@ extension UINavigationItem {
                 }
             }
             buttonItems.insert(UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil), at: 0)
-        }
-        else {
+        } else {
             let spacer = UIBarButtonItem(barButtonSystemItem: .fixedSpace, target: nil, action: nil)
             spacer.width = -8
             buttonItems.insert(spacer, at: 0)
         }
         if position == .left {
             self.leftBarButtonItems = buttonItems
-        }
-        else {
+        } else {
             self.rightBarButtonItems = buttonItems
         }
     }

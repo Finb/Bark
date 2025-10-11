@@ -27,6 +27,11 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         tableView.register(SpacerCell.self, forCellReuseIdentifier: "\(SpacerCell.self)")
         tableView.register(DonateCell.self, forCellReuseIdentifier: "\(DonateCell.self)")
         
+        if #available(iOS 26.0, *) {
+            // iOS26 修改的圆角，将其改回
+            tableView.setValue(10, forKeyPath: "sectionCornerRadius")
+        }
+
         tableView.estimatedSectionHeaderHeight = 10
         tableView.sectionHeaderHeight = UITableView.automaticDimension
         
