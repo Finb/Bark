@@ -43,25 +43,9 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                 }
                 try? realm.write {
                     for message in arr {
-                        guard let id = message["id"].string else {
+                        guard let messageObject = Message(json: message) else {
                             continue
                         }
-                        guard let createDate = message["createDate"].int64 else {
-                            continue
-                        }
-
-                        let title = message["title"].string
-                        let body = message["body"].string
-                        let url = message["url"].string
-                        let group = message["group"].string
-
-                        let messageObject = Message()
-                        messageObject.id = id
-                        messageObject.title = title
-                        messageObject.body = body
-                        messageObject.url = url
-                        messageObject.group = group
-                        messageObject.createDate = Date(timeIntervalSince1970: TimeInterval(createDate))
                         realm.add(messageObject, update: .modified)
                     }
                 }
