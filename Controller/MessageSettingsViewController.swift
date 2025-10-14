@@ -53,7 +53,8 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.left.right.equalTo(self.view.safeAreaLayoutGuide)
         }
     
         // 捐赠内购没有任何逻辑，就不往 ViewModel 里放了，在这里处理一下得了

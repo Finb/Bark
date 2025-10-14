@@ -65,10 +65,12 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
         self.navigationItem.largeTitleDisplayMode = .never
         navigationItem.title = "AddServer".localized
 
-        self.view.layout(addressTextField)
-            .top(kNavigationHeight + 40).left(10).right(10)
-        
+        self.view.addSubview(addressTextField)
         self.view.addSubview(noticeLabel)
+        addressTextField.snp.makeConstraints { make in
+            make.top.equalTo(kNavigationHeight + 40)
+            make.left.right.equalTo(self.view.safeAreaLayoutGuide).inset(16)
+        }
         noticeLabel.snp.makeConstraints { make in
             make.top.equalTo(self.addressTextField.snp.bottom).offset(40)
             make.left.equalTo(self.addressTextField)

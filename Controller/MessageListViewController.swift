@@ -100,6 +100,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         navigationItem.searchController?.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.delegate = self
         
+        if #available(iOS 26.0, *) {
+            navigationItem.preferredSearchBarPlacement = .integratedButton
+        }
+        
         navigationItem.setBarButtonItems(items: [deleteButton, groupButton], position: .right)
         
         self.view.addSubview(tableView)
