@@ -104,8 +104,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             navigationItem.preferredSearchBarPlacement = .integratedButton
         }
         
-        navigationItem.setBarButtonItems(items: [deleteButton, groupButton], position: .right)
-        
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
@@ -258,7 +256,14 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             }).disposed(by: rx.disposeBag)
         
         output.groupToggleButtonHidden
-            .drive((groupButton.customView as! UIButton).rx.isHidden).disposed(by: rx.disposeBag)
+            .drive(onNext: { [weak self] isHidden in
+                guard let self else { return }
+                var items = [deleteButton]
+                if !isHidden {
+                    items.append(groupButton)
+                }
+                navigationItem.setBarButtonItems(items: items, position: .right)
+            }).disposed(by: rx.disposeBag)
     }
     
     private func subscribeDeleteTap() {
