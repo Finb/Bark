@@ -189,7 +189,11 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 .currentValueChanged
                 .compactMap { $0 }
                 .asDriver(onErrorDriveWith: .empty()),
-
+            modeChanged: self.modeFeild
+                .rx
+                .currentValueChanged
+                .compactMap { $0 }
+                .asDriver(onErrorDriveWith: .empty()),
             copyScript: copyButton
                 .rx
                 .tap

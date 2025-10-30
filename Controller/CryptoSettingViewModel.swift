@@ -14,6 +14,7 @@ import RxSwift
 class CryptoSettingViewModel: ViewModel, ViewModelType {
     struct Input {
         let algorithmChanged: Driver<String>
+        let modeChanged: Driver<String>
         let copyScript: Driver<CryptoSettingFields>
         let done: Driver<CryptoSettingFields>
     }
@@ -55,6 +56,16 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             .compactMap { Algorithm(rawValue: $0) }
             .map { $0.modes }
 
+        let paddingList = input
+            .modeChanged
+            .map { mode in
+                if mode == "GCM" {
+                    return ["noPadding"]
+                } else {
+                    return ["pkcs7"]
+                }
+            }
+
         let keyLength =
             Driver.merge([
                 Driver.just(dependencies.settingFieldRelay.value)
@@ -95,43 +106,74 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             }
         let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
             .compactMap { fields, deviceKey, serverAddress -> String? in
-                guard fields.mode != "GCM" else {
-                    showSnackbar.accept("gcmNotSupported".localized)
-                    return nil
-                }
                 let key = fields.key ?? ""
                 let iv = fields.iv ?? ""
-                return
-                    """
-                    #!/usr/bin/env bash
-                    
-                    # Documentation: \("encryptionUrl".localized)
-                    
-                    set -e
+                if fields.mode == "GCM" {
+                    return
+                        """
+                        // Documentation: \("encryptionUrl".localized)
+                        
+                        const crypto = require('crypto');
 
-                    # bark key
-                    deviceKey='\(deviceKey)'
-                    # push payload
-                    json='{"body": "test", "sound": "birdsong"}'
 
-                    # \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8)) )
-                    key='\(key)'
-                    # \("ivComment".localized)
-                    iv='\(iv)'
+                        // bark key
+                        const deviceKey = '\(deviceKey)';
+                        // push payload
+                        const json = JSON.stringify({ body: "test", sound: "birdsong" });
 
-                    # \("opensslEncodingComment".localized)
-                    key=$(printf $key | xxd -ps -c 200)
-                    iv=$(printf $iv | xxd -ps -c 200)
-                    
-                    # \("base64Notice".localized)
-                    ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
+                        // \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8))
+                        const key = '\(key)';
+                        // \("ivComment".localized)
+                        const iv = '\(iv)';
 
-                    # \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
-                    echo $ciphertext
-                    
-                    # \("ciphertextComment".localized)
-                    curl --data-urlencode "ciphertext=$ciphertext"\(iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
-                    """
+                        // AES-\(fields.algorithm.suffix(3))-GCM encryption
+                        const cipher = crypto.createCipheriv('aes-\(fields.algorithm.suffix(3))-gcm', Buffer.from(key, 'utf8'), Buffer.from(iv, 'utf8'));
+                        let encrypted = cipher.update(json, 'utf8', 'base64');
+                        encrypted += cipher.final('base64'); 
+                        const authTag = cipher.getAuthTag().toString('base64');
+                        
+                        // 
+                        const ciphertext = encrypted;
+
+                        // \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\":\"test\",\"sound\":\"birdsong\"}")) ?? "")"
+                        console.log(ciphertext);
+
+                        // \("ciphertextComment".localized)
+                        const pushUrl = `\(serverAddress)/${deviceKey}?ciphertext=${encodeURIComponent(ciphertext)}&iv=${encodeURIComponent(iv)}`;
+                        """
+                } else {
+                    return
+                        """
+                        #!/usr/bin/env bash
+                        
+                        # Documentation: \("encryptionUrl".localized)
+                        
+                        set -e
+
+                        # bark key
+                        deviceKey='\(deviceKey)'
+                        # push payload
+                        json='{"body": "test", "sound": "birdsong"}'
+
+                        # \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8)) )
+                        key='\(key)'
+                        # \("ivComment".localized)
+                        iv='\(iv)'
+
+                        # \("opensslEncodingComment".localized)
+                        key=$(printf $key | xxd -ps -c 200)
+                        iv=$(printf $iv | xxd -ps -c 200)
+                        
+                        # \("base64Notice".localized)
+                        ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
+
+                        # \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
+                        echo $ciphertext
+                        
+                        # \("ciphertextComment".localized)
+                        curl --data-urlencode "ciphertext=$ciphertext"\(iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
+                        """
+                }
             }
 
         return Output(
@@ -142,7 +184,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                 initialFields: dependencies.settingFieldRelay.value
             )),
             modeListChanged: modeList,
-            paddingListChanged: Driver.just(["pkcs7"]),
+            paddingListChanged: paddingList,
             keyLengthChanged: keyLength,
             showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty()),
             done: done.map { _ in () },

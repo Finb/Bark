@@ -7,12 +7,11 @@
 //
 
 import DropDown
-import UIKit
 import RxCocoa
 import RxSwift
+import UIKit
 
 class DropBoxView: UIView {
-
     let valueLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(ofSize: 14)
@@ -35,8 +34,7 @@ class DropBoxView: UIView {
                     self.borderColor = BKColor.blue.darken5
                     self.shadowColor = BKColor.blue.darken5
                     self.layer.shadowOpacity = 0.3
-                }
-                else {
+                } else {
                     self.borderColor = BKColor.grey.lighten2
                     self.shadowColor = BKColor.grey.lighten2
                     self.layer.shadowOpacity = 0
@@ -54,11 +52,11 @@ class DropBoxView: UIView {
     var currentValue: String? {
         didSet {
             self.valueLabel.text = currentValue
-            self.currentValueChanged?(self.currentValue)
+            self.currentValueSubject.onNext(self.currentValue)
         }
     }
-    
-    var currentValueChanged: ((String?) -> Void)?
+
+    fileprivate let currentValueSubject = PublishSubject<String?>()
 
     init(values: [String]) {
         self.values = values
@@ -120,19 +118,8 @@ class DropBoxView: UIView {
 }
 
 extension Reactive where Base: DropBoxView {
-
     var currentValueChanged: ControlEvent<String?> {
-        let source = Observable<String?>.create { [weak control = self.base] observer -> Disposable in
-            MainScheduler.ensureExecutingOnScheduler()
-            guard let control = control else {
-                observer.onCompleted()
-                return Disposables.create()
-            }
-            control.currentValueChanged = { value in
-                observer.onNext(value)
-            }
-            return Disposables.create()
-        }
+        let source = base.currentValueSubject.asObservable()
         return ControlEvent(events: source)
     }
 }

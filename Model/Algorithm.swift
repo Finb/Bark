@@ -21,13 +21,6 @@ enum Algorithm: String {
         }
     }
 
-    var paddings: [String] {
-        switch self {
-        case .aes128, .aes192, .aes256:
-            return ["pkcs7"]
-        }
-    }
-
     var keyLength: Int {
         switch self {
         case .aes128:
@@ -91,9 +84,19 @@ struct AESCryptoModel {
             throw "Invalid Mode"
         }
 
+        let padding: Padding
+        switch cryptoFields.padding {
+        case "noPadding":
+            padding = .noPadding
+        case "pkcs7":
+            padding = .pkcs7
+        default:
+            throw "Invalid Padding"
+        }
+
         self.key = key
         self.mode = mode
-        self.padding = Padding.pkcs7
+        self.padding = padding
         self.aes = try AES(key: key.bytes, blockMode: self.mode, padding: self.padding)
     }
 
