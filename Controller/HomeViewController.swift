@@ -18,7 +18,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let btn = BKButton()
         btn.setImage(Icon.add, for: .normal)
         btn.imageView?.tintColor = BKColor.grey.darken4
-//        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         btn.accessibilityIdentifier = "AddServer".localized
         return btn
     }()
@@ -27,7 +27,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         let btn = BKButton()
         btn.setImage(UIImage(named: "baseline_filter_drama_black_24pt"), for: .normal)
         btn.imageView?.tintColor = BKColor.grey.darken4
-//        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        btn.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
         btn.accessibilityIdentifier = "serverList".localized
         return btn
     }()

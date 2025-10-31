@@ -79,7 +79,7 @@ struct AESCryptoModel {
         case "ECB":
             mode = ECB()
         case "GCM":
-            mode = GCM(iv: iv.bytes)
+            mode = GCM(iv: iv.bytes, mode: .combined)
         default:
             throw "Invalid Mode"
         }

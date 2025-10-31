@@ -14,18 +14,18 @@ PODS:
     - IQKeyboardManagerSwift/Core
     - IQKeyboardToolbarManager
   - IQKeyboardNotification (1.0.6)
-  - IQKeyboardToolbar (1.1.2):
-    - IQKeyboardToolbar/Core (= 1.1.2)
-  - IQKeyboardToolbar/Core (1.1.2):
+  - IQKeyboardToolbar (1.1.3):
+    - IQKeyboardToolbar/Core (= 1.1.3)
+  - IQKeyboardToolbar/Core (1.1.3):
     - IQKeyboardCore
     - IQKeyboardToolbar/Placeholderable
-  - IQKeyboardToolbar/Placeholderable (1.1.2)
+  - IQKeyboardToolbar/Placeholderable (1.1.3)
   - IQKeyboardToolbarManager (1.1.4):
     - IQKeyboardToolbar
     - IQTextInputViewNotification
   - IQTextInputViewNotification (1.0.9):
     - IQKeyboardCore
-  - Kingfisher (8.6.0)
+  - Kingfisher (8.6.1)
   - Material (3.1.8):
     - Material/Core (= 3.1.8)
   - Material/Core (3.1.8):
@@ -146,10 +146,10 @@ SPEC CHECKSUMS:
   IQKeyboardCore: 8652977ec919cf5351aa2977fedd1a6546476fbc
   IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
   IQKeyboardNotification: eb4910401f5a0e68f97e71c62f8a0c5b7e9d535c
-  IQKeyboardToolbar: a8aab764a27d55892b951e58ebfffdde14a01ce8
+  IQKeyboardToolbar: 9fe900f8e7def414be4025af0ca098df764d4fe3
   IQKeyboardToolbarManager: c8a575e8b5fffe5873d0e75312244498a0759473
   IQTextInputViewNotification: 3b9fb27a16e7ee8958cc9092cfb07a1a9e1fd559
-  Kingfisher: 64278f126a815d0e2d391cdf71311b85882c4de0
+  Kingfisher: 7ac7a7288653787a54206b11a3c74f49ab650f1f
   Material: a2a3f400a3b549d53ef89e56c58c4535b29db387
   MercariQRScanner: cd024685242f78fe40879cca9734bb7bb2fceb93
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78

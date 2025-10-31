@@ -126,14 +126,16 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         // \("ivComment".localized)
                         const iv = '\(iv)';
 
-                        // AES-\(fields.algorithm.suffix(3))-GCM encryption
+                        // AES-\(fields.algorithm.suffix(3))-GCM
                         const cipher = crypto.createCipheriv('aes-\(fields.algorithm.suffix(3))-gcm', Buffer.from(key, 'utf8'), Buffer.from(iv, 'utf8'));
-                        let encrypted = cipher.update(json, 'utf8', 'base64');
-                        encrypted += cipher.final('base64'); 
-                        const authTag = cipher.getAuthTag().toString('base64');
+                        const encrypted = Buffer.concat([
+                          cipher.update(json, 'utf8'),
+                          cipher.final()
+                        ]);
+                        const tag = cipher.getAuthTag()
                         
-                        // 
-                        const ciphertext = encrypted;
+                        const combined = Buffer.concat([encrypted, tag])
+                        let ciphertext = combined.toString('base64')
 
                         // \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\":\"test\",\"sound\":\"birdsong\"}")) ?? "")"
                         console.log(ciphertext);
