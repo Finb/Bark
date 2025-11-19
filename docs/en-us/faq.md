@@ -1,46 +1,66 @@
-#### Push usage limit <!-- {docsify-ignore-all} -->
-Normal requests (HTTP status code 200) have no limit.<br>
-But if more than 1000 error requests (HTTP status code 400 404 500) are made within 5 minutes, <b>the IP will be BAN for 24 hours</b> 
+### Unable to Receive Push Notifications
+Check whether the Device Token is valid in the app settings. 
+If it’s valid, try rebooting your device. If you still can’t receive notifications, check whether the push request returned HTTP 200.  
 
-#### Time-sensitive notifications not work
-You can try to <b>restart your device</b> to solve it.
+### DeviceToken Shows “Unknown”
+This usually means the device cannot connect to Apple’s servers. You may also notice iMessage not working or other apps not receiving notifications.  
+Try switching networks, rebooting the device, or disabling any proxy/VPN affecting Apple services.  
+This is a connectivity issue between your device and Apple’s servers, and cannot be fixed by the app author.
 
-#### Unable to save notification history, or unable to copy by pulling down push or swiping left on lock screen without clicking copy button
-You can try to <b>restart your device</b> to solve it.<br />
-Due to some reasons, the push service extension （[UNNotificationServiceExtension](https://developer.apple.com/documentation/usernotifications/unnotificationserviceextension)） failed to run normally, and the code for saving notifications was not executed properly.
+### Push Usage Limit
+Valid requests (HTTP 200) have no limit.  
+If you send over **1000 error requests** (HTTP 400 / 404 / 500) within **5 minutes**, **your IP will be banned for 24 hours**.
 
-#### Automatic copy push failure 
-After iOS 14.5 version, due to permission tightening, it is not possible to automatically copy push content to clipboard when receiving push. <br/>
-You can temporarily pull down push or swipe left on lock screen and click view to automatically copy, or click copy button on pop-up push.
+### Receiving Unknown or Unexpected Pushes (e.g., “NoContent”)
+Possible causes:  
+1. Safari may auto-complete the Bark API URL when typing in the address bar and trigger preloading.  
+2. Chat apps like WeChat may periodically access a Bark API URL you sent earlier.  
+3. Your push key was leaked — reset it in the server list page.
 
-#### Open notification history page by default
-When you open APP again, it will jump to the last opened page.<br />
-Just exit APP when you are on history message page. When you open APP again, it will be history message page.
+### “Server Error” Prompt
+Occasional errors may be ignored. The app might have gone into background causing network timeouts.
 
-#### Does push API support POST request?
-Bark supports GET POST , supports using Json <br>
-No matter which request method, parameter names are the same. Refer to [usage tutorial](/en-us/tutorial)
+### Time-Sensitive Notifications Not Working
+Try **rebooting your device**.
 
-#### Pushing special characters causes push failure. For example: Push content contains link or Push abnormal such as + becomes space 
-This is because of the problem of irregular link. It often happens<br>
-When splicing URL, pay attention to URL encoding parameters
+### Unable to Save Notification History or No Copy Button When Pulling Down Notification
+Try **rebooting your device**.  
+The Notification Service Extension may have failed to run, so the saving logic didn’t execute.
+
+### Multiple Devices Using the Same Key but Only One Receives Notifications
+A key can only be used by one device. Only the most recently opened app instance will receive notifications.
+
+### Auto-Copy Not Working
+On iOS 14.5+, stricter permissions prevent auto-copy when receiving notifications.  
+You can instead pull down the notification or swipe left on the lock screen to trigger auto-copy, or tap the copy button.
+
+### Defaulting to Notification History on App Launch
+The app reopens to the last viewed page.  
+If you exit the app on the history page, reopening it will return to the history page.
+
+### Does the Push API Support POST Requests?
+Bark supports both GET and POST, as well as JSON format.  
+Parameters are the same for all request types. See the tutorial for details.
+
+### Push Fails Due to Special Characters (e.g., links, “+” becomes space)
+This happens when the URL is not properly encoded.
 
 ```sh
-# For example
-https://api.day.app/key/{push content}
+# Example
+https://api.day.app/key/{content}
 
-# If {push content} is
+# If {content} is:
 "a/b/c/"
 
-# Then the final spliced URL is
+# Final URL becomes:
 https://api.day.app/key/a/b/c/
-# The corresponding route will not be found and the backend program will return 404
+# -> No route matches, backend returns 404
 
-#You should url encode {push content} before splicing
+# Correct (URL-encoded):
 https://api.day.app/key/a%2Fb%2Fc%2F
 ```
- If you use a mature HTTP library, parameters will be automatically processed and you don’t need manual encoding. <br>
-But if you splice URL yourself, you need special attention for special characters in parameters. **It’s better not care whether there are special characters or not and blindly apply a layer of URL encoding.**
+HTTP libraries usually encode parameters automatically.
+If constructing URLs manually, always encode parameters.
 
 #### How to ensure privacy and security
-Refer [privacy security](/en-us/privacy)
+See the [Privacy security](/privacy)

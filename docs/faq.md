@@ -1,8 +1,3 @@
-#### 江苏部分地区无法访问 https://api.day.app
-江苏部分地区存在DNS污染和网络阻断，预计会持续一到两周。<br/>
-可以尝试更换DNS、翻墙或修改 hosts 添加一条记录 43.155.109.24 api.day.app。<br/>
-如果无法解决，可暂时使用 https://api.bbark.top ，只需在发送端将 api.day.app 改为 api.bbark.top。<br/>api.bbark.top是临时域名，随时可能终止解析，请勿长期使用
-
 #### 无法收到推送
 在 App 设置中检查 Device Token 是否正常。如果不正常，参考 [这里](#DeviceToken显示未知)<br/>
 如果正常，可以重启下设备，如果还不能接收到推送，检查推送请求返回状态码是否为 code 200。<br/>
@@ -32,6 +27,9 @@
 #### 无法保存通知历史，或下拉推送没有点击复制按钮无法复制
 可以尝试<b>重启设备</b>来解决。<br />
 因某些原因导致推送服务扩展（[UNNotificationServiceExtension](https://developer.apple.com/documentation/usernotifications/unnotificationserviceextension)）未能正常运行，执行通知保存的代码未能正常执行。
+
+#### 多台设备使用同一个key，但只有其中一台设备可以收到推送
+同一个Key只能一台设备使用，只有最后打开的APP会收到推送
 
 #### 自动复制推送失效
 iOS 14.5 之后的版本因权限收紧，不能在收到推送时自动复制推送内容到剪切板。<br/>
