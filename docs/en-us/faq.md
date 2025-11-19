@@ -63,4 +63,4 @@ HTTP libraries usually encode parameters automatically.
 If constructing URLs manually, always encode parameters.
 
 #### How to ensure privacy and security
-See the [Privacy security](/privacy)
+See the [Privac](/en-us/privacy)
