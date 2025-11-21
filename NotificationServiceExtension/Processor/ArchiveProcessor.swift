@@ -44,7 +44,7 @@ class ArchiveProcessor: NotificationContentProcessor {
                 message.body = body
                 if let markdown, !markdown.isEmpty {
                     message.body = markdown
-                    message.body = Message.BodyType.markdown.rawValue
+                    message.bodyType = Message.BodyType.markdown.rawValue
                 }
                 message.url = url
                 message.image = image
