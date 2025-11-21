@@ -19,6 +19,7 @@ enum NotificationContentProcessorItem {
     case setImage
     case call
     case mute
+    case markdown
     
     var processor: NotificationContentProcessor {
         switch self {
@@ -40,6 +41,8 @@ enum NotificationContentProcessorItem {
             return CallProcessor()
         case .mute:
             return MuteProcessor()
+        case .markdown:
+            return MarkdownProcessor()
         }
     }
 }

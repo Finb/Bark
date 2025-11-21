@@ -32,6 +32,7 @@ class ArchiveProcessor: NotificationContentProcessor {
             let group = userInfo["group"] as? String
             let image = userInfo["image"] as? String
             let id = userInfo["id"] as? String
+            let markdown = userInfo["markdown"] as? String
 
             try? realm?.write {
                 let message = Message()
@@ -41,6 +42,10 @@ class ArchiveProcessor: NotificationContentProcessor {
                 message.title = title
                 message.subtitle = subtitle
                 message.body = body
+                if let markdown, !markdown.isEmpty {
+                    message.body = markdown
+                    message.body = Message.BodyType.markdown.rawValue
+                }
                 message.url = url
                 message.image = image
                 message.group = group

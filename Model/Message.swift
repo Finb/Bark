@@ -11,21 +11,27 @@ import SwiftyJSON
 import UIKit
 
 class Message: Object {
-    @objc dynamic var id = NSUUID().uuidString
-    @objc dynamic var title: String?
-    @objc dynamic var subtitle: String?
-    @objc dynamic var body: String?
-    @objc dynamic var url: String?
-    @objc dynamic var image: String?
-    @objc dynamic var group: String?
-    @objc dynamic var createDate: Date?
-
-    override class func primaryKey() -> String? {
-        return "id"
+    enum BodyType: String {
+        case plainText
+        case markdown
     }
+    @Persisted(primaryKey: true) var id = UUID().uuidString
+    @Persisted var title: String?
+    @Persisted var subtitle: String?
+    @Persisted var body: String?
+    @Persisted var bodyType: String?
+    @Persisted var url: String?
+    @Persisted var image: String?
+    @Persisted(indexed: true) var group: String?
+    @Persisted(indexed: true) var createDate: Date?
 
-    override class func indexedProperties() -> [String] {
-        return ["group", "createDate"]
+    var type: BodyType {
+        get {
+            guard let bodyType = bodyType else {
+                return .plainText
+            }
+            return BodyType(rawValue: bodyType) ?? .plainText
+        }
     }
 
     /// 从 JSON 初始化
@@ -41,6 +47,7 @@ class Message: Object {
         self.title = json["title"].string
         self.subtitle = json["subtitle"].string
         self.body = json["body"].string
+        self.bodyType = json["bodyType"].string
         self.url = json["url"].string
         self.image = json["image"].string
         self.group = json["group"].string

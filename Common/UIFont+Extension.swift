@@ -13,3 +13,19 @@ extension UIFont {
         return UIFontMetrics.default.scaledFont(for: UIFont.systemFont(ofSize: size, weight: weight))
     }
 }
+
+extension UIFont {
+    func bold() -> UIFont {
+        if let descriptor = self.fontDescriptor.withSymbolicTraits(.traitBold) {
+            return UIFont(descriptor: descriptor, size: self.pointSize)
+        }
+        return self
+    }
+    
+    func italic() -> UIFont {
+        if let descriptor = self.fontDescriptor.withSymbolicTraits(.traitItalic) {
+            return UIFont(descriptor: descriptor, size: self.pointSize)
+        }
+        return self
+    }
+}

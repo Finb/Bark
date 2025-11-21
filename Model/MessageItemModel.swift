@@ -46,10 +46,15 @@ class MessageItemModel {
         let body = message.body ?? ""
         let url = message.url ?? ""
         
-        let text = NSMutableAttributedString(
-            string: body,
-            attributes: [.font: UIFont.preferredFont(ofSize: 14), .foregroundColor: BKColor.grey.darken4]
-        )
+        let text: NSMutableAttributedString
+        if message.type == .markdown {
+            text = NSMutableAttributedString(attributedString: MarkdownParser().parse(body))
+        } else {
+            text = NSMutableAttributedString(
+                string: body,
+                attributes: [.font: UIFont.preferredFont(ofSize: 14), .foregroundColor: BKColor.grey.darken4]
+            )
+        }
         
         if subtitle.count > 0 {
             // 插入一行空行当 spacer

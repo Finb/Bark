@@ -33,6 +33,7 @@ class NotificationService: UNNotificationServiceExtension {
                 .setIcon,
                 .setImage,
                 .mute,
+                .markdown,
                 .call
             ]
             
