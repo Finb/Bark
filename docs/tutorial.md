@@ -47,7 +47,7 @@ curl -X "POST" "https://api.day.app/your_key" \
 curl -X "POST" "https://api.day.app/push" \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
-  "body": "Test Bark Server",
+  "markdown": "Hello **Markdown**",
   "title": "Test Title",
   "device_key": "your_key"
 }'
@@ -61,6 +61,7 @@ curl -X "POST" "https://api.day.app/push" \
 | title | 推送标题 |
 | subtitle | 推送副标题 |
 | body | 推送内容 |
+| markdown | 推送内容，markdown格式。传递了此参数将忽略 body 字段, 发送时请注意处理特殊字符。| 
 | device_key | 设备key |
 | device_keys | key 数组，用于批量推送 |
 | level | 推送中断级别。<br>critical: 重要警告, 在静音模式下也会响铃 <br>active：默认值，系统会立即亮屏显示通知<br>timeSensitive：时效性通知，可在专注状态下显示通知。<br>passive：仅将通知添加到通知列表，不会亮屏提醒。 |
@@ -87,9 +88,4 @@ curl -X "POST" "https://api.day.app/push" \
 * [浏览器扩展](https://github.com/ij369/bark-sender) 将网页内容发送到手机
 
 ## 快捷指令
-Bark 支持快捷指令直接发送推送，以下是当收到交警短信时，忽略静音模式持续响铃提醒用户的自动化示例。
-<img src="../_media/shortcuts_cn.png" />
-1. 创建个人自动化
-2. 选择信息、填写信息包含关键词触发自动化，选择立即执行，点击下一步
-3. 选择新建空白自动化，选择 Bark 发送推送到此设备快捷指令
-4. 填写推送配置，标题可以选择短信发件人、内容可以选择短信内容，或自己自定义。
+Bark 支持使用快捷指令直接发送推送
