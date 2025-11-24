@@ -318,6 +318,22 @@ private struct AttributedStringWalker: MarkupWalker {
         }
     }
 
+    /// 图片
+    mutating func visitImage(_ image: Image) {
+        let originalAttributes = attributes
+        defer { attributes = originalAttributes }
+        
+        attributes[.foregroundColor] = configuration.linkColor
+        attributes[.underlineStyle] = NSUnderlineStyle.single.rawValue
+        
+        if let source = image.source {
+            attributes[.link] = source
+        }
+        
+        let altText = image.plainText.isEmpty ? "image".localized : image.plainText
+        attributedString.append(NSAttributedString(string: "[\(altText)]", attributes: attributes))
+    }
+
     /// 软换行渲染为空格
     mutating func visitSoftBreak(_ softBreak: SoftBreak) {
         attributedString.append(NSAttributedString(string: " ", attributes: attributes))
