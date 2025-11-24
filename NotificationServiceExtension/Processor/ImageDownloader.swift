@@ -28,7 +28,9 @@ class ImageDownloader {
     /// - Returns: 返回 Result
     class func downloadImage(url: URL) async -> Result<ImageLoadingResult, KingfisherError> {
         return await withCheckedContinuation { continuation in
-            Kingfisher.ImageDownloader.default.downloadImage(with: url, options: nil) { result in
+            let downloader = Kingfisher.ImageDownloader.default
+            downloader.downloadTimeout = 10.0
+            downloader.downloadImage(with: url, options: nil) { result in
                 continuation.resume(returning: result)
             }
         }
