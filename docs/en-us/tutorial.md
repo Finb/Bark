@@ -46,8 +46,8 @@ curl -X "POST" "https://api.day.app/your_key" \
 ```sh
 curl -X "POST" "https://api.day.app/push" \
      -H 'Content-Type: application/json; charset=utf-8' \
-     -d $'{
-  "markdown": "Hello **Markdown**",
+     -d '{
+  "markdown": "Hello!  \n**Markdown**",
   "title": "Test Title",
   "device_key": "your_key"
 }'
