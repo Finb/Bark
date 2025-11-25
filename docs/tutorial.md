@@ -61,7 +61,7 @@ curl -X "POST" "https://api.day.app/push" \
 | title | 推送标题 |
 | subtitle | 推送副标题 |
 | body | 推送内容 |
-| markdown | 推送内容，markdown格式。传递了此参数将忽略 body 字段, 发送时请注意处理特殊字符。| 
+| markdown | 推送内容，支持基础 Markdown 格式。传递了此参数将忽略 body 字段, 发送时请注意处理特殊字符。| 
 | device_key | 设备key |
 | device_keys | key 数组，用于批量推送 |
 | level | 推送中断级别。<br>critical: 重要警告, 在静音模式下也会响铃 <br>active：默认值，系统会立即亮屏显示通知<br>timeSensitive：时效性通知，可在专注状态下显示通知。<br>passive：仅将通知添加到通知列表，不会亮屏提醒。 |
