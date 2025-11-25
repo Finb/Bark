@@ -24,4 +24,4 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy docs --branch=main --project-name=bark-docs --commit-dirty=true
+          command: pages deploy docs --branch=main --project-name=bark-docs
