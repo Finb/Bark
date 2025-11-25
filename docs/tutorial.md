@@ -38,7 +38,7 @@ curl -X "POST" "https://api.day.app/your_key" \
   "sound": "minuet",
   "icon": "https://day.app/assets/images/avatar.jpg",
   "group": "test",
-  "url": "https://mritd.com"
+  "url": "https://bark.day.app"
 }'
 ```
 
