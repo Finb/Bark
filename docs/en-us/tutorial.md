@@ -61,7 +61,7 @@ List of supported parameters, specific effects can be previewed in the APP.
 | title | Push title |
 | subtitle | Push subtitle |
 | body | Push content |
-| markdown | Push content in Markdown format. When this is provided, the body field is ignored. | 
+| markdown | Push content with basic Markdown. When this is provided, the body field is ignored. | 
 | device_key | Device key |
 | device_keys | Key array, used for batch push |
 | level | Push interruption level.<br>critical: Important alert, will ring even in silent mode <br>active：Default value, the system will immediately light up the screen to display the notification<br>timeSensitive：Time-sensitive notification, can display the notification in focus mode.<br>passive：Only adds the notification to the notification list, will not light up the screen. |
