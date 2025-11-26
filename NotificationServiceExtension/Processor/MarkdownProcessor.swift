@@ -23,7 +23,12 @@ class MarkdownProcessor: NotificationContentProcessor {
             codeBlockTextColor: UIColor.black,
             quoteColor: UIColor.systemGray
         )
-        bestAttemptContent.body = MarkdownParser(configuration: config).parse(markdown).string
+        let body = MarkdownParser(configuration: config)
+            .parse(markdown)
+            .string
+            // 将 body 中的多个\n替换为单个\n，避免空行太多内容显示不完整。
+            .replacingOccurrences(of: "\n\n+", with: "\n", options: .regularExpression)
+        bestAttemptContent.body = body
         return bestAttemptContent
     }
 }
