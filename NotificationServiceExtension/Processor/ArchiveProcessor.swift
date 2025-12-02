@@ -10,11 +10,6 @@ import Foundation
 import RealmSwift
 
 class ArchiveProcessor: NotificationContentProcessor {
-    private lazy var realm: Realm? = {
-        Realm.Configuration.defaultConfiguration = kRealmDefaultConfiguration
-        return try? Realm()
-    }()
-    
     func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         let userInfo = bestAttemptContent.userInfo
         
@@ -34,23 +29,28 @@ class ArchiveProcessor: NotificationContentProcessor {
             let id = userInfo["id"] as? String
             let markdown = userInfo["markdown"] as? String
 
-            try? realm?.write {
-                let message = Message()
-                if let id, !id.isEmpty {
-                    message.id = id
+            if let realm = {
+                Realm.Configuration.defaultConfiguration = kRealmDefaultConfiguration
+                return try? Realm()
+            }() {
+                try? realm.write {
+                    let message = Message()
+                    if let id, !id.isEmpty {
+                        message.id = id
+                    }
+                    message.title = title
+                    message.subtitle = subtitle
+                    message.body = body
+                    if let markdown, !markdown.isEmpty {
+                        message.body = markdown
+                        message.bodyType = Message.BodyType.markdown.rawValue
+                    }
+                    message.url = url
+                    message.image = image
+                    message.group = group
+                    message.createDate = Date()
+                    realm.add(message, update: .all)
                 }
-                message.title = title
-                message.subtitle = subtitle
-                message.body = body
-                if let markdown, !markdown.isEmpty {
-                    message.body = markdown
-                    message.bodyType = Message.BodyType.markdown.rawValue
-                }
-                message.url = url
-                message.image = image
-                message.group = group
-                message.createDate = Date()
-                realm?.add(message, update: .all)
             }
         }
         return bestAttemptContent
