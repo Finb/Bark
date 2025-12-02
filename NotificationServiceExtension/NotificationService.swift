@@ -26,6 +26,7 @@ class NotificationService: UNNotificationServiceExtension {
             // ciphertext 需要放在最前面，有可能所有的推送数据都在密文里
             let processors: [NotificationContentProcessorItem] = [
                 .ciphertext,
+                .markdown,
                 .level,
                 .badge,
                 .autoCopy,
@@ -33,7 +34,6 @@ class NotificationService: UNNotificationServiceExtension {
                 .setIcon,
                 .setImage,
                 .mute,
-                .markdown,
                 .call
             ]
             
