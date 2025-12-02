@@ -32,7 +32,7 @@ class MarkdownProcessor: NotificationContentProcessor {
         
         /// 更新 APS 字段, 供之后的 Porgressor 使用
         var aps = userInfo["aps"] as? [String: Any] ?? [:]
-        let alert = aps["alert"] as? [String: Any] ?? [:]
+        var alert = aps["alert"] as? [String: Any] ?? [:]
         alert["body"] = body
         aps["alert"] = alert
         bestAttemptContent.userInfo["aps"] = aps
