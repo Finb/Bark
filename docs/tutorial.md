@@ -32,7 +32,7 @@ curl -X POST https://api.day.app/your_key \
 curl -X "POST" "https://api.day.app/your_key" \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d $'{
-  "body": "Test Bark Server",
+  "body": "Test Body",
   "title": "Test Title",
   "badge": 1,
   "sound": "minuet",
@@ -47,7 +47,7 @@ curl -X "POST" "https://api.day.app/your_key" \
 curl -X "POST" "https://api.day.app/push" \
      -H 'Content-Type: application/json; charset=utf-8' \
      -d '{
-  "markdown": "Hello!  \n**Markdown**",
+  "body": "Test Body",
   "title": "Test Title",
   "device_key": "your_key"
 }'
