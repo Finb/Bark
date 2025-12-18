@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import RealmSwift
 
 class ArchiveProcessor: NotificationContentProcessor {
     func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
@@ -29,28 +28,45 @@ class ArchiveProcessor: NotificationContentProcessor {
             let id = userInfo["id"] as? String
             let markdown = userInfo["markdown"] as? String
 
-            if let realm = {
-                Realm.Configuration.defaultConfiguration = kRealmDefaultConfiguration
-                return try? Realm()
-            }() {
-                try? realm.write {
-                    let message = Message()
-                    if let id, !id.isEmpty {
-                        message.id = id
-                    }
-                    message.title = title
-                    message.subtitle = subtitle
-                    message.body = body
-                    if let markdown, !markdown.isEmpty {
-                        message.body = markdown
-                        message.bodyType = Message.BodyType.markdown.rawValue
-                    }
-                    message.url = url
-                    message.image = image
-                    message.group = group
-                    message.createDate = Date()
-                    realm.add(message, update: .all)
-                }
+            // 准备消息数据字典
+            var messageDict: [String: Any] = [:]
+            
+            let messageId = (id != nil && !id!.isEmpty) ? id! : UUID().uuidString
+            messageDict["id"] = messageId
+            
+            if let title = title {
+                messageDict["title"] = title
+            }
+            if let subtitle = subtitle {
+                messageDict["subtitle"] = subtitle
+            }
+            if let markdown = markdown, !markdown.isEmpty {
+                messageDict["body"] = markdown
+                messageDict["bodyType"] = "markdown"
+            } else if let body = body {
+                messageDict["body"] = body
+            }
+            if let url = url {
+                messageDict["url"] = url
+            }
+            if let image = image {
+                messageDict["image"] = image
+            }
+            if let group = group {
+                messageDict["group"] = group
+            }
+            messageDict["createDate"] = Date().timeIntervalSince1970
+            
+            // 写入 plist 文件
+            if let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark") {
+                let pendingMessagesDir = groupUrl.appendingPathComponent("pending_messages")
+                
+                // 创建目录（如果不存在）
+                try? FileManager.default.createDirectory(at: pendingMessagesDir, withIntermediateDirectories: true, attributes: nil)
+                
+                let plistUrl = pendingMessagesDir.appendingPathComponent("\(messageId).plist")
+                let dict = NSDictionary(dictionary: messageDict)
+                dict.write(to: plistUrl, atomically: true)
             }
         }
         return bestAttemptContent

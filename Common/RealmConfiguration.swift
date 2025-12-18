@@ -10,8 +10,7 @@
 import UIKit
 
 let kRealmDefaultConfiguration = {
-    let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")
-    let fileUrl = groupUrl?.appendingPathComponent("bark.realm")
+    let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("bark.realm")
     let config = Realm.Configuration(
         fileURL: fileUrl,
         schemaVersion: 17,

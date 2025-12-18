@@ -16,16 +16,6 @@ import UserNotifications
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
     var window: UIWindow?
-//    var syncEngine: SyncEngine?
-    func setupRealm() {
-        // Tell Realm to use this new configuration object for the default Realm
-        Realm.Configuration.defaultConfiguration = kRealmDefaultConfiguration
-        
-        #if DEBUG
-        let realm = try? Realm()
-        print("message count: \(realm?.objects(Message.self).count ?? 0)")
-        #endif
-    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         self.window = UIWindow(frame: UIScreen.main.bounds)
@@ -50,6 +40,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // 需先配置好 tabBarController 的 viewControllers，显示时会默认显示上次打开的页面
         self.window?.makeKeyAndVisible()
+        
+        // 注册 Darwin Notification 监听
+        let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
+        CFNotificationCenterAddObserver(
+            notificationCenter,
+            Unmanaged.passUnretained(self).toOpaque(),
+            { _, observer, _, _, _ in
+                guard let observer = observer else { return }
+                let appDelegate = Unmanaged<AppDelegate>.fromOpaque(observer).takeUnretainedValue()
+                DispatchQueue.main.async {
+                    appDelegate.processPendingMessages()
+                }
+            },
+            "com.bark.newmessage" as CFString,
+            nil,
+            .deliverImmediately
+        )
+        
+        // 处理可能在启动前积累的消息
+        processPendingMessages()
         
         UNUserNotificationCenter.current().delegate = self
         var actions = [
@@ -153,6 +163,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         // 设置 -1 可以清除应用角标，但不清除通知中心的推送
         // 设置 0 会将通知中心的所有推送一起清空掉
         UIApplication.shared.applicationIconBadgeNumber = -1
+        
+        // 处理待处理的消息
+        processPendingMessages()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {

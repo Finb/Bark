@@ -50,6 +50,15 @@ class NotificationService: UNNotificationServiceExtension {
             
             // 处理完后交付推送
             contentHandler(bestAttemptContent)
+            
+            // 发送 Darwin Notification 通知主 APP 有新消息
+            CFNotificationCenterPostNotification(
+                CFNotificationCenterGetDarwinNotifyCenter(),
+                CFNotificationName("com.bark.newmessage" as CFString),
+                nil,
+                nil,
+                true
+            )
         }
     }
 
