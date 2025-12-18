@@ -123,35 +123,7 @@ extension AppDelegate {
             }
             
             // 转换为 Message 对象
-            let message = Message()
-            
-            if let id = dict["id"] as? String {
-                message.id = id
-            }
-            if let title = dict["title"] as? String {
-                message.title = title
-            }
-            if let subtitle = dict["subtitle"] as? String {
-                message.subtitle = subtitle
-            }
-            if let body = dict["body"] as? String {
-                message.body = body
-            }
-            if let bodyType = dict["bodyType"] as? String {
-                message.bodyType = bodyType
-            }
-            if let url = dict["url"] as? String {
-                message.url = url
-            }
-            if let image = dict["image"] as? String {
-                message.image = image
-            }
-            if let group = dict["group"] as? String {
-                message.group = group
-            }
-            if let createDateInterval = dict["createDate"] as? TimeInterval {
-                message.createDate = Date(timeIntervalSince1970: createDateInterval)
-            }
+            let message = Message(dict: dict)
             
             // 保存到 Realm
             do {

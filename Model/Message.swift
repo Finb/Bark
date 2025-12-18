@@ -53,4 +53,35 @@ class Message: Object {
         self.group = json["group"].string
         self.createDate = Date(timeIntervalSince1970: TimeInterval(createDate))
     }
+    
+    convenience init(dict: [String: Any]) {
+        self.init()
+        if let id = dict["id"] as? String {
+            self.id = id
+        }
+        if let title = dict["title"] as? String {
+            self.title = title
+        }
+        if let subtitle = dict["subtitle"] as? String {
+            self.subtitle = subtitle
+        }
+        if let body = dict["body"] as? String {
+            self.body = body
+        }
+        if let bodyType = dict["bodyType"] as? String {
+            self.bodyType = bodyType
+        }
+        if let url = dict["url"] as? String {
+            self.url = url
+        }
+        if let image = dict["image"] as? String {
+            self.image = image
+        }
+        if let group = dict["group"] as? String {
+            self.group = group
+        }
+        if let createDateInterval = dict["createDate"] as? TimeInterval {
+            self.createDate = Date(timeIntervalSince1970: createDateInterval)
+        }
+    }
 }
