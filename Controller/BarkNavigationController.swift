@@ -7,6 +7,7 @@
 //
 
 import Material
+import RxCocoa
 import RxSwift
 import UIKit
 
@@ -58,16 +59,7 @@ class StateRestoringTabBarContr: UITabBarController, UITabBarControllerDelegate 
     }
 
     // 点击当前页面的 tabBarItem ， 可以用以点击刷新当前页面等操作
-    lazy var tabBarItemDidClick: Observable<TabPage> = self.rx.didSelect
-        .flatMapLatest { _ -> Single<TabPage> in
-            let single = Single<TabPage>.create { single in
-                if self.currentSelectedIndex == self.selectedIndex {
-                    single(.success(TabPage(rawValue: self.selectedIndex) ?? .unknown))
-                }
-                return Disposables.create()
-            }
-            return single
-        }.share()
+    lazy var tabBarItemDidClick: PublishRelay<TabPage> = PublishRelay()
 
     var isFirstAppear = true
     override func viewWillAppear(_ animated: Bool) {
@@ -78,8 +70,11 @@ class StateRestoringTabBarContr: UITabBarController, UITabBarControllerDelegate 
             // 开启APP时，默认选择上次打开的页面
             self.currentSelectedIndex = Settings[.selectedViewControllerIndex] ?? 0
 
-            // 保存打开的页面Index
-            self.rx.didSelect.subscribe(onNext: { _ in
+            self.rx.didSelect.subscribe(onNext: { [weak self] vc in
+                guard let self = self else { return }
+                if self.currentSelectedIndex == self.selectedIndex {
+                    self.tabBarItemDidClick.accept(TabPage(rawValue: self.selectedIndex) ?? .unknown)
+                }
                 self.currentSelectedIndex = self.selectedIndex
             }).disposed(by: rx.disposeBag)
         }
