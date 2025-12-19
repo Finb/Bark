@@ -6,6 +6,7 @@
 //  Copyright © 2024 Fin. All rights reserved.
 //
 
+import CryptoKit
 import Foundation
 
 class ArchiveProcessor: NotificationContentProcessor {
@@ -64,7 +65,17 @@ class ArchiveProcessor: NotificationContentProcessor {
                 // 创建目录（如果不存在）
                 try? FileManager.default.createDirectory(at: pendingMessagesDir, withIntermediateDirectories: true, attributes: nil)
                 
-                let plistUrl = pendingMessagesDir.appendingPathComponent("\(messageId).plist")
+                        
+                // 使用 SHA256 hash 作为安全的文件名
+                let safeFilename: String
+                if let data = messageId.data(using: .utf8) {
+                    let hash = SHA256.hash(data: data)
+                    safeFilename = hash.compactMap { String(format: "%02x", $0) }.joined()
+                } else {
+                    safeFilename = UUID().uuidString
+                }
+
+                let plistUrl = pendingMessagesDir.appendingPathComponent("\(safeFilename).plist")
                 let dict = NSDictionary(dictionary: messageDict)
                 dict.write(to: plistUrl, atomically: true)
             }
