@@ -25,7 +25,7 @@ class Client: NSObject {
         return self.window?.rootViewController as? BarkSnackbarController
     }
 
-    var currentTabBarController: StateStorageTabBarController? {
+    var currentTabBarController: StateRestoringTabBarContr? {
         guard let snackbarController = self.currentSnackbarController else {
             return nil
         }
@@ -33,6 +33,21 @@ class Client: NSObject {
             return (snackbarController.rootViewController as? BarkSplitViewController)?.compactController
         } else {
             return snackbarController.rootViewController as? BarkTabBarController
+        }
+    }
+
+    var currentTabPage: TabPage {
+        get {
+            guard let tabBarController = self.currentTabBarController else {
+                return .unknown
+            }
+            return TabPage(rawValue: tabBarController.selectedIndex) ?? .unknown
+        }
+        set {
+            guard let tabBarController = self.currentTabBarController else {
+                return
+            }
+            tabBarController.currentSelectedIndex = newValue.rawValue
         }
     }
     

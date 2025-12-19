@@ -9,7 +9,7 @@
 import Material
 import UIKit
 
-class BarkTabBarController: StateStorageTabBarController {
+class BarkTabBarController: StateRestoringTabBarContr {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.tintColor = BKColor.grey.darken4

@@ -136,17 +136,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     private func notificatonHandler(userInfo: [AnyHashable: Any]) {
-        if let action = userInfo["action"] as? String, action == "none" {
+        let action = userInfo["action"] as? String
+        if action == "none" {
             return
         }
         
-        // URL 直接打开
+        // 如果有 URL 直接打开
         if let url = try? (userInfo["url"] as? String)?.asURL() {
             Client.shared.openUrl(url: url)
             return
         }
-                
-        alertNotification(userInfo: userInfo)
+        
+        if action == "alert" {
+            alertNotification(userInfo: userInfo)
+        }
+
+        // 跳转到消息列表tab
+        Client.shared.currentTabPage = .messageHistory
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
