@@ -82,6 +82,7 @@ List of supported parameters, specific effects can be previewed in the APP.
 | copy | When copying the push, specify the content to copy, if this parameter is not passed, the entire push content will be copied. |
 | sound | Can set different ringtones for the push |
 | icon | Set a custom icon for the push, the set icon will replace the default Bark icon. <br>The icon will be automatically cached on the device, the same icon URL will only be downloaded once. |
+| image | Push image |
 | group | Group messages, pushes will be displayed in the notification center by group.<br>You can also choose to view different groups in the history message list. |
 | ciphertext | Ciphertext for encrypted push |
 | isArchive | Pass 1 to save the push, pass other values to not save the push, if not passed, it will be decided by the APP settings whether to save. |
