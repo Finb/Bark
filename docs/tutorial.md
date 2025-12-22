@@ -53,6 +53,16 @@ curl -X "POST" "https://api.day.app/push" \
 }'
 ```
 
+#### MCP
+```json
+"servers": {
+  "bark": {
+    "type": "http",
+    "url": "https://api.day.app/mcp/your_key"
+  }
+}
+```
+
 ## 请求参数
 支持的参数列表，具体效果可在APP内预览。
 

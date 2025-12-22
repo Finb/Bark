@@ -53,6 +53,16 @@ curl -X "POST" "https://api.day.app/push" \
 }'
 ```
 
+#### MCP
+```json
+"servers": {
+  "bark": {
+    "type": "http",
+    "url": "https://api.day.app/mcp/your_key"
+  }
+}
+```
+
 ## Request Parameters
 List of supported parameters, specific effects can be previewed in the APP.
 
