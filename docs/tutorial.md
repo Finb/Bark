@@ -54,11 +54,14 @@ curl -X "POST" "https://api.day.app/push" \
 ```
 
 #### MCP
+VSCode:  
 ```json
-"servers": {
-  "bark": {
-    "type": "http",
-    "url": "https://api.day.app/mcp/your_key"
+{
+  "servers": {
+    "bark": {
+      "type": "http",
+      "url": "https://api.day.app/mcp/your_key"
+    }
   }
 }
 ```
