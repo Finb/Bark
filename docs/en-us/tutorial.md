@@ -66,12 +66,12 @@ VS Code:
 }
 ```
 
-Claude Code   
+Claude Code:   
 ```sh
 claude mcp add bark --transport http https://api.day.app/mcp/{key}
 ```  
 or  
-```
+```js
 {
   "mcpServers": {
     "bark": {
