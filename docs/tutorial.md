@@ -54,17 +54,35 @@ curl -X "POST" "https://api.day.app/push" \
 ```
 
 #### MCP
-VSCode:  
-```json
+VS Code:  
+```js
 {
   "servers": {
     "bark": {
       "type": "http",
-      "url": "https://api.day.app/mcp/your_key"
+      "url": "https://api.day.app/mcp/{key}"
     }
   }
 }
 ```
+
+Claude Code   
+```sh
+claude mcp add bark --transport http https://api.day.app/mcp/{key}
+```  
+或者  
+```
+{
+  "mcpServers": {
+    "bark": {
+      "type": "http",
+      "url": "https://api.day.app/mcp/{key}"
+    }
+  }
+}
+```  
+> 注意将 url 中的 key 替换成你自己的
+
 
 ## 请求参数
 支持的参数列表，具体效果可在APP内预览。

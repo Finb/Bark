@@ -54,17 +54,35 @@ curl -X "POST" "https://api.day.app/push" \
 ```
 
 #### MCP
-VSCode:  
-```json
+VS Code:  
+```js
 {
   "servers": {
     "bark": {
       "type": "http",
-      "url": "https://api.day.app/mcp/your_key"
+      "url": "https://api.day.app/mcp/{key}"
     }
   }
 }
 ```
+
+Claude Code   
+```sh
+claude mcp add bark --transport http https://api.day.app/mcp/{key}
+```  
+or  
+```
+{
+  "mcpServers": {
+    "bark": {
+      "type": "http",
+      "url": "https://api.day.app/mcp/{key}"
+    }
+  }
+}
+```  
+> Note: Replace {key} in the URL with your own key.
+
 
 ## Request Parameters
 List of supported parameters, specific effects can be previewed in the APP.
