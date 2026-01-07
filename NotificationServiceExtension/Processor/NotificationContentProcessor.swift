@@ -59,11 +59,4 @@ public protocol NotificationContentProcessor {
     /// - Returns: 处理成功后的 UNMutableNotificationContent
     /// - Throws: 处理失败后，应该中断处理
     func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent
-    
-    /// serviceExtension 即将终止，不管 processor 是否处理完成，最好立即调用 contentHandler 交付已完成的部分，否则会原样展示服务器传递过来的推送
-    func serviceExtensionTimeWillExpire(contentHandler: (UNNotificationContent) -> Void)
-}
-
-extension NotificationContentProcessor {
-    func serviceExtensionTimeWillExpire(contentHandler: (UNNotificationContent) -> Void) {}
 }
