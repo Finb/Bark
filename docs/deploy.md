@@ -27,10 +27,18 @@ chmod +x bark-server_linux_amd64
 ```
 请注意 bark-server 默认使用 /data 目录保存数据，请确保 bark-server 有权限读写 /data 目录，或者你可以使用 `-data` 选项指定一个目录
 
-## 边缘计算
-> 边缘计算指类似 Cloudflare Workers 的云平台。因平台存在如运行时间、子请求数目等资源限制，仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
-* [cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker) 支持 Cloudflare Workers，数据库使用 D1 或 KV
-* [sylingd/bark-worker-server](https://github.com/sylingd/bark-worker-server) 支持腾讯 EdgeOne、阿里云 ESA、Cloudflare Workers，数据库使用 KV
+
+## Cloudflare Worker
+> 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
+[cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
+
+支持 Cloudflare Workers，数据库使用 D1 或 KV
+
+## 腾讯 EdgeOne / 阿里云 ESA / Cloudflare Workers
+> 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
+[sylingd/bark-worker-server](https://github.com/sylingd/bark-worker-server) [国内镜像](https://gitee.com/sy/bark-worker-server)
+
+支持腾讯 EdgeOne、阿里云 ESA、Cloudflare Workers，数据库使用 KV
 
 ## 宝塔面板
 
