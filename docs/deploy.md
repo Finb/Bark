@@ -29,13 +29,17 @@ chmod +x bark-server_linux_amd64
 
 
 ## Cloudflare Workers
+
 > 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
+
 [cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
 
 支持 Cloudflare Workers，数据库使用 D1 或 KV
 
 ## 腾讯 EdgeOne / 阿里云 ESA / Cloudflare Workers
+
 > 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
+
 [sylingd/bark-worker-server](https://github.com/sylingd/bark-worker-server) [国内镜像](https://gitee.com/sy/bark-worker-server)
 
 支持腾讯 EdgeOne、阿里云 ESA、Cloudflare Workers，数据库使用 KV
