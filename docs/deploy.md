@@ -28,7 +28,7 @@ chmod +x bark-server_linux_amd64
 请注意 bark-server 默认使用 /data 目录保存数据，请确保 bark-server 有权限读写 /data 目录，或者你可以使用 `-data` 选项指定一个目录
 
 
-## Cloudflare Worker
+## Cloudflare Workers
 > 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
 [cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
 
