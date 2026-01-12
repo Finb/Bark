@@ -27,10 +27,11 @@ chmod +x bark-server_linux_amd64
 ```
 Note: The bark-server uses the /data directory by default to store data. Ensure it has read/write permissions or specify a custom directory with the -data option.
 
+## ## Edge Computing
+> Edge computing refers to cloud platforms similar to Cloudflare Workers. Due to resource limitations such as runtime and the number of sub-requests, it is only recommended for personal use only. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
+* [cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker) Supports Cloudflare Workers; databases can be D1 or KV.
+* [sylingd/bark-worker-server](https://github.com/sylingd/bark-worker-server) Supports Tencent EdgeOne, Alibaba Cloud ESA, and Cloudflare Workers; uses key-value (KV) database.
 
-## Cloudflare Worker
-[https://github.com/cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
-> bark-worker is recommended for personal use only. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
 
 ## Test
 ```
