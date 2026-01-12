@@ -30,12 +30,12 @@ Note: The bark-server uses the /data directory by default to store data. Ensure 
 ## Cloudflare Workers
 [cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)  
 Supports Cloudflare Workers; databases can be D1 or KV.  
-> Only recommended for personal use only. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
+> Only recommended for personal use. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
 
 ## Tencent EdgeOne / Alibaba Cloud ESA / Cloudflare Workers
 [sylingd/bark-worker-server](https://github.com/sylingd/bark-worker-server)  
 Supports Tencent EdgeOne, Alibaba Cloud ESA, and Cloudflare Workers; uses key-value (KV) database.  
-> Only recommended for personal use only. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
+> Only recommended for personal use. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
 
 ## Test
 ```
