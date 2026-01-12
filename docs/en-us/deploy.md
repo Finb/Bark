@@ -30,6 +30,7 @@ Note: The bark-server uses the /data directory by default to store data. Ensure 
 
 ## Cloudflare Worker
 [https://github.com/cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
+> Best for personal use. Fine for occasional notifications, but not intended for frequent or large-scale pushes.
 
 ## Test
 ```
