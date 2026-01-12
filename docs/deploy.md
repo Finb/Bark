@@ -30,7 +30,7 @@ chmod +x bark-server_linux_amd64
 
 ## Cloudflare Worker
 [https://github.com/cwxiaos/bark-worker](https://github.com/cwxiaos/bark-worker)
-> 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
+> bark-worker 仅推荐个人用户使用，适合发送少量推送，不适合频繁或大批量推送。
 
 
 ## 宝塔面板
