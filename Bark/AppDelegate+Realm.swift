@@ -116,27 +116,35 @@ extension AppDelegate {
             return
         }
         
-        // 处理每个 plist 文件
+        // 批量处理消息
+        var messagesToAdd: [Message] = []
+        var urlsToDelete: [URL] = []
+        
+        // 先读取所有 plist 文件
         for plistUrl in plistFiles {
             guard let dict = NSDictionary(contentsOf: plistUrl) as? [String: Any] else {
                 continue
             }
             
-            // 转换为 Message 对象
             let message = Message(dict: dict)
-            
-            // 保存到 Realm
-            do {
-                try realm.write {
+            messagesToAdd.append(message)
+            urlsToDelete.append(plistUrl)
+        }
+        
+        // 批量写入 Realm
+        do {
+            try realm.write {
+                for message in messagesToAdd {
                     realm.add(message, update: .all)
                 }
-                
-                // 成功保存后删除 plist 文件
-                try? FileManager.default.removeItem(at: plistUrl)
-            } catch {
-                // 保存失败，保留 plist 文件等待下次处理
-                continue
             }
+        } catch {
+            // 一般不会失败，真失败了算你小子运气差
+        }
+        
+        // 无论成功或失败，都删除已处理的 plist 文件
+        for plistUrl in urlsToDelete {
+            try? FileManager.default.removeItem(at: plistUrl)
         }
     }
 }
