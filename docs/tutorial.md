@@ -118,6 +118,7 @@ claude mcp add bark --transport http https://api.day.app/mcp/{key}
 * [Uptime-Kuma](https://github.com/louislam/uptime-kuma) 自托管监控工具, 支持Bark作为告警通道。
 * [Apprise](https://github.com/caronc/apprise) 可以给几乎所有平台发送通知，支持Bark。
 * [浏览器扩展](https://github.com/ij369/bark-sender) 将网页内容发送到手机
+* [RevenueBell](https://github.com/woxiqingxian/RevenueBell) 独立开发者工具，将苹果订阅、续订、购买等收入事件，通过 Bark 推送到你的手机。
 
 ## 快捷指令
 Bark 支持使用快捷指令直接发送推送

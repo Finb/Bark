@@ -111,3 +111,14 @@ List of supported parameters, specific effects can be previewed in the APP.
 | action | Pass "none" to prevent a popup when the push is clicked |
 | id | When using the same ID value, it will update the corresponding push notification content<br>Requires Bark v1.5.2, bark-server v2.2.5 or above |
 | delete | Pass "1" to delete the notification from the system notification center and APP history, must be used with the id parameter<br>Requires "Background App Refresh" to be enabled in settings, otherwise it will not work. |
+
+## Bark 支持的应用程序和插件
+* [SmsForwarder](https://github.com/pppscn/SmsForwarder) Monitors SMS, calls, and app notifications on Android devices and forwards them to Bark based on rules.
+* [acme.sh](https://github.com/acmesh-official/acme.sh/wiki/notify#16-set-notification-for-ios-bark) Generates free certificates from ZeroSSL, Let’s Encrypt, and other CAs; Bark can be used to receive acme.sh cronjob notifications.
+* [Uptime-Kuma](https://github.com/louislam/uptime-kuma) A self-hosted monitoring tool that supports Bark as an alert channel.
+* [Apprise](https://github.com/caronc/apprise) Sends notifications to almost all platforms and supports Bark.
+* [浏览器扩展](https://github.com/ij369/bark-sender) Sends webpage content to your phone.
+* [RevenueBell](https://github.com/woxiqingxian/RevenueBell) A tool for indie developers that pushes Apple subscription, renewal, and purchase revenue events to your phone via Bark.
+
+## Shortcuts
+Bark supports sending notifications directly via Shortcuts.
