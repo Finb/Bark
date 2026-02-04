@@ -8,8 +8,13 @@ Try switching networks, rebooting the device, or disabling any proxy/VPN affecti
 This is a connectivity issue between your device and Apple’s servers, and cannot be fixed by the app author.
 
 ### Push Usage Limit
-Valid requests (HTTP 200) have no limit.  
-If you send over **1000 error requests** (HTTP 400 / 404 / 500) within **5 minutes**, **your IP will be banned for 24 hours**.
+Normal usage is not restricted. <b>Abnormal usage may result in the IP being banned for 24 hours.</b>
+If more than 1,000 TCP connections are established at the same time, new requests will be rejected. When sending a large number of push notifications, please use HTTP/2 to multiplex TCP connections.
+
+Ban rules:
+1. More than 1,000 erroneous requests within 5 minutes (HTTP status codes such as 400, 404, 500, etc.).
+2. More than 5 HTTP 405 error requests within 5 minutes
+3. More than 5 erroneous requests within 5 minutes, with the User-Agent being “*Mozilla/5.0 (X11; Linux x86_64)”
 
 ### Receiving Unknown or Unexpected Pushes (e.g., “NoContent”)
 Possible causes:  
