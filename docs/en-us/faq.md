@@ -15,6 +15,7 @@ Ban rules:
 1. More than 1,000 erroneous requests within 5 minutes (HTTP status codes such as 400, 404, 500, etc.).
 2. More than 5 HTTP 405 error requests within 5 minutes
 3. More than 5 erroneous requests within 5 minutes, with the User-Agent being “*Mozilla/5.0 (X11; Linux x86_64)”
+
 > These limits don't apply if you're self-hosting
 
 ### Receiving Unknown or Unexpected Pushes (e.g., “NoContent”)
