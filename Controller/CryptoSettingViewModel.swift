@@ -127,7 +127,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         const iv = '\(iv)';
 
                         // AES-\(fields.algorithm.suffix(3))-GCM
-                        const cipher = crypto.createCipheriv('aes-\(fields.algorithm.suffix(3))-gcm', Buffer.from(key, 'utf8'), Buffer.from(iv, 'utf8'));
+                        const cipher = crypto.createCipheriv('aes-\(fields.algorithm.suffix(3))-gcm', Buffer.from(key, \(key.count == (Int(fields.algorithm.suffix(3))! / 4) ? "'hex'" : "'utf8'")), Buffer.from(iv, \(iv.count == (fields.mode == "GCM" ? 12 : 16) * 2 ? "'hex'" : "'utf8'")));
                         const encrypted = Buffer.concat([
                           cipher.update(json, 'utf8'),
                           cipher.final()
@@ -163,8 +163,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         iv='\(iv)'
 
                         # \("opensslEncodingComment".localized)
-                        key=$(printf $key | xxd -ps -c 200)
-                        iv=$(printf $iv | xxd -ps -c 200)
+                        \(key.count == (Int(fields.algorithm.suffix(3))! / 4) ? "# Key is already in Hex" : "key=$(printf $key | xxd -ps -c 200)")
+                        \(iv.count == (fields.mode == "GCM" ? 12 : 16) * 2 ? "# IV is already in Hex" : "iv=$(printf $iv | xxd -ps -c 200)")
                         
                         # \("base64Notice".localized)
                         ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
