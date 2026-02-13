@@ -54,19 +54,30 @@ struct AESCryptoModel {
             throw "Key is missing"
         }
 
-        guard algorithm.keyLength == key.count else {
+        var keyBytes: [UInt8] = []
+        if algorithm.keyLength == key.count {
+            keyBytes = Array(key.utf8)
+        } else if algorithm.keyLength * 2 == key.count, let decoded = key.hexWithOptions() {
+            keyBytes = decoded
+        } else {
             throw String(format: "enterKey".localized, algorithm.keyLength)
         }
 
-        var iv = ""
+        var iv: [UInt8] = []
         if ["CBC", "GCM"].contains(cryptoFields.mode) {
             let expectIVLength = [
                 "CBC": 16,
                 "GCM": 12
             ][cryptoFields.mode] ?? 0
 
-            if let ivField = cryptoFields.iv, ivField.count == expectIVLength {
-                iv = ivField
+            if let ivField = cryptoFields.iv {
+                if ivField.count == expectIVLength {
+                    iv = Array(ivField.utf8)
+                } else if ivField.count == expectIVLength * 2, let decoded = ivField.hexWithOptions() {
+                    iv = decoded
+                } else {
+                    throw String(format: "enterIv".localized, expectIVLength)
+                }
             } else {
                 throw String(format: "enterIv".localized, expectIVLength)
             }
@@ -75,11 +86,11 @@ struct AESCryptoModel {
         let mode: BlockMode
         switch cryptoFields.mode {
         case "CBC":
-            mode = CBC(iv: iv.bytes)
+            mode = CBC(iv: iv)
         case "ECB":
             mode = ECB()
         case "GCM":
-            mode = GCM(iv: iv.bytes, mode: .combined)
+            mode = GCM(iv: iv, mode: .combined)
         default:
             throw "Invalid Mode"
         }
@@ -97,7 +108,7 @@ struct AESCryptoModel {
         self.key = key
         self.mode = mode
         self.padding = padding
-        self.aes = try AES(key: key.bytes, blockMode: self.mode, padding: self.padding)
+        self.aes = try AES(key: keyBytes, blockMode: self.mode, padding: self.padding)
     }
 
     func encrypt(text: String) throws -> String {
@@ -106,5 +117,27 @@ struct AESCryptoModel {
 
     func decrypt(ciphertext: String) throws -> String {
         return try String(data: Data(aes.decrypt(Array(base64: ciphertext))), encoding: .utf8) ?? ""
+    }
+}
+
+private extension String {
+    func hexWithOptions() -> [UInt8]? {
+        let length = self.count
+        if length % 2 != 0 { return nil }
+        
+        var bytes = [UInt8]()
+        bytes.reserveCapacity(length / 2)
+        
+        var index = self.startIndex
+        while index < self.endIndex {
+            let nextIndex = self.index(index, offsetBy: 2)
+            if let b = UInt8(self[index..<nextIndex], radix: 16) {
+                bytes.append(b)
+            } else {
+                return nil
+            }
+            index = nextIndex
+        }
+        return bytes
     }
 }

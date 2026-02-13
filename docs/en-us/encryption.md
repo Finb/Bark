@@ -19,17 +19,31 @@ deviceKey='F5u42Bd3HyW8KxkUqo2gRA'
 # push payload
 json='{"body": "test", "sound": "birdsong"}'
 
-# must be 16 bit long
+# Key
+# Can be a 16-byte raw string (length 16) or a Hex string (length 32)
 key='1234567890123456'
-iv='1111111111111111'
 
-# openssl requires Hex encoding of manual keys and IVs, not ASCII encoding.
+# IV
+# Method A: Randomly generate a 16-byte IV (Recommended) -> Output 32-char Hex string
+iv=$(openssl rand -hex 16)
+
+# Method B: Manually specify a 16-byte raw string (Legacy compatibility)
+# iv='1234567890123456'
+
+# Process Key and IV
+# If key/iv is a raw string, convert to Hex using xxd. If it is already a Hex string, use directly.
+# Demonstrating raw string conversion for Key:
 key=$(printf $key | xxd -ps -c 200)
-iv=$(printf $iv | xxd -ps -c 200)
+
+# If Key is Hex (e.g. 32 chars), use directly: 
+# key='...' (no xxd)
+
+# IV is already a Hex string (Method A), no xxd conversion needed.
+# If using Method B (raw string), you need: iv=$(printf $iv | xxd -ps -c 200)
 
 ciphertext=$(echo -n $json | openssl enc -aes-128-cbc -K $key -iv $iv | base64)
 
-# The console will print "d3QhjQjP5majvNt5CjsvFWwqqj2gKl96RFj5OO+u6ynTt7lkyigDYNA3abnnCLpr"
+# The console will print the ciphertext
 echo $ciphertext
 
 curl --data-urlencode "ciphertext=$ciphertext" http://api.day.app/$deviceKey
