@@ -5,7 +5,7 @@ PODS:
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
   - FDFullscreenPopGesture (1.1)
-  - ImageViewer.swift (3.3.8)
+  - ImageViewer.swift (3.0)
   - IQKeyboardCore (1.0.8)
   - IQKeyboardManagerSwift/Core (8.0.1):
     - IQKeyboardNotification
@@ -73,7 +73,7 @@ DEPENDENCIES:
   - DefaultsKit
   - DropDown
   - FDFullscreenPopGesture
-  - ImageViewer.swift
+  - ImageViewer.swift (from `https://github.com/Finb/ImageViewer.swift`)
   - IQKeyboardManagerSwift/IQKeyboardToolbarManager
   - Kingfisher
   - Material
@@ -100,7 +100,6 @@ SPEC REPOS:
     - Differentiator
     - DropDown
     - FDFullscreenPopGesture
-    - ImageViewer.swift
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -127,10 +126,15 @@ SPEC REPOS:
     - SwiftyStoreKit
 
 EXTERNAL SOURCES:
+  ImageViewer.swift:
+    :git: https://github.com/Finb/ImageViewer.swift
   MercariQRScanner:
     :git: https://github.com/Finb/QRScanner
 
 CHECKOUT OPTIONS:
+  ImageViewer.swift:
+    :commit: cc9d8eefa19a1fcc70d72d85cd46704d24b83795
+    :git: https://github.com/Finb/ImageViewer.swift
   MercariQRScanner:
     :commit: 2b123c1b1492adc68f561a5f392727fdc3f31bb0
     :git: https://github.com/Finb/QRScanner
@@ -142,7 +146,7 @@ SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
-  ImageViewer.swift: 284cd8127d31af8e5938674fb9f8e695a4cdf6c6
+  ImageViewer.swift: ec700f792d82cfd8fbdb27985992b2f4cc254cb7
   IQKeyboardCore: 8652977ec919cf5351aa2977fedd1a6546476fbc
   IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
   IQKeyboardNotification: eb4910401f5a0e68f97e71c62f8a0c5b7e9d535c
@@ -169,6 +173,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: 83208e7dd6cca7045d0dd51f1b6a4c06c1688c40
+PODFILE CHECKSUM: fc52657dd1815d86e6c2b7612aaa90de5a4a58b8
 
 COCOAPODS: 1.16.2
