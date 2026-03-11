@@ -68,13 +68,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         tableView.backgroundColor = BKColor.background.primary
         tableView.register(MessageTableViewCell.self, forCellReuseIdentifier: "\(MessageTableViewCell.self)")
         tableView.register(MessageGroupTableViewCell.self, forCellReuseIdentifier: "\(MessageGroupTableViewCell.self)")
-        // 设置了这个后，第一次进页面 LargeTitle 就会收缩成小标题，不设置这个LargeTitle就是大标题显示
-        // 谁特么能整的明白这个？
-        // tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
-        
-        // 替代 contentInset 设置一个 header
-        tableView.tableHeaderView = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: 20))
-        
         tableView.rx.setDelegate(self).disposed(by: rx.disposeBag)
         tableView.mj_footer = MJRefreshAutoFooter()
         
