@@ -19,7 +19,7 @@
 
 > 自行部署的 Bark-Server 无以上限制
 
-#### 莫名收到未知推送，比如 NoContent
+#### 莫名收到未知推送，比如 "Empty Message"
 可能的原因：<br>
 1. 如果用 Safari 发送过推送，在Safari输入任意网址时，可能 Safari 对历史记录搜索进行自动补全时，正好补全成 Bark API 的 URL，然后预加载触发推送。
 2. 如果将 Bark API URL 发送到聊天软件如微信文件传输助手，微信会不定时的请求 URL 触发推送。

@@ -18,7 +18,7 @@ Ban rules:
 
 > These limits don't apply if you're self-hosting
 
-### Receiving Unknown or Unexpected Pushes (e.g., “NoContent”)
+### Receiving Unknown or Unexpected Pushes (e.g., "Empty Message")
 Possible causes:  
 1. Safari may auto-complete the Bark API URL when typing in the address bar and trigger preloading.  
 2. Chat apps like WeChat may periodically access a Bark API URL you sent earlier.  

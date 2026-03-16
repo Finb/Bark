@@ -94,7 +94,7 @@ claude mcp add bark --transport http https://api.day.app/mcp/{key}
 | body | 推送内容 |
 | markdown | 推送内容，支持基础 Markdown 格式。传递了此参数将忽略 body 字段, 发送时请注意处理特殊字符。| 
 | device_key | 设备key |
-| device_keys | key 数组，用于批量推送 |
+| device_keys | key 数组，用于批量推送，仅支持 Json 请求使用。|
 | level | 推送中断级别。<br>critical: 重要警告, 在静音模式下也会响铃 <br>active：默认值，系统会立即亮屏显示通知<br>timeSensitive：时效性通知，可在专注状态下显示通知。<br>passive：仅将通知添加到通知列表，不会亮屏提醒。 |
 | volume | 重要警告的通知音量，取值范围：0-10，不传默认值为5 |
 | badge | 推送角标，可以是任意数字 |
@@ -103,12 +103,12 @@ claude mcp add bark --transport http https://api.day.app/mcp/{key}
 | copy | 复制推送时，指定复制的内容，不传此参数将复制整个推送内容。 |
 | sound | 可以为推送设置不同的铃声 |
 | icon | 为推送设置自定义图标，设置的图标将替换默认Bark图标。<br>图标会自动缓存在本机，相同的图标 URL 仅下载一次。 |
-| image | 推送图片 |
+| image | 推送图片 url |
 | group | 对消息进行分组，推送将按group分组显示在通知中心中。<br>也可在历史消息列表中选择查看不同的群组。 |
 | ciphertext | 加密推送的密文 |
 | isArchive | 传 1 保存推送，传其他的不保存推送，不传按APP内设置来决定是否保存。 |
 | url | 点击推送时，跳转的URL ，支持URL Scheme 和 Universal Link |
-| action | 传 "none" 时，点击推送不会弹窗 |
+| action | 传 "alert" 时，点击推送跳转到APP时会弹出操作弹窗 |
 | id | 使用相同的ID值时，将更新对应推送的通知内容<br>需 Bark v1.5.2, bark-server v2.2.5 以上，Json传参需使用字符串类型 |
 | delete | 传 "1" 时，将从系统通知中心和APP内历史记录中删除通知，需搭配 id 参数使用<br>需在设置里开启”后台App刷新“，否则无效。|
 
