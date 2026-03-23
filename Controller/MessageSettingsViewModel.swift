@@ -49,6 +49,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
                         realm.add(messageObject, update: .modified)
                     }
                 }
+                WatchSyncManager.shared.syncRecentMessages()
                 return ()
             }.asObservable().share()
 

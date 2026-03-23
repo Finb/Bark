@@ -108,6 +108,7 @@ extension AppDelegate {
         let plistFiles = fileUrls.filter { $0.pathExtension == "plist" }
         
         guard !plistFiles.isEmpty else {
+            WatchSyncManager.shared.syncRecentMessages()
             return
         }
         
@@ -141,10 +142,12 @@ extension AppDelegate {
         } catch {
             // 一般不会失败，真失败了算你小子运气差
         }
-        
+
         // 无论成功或失败，都删除已处理的 plist 文件
         for plistUrl in urlsToDelete {
             try? FileManager.default.removeItem(at: plistUrl)
         }
+
+        WatchSyncManager.shared.syncRecentMessages()
     }
 }

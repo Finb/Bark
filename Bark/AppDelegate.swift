@@ -60,6 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // 处理可能在启动前积累的消息
         processPendingMessages()
+        WatchSyncManager.shared.start()
         
         UNUserNotificationCenter.current().delegate = self
         var actions = [
@@ -127,6 +128,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             try? realm.write {
                 realm.delete(message)
             }
+            WatchSyncManager.shared.syncRecentMessages()
         }
 
         completionHandler(.newData)
@@ -172,6 +174,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         // 处理待处理的消息
         processPendingMessages()
+        WatchSyncManager.shared.syncRecentMessages()
+    }
+
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        WatchSyncManager.shared.syncRecentMessages()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
