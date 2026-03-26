@@ -14,16 +14,7 @@ class MarkdownProcessor: NotificationContentProcessor {
         guard let markdown = userInfo["markdown"] as? String, !markdown.isEmpty else {
             return bestAttemptContent
         }
-        let config = MarkdownParser.Configuration(
-            baseFont: UIFont.preferredFont(forTextStyle: .body),
-            baseColor: UIColor.white,
-            linkColor: UIColor.systemBlue,
-            codeTextColor: UIColor.black,
-            codeBackgroundColor: UIColor.gray,
-            codeBlockTextColor: UIColor.black,
-            quoteColor: UIColor.systemGray
-        )
-        let body = MarkdownParser(configuration: config)
+        let body = MarkdownParser(configuration: MarkdownParser.Configuration.clear)
             .parse(markdown)
             .string
             // 将 body 中的多个\n替换为单个\n，避免空行太多内容显示不完整。

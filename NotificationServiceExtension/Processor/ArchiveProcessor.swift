@@ -31,7 +31,8 @@ class ArchiveProcessor: NotificationContentProcessor {
 
             // 准备消息数据字典
             var messageDict: [String: Any] = [:]
-            
+            let createDate = Date()
+
             let messageId = (id != nil && !id!.isEmpty) ? id! : UUID().uuidString
             messageDict["id"] = messageId
             
@@ -56,8 +57,8 @@ class ArchiveProcessor: NotificationContentProcessor {
             if let group = group {
                 messageDict["group"] = group
             }
-            messageDict["createDate"] = Date().timeIntervalSince1970
-            
+            messageDict["createDate"] = createDate.timeIntervalSince1970
+
             // 写入 plist 文件
             if let groupUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark") {
                 let pendingMessagesDir = groupUrl.appendingPathComponent("pending_messages")
@@ -65,7 +66,6 @@ class ArchiveProcessor: NotificationContentProcessor {
                 // 创建目录（如果不存在）
                 try? FileManager.default.createDirectory(at: pendingMessagesDir, withIntermediateDirectories: true, attributes: nil)
                 
-                        
                 // 使用 SHA256 hash 作为安全的文件名
                 let safeFilename: String
                 if let data = messageId.data(using: .utf8) {
@@ -79,6 +79,18 @@ class ArchiveProcessor: NotificationContentProcessor {
                 let dict = NSDictionary(dictionary: messageDict)
                 dict.write(to: plistUrl, atomically: true)
             }
+
+            let snapshotItem = WidgetHistoryMessage(
+                id: messageId,
+                group: group,
+                title: title,
+                subtitle: subtitle,
+                body: messageDict["body"] as? String,
+                bodyType: messageDict["bodyType"] as? String,
+                image: image,
+                createDate: createDate
+            )
+            WidgetHistorySnapshotStore.shared.prependMessage(snapshotItem)
         }
         return bestAttemptContent
     }

@@ -319,6 +319,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                     try? realm.write {
                         realm.delete(message)
                     }
+                    WidgetHistorySnapshotStore.shared.syncFromMessages(realm.widgetSnapshotItems())
                 }
                 // 删除 cell item
                 section.messages.removeAll { cellItem in
@@ -340,6 +341,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                         try? realm.write {
                             realm.delete(messageResult)
                         }
+                        WidgetHistorySnapshotStore.shared.syncFromMessages(realm.widgetSnapshotItems())
                     }
                 }
                 // 删除 cell item
@@ -371,6 +373,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 try? realm.write {
                     realm.delete(message)
                 }
+                WidgetHistorySnapshotStore.shared.syncFromMessages(realm.widgetSnapshotItems())
             }
             
             if let index = section.messages.firstIndex(where: { item in
@@ -409,6 +412,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 try? realm.write {
                     realm.delete(messages)
                 }
+                WidgetHistorySnapshotStore.shared.syncFromMessages(realm.widgetSnapshotItems())
             }
             
             self.page = 0

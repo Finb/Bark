@@ -36,11 +36,22 @@ class MarkdownParser {
             self.codeBlockTextColor = codeBlockTextColor
             self.quoteColor = quoteColor
         }
+        
+        static let `default` = Configuration()
+        static let clear = Configuration(
+            baseFont: UIFont.preferredFont(ofSize: 14),
+            baseColor: .black,
+            linkColor: .blue,
+            codeTextColor: .blue,
+            codeBackgroundColor: .clear,
+            codeBlockTextColor: .black,
+            quoteColor: .gray
+        )
     }
     
     private let configuration: Configuration
     
-    init(configuration: Configuration = Configuration()) {
+    init(configuration: Configuration = Configuration.default) {
         self.configuration = configuration
     }
     

@@ -127,6 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             try? realm.write {
                 realm.delete(message)
             }
+            WidgetHistorySnapshotStore.shared.syncFromMessages(realm.widgetSnapshotItems())
         }
 
         completionHandler(.newData)
@@ -179,6 +180,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+        if handleWidgetDeepLink(url) {
+            return true
+        }
+
         if url.scheme?.lowercased() == "bark" && url.host?.lowercased() == "addserver" {
             // 提取参数
             let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
@@ -195,6 +200,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             return true
         }
         return false
+    }
+
+    private func handleWidgetDeepLink(_ url: URL) -> Bool {
+        guard url.scheme?.lowercased() == "bark", url.host?.lowercased() == "history" else {
+            return false
+        }
+
+        Client.shared.currentTabPage = .messageHistory
+        return true
     }
 }
 
