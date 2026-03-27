@@ -24,7 +24,7 @@ struct Provider: TimelineProvider {
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
         let entry = SimpleEntry(date: .now, snapshot: loadSnapshot() ?? .empty)
-        let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(60 * 60)))
+        let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(15 * 60)))
         completion(timeline)
     }
 

@@ -138,6 +138,7 @@ extension AppDelegate {
                     realm.add(message, update: .all)
                 }
             }
+            WidgetHistorySnapshotStore.shared.syncFromMessages(messagesToAdd.map { WidgetHistoryMessage(message: $0) })
         } catch {
             // 一般不会失败，真失败了算你小子运气差
         }
