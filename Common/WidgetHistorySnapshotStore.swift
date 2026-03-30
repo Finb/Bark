@@ -11,13 +11,6 @@ import Foundation
 import WidgetKit
 #endif
 
-enum WidgetHistoryConstants {
-    static let appGroupIdentifier = "group.bark"
-    static let snapshotFilename = "recent_messages_snapshot.json"
-    static let widgetKind = "RecentMessagesWidget"
-    static let maxItems = 3
-}
-
 final class WidgetHistorySnapshotStore {
     static let shared = WidgetHistorySnapshotStore()
 
@@ -38,12 +31,12 @@ final class WidgetHistorySnapshotStore {
     }
     private init() {}
 
-    func syncFromMessages(_ messages: [WidgetHistoryMessage], limit: Int = WidgetHistoryConstants.maxItems) {
+    func syncFromMessages(_ messages: [WidgetHistoryMessage], limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
         let items = Array(messages.sorted { $0.createDate > $1.createDate }.prefix(limit))
         write(WidgetHistorySnapshot(messages: items))
     }
 
-    func prependMessage(_ message: WidgetHistoryMessage, limit: Int = WidgetHistoryConstants.maxItems) {
+    func prependMessage(_ message: WidgetHistoryMessage, limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
         var items = load()?.messages ?? []
         items.removeAll { $0.id == message.id }
         items.insert(message, at: 0)

@@ -12,6 +12,7 @@ import WidgetKit
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let snapshot: WidgetHistorySnapshot
+    let selectedGroup: String?
 }
 
 extension WidgetHistorySnapshot {

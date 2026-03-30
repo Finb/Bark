@@ -88,6 +88,35 @@
         }
       }
     },
+    "all" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "すべて"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tümü"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "全部"
+          }
+        }
+      }
+    },
     "AllowNotifications" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -4088,30 +4117,29 @@
       }
     },
     "widget.configuration.description" : {
-      "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "See the latest items from Bark history at a glance."
+            "value" : "Choose which message group this widget should show."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Barkの履歴にある最新項目をひと目で確認できます。"
+            "value" : "このウィジェットに表示するメッセージグループを選択してください"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Bark gecmisindeki en son ogeleri bir bakista gorun."
+            "value" : "Bu widget’ın hangi mesaj grubunu göstereceğini seçin"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "快速查看 Bark 历史中的最新消息。"
+            "value" : "选择此小组件应显示的消息分组"
           }
         }
       }
@@ -4141,6 +4169,35 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最近消息"
+          }
+        }
+      }
+    },
+    "widget.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See the latest items from Bark history at a glance."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Barkの履歴にある最新項目をひと目で確認できます。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bark gecmisindeki en son ogeleri bir bakista gorun."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "快速查看 Bark 历史中的最新消息。"
           }
         }
       }

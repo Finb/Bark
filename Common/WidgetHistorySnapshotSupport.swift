@@ -50,7 +50,7 @@ extension WidgetHistoryMessage {
 }
 
 extension Realm {
-    func widgetSnapshotItems(limit: Int = WidgetHistoryConstants.maxItems) -> [WidgetHistoryMessage] {
+    func widgetSnapshotItems(limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) -> [WidgetHistoryMessage] {
         objects(Message.self)
             .sorted(byKeyPath: "createDate", ascending: false)
             .prefix(limit)

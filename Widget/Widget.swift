@@ -9,35 +9,25 @@
 import SwiftUI
 import WidgetKit
 
-private let widgetAppGroupIdentifier = "group.bark"
-private let widgetSnapshotFilename = "recent_messages_snapshot.json"
+@available(iOS 17.0, *)
+struct Provider: AppIntentTimelineProvider {
+    typealias Intent = WidgetGroupSelectionIntent
 
-struct Provider: TimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: .now, snapshot: .placeholder)
+        SimpleEntry(date: .now, snapshot: .placeholder, selectedGroup: nil)
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> Void) {
-        let entry = SimpleEntry(date: .now, snapshot: loadSnapshot() ?? .placeholder)
-        completion(entry)
+    func snapshot(for configuration: WidgetGroupSelectionIntent, in context: Context) async -> SimpleEntry {
+        SimpleEntry(date: .now,
+                    snapshot: loadWidgetHistorySnapshot() ?? .placeholder,
+                    selectedGroup: configuration.selectedGroup)
     }
 
-    func getTimeline(in context: Context, completion: @escaping (Timeline<SimpleEntry>) -> Void) {
-        let entry = SimpleEntry(date: .now, snapshot: loadSnapshot() ?? .empty)
-        let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(15 * 60)))
-        completion(timeline)
-    }
-
-    private func loadSnapshot() -> WidgetHistorySnapshot? {
-        guard let url = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: widgetAppGroupIdentifier)?.appendingPathComponent(widgetSnapshotFilename),
-              let data = try? Data(contentsOf: url)
-        else {
-            return nil
-        }
-
-        let decoder = JSONDecoder()
-        decoder.dateDecodingStrategy = .iso8601
-        return try? decoder.decode(WidgetHistorySnapshot.self, from: data)
+    func timeline(for configuration: WidgetGroupSelectionIntent, in context: Context) async -> Timeline<SimpleEntry> {
+        let entry = SimpleEntry(date: .now,
+                                snapshot: loadWidgetHistorySnapshot() ?? .empty,
+                                selectedGroup: configuration.selectedGroup)
+        return Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(15 * 60)))
     }
 }
 
@@ -78,7 +68,7 @@ private struct MediumRecentMessagesView: View {
     let entry: SimpleEntry
 
     var body: some View {
-        if let message = entry.snapshot.messages.first {
+        if let message = entry.snapshot.recentMessages(in: entry.selectedGroup).first {
             VStack(alignment: .leading, spacing: 5) {
                 HStack(alignment: .center, spacing: 5) {
                     WidgetHeaderView(title: message.group ?? "Bark", icon: "app.badge.fill")
@@ -131,7 +121,7 @@ private struct SmallRecentMessagesView: View {
     let entry: SimpleEntry
 
     var body: some View {
-        if let message = entry.snapshot.messages.first {
+        if let message = entry.snapshot.recentMessages(in: entry.selectedGroup).first {
             VStack(alignment: .leading, spacing: 5) {
                 WidgetHeaderView(title: message.group ?? "Bark", icon: "app.badge.fill")
                 VStack(alignment: .leading, spacing: 0) {
@@ -242,11 +232,11 @@ struct RecentMessagesWidget: Widget {
     let kind: String = "RecentMessagesWidget"
 
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: kind, provider: Provider()) { entry in
+        AppIntentConfiguration(kind: kind, intent: WidgetGroupSelectionIntent.self, provider: Provider()) { entry in
             WidgetEntryView(entry: entry)
         }
         .configurationDisplayName(NSLocalizedString("widget.configuration.displayName", comment: ""))
-        .description(NSLocalizedString("widget.configuration.description", comment: ""))
+        .description(NSLocalizedString("widget.description", comment: ""))
         .supportedFamilies([.systemSmall, .systemMedium])
         .contentMarginsDisabled()
     }
@@ -256,12 +246,12 @@ struct RecentMessagesWidget: Widget {
 #Preview(as: .systemSmall) {
     RecentMessagesWidget()
 } timeline: {
-    SimpleEntry(date: .now, snapshot: .placeholder)
+    SimpleEntry(date: .now, snapshot: .placeholder, selectedGroup: nil)
 }
 
 @available(iOS 17.0, *)
 #Preview(as: .systemMedium) {
     RecentMessagesWidget()
 } timeline: {
-    SimpleEntry(date: .now, snapshot: .placeholder)
+    SimpleEntry(date: .now, snapshot: .placeholder, selectedGroup: nil)
 }
