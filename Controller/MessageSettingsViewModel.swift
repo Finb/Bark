@@ -27,6 +27,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
     struct Output {
         var settings: Driver<[SectionModel<MessageSettingSection, MessageSettingItem>]>
         var openUrl: Driver<URL>
+        var openServerList: Driver<Void>
         var copyDeviceToken: Driver<String>
         var exportData: Driver<Data>
     }
@@ -54,7 +55,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
 
         let settings: [SectionModel<MessageSettingSection, MessageSettingItem>] = {
             var settings = [SectionModel<MessageSettingSection, MessageSettingItem>]()
-            
+
             // 历史消息
             var messageSettings = [MessageSettingItem]()
             messageSettings.append(.backup(viewModel: MutableTextCellViewModel(
@@ -85,6 +86,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             
             // 信息
             var infosettings = [MessageSettingItem]()
+            infosettings.append(.servers)
             infosettings.append(.deviceToken(
                 viewModel: MutableTextCellViewModel(
                     title: "Device Token",
@@ -170,6 +172,11 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             return nil
         }
 
+        let openServerList = input.itemSelected.compactMap { item -> Void? in
+            if case .servers = item { return () }
+            return nil
+        }
+
         let deviceTokenValue: BehaviorRelay<String?> = BehaviorRelay(value: nil)
         input.deviceToken.drive(deviceTokenValue)
             .disposed(by: rx.disposeBag)
@@ -202,6 +209,7 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
             settings: Driver<[SectionModel<MessageSettingSection, MessageSettingItem>]>
                 .just(settings),
             openUrl: openUrl,
+            openServerList: openServerList,
             copyDeviceToken: copyDeviceToken,
             exportData: exportSuccess.asDriver(onErrorDriveWith: .empty())
         )
@@ -209,6 +217,8 @@ class MessageSettingsViewModel: ViewModel, ViewModelType {
 }
 
 enum MessageSettingItem {
+    // 服务器列表
+    case servers
     // 普通标题标签
     case label(text: String)
     // 默认保存

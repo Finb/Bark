@@ -56,18 +56,23 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
     override func makeUI() {
         self.title = "serverList".localized
 
-        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: closeButton))
-
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
         
-        closeButton.rx.tap.subscribe { [weak self] in
-            self?.dismiss(animated: true, completion: nil)
-        } onError: { _ in
-            
-        }.disposed(by: rx.disposeBag)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // 仅在 modal 弹出时显示关闭按钮，push 时使用系统返回按钮
+        if self.navigationController?.presentingViewController != nil {
+            navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: closeButton))
+            closeButton.rx.tap.subscribe { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+            } onError: { _ in
+            }.disposed(by: rx.disposeBag)
+        }
     }
 
     override func bindViewModel() {

@@ -178,6 +178,11 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
         
         let dataSource = RxTableViewSectionedReloadDataSource<SectionModel<MessageSettingSection, MessageSettingItem>> { _, tableView, _, item -> UITableViewCell in
             switch item {
+            case .servers:
+                if let cell = tableView.dequeueReusableCell(withIdentifier: "\(DetailTextCell.self)") as? DetailTextCell {
+                    cell.textLabel?.text = "serverList".localized
+                    return cell
+                }
             case .label(let text):
                 if let cell = tableView.dequeueReusableCell(withIdentifier: "\(LabelCell.self)") as? LabelCell {
                     cell.textLabel?.text = text
@@ -239,6 +244,13 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
      
+        // 打开服务器列表
+        output.openServerList.drive(onNext: { [weak self] in
+            let viewModel = ServerListViewModel()
+            let vc = ServerListViewController(viewModel: viewModel)
+            self?.navigationController?.pushViewController(vc, animated: true)
+        }).disposed(by: rx.disposeBag)
+
         // 打开 URL 操作
         output.openUrl.drive { [weak self] url in
             self?.navigationController?.present(BarkSFSafariViewController(url: url), animated: true, completion: nil)
