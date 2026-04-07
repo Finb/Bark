@@ -12,7 +12,7 @@ import UIKit
 enum BarkApi {
     case ping(baseURL: String?)
     case register(address: String, key: String?, devicetoken: String) // 注册设备
-    case rotateKey(address: String, key: String) // 轮换设备 key
+    case rotateKey(address: String, key: String, deviceToken: String) // 轮换设备 key（需要 deviceToken 证明所有权）
 }
 
 extension BarkApi: BarkTargetType {
@@ -26,7 +26,7 @@ extension BarkApi: BarkTargetType {
             if let url = try? address.asURL() {
                 return url
             }
-        case let .rotateKey(address, _):
+        case let .rotateKey(address, _, _):
             if let url = try? address.asURL() {
                 return url
             }
@@ -42,8 +42,8 @@ extension BarkApi: BarkTargetType {
                 params["key"] = key
             }
             return params
-        case let .rotateKey(_, key):
-            return ["device_key": key]
+        case let .rotateKey(_, key, deviceToken):
+            return ["device_key": key, "device_token": deviceToken]
         default:
             return nil
         }

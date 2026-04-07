@@ -137,12 +137,16 @@ class ServerListViewModel: ViewModel, ViewModelType {
             .disposed(by: rx.disposeBag)
 
         // 轮换 device key（原子替换旧 key，服务器生成新 key）
+        // 必须同时提供 device_token 以证明所有权，防止攻击者仅凭 device_key 触发轮换
         let serverRotated = input.rotateServer
             .filter { $0.key.count > 0 }
             .asObservable()
             .flatMapLatest { server -> Observable<(Server, String?)> in
-                BarkApi.provider
-                    .request(.rotateKey(address: server.address, key: server.key))
+                guard let deviceToken = Client.shared.deviceToken.value, deviceToken.count > 0 else {
+                    return Observable.just((server, nil))
+                }
+                return BarkApi.provider
+                    .request(.rotateKey(address: server.address, key: server.key, deviceToken: deviceToken))
                     .filterResponseError()
                     .map { result -> (Server, String?) in
                         switch result {
