@@ -6,11 +6,13 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
+import Moya
 import UIKit
 
 enum BarkApi {
     case ping(baseURL: String?)
     case register(address: String, key: String?, devicetoken: String) // 注册设备
+    case rotateKey(address: String, key: String) // 轮换设备 key
 }
 
 extension BarkApi: BarkTargetType {
@@ -21,6 +23,10 @@ extension BarkApi: BarkTargetType {
                 return url
             }
         case let .register(address, _, _):
+            if let url = try? address.asURL() {
+                return url
+            }
+        case let .rotateKey(address, _):
             if let url = try? address.asURL() {
                 return url
             }
@@ -36,8 +42,28 @@ extension BarkApi: BarkTargetType {
                 params["key"] = key
             }
             return params
+        case let .rotateKey(_, key):
+            return ["device_key": key]
         default:
             return nil
+        }
+    }
+
+    var method: Moya.Method {
+        switch self {
+        case .rotateKey:
+            return .post
+        default:
+            return .get
+        }
+    }
+
+    var parameterEncoding: ParameterEncoding {
+        switch self {
+        case .rotateKey:
+            return JSONEncoding.default
+        default:
+            return URLEncoding.default
         }
     }
 
@@ -47,6 +73,8 @@ extension BarkApi: BarkTargetType {
             return "/ping"
         case .register:
             return "/register"
+        case .rotateKey:
+            return "/register/rotate"
         }
     }
 }

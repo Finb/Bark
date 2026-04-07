@@ -16,6 +16,7 @@ enum ServerActionType {
     case select
     case copy
     case reset(key: String?)
+    case rotate
     case delete
     case setName(name: String?)
 }
@@ -24,7 +25,8 @@ func == (lhs: ServerActionType, rhs: ServerActionType) -> Bool {
     switch (lhs, rhs) {
     case (.copy, .copy),
          (.delete, .delete),
-         (.select, .select):
+         (.select, .select),
+         (.rotate, .rotate):
         return true
     case (.reset(let a), .reset(let b)):
         return a == b
@@ -92,7 +94,11 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
             }
             return nil
         }.asDriver(onErrorDriveWith: .empty())
-        
+
+        // 轮换 device key
+        let rotateServer = action.filter { $0.1 == ServerActionType.rotate }
+            .map { $0.0 }.asDriver(onErrorDriveWith: .empty())
+
         // 设置服务器名称
         let setServerName = action.compactMap { r -> (Server, String?)? in
             if case ServerActionType.setName(let name) = r.1 {
@@ -106,6 +112,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
             copyServer: copyServer,
             deleteServer: deleteServer,
             resetServer: resetServer,
+            rotateServer: rotateServer,
             setServerName: setServerName
         ))
 
@@ -178,6 +185,20 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                     }))
                     alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                     self.navigationController?.present(alertController, animated: true, completion: nil)
+                }))
+
+                alertController.addAction(UIAlertAction(title: "rotateKey".localized, style: .destructive, handler: { _ in
+                    // Step 2: confirmation alert
+                    let confirmAlert = UIAlertController(
+                        title: "rotateKey".localized,
+                        message: "rotateKeyDesc".localized,
+                        preferredStyle: .alert
+                    )
+                    confirmAlert.addAction(UIAlertAction(title: "confirm".localized, style: .destructive, handler: { _ in
+                        relay.accept((viewModel.server, .rotate))
+                    }))
+                    confirmAlert.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
+                    self.navigationController?.present(confirmAlert, animated: true, completion: nil)
                 }))
 
                 alertController.addAction(UIAlertAction(title: "deleteServer".localized, style: .destructive, handler: { _ in

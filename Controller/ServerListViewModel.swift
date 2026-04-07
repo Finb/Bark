@@ -19,6 +19,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         let copyServer: Driver<Server>
         let deleteServer: Driver<Server>
         let resetServer: Driver<(Server, String?)>
+        let rotateServer: Driver<Server>
         let setServerName: Driver<(Server, String?)>
     }
 
@@ -135,12 +136,58 @@ class ServerListViewModel: ViewModel, ViewModelType {
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
+        // 轮换 device key（原子替换旧 key，服务器生成新 key）
+        let serverRotated = input.rotateServer
+            .filter { $0.key.count > 0 }
+            .asObservable()
+            .flatMapLatest { server -> Observable<(Server, String?)> in
+                BarkApi.provider
+                    .request(.rotateKey(address: server.address, key: server.key))
+                    .filterResponseError()
+                    .map { result -> (Server, String?) in
+                        switch result {
+                        case .success(let json):
+                            let newKey = json["data", "device_key"].rawString()
+                                ?? json["data", "key"].rawString()
+                            return (server, newKey)
+                        case .failure:
+                            return (server, nil)
+                        }
+                    }
+                    .catch { _ in Observable.just((server, nil)) }
+            }
+            .share()
+
+        // 轮换成功，更新本地 key
+        let serverRotateSuccess = serverRotated
+            .compactMap { (server, newKey) -> ()? in
+                guard let newKey = newKey else { return nil }
+                server.key = newKey
+                ServerManager.shared.updateServerKey(server: server)
+                return ()
+            }
+            .share()
+
+        // 轮换失败提示
+        serverRotated
+            .filter { $0.1 == nil }
+            .map { _ in "rotateKeyFailed".localized }
+            .bind(to: showSnackbar)
+            .disposed(by: rx.disposeBag)
+
+        // 轮换成功提示
+        serverRotateSuccess
+            .map { "rotateKeySuccess".localized }
+            .bind(to: showSnackbar)
+            .disposed(by: rx.disposeBag)
+
         // 服务器列表
         let servers = Observable
             .merge(
                 Observable.just(()),
                 serverDeleted,
                 serverResetSuccess,
+                serverRotateSuccess,
                 input.setServerName.map { _ in () }.asObservable()
             )
             .map {
@@ -158,7 +205,7 @@ class ServerListViewModel: ViewModel, ViewModelType {
         }
         
         // 当前服务器有改动
-        let serverChanged = Observable.merge(serverSelected, serverDeleted, serverResetSuccess)
+        let serverChanged = Observable.merge(serverSelected, serverDeleted, serverResetSuccess, serverRotateSuccess)
             .share()
 
         serverChanged.map {

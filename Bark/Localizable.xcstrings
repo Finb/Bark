@@ -3016,6 +3016,122 @@
         }
       }
     },
+    "rotateKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotate Device Key"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスキーをローテーション"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihaz Anahtarını Döndür"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轮换设备Key"
+          }
+        }
+      }
+    },
+    "rotateKeyDesc" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotating your device key will immediately invalidate your current push URL. This cannot be undone. Are you sure?"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスキーをローテーションすると、現在のプッシュURLが直ちに無効になります。この操作は元に戻せません。よろしいですか？"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihaz anahtarınızı döndürmek, mevcut push URL'nizi hemen geçersiz kılar. Bu işlem geri alınamaz. Emin misiniz?"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轮换设备Key后，当前推送URL将立即失效，此操作不可撤销。确定继续吗？"
+          }
+        }
+      }
+    },
+    "rotateKeyFailed" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rotation Failed"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ローテーション失敗"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Döndürme Başarısız Oldu"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "轮换失败"
+          }
+        }
+      }
+    },
+    "rotateKeySuccess" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Device Key Rotated Successfully"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "デバイスキーのローテーション成功"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cihaz Anahtarı Başarıyla Döndürüldü"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "设备Key轮换成功"
+          }
+        }
+      }
+    },
     "restoreSubscription" : {
       "extractionState" : "manual",
       "localizations" : {
