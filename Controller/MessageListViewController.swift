@@ -98,6 +98,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         if #available(iOS 26.0, *) {
             navigationItem.preferredSearchBarPlacement = .integratedButton
+            self.tableView.contentInset = UIEdgeInsets(top: 20, left: 0, bottom: 0, right: 0)
         }
         
         self.view.addSubview(tableView)
@@ -385,7 +386,6 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 options: [.beginFromCurrentState, .curveEaseOut]
             ) {
                 self.initialLoadingView.alpha = 0
-                self.initialLoadingView.transform = CGAffineTransform(scaleX: 0.992, y: 0.992)
             } completion: { _ in
                 self.initialLoadingView.removeFromSuperview()
             }
@@ -414,7 +414,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
 
         for cell in visibleCells {
             cell.alpha = 0
-            cell.transform = CGAffineTransform(translationX: 0, y: 16)
+            cell.transform = CGAffineTransform(translationX: 0, y: 10)
         }
 
         return visibleCells

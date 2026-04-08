@@ -33,15 +33,26 @@ final class MessageListSkeletonView: UIView {
         static let dateBarCornerRadius: CGFloat = 3
         static let dateTopSpacing: CGFloat = 12
         static let cardSpacing: CGFloat = 10
-        static let topInset: CGFloat = 10
+        static let topInset: CGFloat = {
+            if #available(iOS 26.0, *) {
+                return 10 + 20
+            }
+            return 10
+        }()
         static let bottomInset: CGFloat = 24
     }
 
-    private static let cardConfigs: [CardConfig] = [
+    private static let baseCardConfigs: [CardConfig] = [
         CardConfig(titleWidthRatio: 0.55, lineWidthRatios: [0.90, 0.68, 0.40]),
         CardConfig(titleWidthRatio: 0.42, lineWidthRatios: [0.82, 0.52]),
         CardConfig(titleWidthRatio: 0.65, lineWidthRatios: [0.88, 0.72, 0.55]),
-        CardConfig(titleWidthRatio: 0.48, lineWidthRatios: [0.78, 0.45])
+        CardConfig(titleWidthRatio: 0.48, lineWidthRatios: [0.78, 0.45]),
+        CardConfig(titleWidthRatio: 0.58, lineWidthRatios: [0.86, 0.62, 0.36])
+    ]
+
+    private static let padExtraCardConfigs: [CardConfig] = [
+        CardConfig(titleWidthRatio: 0.50, lineWidthRatios: [0.80, 0.60]),
+        CardConfig(titleWidthRatio: 0.62, lineWidthRatios: [0.92, 0.74, 0.48])
     ]
 
     private let stackView = UIStackView()
@@ -82,7 +93,9 @@ final class MessageListSkeletonView: UIView {
     }
 
     private func buildCards() {
-        for config in Self.cardConfigs {
+        let cardConfigs = Self.baseCardConfigs + (traitCollection.userInterfaceIdiom == .pad ? Self.padExtraCardConfigs : [])
+
+        for config in cardConfigs {
             stackView.addArrangedSubview(MessageListSkeletonCardView(config: config, placeholderColor: placeholderColor))
         }
     }
