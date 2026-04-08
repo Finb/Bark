@@ -87,6 +87,9 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     private let reloadRelay = PublishRelay<Void>()
     /// 按时间范围清除消息事件流
     private let clearRelay = PublishRelay<MessageDeleteTimeRange>()
+    /// 首屏加载过渡动画
+    private let initialLoadingView = MessageListSkeletonView()
+    private var hasFinishedInitialLoadingTransition = false
 
     override func makeUI() {
         navigationItem.searchController = UISearchController(searchResultsController: nil)
@@ -99,6 +102,11 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         self.view.addSubview(tableView)
         tableView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
+        self.view.addSubview(initialLoadingView)
+        initialLoadingView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
 
@@ -226,6 +234,15 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         output.messages
             .drive(tableView.rx.items(dataSource: dataSource))
             .disposed(by: rx.disposeBag)
+
+        output.messages
+            .asObservable()
+            .skip(1)
+            .take(1)
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.finishInitialLoadingTransition()
+            }).disposed(by: rx.disposeBag)
         
         // 选择群组
         output.type
@@ -240,6 +257,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         // 数据库初始化出错错误提示
         output.errorAlert
             .drive(onNext: { [weak self] error in
+                self?.finishInitialLoadingTransition()
                 let alertController = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
                 alertController.addAction(UIAlertAction(title: "Copy2".localized, style: .default, handler: { _ in
                     UIPasteboard.general.string = error
@@ -347,6 +365,59 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         if self.tableView.visibleCells.count > 0 {
             self.tableView.scrollToRow(at: IndexPath(row: 0, section: 0), at: .top, animated: true)
         }
+    }
+
+    private func finishInitialLoadingTransition() {
+        guard !hasFinishedInitialLoadingTransition else { return }
+        hasFinishedInitialLoadingTransition = true
+
+        guard self.initialLoadingView.superview != nil else {
+            return
+        }
+
+        DispatchQueue.main.async { [weak self] in
+            guard let self else { return }
+
+            let visibleCells = self.prepareInitialVisibleCellsAnimation()
+            UIView.animate(
+                withDuration: 0.26,
+                delay: 0,
+                options: [.beginFromCurrentState, .curveEaseOut]
+            ) {
+                self.initialLoadingView.alpha = 0
+                self.initialLoadingView.transform = CGAffineTransform(scaleX: 0.992, y: 0.992)
+            } completion: { _ in
+                self.initialLoadingView.removeFromSuperview()
+            }
+
+            for (index, cell) in visibleCells.enumerated() {
+                UIView.animate(
+                    withDuration: 0.5,
+                    delay: 0.06 + Double(index) * 0.035,
+                    usingSpringWithDamping: 0.9,
+                    initialSpringVelocity: 0.12,
+                    options: [.beginFromCurrentState, .curveEaseOut]
+                ) {
+                    cell.alpha = 1
+                    cell.transform = .identity
+                }
+            }
+        }
+    }
+
+    private func prepareInitialVisibleCellsAnimation() -> [UITableViewCell] {
+        tableView.layoutIfNeeded()
+
+        let visibleCells = tableView.indexPathsForVisibleRows?
+            .sorted()
+            .compactMap { tableView.cellForRow(at: $0) } ?? []
+
+        for cell in visibleCells {
+            cell.alpha = 0
+            cell.transform = CGAffineTransform(translationX: 0, y: 16)
+        }
+
+        return visibleCells
     }
 }
 

@@ -102,6 +102,7 @@
 		066890082D1946D500E106F2 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066890072D1946D500E106F2 /* MessageItemView.swift */; };
 		0668900B2D19525400E106F2 /* ShowLessAndClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */; };
 		0668900D2D19582400E106F2 /* MessageGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */; };
+		0668900F2F751A1000E106F2 /* MessageListSkeletonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900E2F751A1000E106F2 /* MessageListSkeletonView.swift */; };
 		06697FDB2F70ED9400C4680E /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06697FDA2F70ED9400C4680E /* WidgetKit.framework */; };
 		06697FDD2F70ED9400C4680E /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06697FDC2F70ED9400C4680E /* SwiftUI.framework */; };
 		06697FEE2F70ED9600C4680E /* WidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 06697FD92F70ED9400C4680E /* WidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -373,6 +374,7 @@
 		066890072D1946D500E106F2 /* MessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemView.swift; sourceTree = "<group>"; };
 		0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLessAndClearView.swift; sourceTree = "<group>"; };
 		0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupHeaderView.swift; sourceTree = "<group>"; };
+		0668900E2F751A1000E106F2 /* MessageListSkeletonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListSkeletonView.swift; sourceTree = "<group>"; };
 		06697FD92F70ED9400C4680E /* WidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		06697FDA2F70ED9400C4680E /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		06697FDC2F70ED9400C4680E /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
@@ -758,6 +760,7 @@
 				0667D191247D162C005DE2ED /* MessageTableViewCell.swift */,
 				0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */,
 				0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */,
+				0668900E2F751A1000E106F2 /* MessageListSkeletonView.swift */,
 				061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */,
 			);
 			path = MessageList;
@@ -1431,6 +1434,7 @@
 				0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */,
 				068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */,
 				0668900D2D19582400E106F2 /* MessageGroupHeaderView.swift in Sources */,
+				0668900F2F751A1000E106F2 /* MessageListSkeletonView.swift in Sources */,
 				1E73F99E2C282822002BF649 /* SectionViewController-iPad.swift in Sources */,
 				0689CF4C2C7484A7007203A6 /* BarkTabBarController.swift in Sources */,
 				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,
