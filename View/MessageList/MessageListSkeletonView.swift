@@ -35,9 +35,9 @@ final class MessageListSkeletonView: UIView {
         static let cardSpacing: CGFloat = 10
         static let topInset: CGFloat = {
             if #available(iOS 26.0, *) {
-                return 10 + 20
+                return 20
             }
-            return 10
+            return 0
         }()
         static let bottomInset: CGFloat = 24
     }

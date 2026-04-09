@@ -376,48 +376,15 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
             return
         }
 
-        DispatchQueue.main.async { [weak self] in
-            guard let self else { return }
-
-            let visibleCells = self.prepareInitialVisibleCellsAnimation()
-            UIView.animate(
-                withDuration: 0.26,
-                delay: 0,
-                options: [.beginFromCurrentState, .curveEaseOut]
-            ) {
-                self.initialLoadingView.alpha = 0
-            } completion: { _ in
-                self.initialLoadingView.removeFromSuperview()
-            }
-
-            for (index, cell) in visibleCells.enumerated() {
-                UIView.animate(
-                    withDuration: 0.5,
-                    delay: 0.06 + Double(index) * 0.035,
-                    usingSpringWithDamping: 0.9,
-                    initialSpringVelocity: 0.12,
-                    options: [.beginFromCurrentState, .curveEaseOut]
-                ) {
-                    cell.alpha = 1
-                    cell.transform = .identity
-                }
-            }
+        UIView.animate(
+            withDuration: 0.26,
+            delay: 0,
+            options: [.beginFromCurrentState, .curveEaseOut]
+        ) {
+            self.initialLoadingView.alpha = 0
+        } completion: { _ in
+            self.initialLoadingView.removeFromSuperview()
         }
-    }
-
-    private func prepareInitialVisibleCellsAnimation() -> [UITableViewCell] {
-        tableView.layoutIfNeeded()
-
-        let visibleCells = tableView.indexPathsForVisibleRows?
-            .sorted()
-            .compactMap { tableView.cellForRow(at: $0) } ?? []
-
-        for cell in visibleCells {
-            cell.alpha = 0
-            cell.transform = CGAffineTransform(translationX: 0, y: 10)
-        }
-
-        return visibleCells
     }
 }
 
