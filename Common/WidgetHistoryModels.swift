@@ -13,6 +13,17 @@ enum WidgetHistoryConstants {
     static let widgetKind = "RecentMessagesWidget"
     static let displayLimit = 3
     static let snapshotRetentionLimit = 100
+    static let bodyCharacterLimit = 500
+}
+
+private extension String {
+    func trimmedForWidget(limit: Int = WidgetHistoryConstants.bodyCharacterLimit) -> String {
+        let normalized = trimmingCharacters(in: .whitespacesAndNewlines)
+        guard normalized.count > limit else {
+            return normalized
+        }
+        return String(normalized.prefix(limit))
+    }
 }
 
 struct WidgetHistoryMessage: Codable, Identifiable {
@@ -36,7 +47,7 @@ struct WidgetHistoryMessage: Codable, Identifiable {
         self.group = group
         self.title = title
         self.subtitle = subtitle
-        self.body = body
+        self.body = body?.trimmedForWidget()
         self.image = image
         self.createDate = createDate
     }
