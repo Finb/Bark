@@ -87,8 +87,8 @@ final class MessageListSkeletonView: UIView {
 
         stackView.snp.makeConstraints { make in
             make.top.equalTo(safeAreaLayoutGuide).offset(Layout.topInset)
-            make.left.right.equalToSuperview()
-            make.bottom.lessThanOrEqualToSuperview().offset(-Layout.bottomInset)
+            make.left.right.equalTo(safeAreaLayoutGuide)
+            make.bottom.lessThanOrEqualTo(safeAreaLayoutGuide).offset(-Layout.bottomInset)
         }
     }
 
