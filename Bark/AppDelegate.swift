@@ -127,7 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             try? realm.write {
                 realm.delete(message)
             }
-            WidgetHistorySnapshotStore.shared.syncFromMessages(realm.widgetSnapshotItems())
+            WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
         }
 
         completionHandler(.newData)

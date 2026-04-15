@@ -6,13 +6,15 @@
 //
 
 import Foundation
-
+import RealmSwift
 #if canImport(WidgetKit)
 import WidgetKit
 #endif
 
 final class WidgetHistorySnapshotStore {
     static let shared = WidgetHistorySnapshotStore()
+
+    private let accessQueue = DispatchQueue(label: "me.fin.bark.widget-history-snapshot", qos: .utility)
 
     private let encoder: JSONEncoder = {
         let encoder = JSONEncoder()
@@ -31,12 +33,28 @@ final class WidgetHistorySnapshotStore {
     }
     private init() {}
 
-    func syncFromMessages(_ messages: [WidgetHistoryMessage], limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
+    func refreshFromRealmAsync(limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
+        accessQueue.async {
+            guard let realm = try? Realm() else {
+                return
+            }
+            let messages = realm.widgetSnapshotItems(limit: limit)
+            self.syncFromMessagesLocked(messages, limit: limit)
+        }
+    }
+
+    func prependMessage(_ message: WidgetHistoryMessage, limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
+        accessQueue.sync {
+            prependMessageLocked(message, limit: limit)
+        }
+    }
+
+    private func syncFromMessagesLocked(_ messages: [WidgetHistoryMessage], limit: Int) {
         let items = Array(messages.sorted { $0.createDate > $1.createDate }.prefix(limit))
         write(WidgetHistorySnapshot(messages: items))
     }
 
-    func prependMessage(_ message: WidgetHistoryMessage, limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
+    private func prependMessageLocked(_ message: WidgetHistoryMessage, limit: Int) {
         var items = load()?.messages ?? []
         items.removeAll { $0.id == message.id }
         items.insert(message, at: 0)
