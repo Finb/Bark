@@ -126,13 +126,20 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 self?.scrollToTop()
             }).disposed(by: self.rx.disposeBag)
         
-        NotificationCenter.default.rx
-            .notification(kBarkMessagesDidChangeNotification)
-            .subscribe(onNext: { [weak self] _ in
-                // 默认加载未完成前，不执行刷新，避免重复刷新
-                guard let self, self.hasFinishedInitialLoadingTransition else { return }
-                self.reloadRelay.accept(())
-            }).disposed(by: rx.disposeBag)
+        Observable.merge(
+            NotificationCenter.default.rx
+                .notification(UIApplication.willEnterForegroundNotification),
+            NotificationCenter.default.rx
+                .notification(kBarkMessagesDidChangeNotification)
+        )
+        // 防止重复加载
+        // 另外顺便延迟0.5秒，需要等待数据库 Results 更新到最新数据集，否则可能新推送没有显示出来。
+        .debounce(.milliseconds(500), scheduler: MainScheduler.instance)
+        .subscribe(onNext: { [weak self] _ in
+            // 默认加载未完成前，不执行刷新，避免重复刷新
+            guard let self, self.hasFinishedInitialLoadingTransition else { return }
+            self.reloadRelay.accept(())
+        }).disposed(by: rx.disposeBag)
         
         // 点击群组消息，展开群
         tableView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
