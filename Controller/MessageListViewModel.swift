@@ -28,6 +28,8 @@ enum MessageSourceType {
 
 class MessageListViewModel: ViewModel, ViewModelType {
     struct Input {
+        /// 首次加载
+        var initialLoad: Driver<Void>
         /// 刷新
         var refresh: Driver<Void>
         /// 加载更多
@@ -118,6 +120,15 @@ class MessageListViewModel: ViewModel, ViewModelType {
     
     /// 当前正在搜索的文字
     private var searchText: String = ""
+
+    private func reloadResults(filterGroups: [String?], searchText: String?) {
+        self.searchText = searchText ?? ""
+        results = getResults(filterGroups: filterGroups, searchText: searchText)
+        if case .all = sourceType {
+            // 只有显示全部数据源时，才需要获取群组
+            groups = getGroups()
+        }
+    }
     
     /// 获取所有群组（懒加载）
     private func getGroups() -> Results<Message>? {
@@ -230,6 +241,8 @@ class MessageListViewModel: ViewModel, ViewModelType {
         
         // 使用 asyncInstance 调度 searchText，避免阻塞启动
         let searchText = input.searchText
+            .startWith("")
+            .distinctUntilChanged { $0 == $1 }
             .observe(on: MainScheduler.asyncInstance)
         
         // 切换分组时，更新分组名
@@ -243,16 +256,12 @@ class MessageListViewModel: ViewModel, ViewModelType {
             }).disposed(by: rx.disposeBag)
         
         // 切换分组和更改搜索词时，更新数据源
-        Observable
+        let queryState = Observable
             .combineLatest(filterGroups, searchText)
-            .subscribe(onNext: { [weak self] groups, searchText in
-                self?.searchText = searchText ?? ""
-                self?.results = self?.getResults(filterGroups: groups, searchText: searchText)
-                if case .all = self?.sourceType {
-                    // 只有显示全部数据源时，才需要获取群组
-                    self?.groups = self?.getGroups()
-                }
-            }).disposed(by: rx.disposeBag)
+            .share(replay: 1, scope: .whileConnected)
+
+        let initialLoad = input.initialLoad.asObservable()
+            .map { _ in () }
 
         // 群组筛选
         let messageTypeChanged = input.groupToggleTap.compactMap { () -> MessageListType? in
@@ -263,12 +272,15 @@ class MessageListViewModel: ViewModel, ViewModelType {
         // 切换分组和下拉刷新时，重新刷新列表
         Observable
             .merge(
+                initialLoad,
                 input.refresh.asObservable().map { () },
-                searchText.map { _ in () },
+                searchText.skip(1).map { _ in () },
                 messageTypeChanged.asObservable().map { _ in () }
             )
-            .subscribe(onNext: { [weak self] in
+            .withLatestFrom(queryState)
+            .subscribe(onNext: { [weak self] groups, searchText in
                 guard let strongSelf = self else { return }
+                strongSelf.reloadResults(filterGroups: groups, searchText: searchText)
                 strongSelf.page = 0
                 let messages = strongSelf.getNextPage()
                 messagesRelay.accept(

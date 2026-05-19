@@ -83,6 +83,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
     private let itemDeleteInGroupRelay = PublishRelay<MessageItemModel>()
     /// 下拉刷新事件流
     private let refreshRelay = PublishRelay<Void>()
+    /// 首次加载事件流
+    private let initialLoadRelay = PublishRelay<Void>()
     /// 重新刷新已加载的页的数据 （最多10页）
     private let reloadRelay = PublishRelay<Void>()
     /// 按时间范围清除消息事件流
@@ -225,6 +227,7 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         
         let output = viewModel.transform(
             input: MessageListViewModel.Input(
+                initialLoad: initialLoadRelay.asDriver(onErrorDriveWith: .empty()),
                 refresh: refreshRelay.asDriver(onErrorDriveWith: .empty()),
                 loadMore: tableView.mj_footer!.rx.refresh.asDriver(),
                 itemDelete: tableView.rx.modelDeleted(MessageListCellItem.self).asDriver(),
@@ -284,6 +287,13 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 }
                 navigationItem.setBarButtonItems(items: items, position: .right)
             }).disposed(by: rx.disposeBag)
+
+        Task { [weak self] in
+            await (UIApplication.shared.delegate as? AppDelegate)?.waitForInitialPendingMessages()
+            await MainActor.run {
+                self?.initialLoadRelay.accept(())
+            }
+        }
     }
     
     private func subscribeDeleteTap() {
