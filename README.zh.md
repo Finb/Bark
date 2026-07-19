@@ -7,7 +7,7 @@ Bark 支持 iOS 通知的多种高级功能：推送分组、自定义图标和�
 此外，Bark 还支持用户自建服务端，并提供端到端推送加密。APP 是由 Github Action 自动构建和发布，从根本上保障隐私与安全。<br/>
 
 ## 下载
-<a target='_blank' href='https://apps.apple.com/app/bark-custom-notifications/id1403753865'>
+<a target='_blank' href='https://apps.apple.com/cn/app/bark-custom-notifications/id1403753865'>
 <img src='http://ww2.sinaimg.cn/large/0060lm7Tgw1f1hgrs1ebwj308102q0sp.jpg' width='144' height='49' />
 </a>
 
