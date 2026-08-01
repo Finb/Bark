@@ -19,8 +19,8 @@ class CryptoSettingViewModelTests: XCTestCase {
         let output = viewModel.transform(input: generateInput())
 
         output.initial.drive(onNext: { val in
-            XCTAssertEqual(val.initialFields.mode, "GCM")
-            XCTAssertEqual(val.initialFields.padding, "noPadding")
+            XCTAssertEqual(val.fields.mode, "GCM")
+            XCTAssertEqual(val.fields.padding, "noPadding")
             XCTAssertEqual(val.paddingList, ["noPadding"])
             XCTAssertEqual(val.modeList, ["GCM", "CBC", "ECB"])
             exp.fulfill()
@@ -44,11 +44,11 @@ class CryptoSettingViewModelTests: XCTestCase {
         let output = viewModel.transform(input: generateInput())
 
         output.initial.drive(onNext: { val in
-            XCTAssertEqual(val.initialFields.algorithm, "AES192")
-            XCTAssertEqual(val.initialFields.mode, "CBC")
-            XCTAssertEqual(val.initialFields.padding, "pkcs7")
-            XCTAssertEqual(val.initialFields.key, "0123456789abcdef01234567")
-            XCTAssertEqual(val.initialFields.iv, "0123456789abcdef")
+            XCTAssertEqual(val.fields.algorithm, "AES192")
+            XCTAssertEqual(val.fields.mode, "CBC")
+            XCTAssertEqual(val.fields.padding, "pkcs7")
+            XCTAssertEqual(val.fields.key, "0123456789abcdef01234567")
+            XCTAssertEqual(val.fields.iv, "0123456789abcdef")
             XCTAssertEqual(val.paddingList, ["pkcs7"])
             exp.fulfill()
         }).disposed(by: rx.disposeBag)
@@ -72,7 +72,7 @@ class CryptoSettingViewModelTests: XCTestCase {
 
         output.initial.drive(onNext: { val in
             XCTAssertEqual(val.paddingList, ["noPadding"])
-            XCTAssertEqual(val.initialFields.padding, "noPadding")
+            XCTAssertEqual(val.fields.padding, "noPadding")
             exp.fulfill()
         }).disposed(by: rx.disposeBag)
 
@@ -153,6 +153,14 @@ class CryptoSettingViewModelTests: XCTestCase {
 
             XCTAssertEqual(controller.ivHardcodedWarningLabel.isHidden, expectsHidden)
             XCTAssertEqual(controller.ivTextField.placeholder, "ivOptionalPlaceholder".localized)
+
+            // 清除按钮接在复制按钮下方，且是 scrollView 内容高度的末端
+            XCTAssertFalse(controller.clearButton.frame.isEmpty)
+            XCTAssertGreaterThanOrEqual(controller.clearButton.frame.minY, controller.copyButton.frame.maxY)
+            XCTAssertGreaterThanOrEqual(
+                controller.scrollView.contentSize.height,
+                controller.clearButton.frame.maxY
+            )
         }
     }
 
@@ -194,6 +202,41 @@ class CryptoSettingViewModelTests: XCTestCase {
 
         waitForExpectations(timeout: 1, handler: nil)
         XCTAssertNil(relay.value, "校验失败不应保存")
+    }
+
+    /// 清除后配置被删除，表单回到默认态
+    func testClearRemovesSavedConfigAndResetsForm() {
+        let exp = expectation(description: #function)
+        let relay = BehaviorRelay<CryptoSettingFields?>(value: cbcFields(iv: "0123456789abcdef"))
+        let viewModel = makeViewModel(relay: relay)
+
+        let clearTap = PublishRelay<Void>()
+        let output = viewModel.transform(input: generateInput(clear: clearTap.asDriver(onErrorDriveWith: .empty())))
+
+        output.reset.drive(onNext: { state in
+            XCTAssertEqual(state.fields.mode, "GCM")
+            XCTAssertEqual(state.fields.padding, "noPadding")
+            XCTAssertNil(state.fields.key)
+            XCTAssertNil(state.fields.iv)
+            XCTAssertEqual(state.paddingList, ["noPadding"])
+            exp.fulfill()
+        }).disposed(by: rx.disposeBag)
+
+        clearTap.accept(())
+
+        waitForExpectations(timeout: 1, handler: nil)
+        XCTAssertNil(relay.value, "清除后不应残留配置")
+    }
+
+    /// 没点清除就不该动已保存的配置
+    func testConfigSurvivesWithoutClear() {
+        let saved = cbcFields(iv: "0123456789abcdef")
+        let relay = BehaviorRelay<CryptoSettingFields?>(value: saved)
+        let viewModel = makeViewModel(relay: relay)
+
+        _ = viewModel.transform(input: generateInput())
+
+        XCTAssertEqual(relay.value?.mode, "CBC")
     }
 
     // 存量 iv 用 key 里不会出现的字符，避免 contains 断言误判
@@ -272,13 +315,15 @@ class CryptoSettingViewModelTests: XCTestCase {
         algorithmChanged: Driver<String> = Driver.empty(),
         modeChanged: Driver<String> = Driver.empty(),
         copyScript: Driver<CryptoSettingFields> = Driver.empty(),
-        done: Driver<CryptoSettingFields> = Driver.empty()
+        done: Driver<CryptoSettingFields> = Driver.empty(),
+        clear: Driver<Void> = Driver.empty()
     ) -> CryptoSettingViewModel.Input {
         CryptoSettingViewModel.Input(
             algorithmChanged: algorithmChanged,
             modeChanged: modeChanged,
             copyScript: copyScript,
-            done: done
+            done: done,
+            clear: clear
         )
     }
 }

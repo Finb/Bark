@@ -85,6 +85,14 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         return btn
     }()
 
+    let clearButton: BKButton = {
+        let btn = BKButton()
+        btn.setTitle("clearEncryptionSetting".localized, for: .normal)
+        btn.setTitleColor(BKColor.red.darken1, for: .normal)
+        btn.fontSize = 14
+        return btn
+    }()
+
     let scrollView = UIScrollView()
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -132,6 +140,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         self.scrollView.addSubview(ivHardcodedWarningLabel)
 
         self.scrollView.addSubview(copyButton)
+        self.scrollView.addSubview(clearButton)
 
         self.view.backgroundColor = UIColor.white
 
@@ -203,9 +212,15 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             make.height.equalTo(42)
             self.copyTopBelowIv = make.top.equalTo(ivTextField.snp.bottom).offset(25).constraint
             self.copyTopBelowIvWarning = make.top.equalTo(ivHardcodedWarningLabel.snp.bottom).offset(25).constraint
-            make.bottom.equalToSuperview().offset(-20)
         }
         setIvHardcodedWarning(hidden: true)
+
+        clearButton.snp.makeConstraints { make in
+            make.left.right.equalTo(copyButton)
+            make.height.equalTo(42)
+            make.top.equalTo(copyButton.snp.bottom).offset(10)
+            make.bottom.equalToSuperview().offset(-20)
+        }
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(resign)))
     }
@@ -251,21 +266,23 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 .rx
                 .tap
                 .map { getFieldValues() }
+                .asDriver(onErrorDriveWith: .empty()),
+
+            clear: clearButton
+                .rx
+                .tap
+                .flatMapLatest { [weak self] in
+                    self?.confirmClear() ?? Observable.empty()
+                }
                 .asDriver(onErrorDriveWith: .empty())
         ))
 
-        output.initial.drive(onNext: { [weak self] val in
-            self?.algorithmFeild.values = val.algorithmList.map { $0.rawValue }
-            self?.modeFeild.values = val.modeList
-            self?.paddingField.values = val.paddingList
-            let fields = val.initialFields
-            self?.algorithmFeild.currentValue = fields.algorithm
-            self?.modeFeild.currentValue = fields.mode
-            self?.paddingField.currentValue = fields.padding
-            self?.keyTextField.text = fields.key
-            self?.ivTextField.text = fields.iv
-            self?.setIvPlaceholder(mode: self?.modeFeild.currentValue)
-            self?.updateIvHardcodedWarning()
+        output.initial.drive(onNext: { [weak self] state in
+            self?.applyForm(state)
+        }).disposed(by: rx.disposeBag)
+
+        output.reset.drive(onNext: { [weak self] state in
+            self?.applyForm(state)
         }).disposed(by: rx.disposeBag)
 
         output.modeListChanged
@@ -298,6 +315,11 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 self?.updateIvHardcodedWarning()
             }).disposed(by: rx.disposeBag)
 
+        // 清除后停留在页面，只提示成功
+        output.reset.drive(onNext: { _ in
+            HUDSuccess("clearedSuccessfully".localized)
+        }).disposed(by: rx.disposeBag)
+
         output.showSnackbar.drive(onNext: { text in
             HUDError(text)
         }).disposed(by: rx.disposeBag)
@@ -321,6 +343,43 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         } else {
             paddingTopBelowMode?.deactivate()
             paddingTopBelowNotice?.activate()
+        }
+    }
+
+    /// 用一次表单取值铺满所有控件，初次加载与清除后共用
+    private func applyForm(_ state: CryptoSettingViewModel.FormState) {
+        algorithmFeild.values = state.algorithmList.map { $0.rawValue }
+        modeFeild.values = state.modeList
+        paddingField.values = state.paddingList
+
+        let fields = state.fields
+        algorithmFeild.currentValue = fields.algorithm
+        modeFeild.currentValue = fields.mode
+        paddingField.currentValue = fields.padding
+        keyTextField.text = fields.key
+        ivTextField.text = fields.iv
+
+        setIvPlaceholder(mode: modeFeild.currentValue)
+        updateIvHardcodedWarning()
+    }
+
+    /// 弹出清除确认，用户确认后才发出事件
+    private func confirmClear() -> Observable<Void> {
+        Observable.create { [weak self] observer in
+            let alertController = UIAlertController(
+                title: "confirmClearEncryptionSetting".localized,
+                message: "clearEncryptionSettingNotice".localized,
+                preferredStyle: .alert
+            )
+            alertController.addAction(UIAlertAction(title: "clear".localized, style: .destructive, handler: { _ in
+                observer.onNext(())
+                observer.onCompleted()
+            }))
+            alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { _ in
+                observer.onCompleted()
+            }))
+            self?.present(alertController, animated: true, completion: nil)
+            return Disposables.create()
         }
     }
 

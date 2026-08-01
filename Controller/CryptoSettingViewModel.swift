@@ -12,15 +12,20 @@ import RxCocoa
 import RxSwift
 
 class CryptoSettingViewModel: ViewModel, ViewModelType {
+    /// 表单的一次完整取值，页面初次加载和清除配置后都用它铺满控件
+    typealias FormState = (algorithmList: [Algorithm], modeList: [String], paddingList: [String], fields: CryptoSettingFields)
+
     struct Input {
         let algorithmChanged: Driver<String>
         let modeChanged: Driver<String>
         let copyScript: Driver<CryptoSettingFields>
         let done: Driver<CryptoSettingFields>
+        let clear: Driver<Void>
     }
 
     struct Output {
-        let initial: Driver<(algorithmList: [Algorithm], modeList: [String], paddingList: [String], initialFields: CryptoSettingFields)>
+        let initial: Driver<FormState>
+        let reset: Driver<FormState>
         let modeListChanged: Driver<[String]>
         let paddingListChanged: Driver<[String]>
         let keyLengthChanged: Driver<Int>
@@ -47,6 +52,15 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
 
     private static func paddingList(for mode: String) -> [String] {
         mode == "GCM" ? ["noPadding"] : ["pkcs7"]
+    }
+
+    private static func formState(for fields: CryptoSettingFields) -> FormState {
+        (
+            algorithmList: [Algorithm.aes128, Algorithm.aes192, Algorithm.aes256],
+            modeList: ["GCM", "CBC", "ECB"],
+            paddingList: paddingList(for: fields.mode),
+            fields: fields
+        )
     }
 
     private let dependencies: Dependencies
@@ -105,6 +119,12 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         done.drive(onNext: { [weak self] fields in
             // 保存设置
             self?.dependencies.settingFieldRelay.accept(fields)
+        }).disposed(by: rx.disposeBag)
+
+        // 清除配置，表单回到默认态
+        let reset = input.clear.map { Self.formState(for: Self.defaultFields) }
+        input.clear.drive(onNext: { [weak self] in
+            self?.dependencies.settingFieldRelay.accept(nil)
         }).disposed(by: rx.disposeBag)
 
         let copyScript = input.copyScript
@@ -196,12 +216,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             }
 
         return Output(
-            initial: Driver.just((
-                algorithmList: [Algorithm.aes128, Algorithm.aes192, Algorithm.aes256],
-                modeList: ["GCM", "CBC", "ECB"],
-                paddingList: Self.paddingList(for: initialFields.mode),
-                initialFields: initialFields
-            )),
+            initial: Driver.just(Self.formState(for: initialFields)),
+            reset: reset,
             modeListChanged: modeList,
             paddingListChanged: paddingList,
             keyLengthChanged: keyLength,
