@@ -1538,6 +1538,209 @@
         }
       }
     },
+    "encryptedPush" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Send Encrypted"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化して送信"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreli Gönder"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密发送"
+          }
+        }
+      }
+    },
+    "encryptedPushNotConfigured" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption is not configured. Please set it up in the app's encryption settings first."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化設定がありません。先にアプリの暗号化設定で構成してください。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreleme yapılandırılmamış. Lütfen önce uygulamanın şifreleme ayarlarından yapılandırın."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "未配置加密设置，请先在 App 加密设置中配置"
+          }
+        }
+      }
+    },
+    "encryptedPushRequiresGCM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encrypted push requires the encryption mode to be GCM"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化プッシュを送信するには、暗号化モードをGCMに設定してください"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreli bildirim için şifreleme modu GCM olmalıdır"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密推送要求加密设置使用 GCM 模式"
+          }
+        }
+      }
+    },
+    "encryptionKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption Key (GCM)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化キー（GCM）"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreleme Anahtarı (GCM)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密密钥（GCM）"
+          }
+        }
+      }
+    },
+    "encryptionKeyDescription" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The key length sets the strength: 16, 24, or 32 characters for AES128, AES192, or AES256. The mode is always GCM."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーの長さで強度が決まります：16、24、32文字がそれぞれAES128、AES192、AES256に対応します。モードはGCM固定です。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Anahtar uzunluğu gücü belirler: 16, 24 veya 32 karakter sırasıyla AES128, AES192 veya AES256 demektir. Mod her zaman GCM'dir."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "密钥长度决定加密强度：16、24、32 个字符分别对应 AES128、AES192、AES256，模式固定为 GCM"
+          }
+        }
+      }
+    },
+    "encryptionKeyLengthInvalid" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The encryption key must be 16, 24, or 32 characters long"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化キーは16、24、または32文字である必要があります"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreleme anahtarı 16, 24 veya 32 karakter uzunluğunda olmalıdır"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密密钥长度需为 16、24 或 32 个字符"
+          }
+        }
+      }
+    },
+    "encryptionKeyRequired" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Please enter the encryption key."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化キーを入力してください。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lütfen şifreleme anahtarını girin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "请填写加密密钥"
+          }
+        }
+      }
+    },
     "encryptionNotice" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1592,6 +1795,122 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加密设置"
+          }
+        }
+      }
+    },
+    "encryptionSuite" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Encryption Suite"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号スイート"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifreleme Paketi"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "加密方式"
+          }
+        }
+      }
+    },
+    "encryptionSuiteAESGCM" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Shared Key (AES-GCM)"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "共有キー（AES-GCM）"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Paylaşılan Anahtar (AES-GCM)"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "共享密钥（AES-GCM）"
+          }
+        }
+      }
+    },
+    "encryptionSuiteNone" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "None"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "暗号化なし"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Şifrelemesiz"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "不加密"
+          }
+        }
+      }
+    },
+    "encryptionSuiteRequiredForKey" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A key was entered but the encryption method is set to none. Choose an encryption method, or clear the key to send unencrypted."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "キーが入力されていますが、暗号化方式が「暗号化しない」になっています。暗号化方式を選択するか、平文で送信する場合はキーを空にしてください。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bir anahtar girildi ancak şifreleme yöntemi \"şifreleme yok\" olarak ayarlı. Bir şifreleme yöntemi seçin veya şifrelenmemiş göndermek için anahtarı temizleyin."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "填写了密钥但加密方式为「不加密」，请选择加密方式，或清空密钥以明文发送"
           }
         }
       }

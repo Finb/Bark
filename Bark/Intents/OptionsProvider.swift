@@ -62,3 +62,19 @@ struct VolumeOptionsProvider: DynamicOptionsProvider {
         return Array(0...10)
     }
 }
+
+/// 快捷指令可选的加密套件
+@available(iOS 16, *)
+enum PushEncryptionSuite: String, AppEnum {
+    case none = "none"
+    case aesGCM = "AES-GCM"
+
+    static var typeDisplayRepresentation: TypeDisplayRepresentation { "encryptionSuite" }
+
+    static var caseDisplayRepresentations: [PushEncryptionSuite: DisplayRepresentation] {
+        [
+            .none: "encryptionSuiteNone",
+            .aesGCM: "encryptionSuiteAESGCM"
+        ]
+    }
+}

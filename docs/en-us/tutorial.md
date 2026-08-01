@@ -123,3 +123,6 @@ List of supported parameters, specific effects can be previewed in the APP.
 
 ## Shortcuts
 Bark supports sending notifications directly via Shortcuts.
+
+The “Send notification to this device” shortcut has a “Send Encrypted” toggle. When enabled, it sends the push using the encryption settings configured in the app — GCM mode only; an error is thrown if encryption isn't configured or the configured mode isn't GCM.<br>
+The “Send notification to other device” shortcut has an “Encryption Suite” parameter (None / Shared Key, default None). With None the key field must be left empty — filling in a key while selecting None is rejected, to guard against accidentally sending in plaintext a push you meant to encrypt. With Shared Key, the “Encryption Key (GCM)” field is required: a 16, 24, or 32 character key sends an encrypted push using AES128, AES192, or AES256 respectively, with the mode fixed to GCM — no need to configure encryption in the app beforehand.

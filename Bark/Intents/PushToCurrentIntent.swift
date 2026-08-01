@@ -42,6 +42,9 @@ struct PushToCurrentIntent: AppIntent {
 
     @Parameter(title: "ttl")
     var ttl: Int?
+
+    @Parameter(title: "encryptedPush", default: false)
+    var isEncrypted: Bool
     
     func perform() async throws -> some IntentResult & ReturnsValue<Bool> {
         guard let address = URL(string: address) else {
@@ -79,6 +82,13 @@ struct PushToCurrentIntent: AppIntent {
         }
         if let ttl {
             params["ttl"] = ttl
+        }
+
+        if isEncrypted {
+            guard let fields = CryptoSettingManager.shared.fields else {
+                throw "encryptedPushNotConfigured".localized
+            }
+            params = try EncryptedPushParams.requestParams(params: params, fields: fields)
         }
         
         let response = await AF.request(address, method: .post, parameters: params, encoding: JSONEncoding.default)
