@@ -2378,6 +2378,35 @@
         }
       }
     },
+    "insecureModeNotice" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ECB and CBC have known security risks. GCM is recommended."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ECBとCBCには既知のセキュリティリスクがあります。GCMの使用を推奨します。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ECB ve CBC bilinen güvenlik risklerine sahiptir. GCM kullanmanız önerilir."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ECB 和 CBC 模式存在已知安全风险，建议使用 GCM"
+          }
+        }
+      }
+    },
     "interruptionLevel" : {
       "extractionState" : "manual",
       "localizations" : {

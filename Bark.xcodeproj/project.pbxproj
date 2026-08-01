@@ -234,6 +234,7 @@
 		88757E3ACE0EA6A48577C958 /* libPods-NotificationContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */; };
 		AF1CF986D2D9629CA8326B51 /* EncryptedPushParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8592121601596361C08067D8 /* EncryptedPushParams.swift */; };
 		B963F7D5BA7AC2571E71EF66 /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */; };
+		DE9CE37DD2492D3232FFE9D1 /* CryptoSettingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DD782F7302B6B45A655B6 /* CryptoSettingViewModelTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -461,6 +462,7 @@
 		519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationContentExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		840DD782F7302B6B45A655B6 /* CryptoSettingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingViewModelTests.swift; sourceTree = "<group>"; };
 		8592121601596361C08067D8 /* EncryptedPushParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedPushParams.swift; sourceTree = "<group>"; };
 		A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
 		B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -809,6 +811,7 @@
 				063B909A272149BF00431EC2 /* HomeViewModelTests.swift */,
 				068A4B952D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift */,
 				FB245A5A3C35523576436509 /* EncryptedPushParamsTests.swift */,
+				840DD782F7302B6B45A655B6 /* CryptoSettingViewModelTests.swift */,
 			);
 			path = BarkTests;
 			sourceTree = "<group>";
@@ -1509,6 +1512,7 @@
 				06EE1FD326843E9300586708 /* BarkTests.swift in Sources */,
 				063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */,
 				6BA2C2B8D3EB86419930EBB0 /* EncryptedPushParamsTests.swift in Sources */,
+				DE9CE37DD2492D3232FFE9D1 /* CryptoSettingViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

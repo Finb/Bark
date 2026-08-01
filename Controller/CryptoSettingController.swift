@@ -7,12 +7,27 @@
 //
 
 import RxSwift
+import SnapKit
 import UIKit
 
 class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
     let algorithmFeild = DropBoxView(values: ["AES128", "AES192", "AES256"])
-    let modeFeild = DropBoxView(values: ["CBC", "ECB", "GCM"])
+    let modeFeild = DropBoxView(values: ["GCM", "CBC", "ECB"])
     let paddingField = DropBoxView(values: ["pkcs7"])
+
+    let insecureModeNoticeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(ofSize: 12)
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = BKColor.red.darken1
+        label.numberOfLines = 0
+        label.text = "insecureModeNotice".localized
+        return label
+    }()
+
+    /// paddingLabel 的两条互斥顶部约束，提示显示时改为吊在提示下方
+    private var paddingTopBelowMode: Constraint?
+    private var paddingTopBelowNotice: Constraint?
 
     let keyTextField: BorderTextField = {
         let textField = BorderTextField(title: "Key")
@@ -90,6 +105,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
         self.scrollView.addSubview(modeLabel)
         self.scrollView.addSubview(modeFeild)
+        self.scrollView.addSubview(insecureModeNoticeLabel)
 
         self.scrollView.addSubview(paddingLabel)
         self.scrollView.addSubview(paddingField)
@@ -125,10 +141,18 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             make.top.equalTo(modeLabel.snp.bottom).offset(5)
         }
 
+        insecureModeNoticeLabel.snp.makeConstraints { make in
+            make.top.equalTo(modeFeild.snp.bottom).offset(8)
+            make.left.equalTo(algorithmLabel)
+            make.right.equalTo(modeFeild)
+        }
+
         paddingLabel.snp.makeConstraints { make in
-            make.top.equalTo(modeFeild.snp.bottom).offset(20)
+            self.paddingTopBelowMode = make.top.equalTo(modeFeild.snp.bottom).offset(20).constraint
+            self.paddingTopBelowNotice = make.top.equalTo(insecureModeNoticeLabel.snp.bottom).offset(20).constraint
             make.left.equalTo(algorithmLabel)
         }
+        setInsecureModeNotice(hidden: true)
         paddingField.snp.makeConstraints { make in
             make.left.right.height.equalTo(modeFeild)
             make.top.equalTo(paddingLabel.snp.bottom).offset(5)
@@ -211,13 +235,12 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             self?.algorithmFeild.values = val.algorithmList.map { $0.rawValue }
             self?.modeFeild.values = val.modeList
             self?.paddingField.values = val.paddingList
-            if let fields = val.initialFields {
-                self?.algorithmFeild.currentValue = fields.algorithm
-                self?.modeFeild.currentValue = fields.mode
-                self?.paddingField.currentValue = fields.padding
-                self?.keyTextField.text = fields.key
-                self?.ivTextField.text = fields.iv
-            }
+            let fields = val.initialFields
+            self?.algorithmFeild.currentValue = fields.algorithm
+            self?.modeFeild.currentValue = fields.mode
+            self?.paddingField.currentValue = fields.padding
+            self?.keyTextField.text = fields.key
+            self?.ivTextField.text = fields.iv
             self?.setIvLengthPlaceholder(mode: self?.modeFeild.currentValue)
         }).disposed(by: rx.disposeBag)
 
@@ -231,6 +254,10 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
         output.keyLengthChanged.drive(onNext: { [weak self] keyLength in
             self?.keyTextField.placeholder = "enterKey".localized(with: keyLength)
+        }).disposed(by: rx.disposeBag)
+
+        output.insecureModeNoticeHidden.drive(onNext: { [weak self] hidden in
+            self?.setInsecureModeNotice(hidden: hidden)
         }).disposed(by: rx.disposeBag)
         
         self.modeFeild
@@ -254,6 +281,18 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         }).disposed(by: rx.disposeBag)
     }
     
+    /// 提示隐藏时 paddingLabel 直接吊在 modeFeild 下方，不留出提示占位的空档
+    private func setInsecureModeNotice(hidden: Bool) {
+        insecureModeNoticeLabel.isHidden = hidden
+        if hidden {
+            paddingTopBelowNotice?.deactivate()
+            paddingTopBelowMode?.activate()
+        } else {
+            paddingTopBelowMode?.deactivate()
+            paddingTopBelowNotice?.activate()
+        }
+    }
+
     private func setIvLengthPlaceholder(mode: String?) {
         guard let mode else {
             return

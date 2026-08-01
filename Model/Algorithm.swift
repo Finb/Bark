@@ -17,7 +17,8 @@ enum Algorithm: String {
     var modes: [String] {
         switch self {
         case .aes128, .aes192, .aes256:
-            return ["CBC", "ECB", "GCM"]
+            // GCM 排在首位，它是唯一没有已知风险的模式
+            return ["GCM", "CBC", "ECB"]
         }
     }
 

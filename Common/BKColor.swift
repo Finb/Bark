@@ -33,6 +33,10 @@ class BKColor: NSObject {
         public static let darken3 = UIColor(named: "lightBlue_darken3")!
     }
 
+    enum red {
+        public static let darken1 = UIColor(named: "red_darken1")!
+    }
+
     public static let white = UIColor(named: "white")!
     
     public static let black = UIColor(named: "black")!

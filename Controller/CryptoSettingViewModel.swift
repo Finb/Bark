@@ -20,10 +20,11 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
     }
 
     struct Output {
-        let initial: Driver<(algorithmList: [Algorithm], modeList: [String], paddingList: [String], initialFields: CryptoSettingFields?)>
+        let initial: Driver<(algorithmList: [Algorithm], modeList: [String], paddingList: [String], initialFields: CryptoSettingFields)>
         let modeListChanged: Driver<[String]>
         let paddingListChanged: Driver<[String]>
         let keyLengthChanged: Driver<Int>
+        let insecureModeNoticeHidden: Driver<Bool>
         let showSnackbar: Driver<String>
         let done: Driver<Void>
         let copy: Driver<String>
@@ -33,6 +34,19 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let settingFieldRelay: BehaviorRelay<CryptoSettingFields?>
         let deviceKey: Driver<String>
         let serverAddress: Driver<String>
+    }
+
+    /// 未保存过配置时的初始选择，GCM 是三种模式里唯一没有已知风险的
+    private static let defaultFields = CryptoSettingFields(
+        algorithm: Algorithm.aes128.rawValue,
+        mode: "GCM",
+        padding: "noPadding",
+        key: nil,
+        iv: nil
+    )
+
+    private static func paddingList(for mode: String) -> [String] {
+        mode == "GCM" ? ["noPadding"] : ["pkcs7"]
     }
 
     private let dependencies: Dependencies
@@ -50,6 +64,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
 
     func transform(input: Input) -> Output {
         let showSnackbar = PublishRelay<String>()
+        let initialFields = dependencies.settingFieldRelay.value ?? Self.defaultFields
 
         let modeList = input
             .algorithmChanged
@@ -58,23 +73,23 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
 
         let paddingList = input
             .modeChanged
-            .map { mode in
-                if mode == "GCM" {
-                    return ["noPadding"]
-                } else {
-                    return ["pkcs7"]
-                }
-            }
+            .map { Self.paddingList(for: $0) }
 
         let keyLength =
             Driver.merge([
-                Driver.just(dependencies.settingFieldRelay.value)
-                    .compactMap { $0 }
+                Driver.just(initialFields)
                     .compactMap { Algorithm(rawValue: $0.algorithm)?.keyLength },
                 input
                     .algorithmChanged
                     .compactMap { Algorithm(rawValue: $0)?.keyLength }
             ])
+
+        let insecureModeNoticeHidden =
+            Driver.merge([
+                Driver.just(initialFields.mode),
+                input.modeChanged
+            ])
+            .map { $0 == "GCM" }
 
         // 保存配置
         let done = input.done
@@ -181,13 +196,14 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         return Output(
             initial: Driver.just((
                 algorithmList: [Algorithm.aes128, Algorithm.aes192, Algorithm.aes256],
-                modeList: ["CBC", "ECB", "GCM"],
-                paddingList: ["pkcs7"],
-                initialFields: dependencies.settingFieldRelay.value
+                modeList: ["GCM", "CBC", "ECB"],
+                paddingList: Self.paddingList(for: initialFields.mode),
+                initialFields: initialFields
             )),
             modeListChanged: modeList,
             paddingListChanged: paddingList,
             keyLengthChanged: keyLength,
+            insecureModeNoticeHidden: insecureModeNoticeHidden,
             showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty()),
             done: done.map { _ in () },
             copy: copy
