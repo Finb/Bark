@@ -95,7 +95,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let done = input.done
             .filter { fields in
                 do {
-                    _ = try AESCryptoModel(cryptoFields: fields)
+                    try fields.validate()
                     return true
                 } catch {
                     showSnackbar.accept(error.rawString())
@@ -110,7 +110,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let copyScript = input.copyScript
             .filter { [weak self] fields in
                 do {
-                    _ = try AESCryptoModel(cryptoFields: fields)
+                    try fields.validate()
                     // 保存配置
                     self?.dependencies.settingFieldRelay.accept(fields)
                     return true
@@ -122,7 +122,8 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
             .compactMap { fields, deviceKey, serverAddress -> String? in
                 let key = fields.key ?? ""
-                let iv = fields.iv ?? ""
+                let ivLength = fields.expectedIvLength ?? 0
+                let usesIv = fields.expectedIvLength != nil
                 if fields.mode == "GCM" {
                     return
                         """
@@ -139,7 +140,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         // \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8))
                         const key = '\(key)';
                         // \("ivComment".localized)
-                        const iv = '\(iv)';
+                        const iv = crypto.randomBytes(6).toString('hex');
 
                         // AES-\(fields.algorithm.suffix(3))-GCM
                         const cipher = crypto.createCipheriv('aes-\(fields.algorithm.suffix(3))-gcm', Buffer.from(key, 'utf8'), Buffer.from(iv, 'utf8'));
@@ -152,19 +153,24 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         const combined = Buffer.concat([encrypted, tag])
                         let ciphertext = combined.toString('base64')
 
-                        // \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\":\"test\",\"sound\":\"birdsong\"}")) ?? "")"
                         console.log(ciphertext);
 
                         // \("ciphertextComment".localized)
                         const pushUrl = `\(serverAddress)/${deviceKey}?ciphertext=${encodeURIComponent(ciphertext)}&iv=${encodeURIComponent(iv)}`;
                         """
                 } else {
+                    // ECB 不使用 iv，相关片段整段省略，避免留下空行
+                    let ivSetup = usesIv ? "\n# \("ivComment".localized)\niv=$(openssl rand -hex \(ivLength / 2))" : ""
+                    let ivHexSetup = usesIv ? "\nivHex=$(printf $iv | xxd -ps -c 200)" : ""
+                    let ivEncryptArgument = usesIv ? "-iv $ivHex " : ""
+                    let ivCurlArgument = usesIv ? " --data-urlencode \"iv=$iv\"" : ""
+
                     return
                         """
                         #!/usr/bin/env bash
-                        
+
                         # Documentation: \("encryptionUrl".localized)
-                        
+
                         set -e
 
                         # bark key
@@ -172,23 +178,19 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         # push payload
                         json='{"body": "test", "sound": "birdsong"}'
 
-                        # \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8)) )
-                        key='\(key)'
-                        # \("ivComment".localized)
-                        iv='\(iv)'
+                        # \("keyComment".localized(with: Int(fields.algorithm.suffix(3))! / 8))
+                        key='\(key)'\(ivSetup)
 
                         # \("opensslEncodingComment".localized)
-                        key=$(printf $key | xxd -ps -c 200)
-                        iv=$(printf $iv | xxd -ps -c 200)
-                        
-                        # \("base64Notice".localized)
-                        ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
+                        key=$(printf $key | xxd -ps -c 200)\(ivHexSetup)
 
-                        # \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
+                        # \("base64Notice".localized)
+                        ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(ivEncryptArgument)| base64)
+
                         echo $ciphertext
-                        
+
                         # \("ciphertextComment".localized)
-                        curl --data-urlencode "ciphertext=$ciphertext"\(iv.count == 0 ? "" : " --data-urlencode \"iv=\(iv)\"") \(serverAddress)/$deviceKey
+                        curl --data-urlencode "ciphertext=$ciphertext"\(ivCurlArgument) \(serverAddress)/$deviceKey
                         """
                 }
             }

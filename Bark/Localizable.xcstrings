@@ -2581,6 +2581,64 @@
         }
       }
     },
+    "ivHardcodedWarning" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Using a fixed IV poses a significant security risk and is not advised."
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "固定のIVの使用は重大なセキュリティリスクがあり、推奨されません。"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sabit bir IV kullanmak ciddi bir güvenlik riski taşır ve önerilmez."
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "固定 IV 存在显著的安全风险，不建议使用"
+          }
+        }
+      }
+    },
+    "ivOptionalPlaceholder" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Optional"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "任意"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "İsteğe bağlı"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "可选"
+          }
+        }
+      }
+    },
     "keyComment" : {
       "extractionState" : "manual",
       "localizations" : {

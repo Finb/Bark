@@ -232,6 +232,7 @@
 		6BA2C2B8D3EB86419930EBB0 /* EncryptedPushParamsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB245A5A3C35523576436509 /* EncryptedPushParamsTests.swift */; };
 		879AE4D4178855A9672009E4 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */; };
 		88757E3ACE0EA6A48577C958 /* libPods-NotificationContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */; };
+		9018721ABD52DFD6093B0A73 /* CryptoSettingFieldsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B33850D36EBD1A095844D958 /* CryptoSettingFieldsTests.swift */; };
 		AF1CF986D2D9629CA8326B51 /* EncryptedPushParams.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8592121601596361C08067D8 /* EncryptedPushParams.swift */; };
 		B963F7D5BA7AC2571E71EF66 /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */; };
 		DE9CE37DD2492D3232FFE9D1 /* CryptoSettingViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DD782F7302B6B45A655B6 /* CryptoSettingViewModelTests.swift */; };
@@ -465,6 +466,7 @@
 		840DD782F7302B6B45A655B6 /* CryptoSettingViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingViewModelTests.swift; sourceTree = "<group>"; };
 		8592121601596361C08067D8 /* EncryptedPushParams.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EncryptedPushParams.swift; sourceTree = "<group>"; };
 		A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
+		B33850D36EBD1A095844D958 /* CryptoSettingFieldsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CryptoSettingFieldsTests.swift; sourceTree = "<group>"; };
 		B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCC722470308049D180876C7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF45D2197673129A8128ADB7 /* Pods-NotificationContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationContentExtension/Pods-NotificationContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
@@ -812,6 +814,7 @@
 				068A4B952D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift */,
 				FB245A5A3C35523576436509 /* EncryptedPushParamsTests.swift */,
 				840DD782F7302B6B45A655B6 /* CryptoSettingViewModelTests.swift */,
+				B33850D36EBD1A095844D958 /* CryptoSettingFieldsTests.swift */,
 			);
 			path = BarkTests;
 			sourceTree = "<group>";
@@ -1513,6 +1516,7 @@
 				063B909B272149BF00431EC2 /* HomeViewModelTests.swift in Sources */,
 				6BA2C2B8D3EB86419930EBB0 /* EncryptedPushParamsTests.swift in Sources */,
 				DE9CE37DD2492D3232FFE9D1 /* CryptoSettingViewModelTests.swift in Sources */,
+				9018721ABD52DFD6093B0A73 /* CryptoSettingFieldsTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

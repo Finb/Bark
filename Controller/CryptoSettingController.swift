@@ -25,9 +25,23 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         return label
     }()
 
+    let ivHardcodedWarningLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.preferredFont(ofSize: 12)
+        label.adjustsFontForContentSizeCategory = true
+        label.textColor = BKColor.red.darken1
+        label.numberOfLines = 0
+        label.text = "ivHardcodedWarning".localized
+        return label
+    }()
+
     /// paddingLabel 的两条互斥顶部约束，提示显示时改为吊在提示下方
     private var paddingTopBelowMode: Constraint?
     private var paddingTopBelowNotice: Constraint?
+
+    /// copyButton 的两条互斥顶部约束，iv 警示显示时改为吊在警示下方
+    private var copyTopBelowIv: Constraint?
+    private var copyTopBelowIvWarning: Constraint?
 
     let keyTextField: BorderTextField = {
         let textField = BorderTextField(title: "Key")
@@ -115,6 +129,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
         self.scrollView.addSubview(ivLabel)
         self.scrollView.addSubview(ivTextField)
+        self.scrollView.addSubview(ivHardcodedWarningLabel)
 
         self.scrollView.addSubview(copyButton)
 
@@ -176,13 +191,21 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             make.top.equalTo(ivLabel.snp.bottom).offset(5)
         }
 
+        ivHardcodedWarningLabel.snp.makeConstraints { make in
+            make.top.equalTo(ivTextField.snp.bottom).offset(8)
+            make.left.equalTo(algorithmLabel)
+            make.right.equalTo(ivTextField)
+        }
+
         copyButton.snp.makeConstraints { make in
             make.left.equalTo(ivTextField)
             make.right.equalTo(ivTextField)
             make.height.equalTo(42)
-            make.top.equalTo(ivTextField.snp.bottom).offset(25)
+            self.copyTopBelowIv = make.top.equalTo(ivTextField.snp.bottom).offset(25).constraint
+            self.copyTopBelowIvWarning = make.top.equalTo(ivHardcodedWarningLabel.snp.bottom).offset(25).constraint
             make.bottom.equalToSuperview().offset(-20)
         }
+        setIvHardcodedWarning(hidden: true)
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(resign)))
     }
@@ -241,7 +264,8 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             self?.paddingField.currentValue = fields.padding
             self?.keyTextField.text = fields.key
             self?.ivTextField.text = fields.iv
-            self?.setIvLengthPlaceholder(mode: self?.modeFeild.currentValue)
+            self?.setIvPlaceholder(mode: self?.modeFeild.currentValue)
+            self?.updateIvHardcodedWarning()
         }).disposed(by: rx.disposeBag)
 
         output.modeListChanged
@@ -264,7 +288,14 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             .rx
             .currentValueChanged
             .subscribe(onNext: { [weak self] val in
-                self?.setIvLengthPlaceholder(mode: val)
+                self?.setIvPlaceholder(mode: val)
+            }).disposed(by: rx.disposeBag)
+
+        self.ivTextField
+            .rx
+            .text
+            .subscribe(onNext: { [weak self] _ in
+                self?.updateIvHardcodedWarning()
             }).disposed(by: rx.disposeBag)
 
         output.showSnackbar.drive(onNext: { text in
@@ -293,12 +324,30 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         }
     }
 
-    private func setIvLengthPlaceholder(mode: String?) {
+    /// 警示隐藏时 copyButton 直接吊在 ivTextField 下方，不留出警示占位的空档
+    private func setIvHardcodedWarning(hidden: Bool) {
+        ivHardcodedWarningLabel.isHidden = hidden
+        if hidden {
+            copyTopBelowIvWarning?.deactivate()
+            copyTopBelowIv?.activate()
+        } else {
+            copyTopBelowIv?.deactivate()
+            copyTopBelowIvWarning?.activate()
+        }
+    }
+
+    /// 填了固定 iv 才警示，留空是推荐做法
+    private func updateIvHardcodedWarning() {
+        setIvHardcodedWarning(hidden: (ivTextField.text ?? "").isEmpty)
+    }
+
+    private func setIvPlaceholder(mode: String?) {
         guard let mode else {
             return
         }
-        if let length = ["CBC": 16, "GCM": 12][mode] {
-            self.ivTextField.placeholder = "enterIv".localized(with: length)
+        // ECB 不使用 iv，无需占位提示
+        if ["CBC", "GCM"].contains(mode) {
+            self.ivTextField.placeholder = "ivOptionalPlaceholder".localized
         } else {
             self.ivTextField.placeholder = ""
         }
