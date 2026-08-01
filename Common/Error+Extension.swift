@@ -10,6 +10,11 @@ import Foundation
 
 extension String: @retroactive Error {}
 
+// 桥接 NSError 后 localizedDescription 默认是占位文案，AppIntents 等系统组件以此展示错误
+extension String: @retroactive LocalizedError {
+    public var errorDescription: String? { self }
+}
+
 public enum ApiError: Swift.Error {
     case Error(info: String)
     case AccountBanned(info: String)

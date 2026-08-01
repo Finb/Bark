@@ -160,6 +160,17 @@ struct EncryptedPushParamsTests {
         }
         #expect(error?.rawString() == "encryptionKeyLengthInvalid".localized)
     }
+
+    /// Shortcuts 用 localizedDescription 展示错误，字符串错误必须原样呈现
+    @Test("字符串错误的 localizedDescription 是文案本身")
+    func testStringErrorIsReadable() throws {
+        #expect(("boom" as any Error).localizedDescription == "boom")
+
+        let error = #expect(throws: (any Error).self) {
+            try EncryptedPushParams.requestParams(params: [:], encryptionKey: "tooShort")
+        }
+        #expect(error?.localizedDescription == "encryptionKeyLengthInvalid".localized)
+    }
 }
 
 /// 快捷指令的加密套件选项
