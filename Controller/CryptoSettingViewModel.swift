@@ -11,6 +11,15 @@ import Foundation
 import RxCocoa
 import RxSwift
 
+private func randomIv(mode: String) -> String {
+    let length = ["CBC": 16, "GCM": 12][mode] ?? 0
+    guard length > 0 else {
+        return ""
+    }
+    let chars = Array("0123456789abcdef")
+    return String((0..<length).map { _ in chars.randomElement()! })
+}
+
 class CryptoSettingViewModel: ViewModel, ViewModelType {
     struct Input {
         let algorithmChanged: Driver<String>
@@ -80,7 +89,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let done = input.done
             .filter { fields in
                 do {
-                    _ = try AESCryptoModel(cryptoFields: fields)
+                    try AESCryptoModel.validate(cryptoFields: fields)
                     return true
                 } catch {
                     showSnackbar.accept(error.rawString())
@@ -89,15 +98,15 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             }
         done.drive(onNext: { [weak self] fields in
             // 保存设置
-            self?.dependencies.settingFieldRelay.accept(fields)
+            self?.dependencies.settingFieldRelay.accept(self?.preservingIv(fields))
         }).disposed(by: rx.disposeBag)
 
         let copyScript = input.copyScript
             .filter { [weak self] fields in
                 do {
-                    _ = try AESCryptoModel(cryptoFields: fields)
+                    try AESCryptoModel.validate(cryptoFields: fields)
                     // 保存配置
-                    self?.dependencies.settingFieldRelay.accept(fields)
+                    self?.dependencies.settingFieldRelay.accept(self?.preservingIv(fields))
                     return true
                 } catch {
                     showSnackbar.accept(error.rawString())
@@ -107,7 +116,9 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
         let copy = Driver.combineLatest(copyScript, dependencies.deviceKey, dependencies.serverAddress)
             .compactMap { fields, deviceKey, serverAddress -> String? in
                 let key = fields.key ?? ""
-                let iv = fields.iv ?? ""
+                let iv = randomIv(mode: fields.mode)
+                var previewFields = fields
+                previewFields.iv = iv
                 if fields.mode == "GCM" {
                     return
                         """
@@ -137,7 +148,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         const combined = Buffer.concat([encrypted, tag])
                         let ciphertext = combined.toString('base64')
 
-                        // \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\":\"test\",\"sound\":\"birdsong\"}")) ?? "")"
+                        // \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: previewFields).encrypt(text: "{\"body\":\"test\",\"sound\":\"birdsong\"}")) ?? "")"
                         console.log(ciphertext);
 
                         // \("ciphertextComment".localized)
@@ -169,7 +180,7 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
                         # \("base64Notice".localized)
                         ciphertext=$(echo -n $json | openssl enc -aes-\(fields.algorithm.suffix(3))-\(fields.mode.lowercased()) -K $key \(iv.count > 0 ? "-iv $iv " : "")| base64)
 
-                        # \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: fields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
+                        # \("consoleComment".localized) "\((try? AESCryptoModel(cryptoFields: previewFields).encrypt(text: "{\"body\": \"test\", \"sound\": \"birdsong\"}")) ?? "")"
                         echo $ciphertext
                         
                         # \("ciphertextComment".localized)
@@ -192,5 +203,17 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
             done: done.map { _ in () },
             copy: copy
         )
+    }
+
+    /// IV 不再由用户在设置页输入，这里保留老用户已保存的 iv 作为兜底
+    /// 仅保留与当前 mode 长度匹配的 iv，避免切换 mode 后 iv 不适用
+    private func preservingIv(_ fields: CryptoSettingFields) -> CryptoSettingFields {
+        var fields = fields
+        guard let iv = dependencies.settingFieldRelay.value?.iv else {
+            return fields
+        }
+        let expect = ["CBC": 16, "GCM": 12][fields.mode] ?? 0
+        fields.iv = iv.count == expect ? iv : nil
+        return fields
     }
 }

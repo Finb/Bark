@@ -22,13 +22,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         return textField
     }()
 
-    let ivTextField: BorderTextField = {
-        let textField = BorderTextField(title: "IV")
-        textField.font = UIFont.preferredFont(ofSize: 14)
-        textField.adjustsFontForContentSizeCategory = true
-        return textField
-    }()
-
     let doneButton: BKButton = {
         let btn = BKButton()
         btn.setTitle("done".localized, for: .normal)
@@ -83,7 +76,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         let modeLabel = getTitleLabel(title: "mode".localized)
         let paddingLabel = getTitleLabel(title: "Padding")
         let keyLabel = getTitleLabel(title: "Key")
-        let ivLabel = getTitleLabel(title: "Iv")
 
         self.scrollView.addSubview(algorithmLabel)
         self.scrollView.addSubview(algorithmFeild)
@@ -96,9 +88,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
 
         self.scrollView.addSubview(keyLabel)
         self.scrollView.addSubview(keyTextField)
-
-        self.scrollView.addSubview(ivLabel)
-        self.scrollView.addSubview(ivTextField)
 
         self.scrollView.addSubview(copyButton)
 
@@ -143,20 +132,11 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             make.top.equalTo(keyLabel.snp.bottom).offset(5)
         }
 
-        ivLabel.snp.makeConstraints { make in
-            make.top.equalTo(keyTextField.snp.bottom).offset(20)
-            make.left.equalTo(algorithmLabel)
-        }
-        ivTextField.snp.makeConstraints { make in
-            make.left.right.height.equalTo(keyTextField)
-            make.top.equalTo(ivLabel.snp.bottom).offset(5)
-        }
-
         copyButton.snp.makeConstraints { make in
-            make.left.equalTo(ivTextField)
-            make.right.equalTo(ivTextField)
+            make.left.equalTo(keyTextField)
+            make.right.equalTo(keyTextField)
             make.height.equalTo(42)
-            make.top.equalTo(ivTextField.snp.bottom).offset(25)
+            make.top.equalTo(keyTextField.snp.bottom).offset(25)
             make.bottom.equalToSuperview().offset(-20)
         }
 
@@ -178,8 +158,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 algorithm: self.algorithmFeild.currentValue!,
                 mode: self.modeFeild.currentValue!,
                 padding: self.paddingField.currentValue!,
-                key: self.keyTextField.text,
-                iv: self.ivTextField.text
+                key: self.keyTextField.text
             )
         }
 
@@ -216,9 +195,7 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
                 self?.modeFeild.currentValue = fields.mode
                 self?.paddingField.currentValue = fields.padding
                 self?.keyTextField.text = fields.key
-                self?.ivTextField.text = fields.iv
             }
-            self?.setIvLengthPlaceholder(mode: self?.modeFeild.currentValue)
         }).disposed(by: rx.disposeBag)
 
         output.modeListChanged
@@ -232,13 +209,6 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
         output.keyLengthChanged.drive(onNext: { [weak self] keyLength in
             self?.keyTextField.placeholder = "enterKey".localized(with: keyLength)
         }).disposed(by: rx.disposeBag)
-        
-        self.modeFeild
-            .rx
-            .currentValueChanged
-            .subscribe(onNext: { [weak self] val in
-                self?.setIvLengthPlaceholder(mode: val)
-            }).disposed(by: rx.disposeBag)
 
         output.showSnackbar.drive(onNext: { text in
             HUDError(text)
@@ -252,16 +222,5 @@ class CryptoSettingController: BaseViewController<CryptoSettingViewModel> {
             UIPasteboard.general.string = text
             HUDSuccess("Copy".localized)
         }).disposed(by: rx.disposeBag)
-    }
-    
-    private func setIvLengthPlaceholder(mode: String?) {
-        guard let mode else {
-            return
-        }
-        if let length = ["CBC": 16, "GCM": 12][mode] {
-            self.ivTextField.placeholder = "enterIv".localized(with: length)
-        } else {
-            self.ivTextField.placeholder = ""
-        }
     }
 }

@@ -2210,25 +2210,25 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IV can be randomly generated, but if it is random, it needs to be passed in the iv parameter."
+            "value" : "Generate a random IV and send it via the iv parameter."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IVはランダムに生成できますが、ランダムな場合はivパラメータで渡す必要があります。"
+            "value" : "IVはランダムに生成し、ivパラメータで送信してください。"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IV rastgele oluşturulabilir, ancak rastgele ise iv parametresinde belirtilmesi gerekir."
+            "value" : "IV'yi rastgele oluşturun ve iv parametresiyle birlikte gönderin."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "IV可以是随机生成的，但如果是随机的就需要放在 iv 参数里传递。"
+            "value" : "IV 请随机生成，并放进 iv 参数一起发送。"
           }
         }
       }

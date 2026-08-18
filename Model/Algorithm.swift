@@ -46,31 +46,39 @@ struct AESCryptoModel {
     let mode: BlockMode
     let padding: Padding
     let aes: AES
-    init(cryptoFields: CryptoSettingFields) throws {
+
+    @discardableResult
+    static func validate(cryptoFields: CryptoSettingFields) throws -> String {
         guard let algorithm = Algorithm(rawValue: cryptoFields.algorithm) else {
             throw "Invalid algorithm"
         }
-        guard let key = cryptoFields.key else {
-            throw "Key is missing"
-        }
-
-        guard algorithm.keyLength == key.count else {
+        guard let key = cryptoFields.key, algorithm.keyLength == key.count else {
             throw String(format: "enterKey".localized, algorithm.keyLength)
         }
-
-        var iv = ""
-        if ["CBC", "GCM"].contains(cryptoFields.mode) {
-            let expectIVLength = [
-                "CBC": 16,
-                "GCM": 12
-            ][cryptoFields.mode] ?? 0
-
-            if let ivField = cryptoFields.iv, ivField.count == expectIVLength {
-                iv = ivField
-            } else {
-                throw String(format: "enterIv".localized, expectIVLength)
-            }
+        guard algorithm.modes.contains(cryptoFields.mode) else {
+            throw "Invalid Mode"
         }
+        guard ["noPadding", "pkcs7"].contains(cryptoFields.padding) else {
+            throw "Invalid Padding"
+        }
+        return key
+    }
+
+    /// 校验 iv 的长度并返回，CBC/GCM 必须传 iv
+    private static func iv(for fields: CryptoSettingFields) throws -> String {
+        guard ["CBC", "GCM"].contains(fields.mode) else {
+            return ""
+        }
+        let expectIVLength = ["CBC": 16, "GCM": 12][fields.mode] ?? 0
+        guard let ivField = fields.iv, ivField.count == expectIVLength else {
+            throw String(format: "enterIv".localized, expectIVLength)
+        }
+        return ivField
+    }
+
+    init(cryptoFields: CryptoSettingFields) throws {
+        let key = try AESCryptoModel.validate(cryptoFields: cryptoFields)
+        let iv = try AESCryptoModel.iv(for: cryptoFields)
 
         let mode: BlockMode
         switch cryptoFields.mode {
