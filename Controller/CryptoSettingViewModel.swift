@@ -153,6 +153,15 @@ class CryptoSettingViewModel: ViewModel, ViewModelType {
 
                         // \("ciphertextComment".localized)
                         const pushUrl = `\(serverAddress)/${deviceKey}?ciphertext=${encodeURIComponent(ciphertext)}&iv=${encodeURIComponent(iv)}`;
+
+                        (async () => {
+                          try {
+                            const response = await fetch(pushUrl);
+                            console.log(await response.text());
+                          } catch (err) {
+                            console.error(err);
+                          }
+                        })();
                         """
                 } else {
                     return
