@@ -142,6 +142,7 @@
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06BBB88725650C6C0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
+		062218542F741C91003E2DA0 /* MessageImageCleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062218512F741C91003E2DA0 /* MessageImageCleaner.swift */; };
 		06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5953224811505006B98F3 /* ArchiveSettingManager.swift */; };
 		06BBB896256518760076F63E /* NewServerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB895256518760076F63E /* NewServerViewModel.swift */; };
 		06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BBB8B62567AC140076F63E /* MessageSettingsViewModel.swift */; };
@@ -419,6 +420,7 @@
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		06C5953024811392006B98F3 /* ArchiveSettingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingCell.swift; sourceTree = "<group>"; };
 		06C5953224811505006B98F3 /* ArchiveSettingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchiveSettingManager.swift; sourceTree = "<group>"; };
+		062218512F741C91003E2DA0 /* MessageImageCleaner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImageCleaner.swift; sourceTree = "<group>"; };
 		06C595352481160F006B98F3 /* BKLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKLabel.swift; sourceTree = "<group>"; };
 		06C777CF2ECEFF210032A044 /* MarkdownParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownParser.swift; sourceTree = "<group>"; };
 		06CF784021C7A50300A052D7 /* NotificationServiceExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NotificationServiceExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -686,6 +688,7 @@
 				0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */,
 				06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */,
 				06E944742C07012E00AC86AB /* RealmConfiguration.swift */,
+				062218512F741C91003E2DA0 /* MessageImageCleaner.swift */,
 				0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */,
 				06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */,
 				06C777CF2ECEFF210032A044 /* MarkdownParser.swift */,
@@ -1349,6 +1352,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				062218542F741C91003E2DA0 /* MessageImageCleaner.swift in Sources */,
 				0635A8072CE4883A0027E00F /* DonateCell.swift in Sources */,
 				06840DBB272298FB001B3193 /* BKColor.swift in Sources */,
 				06C2CF232685B88D0034B127 /* TextCell.swift in Sources */,
