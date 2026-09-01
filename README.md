@@ -100,3 +100,4 @@ Critical alerts will ignore silent and do not disturb modes, always playing the 
 - [Python for Bark](https://github.com/funny-cat-happy/barknotificator)
 - [uTools for Bark](https://u.tools/plugins/detail/PushOne/)
 - [PHP for Bark](https://github.com/guanguans/notify/tree/main/src/Bark/)
+- [MacOS Push Desktop & cli](https://github.com/i1mT/bark-notify)
