@@ -134,6 +134,7 @@ extension AppDelegate {
                 let expiredMessages = realm.objects(Message.self)
                     .filter("expireDate != nil AND expireDate <= %@", now)
                 let expiredMessageIds = Array(expiredMessages.map(\.id))
+                let expiredImageUrls = MessageImageCleaner.shared.imageUrls(in: expiredMessages)
 
                 if !messagesToAdd.isEmpty || !expiredMessages.isEmpty {
                     do {
@@ -161,6 +162,7 @@ extension AppDelegate {
 
                 if !expiredMessageIds.isEmpty {
                     UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: expiredMessageIds)
+                    MessageImageCleaner.shared.removeUnreferencedImages(expiredImageUrls)
                 }
 
                 for plistUrl in plistFiles {
