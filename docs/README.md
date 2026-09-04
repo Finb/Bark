@@ -1,5 +1,5 @@
 
-### Bark <!-- {docsify-ignore-all} -->
+### Bark<!-- {docsify-ignore-all} -->
 - 免费、轻量！简单调用接口即可给自己的iPhone发送推送。
 - 依赖苹果APNs，及时、稳定、可靠
 - 不会消耗设备的电量， 基于系统推送服务与推送扩展，APP本体并不需要运行。
