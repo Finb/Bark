@@ -1,5 +1,5 @@
 
-### Bark <!-- {docsify-ignore-all} -->
+### Bark<!-- {docsify-ignore-all} -->
 - Free, lightweight! Simply call the interface to send push notifications to your own iPhone. 
 - Depends on Apple APNs, timely, stable and reliable
 - Does not consume device’s battery power. Based on system push service and push extension, APP itself does not need to run. 
