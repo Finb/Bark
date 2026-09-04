@@ -136,7 +136,6 @@ Order matters - processors run sequentially in `NotificationService.swift`:
 - The app supports both iPhone and iPad (with split view controller on iPad)
 - Localization is managed via `Localizable.xcstrings`
 - Custom notification sounds are in `Sounds/` directory
-- The app uses Material Design components for UI
 - Code signing is disabled for Pods (see Podfile post_install)
 
 ## Testing
