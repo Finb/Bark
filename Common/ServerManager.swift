@@ -178,6 +178,9 @@ class ServerManager: NSObject {
                 // 更新所有的 server key
                 if let key = result.1 {
                     result.0.key = key
+                    if result.0.id == self.currentServer.id {
+                        self.currentServerUpdateRelay.accept(result.0)
+                    }
                 }
             } onError: { _ in
 
