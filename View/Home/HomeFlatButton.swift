@@ -28,6 +28,7 @@ final class HomeFlatButton: UIControl {
         stack.axis = .horizontal
         stack.alignment = .center
         stack.spacing = 7
+        stack.isUserInteractionEnabled = false
         return stack
     }()
 
