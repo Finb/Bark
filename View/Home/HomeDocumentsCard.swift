@@ -9,14 +9,14 @@
 import UIKit
 
 final class HomeDocumentsCard: GlassView {
-    let parameterButton: HomeGlassButton = {
-        let button = HomeGlassButton()
+    let parameterButton: HomeFlatButton = {
+        let button = HomeFlatButton()
         button.title = "pushParameters".localized
         button.image = UIImage(systemName: "book.closed")
         return button
     }()
-    let faqButton: HomeGlassButton = {
-        let button = HomeGlassButton()
+    let faqButton: HomeFlatButton = {
+        let button = HomeFlatButton()
         button.title = "faq".localized
         button.image = UIImage(systemName: "questionmark.circle")
         return button

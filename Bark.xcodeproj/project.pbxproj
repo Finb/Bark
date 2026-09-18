@@ -135,6 +135,7 @@
 		069C6CA72ED03E27007244BB /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = 069C6CA62ED03E27007244BB /* Markdown */; };
 		069C6CA92ED03F07007244BB /* BKColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06840DBA272298FB001B3193 /* BKColor.swift */; };
 		06A100022FEE0001000000A1 /* GlassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100012FEE0001000000A1 /* GlassView.swift */; };
+		06A1001B2FEE0001000000A1 /* HomeFlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */; };
 		06A100042FEE0001000000A1 /* HomeGlassButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100032FEE0001000000A1 /* HomeGlassButton.swift */; };
 		06A100062FEE0001000000A1 /* HomeExampleSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100052FEE0001000000A1 /* HomeExampleSegmentedControl.swift */; };
 		06A100082FEE0001000000A1 /* HomeSettingRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100072FEE0001000000A1 /* HomeSettingRow.swift */; };
@@ -402,6 +403,7 @@
 		0699473C2D223094008D5E40 /* CustomTapTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTapTextView.swift; sourceTree = "<group>"; };
 		069C6CA32ED03C72007244BB /* MarkdownProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownProcessor.swift; sourceTree = "<group>"; };
 		06A100012FEE0001000000A1 /* GlassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GlassView.swift; sourceTree = "<group>"; };
+		06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlatButton.swift; sourceTree = "<group>"; };
 		06A100032FEE0001000000A1 /* HomeGlassButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeGlassButton.swift; sourceTree = "<group>"; };
 		06A100052FEE0001000000A1 /* HomeExampleSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeExampleSegmentedControl.swift; sourceTree = "<group>"; };
 		06A100072FEE0001000000A1 /* HomeSettingRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingRow.swift; sourceTree = "<group>"; };
@@ -780,6 +782,7 @@
 			isa = PBXGroup;
 			children = (
 				06A100032FEE0001000000A1 /* HomeGlassButton.swift */,
+				06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */,
 				06A100052FEE0001000000A1 /* HomeExampleSegmentedControl.swift */,
 				06A100072FEE0001000000A1 /* HomeSettingRow.swift */,
 				06A100102FEE0001000000A1 /* HomePermissionCard.swift */,
@@ -1441,6 +1444,7 @@
 				06BE84042E6EAE7100E6F856 /* InsetView.swift in Sources */,
 				06A100022FEE0001000000A1 /* GlassView.swift in Sources */,
 				06A100042FEE0001000000A1 /* HomeGlassButton.swift in Sources */,
+				06A1001B2FEE0001000000A1 /* HomeFlatButton.swift in Sources */,
 				06A100062FEE0001000000A1 /* HomeExampleSegmentedControl.swift in Sources */,
 				06A100082FEE0001000000A1 /* HomeSettingRow.swift in Sources */,
 				06A100112FEE0001000000A1 /* HomePermissionCard.swift in Sources */,

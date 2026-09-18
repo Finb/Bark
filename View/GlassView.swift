@@ -10,6 +10,9 @@ import SnapKit
 import UIKit
 
 class GlassView: UIView {
+    /// 夜间模式下未指定 tint 的玻璃默认偏亮，压一层黑让它沉下来
+    private static let darkDimColor = UIColor.black.withAlphaComponent(0.25)
+
     private let effectView: UIVisualEffectView?
     private let surfaceView: UIView
 
@@ -82,7 +85,11 @@ class GlassView: UIView {
             return
         }
         let effect = UIGlassEffect(style: .regular)
-        effect.tintColor = glassTintColor
+        if let glassTintColor {
+            effect.tintColor = glassTintColor
+        } else if traitCollection.userInterfaceStyle == .dark {
+            effect.tintColor = GlassView.darkDimColor
+        }
         effect.isInteractive = isInteractive
         effectView?.effect = effect
     }
@@ -91,6 +98,8 @@ class GlassView: UIView {
         super.traitCollectionDidChange(previousTraitCollection)
         if #unavailable(iOS 27.0) {
             surfaceView.layer.borderColor = BKColor.home.legacyBorder.cgColor
+        } else if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateEffect()
         }
     }
 }
