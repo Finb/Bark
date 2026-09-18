@@ -24,7 +24,7 @@ jobs:
     - name: Setup ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7.2
+        ruby-version: '3.4'
         bundler-cache: true
 
     - uses: actions/cache@v5
