@@ -88,7 +88,7 @@ class HomeViewModel: ViewModel, ViewModelType {
                     {
                         observer.onNext("testPushSent".localized)
                     } else {
-                        observer.onNext("testPushFailed".localized(with: error?.localizedDescription ?? ""))
+                        observer.onNext("testPushFailed".localized(with: "\((response as? HTTPURLResponse)?.statusCode ?? 0) \(error?.localizedDescription ?? "")"))
                     }
                     observer.onCompleted()
                 }
