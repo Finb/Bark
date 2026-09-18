@@ -9,7 +9,6 @@
 import UIKit
 
 class BKColor: NSObject {
-
     enum grey {
         public static let base = UIColor(named: "grey_base")!
         public static let darken1 = UIColor(named: "grey_darken1")!
@@ -40,5 +39,17 @@ class BKColor: NSObject {
     enum background {
         public static let primary = UIColor(named: "background")!
         public static let secondary = UIColor(named: "background_seconday")!
+    }
+
+    enum home {
+        public static let legacyButton = UIColor(named: "home_legacy_button")!
+        public static let legacyBorder = UIColor(named: "home_legacy_border")!
+        
+        public static let legacyAccentBlue = UIColor(named: "home_accent_blue")!
+        public static let legacyAccentTeal = UIColor(named: "home_accent_teal")!
+        public static let legacyAccentOrange = UIColor(named: "home_accent_orange")!
+        
+        public static let codePanel = UIColor(named: "home_code_panel")!
+        public static let divider = UIColor(named: "home_divider")!
     }
 }

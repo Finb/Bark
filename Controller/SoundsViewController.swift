@@ -16,6 +16,16 @@ import RxDataSources
 import RxSwift
 
 class SoundsViewController: BaseViewController<SoundsViewModel> {
+    let closeButton: BKButton = {
+        let closeButton = BKButton()
+        closeButton.setImage(UIImage(named: "baseline_keyboard_arrow_down_black_24pt")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        closeButton.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+        closeButton.hitTestSlop = UIEdgeInsets(top: -10, left: -10, bottom: -10, right: -10)
+        closeButton.tintColor = BKColor.grey.darken4
+        closeButton.accessibilityLabel = "close".localized
+        return closeButton
+    }()
+
     let tableView: UITableView = {
         let tableView = UITableView(frame: CGRect.zero, style: .insetGrouped)
         tableView.backgroundColor = BKColor.background.primary
@@ -34,11 +44,17 @@ class SoundsViewController: BaseViewController<SoundsViewModel> {
     override func makeUI() {
         self.title = "notificationSound".localized
 
+        navigationItem.setRightBarButtonItem(item: UIBarButtonItem(customView: closeButton))
+
         self.view.addSubview(self.tableView)
         self.tableView.delegate = self
         self.tableView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+
+        closeButton.rx.tap.subscribe(onNext: { [weak self] _ in
+            self?.dismiss(animated: true, completion: nil)
+        }).disposed(by: rx.disposeBag)
     }
 
     override func bindViewModel() {

@@ -4,7 +4,6 @@ PODS:
   - DefaultsKit (0.3.2)
   - Differentiator (5.0.0)
   - DropDown (2.3.13)
-  - FDFullscreenPopGesture (1.1)
   - ImageViewer.swift (3.0)
   - IQKeyboardCore (1.0.8)
   - IQKeyboardManagerSwift/Core (8.0.1):
@@ -72,7 +71,6 @@ DEPENDENCIES:
   - CryptoSwift
   - DefaultsKit
   - DropDown
-  - FDFullscreenPopGesture
   - ImageViewer.swift (from `https://github.com/Finb/ImageViewer.swift`)
   - IQKeyboardManagerSwift/IQKeyboardToolbarManager
   - Kingfisher
@@ -99,7 +97,6 @@ SPEC REPOS:
     - DefaultsKit
     - Differentiator
     - DropDown
-    - FDFullscreenPopGesture
     - IQKeyboardCore
     - IQKeyboardManagerSwift
     - IQKeyboardNotification
@@ -145,7 +142,6 @@ SPEC CHECKSUMS:
   DefaultsKit: ff9b29089d6fc08651b81be2d2387bee6eb98b75
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DropDown: 8a2116376c1981888557f72ec2ffc9a5e0e456ec
-  FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   ImageViewer.swift: ec700f792d82cfd8fbdb27985992b2f4cc254cb7
   IQKeyboardCore: 8652977ec919cf5351aa2977fedd1a6546476fbc
   IQKeyboardManagerSwift: 835fc9c6e4732398113406d84900ad2e8f141218
@@ -173,6 +169,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
   SwiftyStoreKit: 6b9c08810269f030586dac1fae8e75871a82e84a
 
-PODFILE CHECKSUM: fc52657dd1815d86e6c2b7612aaa90de5a4a58b8
+PODFILE CHECKSUM: 2079c3d2b70039c644c100185cbcbcefd1520d12
 
 COCOAPODS: 1.16.2

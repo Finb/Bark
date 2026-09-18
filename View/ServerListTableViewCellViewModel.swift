@@ -14,9 +14,10 @@ class ServerListTableViewCellViewModel: ViewModel {
     
     let name: BehaviorRelay<String>
     let key: BehaviorRelay<String>
-    let state: BehaviorRelay<Bool>
+    /// nil 表示 ping 尚未返回，结果未知
+    let state: BehaviorRelay<Bool?>
     
-    init(server: Server) {
+    init(server: Server, state: Bool? = nil) {
         self.server = server
         
         self.name = BehaviorRelay<String>(value: {
@@ -27,7 +28,7 @@ class ServerListTableViewCellViewModel: ViewModel {
             return serverName
         }())
         self.key = BehaviorRelay<String>(value: !server.key.isEmpty ? server.key : "none")
-        self.state = BehaviorRelay<Bool>(value: server.state == .ok)
+        self.state = BehaviorRelay<Bool?>(value: state)
         
         super.init()
     }

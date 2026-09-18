@@ -2,247 +2,170 @@
 //  HomeViewModel.swift
 //  Bark
 //
-//  Created by huangfeng on 2020/11/18.
-//  Copyright © 2020 Fin. All rights reserved.
-//
 
 import Foundation
 import RxCocoa
-import RxDataSources
 import RxSwift
-import SwiftyJSON
-import UserNotifications
 
 class HomeViewModel: ViewModel, ViewModelType {
+    enum ExampleType: Int {
+        case get
+        case post
+        case json
+    }
+
+    // 示例文本和测试推送共用的参数，避免两边不一致
+    private enum ExampleParams {
+        static let title = "title"
+        static let body = "body"
+        static let group = "example"
+        static let ttl = 600
+    }
+
     struct Input {
-        let addCustomServerTap: Driver<Void>
-        let serverListTap: Driver<Void>
-        let viewDidAppear: Driver<Void>
-        let start: Driver<Void>
-        let clientState: Driver<Client.ClienState>
-        let authorizationStatus: Single<UNAuthorizationStatus>
-        let startRequestAuthorizationCreator: () -> Observable<Bool>
+        let exampleType: Driver<ExampleType>
+        let testExample: Driver<ExampleType>
     }
 
     struct Output {
-        let previews: Driver<[SectionModel<String, PreviewCardCellViewModel>]>
-        let push: Driver<ViewModel>
-        let present: Driver<ViewModel>
         let title: Driver<String>
-        let clienStateChanged: Driver<Client.ClienState>
-        let tableViewHidden: Driver<Bool>
+        let exampleText: Driver<String>
         let showSnackbar: Driver<String>
-        let alertServerError: Driver<String>
-        let startButtonEnable: Driver<Bool>
-        let copy: Driver<String>
-        let preview: Driver<URL>
-        let reloadData: Driver<Void>
-        let registerForRemoteNotifications: Driver<Void>
     }
-    
-    let previews: [PreviewModel] = [
-        PreviewModel(
-            body: "CustomedNotificationContent".localized,
-            notice: "Notice1".localized
-        ),
-        PreviewModel(
-            title: "CustomedNotificationTitle".localized,
-            body: "CustomedNotificationContent".localized,
-            notice: "Notice2".localized
-        ),
-        PreviewModel(
-            body: "notificationSound".localized,
-            notice: "setSounds".localized,
-            queryParameter: "sound=minuet",
-            moreInfo: "viewAllSounds".localized,
-            moreViewModel: SoundsViewModel()
-        ),
-        PreviewModel(
-            body: "ringtone".localized,
-            notice: "ringtoneNotice".localized,
-            queryParameter: "call=1"
-        ),
-        PreviewModel(
-            body: "archiveNotificationMessageTitle".localized,
-            notice: "archiveNotificationMessage".localized,
-            queryParameter: "isArchive=1"
-        ),
-        PreviewModel(
-            body: "notificationIcon".localized,
-            notice: "notificationIconNotice".localized,
-            queryParameter: "icon=https://day.app/assets/images/avatar.jpg",
-            image: UIImage(named: "icon")
-        ),
-        PreviewModel(
-            body: "messageGroup".localized,
-            notice: "groupMessagesNotice".localized,
-            queryParameter: "group=groupName",
-            image: UIImage(named: "group")
-        ),
-        PreviewModel(
-            body: "pushNotificationEncryption".localized,
-            notice: "encryptionNotice".localized,
-            queryParameter: "ciphertext=ciphertext",
-            moreInfo: "encryptionSettings".localized,
-            moreViewModel: CryptoSettingViewModel()
-        ),
-        PreviewModel(
-            body: "criticalAlert".localized,
-            notice: "criticalAlertNotice".localized,
-            queryParameter: "level=critical&volume=5",
-            image: UIImage(named: "criticalAlert")
-        ),
-        PreviewModel(
-            body: "interruptionLevel".localized,
-            notice: "interruptionLevelNotice".localized,
-            queryParameter: "level=timeSensitive"
-        ),
-        PreviewModel(
-            body: "URL Test",
-            notice: "urlParameter".localized,
-            queryParameter: "url=https://www.baidu.com"
-        ),
-        PreviewModel(
-            body: "imagePushNotification".localized,
-            notice: "imageParameter".localized,
-            queryParameter: "image=https://day.app/assets/images/avatar.jpg"
-        ),
-        PreviewModel(
-            body: "Copy Test",
-            notice: "copyParameter".localized,
-            queryParameter: "copy=test",
-            image: UIImage(named: "copyTest")
-        ),
-        PreviewModel(
-            body: "badge".localized,
-            notice: "badgeNotice".localized,
-            queryParameter: "badge=1"
-        ),
-        PreviewModel(
-            body: "automaticallyCopyTitle".localized,
-            notice: "automaticallyCopy".localized,
-            queryParameter: "autoCopy=1&copy=optional"
-        )
-    ]
-    
-    /// 记录服务器错误的次数，如果错误次数大于2次，弹出提示引导用户查看FAQ。
-    private var serverErrorCount = 0
-    
+
     func transform(input: Input) -> Output {
         let title = BehaviorRelay(value: ServerManager.shared.currentServer.host)
-        
-        let sectionModel = SectionModel(
-            model: "previews",
-            items: previews.map { PreviewCardCellViewModel(previewModel: $0, clientState: input.clientState) }
-        )
-        
-        // 点击跳转到添加自定义服务器
-        let customServer = input.addCustomServerTap.map { NewServerViewModel() as ViewModel }
-        
-        // 如果更改了服务器地址，返回时也需更改 title
-        customServer
-            .flatMapLatest { model -> Driver<String> in
-                (model as! NewServerViewModel).pop.asDriver(onErrorJustReturn: "")
-            }
-            .drive(title)
+        let selectedExample = BehaviorRelay(value: ExampleType.get)
+        let exampleText = BehaviorRelay(value: makeExampleText(for: .get))
+        let showSnackbar = PublishRelay<String>()
+
+        input.exampleType.drive(onNext: { [weak self] type in
+            guard let self else { return }
+            selectedExample.accept(type)
+            exampleText.accept(self.makeExampleText(for: type))
+        }).disposed(by: rx.disposeBag)
+
+        ServerManager.shared.currentServerUpdateRelay
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(onNext: { [weak self] server in
+                guard let self else { return }
+                title.accept(server.host)
+                exampleText.accept(self.makeExampleText(for: selectedExample.value))
+            })
             .disposed(by: rx.disposeBag)
 
-        // 点击preview中的notice ，跳转到对应的页面
-        let noticeTap = Driver.merge(sectionModel.items.map { $0.noticeTap.asDriver(onErrorDriveWith: .empty()) })
-        
-        // 判断服务器状态
-        let clienState = input.viewDidAppear
-            .asObservable().flatMapLatest { _ -> Observable<Result<JSON, ApiError>> in
-                BarkApi.provider
-                    .request(.ping(baseURL: ServerManager.shared.currentServer.address))
-                    .filterResponseError()
-            }
-            .map { response -> Client.ClienState in
-                switch response {
-                case .failure(let error):
-                    return .serverError(error: error)
-                default:
-                    return .ok
-                }
-            }
-        
-        // 根据通知权限，设置是否隐藏注册按钮、显示示例预览列表
-        let tableViewHidden = input.authorizationStatus.map { $0 == .authorized }
+        input.testExample
             .asObservable()
-            .concat(
-                input.start.asObservable().flatMapLatest { input.startRequestAuthorizationCreator() }
-            )
-            .asDriver(onErrorJustReturn: false)
-        
-        let showSnackbar = PublishRelay<String>()
-        let alertServerError = PublishRelay<String>()
-        
-        // 点击注册按钮后，如果不允许推送，弹出提示
-        tableViewHidden
-            .skip(1)
-            .compactMap { granted -> String? in
-                if !granted {
-                    return "AllowNotifications".localized
-                }
-                return nil
+            .flatMapLatest { [weak self] type -> Observable<String> in
+                guard let self else { return .empty() }
+                return self.sendTestPush(for: type)
             }
-            .asObservable()
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
-        
-        // 点击注册按钮，如果用户允许推送，则通知 viewController 注册推送
-        let registerForRemoteNotifications = tableViewHidden
-            .skip(1)
-            .filter { $0 }
-            .map { _ in () }
 
-        // client state 变化时，发出相应错误提醒
-        input.clientState.drive(onNext: { [weak self] state in
-            guard let self else { return }
-            
-            switch state {
-            case .ok: break
-            case .serverError(let error):
-                if serverErrorCount < 2 {
-                    showSnackbar.accept("\("ServerError".localized): \(error.rawString())")
-                } else {
-                    alertServerError.accept(error.rawString())
-                }
-                serverErrorCount += 1
-            default: break
-            }
-            // 主要用于 url scheme 添加服务器时会有state状态改变事件，顺便更新下标题
-            title.accept(ServerManager.shared.currentServer.host)
-        })
-        .disposed(by: rx.disposeBag)
-        
-        let serverList = input.serverListTap.map { ServerListViewModel() as ViewModel }
-        
-        // 服务器发生了改变
-        serverList
-            .flatMapLatest { model -> Driver<Server> in
-                (model as! ServerListViewModel).currentServerChanged.asDriver(onErrorDriveWith: .empty())
-            }
-            .map { server -> String in
-                server.host
-            }
-            .drive(title)
-            .disposed(by: rx.disposeBag)
-     
         return Output(
-            previews: Driver.just([sectionModel]),
-            push: Driver<ViewModel>.merge(customServer, noticeTap),
-            present: serverList.asDriver(),
             title: title.asDriver(),
-            clienStateChanged: clienState.asDriver(onErrorDriveWith: .empty()),
-            tableViewHidden: tableViewHidden,
-            showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty()),
-            alertServerError: alertServerError.asDriver(onErrorDriveWith: .empty()),
-            startButtonEnable: Driver.just(true),
-            copy: Driver.merge(sectionModel.items.map { $0.copy.asDriver(onErrorDriveWith: .empty()) }),
-            preview: Driver.merge(sectionModel.items.map { $0.preview.asDriver(onErrorDriveWith: .empty()) }),
-            reloadData: input.clientState.map { _ in () },
-            registerForRemoteNotifications: registerForRemoteNotifications
+            exampleText: exampleText.asDriver(),
+            showSnackbar: showSnackbar.asDriver(onErrorDriveWith: .empty())
         )
+    }
+
+    private func sendTestPush(for type: ExampleType) -> Observable<String> {
+        let server = ServerManager.shared.currentServer
+        guard !server.key.isEmpty else {
+            return .just("deviceNotRegistered".localized)
+        }
+        guard let request = makeTestRequest(for: type, server: server) else {
+            return .just("InvalidServer".localized)
+        }
+
+        return Observable.create { observer in
+            let task = URLSession.shared.dataTask(with: request) { _, response, error in
+                DispatchQueue.main.async {
+                    if error == nil,
+                       let response = response as? HTTPURLResponse,
+                       (200..<300).contains(response.statusCode)
+                    {
+                        observer.onNext("testPushSent".localized)
+                    } else {
+                        observer.onNext("testPushFailed".localized(with: error?.localizedDescription ?? ""))
+                    }
+                    observer.onCompleted()
+                }
+            }
+            task.resume()
+            return Disposables.create {
+                task.cancel()
+            }
+        }
+    }
+
+    private func makeTestRequest(for type: ExampleType, server: Server) -> URLRequest? {
+        guard var components = URLComponents(string: server.address) else { return nil }
+
+        switch type {
+        case .get:
+            components.path = components.path + "/\(server.key)/\(ExampleParams.title.urlEncoded())/\(ExampleParams.body.urlEncoded())"
+            components.queryItems = [
+                URLQueryItem(name: "group", value: ExampleParams.group),
+                URLQueryItem(name: "ttl", value: String(ExampleParams.ttl))
+            ]
+            guard let url = components.url else { return nil }
+            return URLRequest(url: url)
+
+        case .post:
+            components.path = components.path + "/\(server.key)"
+            guard let url = components.url else { return nil }
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+            request.httpBody = "title=\(ExampleParams.title.urlEncoded())&body=\(ExampleParams.body.urlEncoded())&group=\(ExampleParams.group.urlEncoded())&ttl=\(ExampleParams.ttl)".data(using: .utf8)
+            return request
+
+        case .json:
+            components.path = components.path + "/push"
+            guard let url = components.url else { return nil }
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = try? JSONSerialization.data(withJSONObject: [
+                "device_key": server.key,
+                "title": ExampleParams.title,
+                "body": ExampleParams.body,
+                "group": ExampleParams.group,
+                "ttl": ExampleParams.ttl
+            ])
+            return request
+        }
+    }
+
+    private func makeExampleText(for type: ExampleType) -> String {
+        let server = ServerManager.shared.currentServer
+        let address = server.address.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let key = server.key.isEmpty ? "YOUR_KEY" : server.key
+        switch type {
+        case .get:
+            return "curl -X GET \(address)/\(key)/\(ExampleParams.title)/\(ExampleParams.body)?group=\(ExampleParams.group)&ttl=\(ExampleParams.ttl)"
+        case .post:
+            return """
+            curl -X POST \(address)/\(key) \\
+              -d "title=\(ExampleParams.title)" \\
+              -d "body=\(ExampleParams.body)" \\
+              -d "group=\(ExampleParams.group)" \\
+              -d "ttl=\(ExampleParams.ttl)"
+            """
+        case .json:
+            return """
+            curl -X POST \(address)/push \\
+              -H "Content-Type: application/json" \\
+              -d '{
+                "device_key": "\(key)",
+                "title": "\(ExampleParams.title)",
+                "body": "\(ExampleParams.body)",
+                "group": "\(ExampleParams.group)",
+                "ttl": \(ExampleParams.ttl)
+              }'
+            """
+        }
     }
 }

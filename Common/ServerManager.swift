@@ -6,6 +6,7 @@
 //  Copyright © 2018年 Fin. All rights reserved.
 //
 
+import RxCocoa
 import RxSwift
 import SwiftUI
 import UIKit
@@ -16,18 +17,16 @@ class Server: Codable {
     let id: String
     let address: String
     var key: String
-    var state: Client.ClienState
     var name: String?
     
     var host: String {
         return URL(string: address)?.host ?? ""
     }
     
-    init(id: String = UUID().uuidString, address: String, key: String, state: Client.ClienState = .ok) {
+    init(id: String = UUID().uuidString, address: String, key: String) {
         self.id = id
         self.address = address
         self.key = key
-        self.state = state
     }
     
     enum CodingKeys: String, CodingKey {
@@ -44,21 +43,23 @@ class Server: Codable {
         address = try container.decode(String.self, forKey: .address)
         key = try container.decode(String.self, forKey: .key)
         name = try? container.decode(String?.self, forKey: .name)
-        state = .ok
     }
 }
 
 class ServerManager: NSObject {
     static let shared = ServerManager()
     override private init() {
-        if let servers: [Server] = Settings[.servers] {
-            self.servers = servers
+        var servers: [Server] = []
+        if let savedServers: [Server] = Settings[.servers] {
+            servers = savedServers
         }
 
         if servers.count <= 0 {
             servers = [Server(id: UUID().uuidString, address: defaultServer, key: "")]
         }
-        self.currentServer = servers[0]
+        self.servers = servers
+        let initialServer = servers[0]
+        self.currentServer = initialServer
 
         super.init()
 
@@ -85,7 +86,12 @@ class ServerManager: NSObject {
     /// 所有的 server
     var servers: [Server] = []
     /// 当前选中的 server ，在教程页显示。
-    private(set) var currentServer: Server
+    private(set) var currentServer: Server {
+        didSet {
+            currentServerUpdateRelay.accept(currentServer)
+        }
+    }
+    let currentServerUpdateRelay = PublishRelay<Server>()
 
     /// 更改当前选中的 server
     func setCurrentServer(serverId: String) {
@@ -107,6 +113,10 @@ class ServerManager: NSObject {
         let foundServer = self.servers.first { $0.id == server.id }
         foundServer?.key = server.key
         saveServers()
+        // 主要用于更新首页示例中的 key
+        if server.id == currentServer.id {
+            currentServerUpdateRelay.accept(currentServer)
+        }
     }
     
     /// 移除 server，移除后如果 server 为`空`, `会新增一个默认server`
@@ -149,35 +159,25 @@ class ServerManager: NSObject {
                     devicetoken: token
                 ))
                 .filterResponseError()
-                .map { result -> (Server, String, Client.ClienState) in
+                .map { result -> (Server, String?) in
 
                     switch result {
                     case .success(let json):
-                        if let key = json["data", "key"].rawString() {
-                            return (server, key, .ok)
-                        } else {
-                            return (server, "", .serverError(error: .Error(info: "key not found")))
-                        }
-                    case .failure(let error):
-                        return (server, "", .serverError(error: error))
+                        return (server, json["data", "key"].rawString())
+                    case .failure:
+                        return (server, nil)
                     }
-                }.catch { error in
-                    Observable.just((server, "", .serverError(error: .Error(info: error.localizedDescription))))
+                }.catch { _ in
+                    Observable.just((server, nil))
                 }
         }
 
         dispose = Observable
             .merge(apis)
             .subscribe { result in
-                // 更新所有的 server 状态
-                if result.2 == .ok {
-                    result.0.key = result.1
-                }
-                result.0.state = result.2
-
-                // 通知客户端 当前 server 状态改变
-                if result.0.id == self.currentServer.id {
-                    Client.shared.state.accept(result.2)
+                // 更新所有的 server key
+                if let key = result.1 {
+                    result.0.key = key
                 }
             } onError: { _ in
 

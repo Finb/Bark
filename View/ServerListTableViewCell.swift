@@ -49,12 +49,19 @@ class ServerListTableViewCell: BaseTableViewCell<ServerListTableViewCellViewMode
         return imageView
     }()
 
-    var state: Bool = false {
+    var state: Bool? {
         didSet {
-            if state {
+            switch state {
+            case .some(true):
+                stateImageView.alpha = 1
                 stateImageView.image = UIImage(named: "online")
-            } else {
+            case .some(false):
+                stateImageView.alpha = 1
                 stateImageView.image = UIImage(named: "offline")
+            case .none:
+                // 检查中，用低透明度的 online 表示状态未知
+                stateImageView.alpha = 0.3
+                stateImageView.image = UIImage(named: "online")
             }
         }
     }

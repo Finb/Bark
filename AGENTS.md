@@ -115,7 +115,7 @@ The app uses App Groups to share data between the main app and notification exte
 
 Users can configure multiple push servers (`ServerManager`):
 - Default server: `https://api.day.app`
-- Each server has: id, address, key, state, optional name
+- Each server has: id, address, key, optional name
 - Old single-server data (pre-v1.2.6) is automatically migrated to new multi-server format
 
 ### Notification Processing Pipeline

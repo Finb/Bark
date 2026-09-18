@@ -30,6 +30,9 @@ class ServerListViewModel: ViewModel, ViewModelType {
 
     let currentServerChanged = PublishRelay<Server>()
 
+    /// 本页面的 server 在线状态（serverId -> 是否在线），没有值时表示 ping 尚未返回
+    private var serverStates: [String: Bool] = [:]
+
     func transform(input: Input) -> Output {
         // 弹出提示消息
         let showSnackbar = PublishRelay<String>()
@@ -135,18 +138,41 @@ class ServerListViewModel: ViewModel, ViewModelType {
             .bind(to: showSnackbar)
             .disposed(by: rx.disposeBag)
 
+        // 订阅时并发检查所有 server 状态（每次打开页面仅一次）
+        let serverStateChanged = PublishRelay<Void>()
+        Observable.merge(ServerManager.shared.servers.map { server in
+            BarkApi.provider
+                .request(.ping(baseURL: server.address))
+                .filterResponseError()
+                .map { [weak self] result -> Void in
+                    switch result {
+                    case .success:
+                        self?.serverStates[server.id] = true
+                    case .failure:
+                        self?.serverStates[server.id] = false
+                    }
+                }
+        })
+        .subscribe(onNext: { _ in
+            serverStateChanged.accept(())
+        })
+        .disposed(by: rx.disposeBag)
+
         // 服务器列表
         let servers = Observable
             .merge(
                 Observable.just(()),
                 serverDeleted,
                 serverResetSuccess,
-                input.setServerName.map { _ in () }.asObservable()
+                input.setServerName.map { _ in () }.asObservable(),
+                serverStateChanged.asObservable()
             )
-            .map {
+            .map { [weak self] in
                 [SectionModel(
                     model: "servers",
-                    items: ServerManager.shared.servers.map { ServerListTableViewCellViewModel(server: $0) }
+                    items: ServerManager.shared.servers.map {
+                        ServerListTableViewCellViewModel(server: $0, state: self?.serverStates[$0.id])
+                    }
                 )]
             }.asDriver(onErrorDriveWith: .empty())
 
@@ -165,13 +191,6 @@ class ServerListViewModel: ViewModel, ViewModelType {
             ServerManager.shared.currentServer
         }
         .bind(to: self.currentServerChanged)
-        .disposed(by: rx.disposeBag)
-
-        // 服务器改变时，同步 Client.shared.state。
-        serverChanged.map {
-            ServerManager.shared.currentServer.state
-        }
-        .bind(to: Client.shared.state)
         .disposed(by: rx.disposeBag)
 
         return Output(
