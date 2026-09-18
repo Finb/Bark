@@ -45,6 +45,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         setupHierarchy()
         bindActions()
         bindTabSelection()
+        bindAppLifecycle()
     }
 
     private func setupNavigation() {
@@ -76,6 +77,8 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         }
 
         [permissionCard, exampleCard, settingsCard, documentsCard].forEach(contentStack.addArrangedSubview)
+        // 等异步取到权限状态、configure 后再显示，避免闪出一张空卡片
+        permissionCard.isHidden = true
     }
 
     private func bindActions() {
@@ -98,6 +101,15 @@ class HomeViewController: BaseViewController<HomeViewModel> {
             .subscribe(onNext: { [weak self] _ in
                 guard let self else { return }
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.scrollView.adjustedContentInset.top), animated: true)
+            }).disposed(by: rx.disposeBag)
+    }
+
+    private func bindAppLifecycle() {
+        // 从系统设置返回时刷新权限状态
+        NotificationCenter.default.rx
+            .notification(UIApplication.willEnterForegroundNotification)
+            .subscribe(onNext: { [weak self] _ in
+                self?.refreshNotificationPermission()
             }).disposed(by: rx.disposeBag)
     }
 
@@ -125,23 +137,19 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         Task { @MainActor [weak self] in
             guard let self else { return }
             let settings = await UNUserNotificationCenter.current().notificationSettings()
-            if let type = self.permissionCardType(for: settings) {
-                self.permissionCard.isHidden = false
-                self.permissionCard.configure(type: type)
-            } else {
-                self.permissionCard.isHidden = true
-            }
+            self.permissionCard.configure(type: self.permissionCardType(for: settings))
+            self.permissionCard.isHidden = false
         }
     }
 
-    private func permissionCardType(for settings: UNNotificationSettings) -> PermissionCardType? {
+    private func permissionCardType(for settings: UNNotificationSettings) -> PermissionCardType {
         if !hasNotificationPermission(settings.authorizationStatus) {
             return .notification
         }
         if settings.criticalAlertSetting == .disabled {
             return .criticalAlert
         }
-        return nil
+        return .granted
     }
 
     private func hasNotificationPermission(_ status: UNAuthorizationStatus) -> Bool {

@@ -6,16 +6,19 @@
 //  Copyright © 2026 Fin. All rights reserved.
 //
 
+import SnapKit
 import UIKit
 
 enum PermissionCardType {
     case notification
     case criticalAlert
+    case granted
 
     var title: String {
         switch self {
         case .notification: return "notificationPermissionOff".localized
         case .criticalAlert: return "criticalAlertPermissionOff".localized
+        case .granted: return "notificationPermissionOn".localized
         }
     }
 
@@ -23,6 +26,28 @@ enum PermissionCardType {
         switch self {
         case .notification: return "notificationPermissionOffDetail".localized
         case .criticalAlert: return "criticalAlertPermissionOffDetail".localized
+        case .granted: return "notificationPermissionOnDetail".localized
+        }
+    }
+
+    var tintColor: UIColor {
+        switch self {
+        case .granted: return .systemGreen
+        default: return .systemOrange
+        }
+    }
+
+    var legacyIconBackgroundColor: UIColor {
+        switch self {
+        case .granted: return .systemGreen.withAlphaComponent(0.12)
+        default: return BKColor.home.legacyAccentOrange
+        }
+    }
+
+    var showsButton: Bool {
+        switch self {
+        case .granted: return false
+        default: return true
         }
     }
 }
@@ -39,17 +64,13 @@ final class HomePermissionCard: GlassView {
 
     private let iconView: GlassView = {
         let iconView = GlassView()
-        iconView.glassTintColor = .systemOrange.withAlphaComponent(0.12)
-        iconView.legacyBackgroundColor = BKColor.home.legacyAccentOrange
-        let imageView = UIImageView(image: UIImage(systemName: "bell.badge.fill"))
-        imageView.tintColor = .systemOrange
-        imageView.contentMode = .scaleAspectFit
-        iconView.contentView.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.edges.equalToSuperview().inset(12)
-        }
         iconView.isUserInteractionEnabled = false
         return iconView
+    }()
+    private let iconImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "bell.badge.fill"))
+        imageView.contentMode = .scaleAspectFit
+        return imageView
     }()
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -67,9 +88,16 @@ final class HomePermissionCard: GlassView {
         return label
     }()
 
+    private var buttonLeadingConstraint: Constraint?
+
     func configure(type: PermissionCardType) {
         titleLabel.text = type.title
         detailLabel.text = type.detail
+        iconImageView.tintColor = type.tintColor
+        iconView.glassTintColor = type.tintColor.withAlphaComponent(0.12)
+        iconView.legacyBackgroundColor = type.legacyIconBackgroundColor
+        button.isHidden = !type.showsButton
+        buttonLeadingConstraint?.isActive = type.showsButton
     }
 
     override init() {
@@ -77,9 +105,13 @@ final class HomePermissionCard: GlassView {
         let labels = UIStackView(arrangedSubviews: [titleLabel, detailLabel])
         labels.axis = .vertical
         labels.spacing = 2
+        iconView.contentView.addSubview(iconImageView)
         contentView.addSubview(iconView)
         contentView.addSubview(labels)
         contentView.addSubview(button)
+        iconImageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(12)
+        }
         iconView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.centerY.equalToSuperview()
@@ -87,10 +119,11 @@ final class HomePermissionCard: GlassView {
         }
         labels.snp.makeConstraints { make in
             make.leading.equalTo(iconView.snp.trailing).offset(12)
+            make.trailing.lessThanOrEqualToSuperview().offset(-16)
             make.top.bottom.equalToSuperview().inset(16)
         }
         button.snp.makeConstraints { make in
-            make.leading.greaterThanOrEqualTo(labels.snp.trailing).offset(6)
+            self.buttonLeadingConstraint = make.leading.greaterThanOrEqualTo(labels.snp.trailing).offset(6).constraint
             make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
             make.height.equalTo(36)
