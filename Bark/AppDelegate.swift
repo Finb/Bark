@@ -131,10 +131,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         if let realm = try? Realm(),
            let message = realm.objects(Message.self).filter("id == %@", id).first
         {
+            // 删除前收集图片地址
+            let imageUrl = message.image
             try? realm.write {
                 realm.delete(message)
             }
             WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+            MessageImageCleaner.shared.removeUnreferencedImages([imageUrl])
             notifyMessagesDidChange()
         }
 
