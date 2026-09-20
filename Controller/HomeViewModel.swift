@@ -141,7 +141,7 @@ class HomeViewModel: ViewModel, ViewModelType {
 
     private func makeExampleText(for type: ExampleType) -> String {
         let server = ServerManager.shared.currentServer
-        let address = server.address.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+        let address = server.cleanAddress
         let key = server.key.isEmpty ? "YOUR_KEY" : server.key
         switch type {
         case .get:

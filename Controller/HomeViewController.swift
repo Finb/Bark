@@ -44,6 +44,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         setupNavigation()
         setupHierarchy()
         bindActions()
+        bindCopyMenu()
         bindTabSelection()
         bindAppLifecycle()
     }
@@ -102,6 +103,43 @@ class HomeViewController: BaseViewController<HomeViewModel> {
                 guard let self else { return }
                 self.scrollView.setContentOffset(CGPoint(x: 0, y: -self.scrollView.adjustedContentInset.top), animated: true)
             }).disposed(by: rx.disposeBag)
+    }
+
+    private func bindCopyMenu() {
+        refreshCopyMenu()
+        ServerManager.shared.currentServerUpdateRelay
+            .asDriver(onErrorDriveWith: .empty())
+            .drive(onNext: { [weak self] _ in
+                self?.refreshCopyMenu()
+            }).disposed(by: rx.disposeBag)
+    }
+
+    private func refreshCopyMenu() {
+        let server = ServerManager.shared.currentServer
+        let hasKey = !server.key.isEmpty
+
+        let copyItems: [(title: String, icon: String, action: () -> Void)] = [
+            ("copyAddressAndKey".localized, "link", { [weak self] in self?.copyAddressAndKey() }),
+            ("copyKey".localized, "key", { [weak self] in self?.copyKey() })
+        ]
+
+        exampleCard.copyButton.menu = UIMenu(children: copyItems.map { item in
+            UIAction(
+                title: item.title,
+                image: UIImage(systemName: item.icon),
+                attributes: hasKey ? [] : .disabled
+            ) { _ in
+                item.action()
+            }
+        })
+
+        // 按钮是单一无障碍元素，菜单项用自定义动作暴露
+        exampleCard.copyButton.accessibilityCustomActions = hasKey ? copyItems.map { item in
+            UIAccessibilityCustomAction(name: item.title) { _ in
+                item.action()
+                return true
+            }
+        } : nil
     }
 
     private func bindAppLifecycle() {
@@ -180,9 +218,21 @@ class HomeViewController: BaseViewController<HomeViewModel> {
         exampleTypeRelay.accept(type)
     }
 
-    @objc private func copyExample() {
-        UIPasteboard.general.string = exampleCard.codeText
+    private func copyToClipboard(_ text: String) {
+        UIPasteboard.general.string = text
         showSnackbar(text: "Copy".localized)
+    }
+
+    @objc private func copyExample() {
+        copyToClipboard(exampleCard.codeText)
+    }
+
+    private func copyAddressAndKey() {
+        copyToClipboard(ServerManager.shared.currentServer.addressAndKey)
+    }
+
+    private func copyKey() {
+        copyToClipboard(ServerManager.shared.currentServer.key)
     }
 
     @objc private func testExample() {

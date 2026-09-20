@@ -30,6 +30,15 @@ class Server: Codable {
         return host
     }
     
+    var cleanAddress: String {
+        return address.trimmingCharacters(in: CharacterSet(charactersIn: "/"))
+    }
+    
+    var addressAndKey: String {
+        guard !key.isEmpty else { return cleanAddress }
+        return "\(cleanAddress)/\(key)"
+    }
+    
     init(id: String = UUID().uuidString, address: String, key: String) {
         self.id = id
         self.address = address

@@ -10,10 +10,9 @@ import UIKit
 
 final class HomeExampleCard: GlassView {
     let segmentedControl = HomeExampleSegmentedControl()
-    let copyButton: HomeFlatButton = {
-        let button = HomeFlatButton()
+    let copyButton: HomeSplitButton = {
+        let button = HomeSplitButton()
         button.title = "Copy2".localized
-        button.image = UIImage(systemName: "doc.on.doc")
         button.titleLabel.font = UIFont.preferredFont(forTextStyle: .callout)
         return button
     }()
