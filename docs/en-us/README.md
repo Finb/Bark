@@ -24,6 +24,7 @@ Sponsors：[https://github.com/sponsors/Finb](https://github.com/sponsors/Finb)
 ### Documentation
 - **App**
   - [Tutorial](/en-us/tutorial)
+  - [Parameters](/en-us/params)
   - [Encryption](/en-us/encryption)  
   - [FAQs](/en-us/faq)
 - **Server**

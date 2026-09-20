@@ -85,33 +85,7 @@ or
 
 
 ## Request Parameters
-List of supported parameters, specific effects can be previewed in the APP.
-
-| Parameter | Description |
-| ----- | ----------- |
-| title | Push title |
-| subtitle | Push subtitle |
-| body | Push content |
-| markdown | Push content with basic Markdown. When this is provided, the body field is ignored. | 
-| device_key | Device key |
-| device_keys | Key array, used for batch push. Only supported in JSON requests. |
-| level | Push interruption level.<br>critical: Important alert, will ring even in silent mode <br>active：Default value, the system will immediately light up the screen to display the notification<br>timeSensitive：Time-sensitive notification, can display the notification in focus mode.<br>passive：Only adds the notification to the notification list, will not light up the screen. |
-| volume | Important alert notification volume, value range: 0-10, default is 5 if not passed |
-| badge | Push badge, can be any number |
-| call | Pass "1" to repeat the notification ringtone |
-| autoCopy | Pass "1" to automatically copy the push content on iOS14.5 and below, on iOS14.5 and above, you need to long press or pull down the push to copy |
-| copy | When copying the push, specify the content to copy, if this parameter is not passed, the entire push content will be copied. |
-| sound | Can set different ringtones for the push |
-| icon | Set a custom icon for the push, the set icon will replace the default Bark icon. <br>The icon will be automatically cached on the device, the same icon URL will only be downloaded once. |
-| image | Push image URL |
-| group | Group messages, pushes will be displayed in the notification center by group.<br>You can also choose to view different groups in the history message list. |
-| ciphertext | Ciphertext for encrypted push |
-| isArchive | Pass 1 to save the push, pass other values to not save the push, if not passed, it will be decided by the APP settings whether to save. |
-| ttl | Retention time for archived pushes in seconds. Only affects messages saved to history; they are removed automatically after expiration, and any matching notification still in Notification Center is removed as well. |
-| url | URL to jump to when the push is clicked, supports URL Scheme and Universal Link |
-| action | When set to “alert”, tapping the push notification and opening the app will display an action popup. |
-| id | When using the same ID value, it will update the corresponding push notification content<br>Requires Bark v1.5.2, bark-server v2.2.5 or above |
-| delete | Pass "1" to delete the notification from the system notification center and APP history, must be used with the id parameter<br>Requires "Background App Refresh" to be enabled in settings, otherwise it will not work. |
+All supported parameters, their values and detailed descriptions are on the [Parameters](/en-us/params) page.
 
 ## Bark 支持的应用程序和插件
 * [SmsForwarder](https://github.com/pppscn/SmsForwarder) Monitors SMS, calls, and app notifications on Android devices and forwards them to Bark based on rules.

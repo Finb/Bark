@@ -1,6 +1,7 @@
 - [Bark](/#bark)
 - **App**
   - [使用教程](/tutorial)
+  - [请求参数](/params)
   - [推送加密](/encryption)
   - [常见问题](/faq)
 - **服务端**
