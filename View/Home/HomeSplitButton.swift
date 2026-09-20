@@ -11,14 +11,14 @@ import UIKit
 
 final class HomeSplitButton: UIControl {
     private enum Metrics {
-        static let menuWidth: CGFloat = 40
-        static let separatorWidth: CGFloat = 1 / UIScreen.main.scale
+        static let menuWidth: CGFloat = 42
+        static let separatorWidth: CGFloat = 1
         static let titlePadding: CGFloat = 14
     }
 
     private let separator: UIView = {
         let view = UIView()
-        view.backgroundColor = .separator
+        view.backgroundColor = BKColor.home.divider
         view.isUserInteractionEnabled = false
         return view
     }()
