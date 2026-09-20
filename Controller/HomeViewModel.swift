@@ -34,7 +34,7 @@ class HomeViewModel: ViewModel, ViewModelType {
     }
 
     func transform(input: Input) -> Output {
-        let title = BehaviorRelay(value: ServerManager.shared.currentServer.host)
+        let title = BehaviorRelay(value: ServerManager.shared.currentServer.displayName)
         let selectedExample = BehaviorRelay(value: ExampleType.get)
         let exampleText = BehaviorRelay(value: makeExampleText(for: .get))
         let showSnackbar = PublishRelay<String>()
@@ -49,7 +49,7 @@ class HomeViewModel: ViewModel, ViewModelType {
             .asDriver(onErrorDriveWith: .empty())
             .drive(onNext: { [weak self] server in
                 guard let self else { return }
-                title.accept(server.host)
+                title.accept(server.displayName)
                 exampleText.accept(self.makeExampleText(for: selectedExample.value))
             })
             .disposed(by: rx.disposeBag)

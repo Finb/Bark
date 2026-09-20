@@ -28,8 +28,6 @@ class ServerListViewModel: ViewModel, ViewModelType {
         let copy: Driver<String>
     }
 
-    let currentServerChanged = PublishRelay<Server>()
-
     /// 本页面的 server 在线状态（serverId -> 是否在线），没有值时表示 ping 尚未返回
     private var serverStates: [String: Bool] = [:]
 
@@ -177,21 +175,10 @@ class ServerListViewModel: ViewModel, ViewModelType {
             }.asDriver(onErrorDriveWith: .empty())
 
         // 选择首页预览服务器
-        let serverSelected = input.selectServer.asObservable().map { server in
+        input.selectServer.drive(onNext: { server in
             ServerManager.shared.setCurrentServer(serverId: server.id)
             showSnackbar.accept("setSuccessfully".localized)
-            return ()
-        }
-        
-        // 当前服务器有改动
-        let serverChanged = Observable.merge(serverSelected, serverDeleted, serverResetSuccess)
-            .share()
-
-        serverChanged.map {
-            ServerManager.shared.currentServer
-        }
-        .bind(to: self.currentServerChanged)
-        .disposed(by: rx.disposeBag)
+        }).disposed(by: rx.disposeBag)
 
         return Output(
             servers: servers,

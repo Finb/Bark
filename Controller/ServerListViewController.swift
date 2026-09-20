@@ -147,7 +147,7 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
                     return relay
                 }
 
-                let alertController = UIAlertController(title: nil, message: "\(URL(string: viewModel.server.address)?.host ?? "")", preferredStyle: .actionSheet)
+                let alertController = UIAlertController(title: nil, message: viewModel.server.host, preferredStyle: .actionSheet)
                 alertController.addAction(UIAlertAction(title: "copyAddressAndKey".localized, style: .default, handler: { _ in
                     relay.accept((viewModel.server, .copy))
                 }))

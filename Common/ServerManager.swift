@@ -23,6 +23,13 @@ class Server: Codable {
         return URL(string: address)?.host ?? ""
     }
     
+    var displayName: String {
+        if let name = name, !name.isEmpty {
+            return name
+        }
+        return host
+    }
+    
     init(id: String = UUID().uuidString, address: String, key: String) {
         self.id = id
         self.address = address
@@ -191,6 +198,9 @@ class ServerManager: NSObject {
     
     func setServerName(server: Server, name: String?) {
         server.name = name
+        if server.id == currentServer.id {
+            currentServerUpdateRelay.accept(currentServer)
+        }
         saveServers()
     }
 }
