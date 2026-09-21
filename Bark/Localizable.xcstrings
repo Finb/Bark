@@ -2494,6 +2494,35 @@
         }
       }
     },
+    "paramsUrl" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/params"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/params"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/params"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/params"
+          }
+        }
+      }
+    },
     "privacyPolicy" : {
       "extractionState" : "manual",
       "localizations" : {

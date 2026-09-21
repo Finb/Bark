@@ -270,7 +270,7 @@ class HomeViewController: BaseViewController<HomeViewModel> {
     }
 
     @objc private func openDocumentation() {
-        openWebPage("docUrl".localized)
+        openWebPage("paramsUrl".localized)
     }
 
     @objc private func openFAQ() {
