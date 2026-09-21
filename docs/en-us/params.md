@@ -1,5 +1,5 @@
 ## Request Parameters
-These parameters have the same names in GET queries, POST form bodies and JSON bodies, and can be combined as needed.
+These parameters use the same names across GET queries, POST form bodies, and JSON request bodies. They can be combined as needed. See the [Tutorial](/en-us/tutorial) for usage examples.
 
 ### Parameters
 - Content
