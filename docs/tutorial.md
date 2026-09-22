@@ -1,18 +1,22 @@
 ## 发送推送
-1. 打开APP，复制测试URL 
+1. 打开APP，复制测试命令 
+<img src="../_media/example.jpg" width=428 />
 
-<img src="../_media/example.jpg" width=365 />
-
-2. 修改内容，请求这个URL。<br>
-可以发 GET 或者 POST 请求 ，请求成功会立即收到推送 
+2. 按自身需求修改示例，执行命令后手机将收到推送
+3. 发送请求可以选择自己喜欢的方式，Bark 并不做限制
 
 ## URL格式
-URL由推送key、参数 title、参数 subtitle、参数 body 组成。有下面三种组合方式
+推送 URL 由推送 key、参数 title、参数 subtitle、参数 body 组成，有下面三种方式
 
 ```
 /:key/:body 
 /:key/:title/:body 
 /:key/:title/:subtitle/:body 
+```
+
+POST 还可使用下面的路径，然后将所有参数放进请求体中：
+```
+/push
 ```
 
 ## 请求方式
@@ -42,7 +46,7 @@ curl -X "POST" "https://api.day.app/your_key" \
 }'
 ```
 
-##### JSON 请求 key 可以放进请求体中,URL 路径须为 /push，例如
+##### key 可以放进请求体中，URL 路径须为 /push，例如：
 ```sh
 curl -X "POST" "https://api.day.app/push" \
      -H 'Content-Type: application/json; charset=utf-8' \
