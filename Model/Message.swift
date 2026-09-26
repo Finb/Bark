@@ -21,7 +21,7 @@ class Message: Object {
     @Persisted var body: String?
     @Persisted var bodyType: String?
     @Persisted var url: String?
-    @Persisted var image: String?
+    @Persisted(indexed: true) var image: String?
     @Persisted(indexed: true) var group: String?
     @Persisted(indexed: true) var createDate: Date?
     @Persisted(indexed: true) var expireDate: Date?

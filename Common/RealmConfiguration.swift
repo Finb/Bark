@@ -13,7 +13,7 @@ let kRealmDefaultConfiguration = {
     let fileUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent("bark.realm")
     let config = Realm.Configuration(
         fileURL: fileUrl,
-        schemaVersion: 18,
+        schemaVersion: 19,
         migrationBlock: { migration, oldSchemaVersion in
             switch oldSchemaVersion {
             case 0...13:
