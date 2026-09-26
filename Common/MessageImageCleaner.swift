@@ -36,7 +36,6 @@ class MessageImageCleaner {
 
     /// 收集这些消息引用的图片地址，需要在消息删除`之前`调用
     func imageUrls(in messages: Results<Message>) -> [String] {
-        // 不用 distinct(by:)，image 字段没有加索引，交给 Set 去重更稳妥
         return Array(Set(messages.filter("image != nil").compactMap { $0.image }))
     }
 
@@ -51,17 +50,18 @@ class MessageImageCleaner {
             guard let cache = self.imageCache, let realm = try? Realm() else {
                 return
             }
+            // GCD 线程上的 Realm 不自动刷新，refresh 以避免读到旧快照
+            realm.refresh()
 
-            // 同一个图片地址可能被多条消息引用，所以先取出所有仍被引用的地址
-            // image 字段没有加索引，逐个地址去查会退化成多次全表扫描，所以只扫一遍
-            let referenced = Set(
-                realm.objects(Message.self)
-                    .filter("image != nil")
-                    .compactMap { $0.image }
-            )
-
-            for imageUrl in candidates.subtracting(referenced) {
+            // 按索引查询是否还被其它消息引用
+            let messages = realm.objects(Message.self)
+            for imageUrl in candidates {
                 guard let url = URL(string: imageUrl) else {
+                    continue
+                }
+                // 原始地址和百分号编码地址对应同一个缓存文件，二者皆查
+                let aliases = Set([imageUrl, url.absoluteString, imageUrl.removingPercentEncoding].compactMap { $0 })
+                guard messages.filter("image IN %@", aliases).isEmpty else {
                     continue
                 }
                 // 缓存 key 与 ImageDownloader 存入时保持一致
