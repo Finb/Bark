@@ -336,6 +336,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                         realm.delete(message)
                     }
                     WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+                    MessageImageCleaner.shared.removeUnreferencedImages([model.image])
                 }
                 // 删除 cell item
                 section.messages.removeAll { cellItem in
@@ -354,10 +355,13 @@ class MessageListViewModel: ViewModel, ViewModelType {
                         messageResult = self.results?.filter("group == nil")
                     }
                     if let messageResult {
+                        // 删除前收集图片地址
+                        let imageUrls = MessageImageCleaner.shared.imageUrls(in: messageResult)
                         try? realm.write {
                             realm.delete(messageResult)
                         }
                         WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+                        MessageImageCleaner.shared.removeUnreferencedImages(imageUrls)
                     }
                 }
                 // 删除 cell item
@@ -390,6 +394,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                     realm.delete(message)
                 }
                 WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+                MessageImageCleaner.shared.removeUnreferencedImages([model.image])
             }
             
             if let index = section.messages.firstIndex(where: { item in
@@ -425,10 +430,13 @@ class MessageListViewModel: ViewModel, ViewModelType {
                     return
                 }
                 
+                // 删除前收集图片地址
+                let imageUrls = MessageImageCleaner.shared.imageUrls(in: messages)
                 try? realm.write {
                     realm.delete(messages)
                 }
                 WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+                MessageImageCleaner.shared.removeUnreferencedImages(imageUrls)
             }
             
             self.page = 0
