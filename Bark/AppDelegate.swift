@@ -137,8 +137,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 realm.delete(message)
             }
             WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
-            MessageImageCleaner.shared.removeUnreferencedImages([imageUrl])
             notifyMessagesDidChange()
+            // 图片缓存删完再结束后台任务
+            MessageImageCleaner.shared.removeUnreferencedImages([imageUrl]) {
+                completionHandler(.newData)
+            }
+            return
         }
 
         completionHandler(.newData)
