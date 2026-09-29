@@ -40,14 +40,18 @@ class MessageImageCleaner {
     }
 
     /// 删除不再被任何消息引用的图片缓存，需要在消息删除`之后`调用
-    func removeUnreferencedImages(_ imageUrls: [String?]) {
+    /// - Parameter completion: 清理流程结束后回调，不代表全部删除成功。
+    ///   无候选图片时立即调用，其余情况在后台队列调用。
+    func removeUnreferencedImages(_ imageUrls: [String?], completion: (() -> Void)? = nil) {
         let candidates = Set(imageUrls.compactMap { $0 })
         guard !candidates.isEmpty else {
+            completion?()
             return
         }
 
         cleanQueue.async {
             guard let cache = self.imageCache, let realm = try? Realm() else {
+                completion?()
                 return
             }
             // GCD 线程上的 Realm 不自动刷新，refresh 以避免读到旧快照
@@ -55,6 +59,7 @@ class MessageImageCleaner {
 
             // 按索引查询是否还被其它消息引用
             let messages = realm.objects(Message.self)
+            let group = DispatchGroup()
             for imageUrl in candidates {
                 guard let url = URL(string: imageUrl) else {
                     continue
@@ -65,7 +70,14 @@ class MessageImageCleaner {
                     continue
                 }
                 // 缓存 key 与 ImageDownloader 存入时保持一致
-                cache.removeImage(forKey: url.cacheKey, fromMemory: true, fromDisk: true)
+                group.enter()
+                cache.removeImage(forKey: url.cacheKey, fromMemory: true, fromDisk: true) {
+                    group.leave()
+                }
+            }
+            // 等所有异步删除操作结束后再回调，不阻塞清理队列
+            group.notify(queue: self.cleanQueue) {
+                completion?()
             }
         }
     }
