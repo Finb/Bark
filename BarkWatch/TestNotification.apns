@@ -1,0 +1,10 @@
+{
+  "aps": {
+    "alert": {
+      "title": "Bark Watch",
+      "body": "Test notification from the simulator."
+    },
+    "mutable-content": 1,
+    "sound": "default"
+  }
+}
