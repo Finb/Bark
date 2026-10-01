@@ -1,0 +1,177 @@
+diff --git a/apns/apns.go b/apns/apns.go
+index 6d845b4..22c3383 100644
+--- a/apns/apns.go
++++ b/apns/apns.go
+@@ -5,6 +5,7 @@ import (
+ 	"crypto/x509"
+ 	"fmt"
+ 	"net/http"
++	"os"
+ 	"runtime"
+ 	"strings"
+ 	"time"
+@@ -38,11 +39,12 @@ func (p PushMessage) IsDelete() bool {
+ 	return val == "1" || val == 1 || val == 1.0
+ }
+ 
+-const (
+-	topic          = "me.fin.bark"
+-	keyID          = "LH4T9V5U4R"
+-	teamID         = "5U8LBRXG3A"
+-	PayloadMaximum = 4096
++const PayloadMaximum = 4096
++
++var (
++	topic  = os.Getenv("BARK_APNS_TOPIC")
++	keyID  = os.Getenv("BARK_APNS_KEY_ID")
++	teamID = os.Getenv("BARK_APNS_TEAM_ID")
+ )
+ 
+ var clients = make(chan *apns2.Client, 1)
+@@ -57,7 +59,18 @@ func ReCreateAPNS(maxClientCount int) error {
+ 		return fmt.Errorf("invalid number of clients")
+ 	}
+ 
+-	authKey, err := token.AuthKeyFromBytes([]byte(apnsPrivateKey))
++	if topic == "" || keyID == "" || teamID == "" {
++		logger.Fatal("BARK_APNS_TOPIC, BARK_APNS_KEY_ID and BARK_APNS_TEAM_ID are required")
++	}
++	host := apns2.HostDevelopment
++	switch os.Getenv("BARK_APNS_ENVIRONMENT") {
++	case "development":
++	case "production":
++		host = apns2.HostProduction
++	default:
++		logger.Fatal("BARK_APNS_ENVIRONMENT must be development or production")
++	}
++	authKey, err := token.AuthKeyFromFile(os.Getenv("BARK_APNS_KEY_FILE"))
+ 	if err != nil {
+ 		logger.Fatalf("failed to create APNS auth key: %v", err)
+ 	}
+@@ -94,7 +107,7 @@ func ReCreateAPNS(maxClientCount int) error {
+ 				},
+ 				Timeout: apns2.HTTPClientTimeout,
+ 			},
+-			Host: apns2.HostProduction,
++			Host: host,
+ 		}
+ 		logger.Infof("create apns client: %d", i)
+ 		clients <- client
+@@ -107,10 +120,12 @@ func ReCreateAPNS(maxClientCount int) error {
+ func Push(msg *PushMessage) (code int, err error) {
+ 	pl := payload.NewPayload().MutableContent()
+ 	pushType := apns2.PushTypeAlert
++	priority := apns2.PriorityHigh
+ 	if msg.IsDelete() {
+ 		// Silent push notification
+ 		pl = pl.ContentAvailable()
+ 		pushType = apns2.PushTypeBackground
++		priority = apns2.PriorityLow
+ 	} else {
+ 		// Regular push notification
+ 		pl = pl.AlertTitle(msg.Title).
+@@ -139,12 +154,13 @@ func Push(msg *PushMessage) (code int, err error) {
+ 		Payload:     pl,
+ 		Expiration:  time.Now().Add(24 * time.Hour),
+ 		PushType:    pushType,
++		Priority:    priority,
+ 	})
+ 	if err != nil {
+ 		return 500, err
+ 	}
+ 	if resp.StatusCode != 200 {
+-		return resp.StatusCode, fmt.Errorf(resp.Reason)
++		return resp.StatusCode, fmt.Errorf("%s", resp.Reason)
+ 	}
+ 	return 200, nil
+ }
+diff --git a/route_push.go b/route_push.go
+index 8da18f4..c699a6b 100644
+--- a/route_push.go
++++ b/route_push.go
+@@ -230,7 +230,7 @@ func push(params map[string]interface{}) (int, error) {
+ 				msg.Body = val
+ 			case "sound":
+ 				// Compatible with old parameters
+-				if strings.HasSuffix(val, ".caf") {
++				if val == "default" || strings.HasSuffix(val, ".caf") {
+ 					msg.Sound = val
+ 				} else {
+ 					msg.Sound = val + ".caf"
+diff --git a/router.go b/router.go
+index 56f0730..5d90fbd 100644
+--- a/router.go
++++ b/router.go
+@@ -69,7 +69,7 @@ func registerRouteWithWeight(name string, weight int, f func(router fiber.Router
+ func routerSetup(router fiber.Router) {
+ 	routerOnce.Do(func() {
+ 		router.Use(fiberlogger.New(fiberlogger.Config{
+-			Format:     "${time}     INFO    ${ip} -> [${status}] ${method} ${latency} ${route} => ${url} ${body}\n",
++			Format:     "${time}     INFO    ${ip} -> [${status}] ${method} ${latency} ${route}\n",
+ 			TimeFormat: "2006-01-02 15:04:05",
+ 			Output:     os.Stdout,
+ 		}))
+diff --git a/apns/watch_delete_test.go b/apns/watch_delete_test.go
+new file mode 100644
+index 0000000..32dc2bf
+--- /dev/null
++++ b/apns/watch_delete_test.go
+@@ -0,0 +1,58 @@
++package apns
++
++import (
++	"encoding/json"
++	"net/http"
++	"net/http/httptest"
++	"testing"
++
++	"github.com/sideshow/apns2"
++)
++
++func TestWatchDeletionPush(t *testing.T) {
++	var headers http.Header
++	var body map[string]interface{}
++	server := httptest.NewTLSServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
++		headers = r.Header.Clone()
++		if err := json.NewDecoder(r.Body).Decode(&body); err != nil {
++			t.Error(err)
++		}
++		w.WriteHeader(http.StatusOK)
++	}))
++	defer server.Close()
++	originalClients := clients
++	clients = make(chan *apns2.Client, 1)
++	clients <- &apns2.Client{Host: server.URL, HTTPClient: server.Client()}
++	defer func() { clients = originalClients }()
++
++	for _, test := range []struct {
++		name, pushType, priority string
++		deletion                 bool
++	}{
++		{"delete", "background", "5", true},
++		{"alert", "alert", "10", false},
++	} {
++		t.Run(test.name, func(t *testing.T) {
++			params := map[string]interface{}{"id": "watch-delete-test"}
++			if test.deletion {
++				params["delete"] = "1"
++			}
++			code, err := Push(&PushMessage{Id: "watch-delete-test", DeviceToken: "synthetic", Title: "Test", Body: "Body", Sound: "default", ExtParams: params})
++			if err != nil || code != http.StatusOK {
++				t.Fatalf("Push: code=%d, error=%v", code, err)
++			}
++			if headers.Get("apns-push-type") != test.pushType || headers.Get("apns-priority") != test.priority || headers.Get("apns-collapse-id") != "watch-delete-test" {
++				t.Fatalf("Unexpected push headers: %v", headers)
++			}
++			aps := body["aps"].(map[string]interface{})
++			if test.deletion {
++				if aps["content-available"] != float64(1) || aps["alert"] != nil || aps["sound"] != nil || body["delete"] != "1" || body["id"] != "watch-delete-test" {
++					t.Fatalf("Unexpected deletion payload: %v", body)
++				}
++			} else if aps["alert"] == nil || aps["content-available"] != nil {
++				t.Fatalf("Unexpected alert payload: %v", body)
++			}
++			body = nil
++		})
++	}
++}

@@ -11,3 +11,6 @@ Pods/
 ._.*
 xcuserdata
 buildServer.json
+*.p8
+BarkWatchServer/
+.codex-backups/
