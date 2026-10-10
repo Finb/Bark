@@ -1,3 +1,10 @@
+//
+//  ComplicationView.swift
+//  BarkWatchComplication
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import SwiftUI
 import WidgetKit
 
@@ -31,14 +38,14 @@ struct ArchiveEntry: TimelineEntry {
     let body: String
     let expires: Date?
     let messageID: String?
-    let level: String?
+    let level: WatchNotificationLevel?
 
     /// Background follows the interruption level, matching the tint of `LastMessageView`.
     var backgroundColor: Color {
         switch level {
-        case "Critical": .red
-        case "Time sensitive": .orange
-        default: .black
+        case .critical: .red
+        case .timeSensitive: .orange
+        case .active, .passive, nil: .black
         }
     }
 
@@ -48,7 +55,7 @@ struct ArchiveEntry: TimelineEntry {
         body: "All checks passed. Ready for testing on your watch.",
         expires: nil,
         messageID: nil,
-        level: "Critical"
+        level: .critical
     )
 }
 

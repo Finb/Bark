@@ -1,0 +1,9 @@
+// Signing identity for all BarkWatch targets (app, notification service,
+// complication, tests). Change these two values to build under another team.
+//
+// Every bundle identifier, the app group (group.<id>) and the keychain access
+// group (<prefix><id>.encryption) are derived from BARK_WATCH_BUNDLE_ID in the
+// project, entitlements and Info.plist files, so nothing else needs editing.
+
+BARK_WATCH_DEVELOPMENT_TEAM = 8HVQYZSB2F
+BARK_WATCH_BUNDLE_ID = com.sebersta.BarkWatchPrototype

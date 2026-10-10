@@ -5,52 +5,10 @@
 //  Created by Jian Qin on 9/30/26.
 //
 
-
+import os
 import SwiftUI
-import UIKit
 import UserNotifications
 import WatchKit
-
-/// Markdown rendering for the notification interface (long look), kept separate from
-/// the in-app `WatchMarkdownView` so it can be styled for the notification platter
-/// without affecting the app. Shares parsing through `WatchMarkdownParagraph`.
-struct NotificationMarkdownView: View {
-    let source: String
-    /// The notification interface can't open a browser, so links go to the controller.
-    var openLink: (URL) -> Void = { _ in }
-    @ScaledMetric(relativeTo: .body) private var fontSize = 14
-
-    var body: some View {
-        let text = WatchMarkdownParser.parse(source, configuration: .init(baseFont: .systemFont(ofSize: fontSize)))
-        VStack(alignment: .leading, spacing: 0) {
-            ForEach(WatchMarkdownParagraph.paragraphs(from: text)) { paragraph in
-                HStack(alignment: .firstTextBaseline, spacing: 0) {
-                    if let marker = paragraph.marker {
-                        Text(marker)
-                            .fixedSize(horizontal: true, vertical: false)
-                            .frame(minWidth: paragraph.markerWidth, alignment: .leading)
-                    }
-                    Text(paragraph.text)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                }
-                .padding(paragraph.isCode ? 6 : 0)
-                .background(paragraph.isCode ? Color.white.opacity(0.12) : .clear,
-                            in: RoundedRectangle(cornerRadius: 6))
-                .padding(.leading, paragraph.indent)
-                .padding(.top, paragraph.spaceBefore)
-                .accessibilityElement(children: .combine)
-            }
-        }
-        .tint(.cyan)
-        // Paragraphs already contain only web links; anything else is discarded.
-        .environment(\.openURL, OpenURLAction { url in
-            guard WatchNotification.validatedWebURL(url.absoluteString) != nil else { return .discarded }
-            openLink(url)
-            return .handled
-        })
-    }
-}
 
 final class MarkdownNotificationController: WKUserNotificationHostingController<MarkdownNotificationView> {
     private var content: UNNotificationContent?
@@ -64,9 +22,7 @@ final class MarkdownNotificationController: WKUserNotificationHostingController<
     private func open(_ url: URL) {
         let delegate = NotificationDelegate.current
         delegate?.state.requestedNotificationURL = url
-        #if DEBUG
-        print("Bark watch link: notification requested \(url), delegate found: \(delegate != nil)")
-        #endif
+        Logger.links.debug("Notification requested \(url), delegate found: \(delegate != nil)")
         performNotificationDefaultAction()
     }
 
@@ -86,7 +42,7 @@ struct MarkdownNotificationView: View {
                 if !content.subtitle.isEmpty { Text(content.subtitle).font(.subheadline) }
                 if let source = WatchNotification.stringValue("markdown", in: content.userInfo),
                    !source.isEmpty, content.userInfo["ciphertext"] == nil {
-                    NotificationMarkdownView(source: source, openLink: openLink)
+                    WatchMarkdownView(source: source, openLink: openLink)
                 } else {
                     Text(content.body)
                 }

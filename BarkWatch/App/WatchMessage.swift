@@ -18,7 +18,7 @@ struct WatchMessage: Equatable, Sendable {
     let body: String
     let markdown: String?
     let group: String
-    let level: String
+    let level: WatchNotificationLevel
     let url: URL?
     let image: URL?
     let identifier: String?
@@ -30,7 +30,7 @@ struct WatchMessage: Equatable, Sendable {
         body = content.body
         markdown = WatchNotification.stringValue("markdown", in: content.userInfo)
         group = content.threadIdentifier
-        level = content.interruptionLevel.displayName
+        level = WatchNotificationLevel(content.interruptionLevel)
         url = WatchNotification.validatedWebURL(WatchNotification.stringValue("url", in: content.userInfo))
         image = WatchNotification.validatedWebURL(WatchNotification.stringValue("image", in: content.userInfo))
         identifier = WatchNotification.stringValue("id", in: content.userInfo)
@@ -43,7 +43,7 @@ struct WatchMessage: Equatable, Sendable {
         body = message.body
         markdown = message.markdown
         group = message.group
-        level = message.level ?? "Active"
+        level = message.level ?? .active
         url = WatchNotification.validatedWebURL(message.url)
         image = WatchNotification.validatedWebURL(message.image)
         identifier = message.id
@@ -54,7 +54,7 @@ struct WatchMessage: Equatable, Sendable {
 @Observable
 @MainActor
 final class NotificationState {
-    let servers: BarkServers
+    let servers: ServerManager
     enum PushRegistrationState {
         case idle
         case registering
@@ -68,7 +68,7 @@ final class NotificationState {
     var permissionError: String?
     var criticalAlertSetting: UNNotificationSetting?
     /// Most recently presented or opened notification. Restored from `WatchArchive`
-    /// at launch; messages the archive skips (encrypted, `isArchive=0`) last only
+    /// at launch; messages the archive skips (`isArchive=0`, `ttl<=0`) last only
     /// until the app quits.
     private(set) var lastMessage: WatchMessage?
     /// A link tapped in the notification interface, which can't show a browser itself.
@@ -78,7 +78,7 @@ final class NotificationState {
     /// A link the app should open once it's active; set together with `lastMessage`.
     var pendingBrowserURL: URL?
 
-    init(servers: BarkServers = BarkServers(), archive: WatchArchive = .shared) {
+    init(servers: ServerManager = ServerManager(), archive: WatchArchive = .shared) {
         self.servers = servers
         lastMessage = (try? archive.latest(group: nil)).flatMap(WatchMessage.init(archived:))
     }
@@ -109,9 +109,7 @@ final class NotificationState {
 
     func receive(_ message: WatchMessage) {
         lastMessage = message
-        #if DEBUG
-        print("Bark watch link: received message, requested link: \(requestedNotificationURL?.absoluteString ?? "none")")
-        #endif
+        Logger.links.debug("Received message, requested link: \(self.requestedNotificationURL?.absoluteString ?? "none")")
         if let requestedNotificationURL {
             pendingBrowserURL = requestedNotificationURL
             self.requestedNotificationURL = nil
@@ -122,9 +120,12 @@ final class NotificationState {
         let settings = await UNUserNotificationCenter.current().notificationSettings()
         authorizationStatus = settings.authorizationStatus
         criticalAlertSetting = settings.criticalAlertSetting
-        #if DEBUG
-        print("Bark watch critical alerts: \(settings.criticalAlertSetting == .enabled ? "enabled" : settings.criticalAlertSetting == .disabled ? "disabled" : "not supported by this signed app")")
-        #endif
+        let criticalAlerts = switch settings.criticalAlertSetting {
+        case .enabled: "enabled"
+        case .disabled: "disabled"
+        default: "not supported by this signed app"
+        }
+        Logger.registration.debug("Critical alerts: \(criticalAlerts, privacy: .public)")
         guard hasNotificationPermission else {
             registrationState = .idle
             return
@@ -134,7 +135,7 @@ final class NotificationState {
             registrationState = .registering
             WKApplication.shared().registerForRemoteNotifications()
         case .registered(let deviceToken):
-            await servers.registerAll(deviceToken: deviceToken)
+            await servers.syncAllServers(deviceToken: deviceToken)
         case .registering:
             break
         }
@@ -166,7 +167,7 @@ final class NotificationState {
 @MainActor
 final class NotificationDelegate: NSObject, WKApplicationDelegate, UNUserNotificationCenterDelegate {
     let state = NotificationState()
-    private let logger = Logger(subsystem: "com.sebersta.BarkWatchPrototype", category: "NotificationDeletion")
+    private let logger = Logger(subsystem: WatchConstants.bundleIdentifier, category: "NotificationDeletion")
     /// The live delegate. `WKApplication.shared().delegate` doesn't return it with
     /// `@WKApplicationDelegateAdaptor`, so the notification interface uses this.
     private(set) static weak var current: NotificationDelegate?
@@ -193,12 +194,11 @@ final class NotificationDelegate: NSObject, WKApplicationDelegate, UNUserNotific
     func didRegisterForRemoteNotifications(withDeviceToken deviceToken: Data) {
         let tokenString = deviceToken.map { String(format: "%02x", $0) }.joined()
         state.registrationState = .registered(tokenString)
-        Task { await state.servers.registerAll(deviceToken: tokenString) }
-        #if DEBUG
-        // Deliberately copyable in Xcode for manual push testing; never logged in release builds.
-        print("Bark watch device token: \(tokenString)")
-        print("Bark watch push topic: \(Bundle.main.bundleIdentifier ?? "unknown")")
-        #endif
+        Task { await state.servers.syncAllServers(deviceToken: tokenString) }
+        // Copyable from the Xcode console for manual push testing. Interpolated values
+        // are private by default, so they are redacted unless a debugger is attached.
+        Logger.registration.debug("Device token: \(tokenString)")
+        Logger.registration.debug("Push topic: \(Bundle.main.bundleIdentifier ?? "unknown")")
     }
 
     func didFailToRegisterForRemoteNotificationsWithError(_ error: any Error) {

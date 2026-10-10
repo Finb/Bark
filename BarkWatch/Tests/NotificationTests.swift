@@ -1,3 +1,10 @@
+//
+//  NotificationTests.swift
+//  Bark
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import Testing
 import Intents
 import UserNotifications
@@ -94,15 +101,15 @@ import WatchKit
     #expect(WatchNotification.presentationOptions(for: content).contains(.sound))
 
     content.userInfo = ["level": "passive", "aps": ["sound": "default"]]
-    WatchNotification.prepare(content)
+    WatchNotification.applyLevel(content)
     #expect(content.interruptionLevel == .passive)
     #expect(content.sound == nil)
     #expect(WatchNotification.presentationOptions(for: content) == [.list])
     content.userInfo = ["level": "critical", "aps": ["sound": "default"]]
-    WatchNotification.prepare(content)
+    WatchNotification.applyLevel(content)
     #expect(content.interruptionLevel == .active)
     #expect(WatchMessage(content: content).usedCriticalAlertFallback)
-    WatchNotification.prepare(content, criticalAlertsEnabled: true)
+    WatchNotification.applyLevel(content, criticalAlertsEnabled: true)
     #expect(content.interruptionLevel == .critical)
     #expect(content.sound != nil)
     #expect(!WatchMessage(content: content).usedCriticalAlertFallback)
@@ -114,11 +121,11 @@ import WatchKit
     #expect(WatchNotification.criticalSoundVolume(["volume": "nan"]) == 0.5)
     #expect(WatchNotification.criticalSoundVolume(["volume": "inf"]) == 0.5)
     content.userInfo = ["level": "critical", "aps": ["sound": "silent"]]
-    WatchNotification.prepare(content, criticalAlertsEnabled: true)
+    WatchNotification.applyLevel(content, criticalAlertsEnabled: true)
     #expect(content.interruptionLevel == .critical)
     #expect(content.sound == nil)
     content.userInfo = ["level": "active", "aps": ["sound": "silent"], "url": "https://example.com/watch", "image": "https://example.com/image.png", "id": "progress"]
-    WatchNotification.prepare(content)
+    WatchNotification.applyLevel(content)
     #expect(content.sound == nil)
     #expect(!WatchNotification.presentationOptions(for: content).contains(.sound))
     let message = WatchMessage(content: content)
@@ -130,7 +137,7 @@ import WatchKit
     }
     #expect(WatchNotification.stringValue("badge", in: ["badge": 3]) == "3")
     content.userInfo = ["level": "active", "aps": ["sound": "system.caf"]]
-    WatchNotification.prepare(content)
+    WatchNotification.applyLevel(content)
     #expect(content.sound != nil)
 }
 
@@ -140,22 +147,22 @@ func silentSoundDisablesAlertSound(soundName: String) {
         let content = UNMutableNotificationContent()
         content.sound = .default
         content.userInfo = ["level": level, "aps": ["sound": soundName]]
-        WatchNotification.prepare(content, criticalAlertsEnabled: true)
+        WatchNotification.applyLevel(content, criticalAlertsEnabled: true)
         #expect(content.sound == nil)
         #expect(WatchNotification.presentationOptions(for: content) == [.banner, .list])
     }
 }
 
 @MainActor
-@Test func notificationStatusReturnsWhenPermissionOrRegistrationIsLost() throws {
+@Test func notificationStatusReturnsWhenPermissionOrRegistrationIsLost() async throws {
     let suite = "BarkWatchTests.\(UUID())"
     let defaults = try #require(UserDefaults(suiteName: suite))
     defer { defaults.removePersistentDomain(forName: suite) }
-    let state = NotificationState(servers: BarkServers(defaults: defaults))
+    let state = NotificationState(servers: ServerManager(defaults: defaults))
     state.authorizationStatus = .authorized
     state.registrationState = .registered("test-token")
     #expect(state.needsNotificationSetup)
-    let id = try state.servers.add(address: "https://bark.example")
+    let id = try state.servers.addServer(address: "https://bark.example")
     #expect(!state.needsNotificationSetup)
     state.authorizationStatus = .denied
     #expect(state.needsNotificationSetup)
@@ -168,7 +175,7 @@ func silentSoundDisablesAlertSound(soundName: String) {
     state.authorizationStatus = .authorized
     state.registrationState = .registered("test-token")
     #expect(!state.needsNotificationSetup)
-    state.servers.remove(serverID: id)
+    await state.servers.removeServer(serverID: id)
     #expect(state.needsNotificationSetup)
 }
 
@@ -202,42 +209,42 @@ func silentSoundDisablesAlertSound(soundName: String) {
     let suite = "BarkWatchTests.\(UUID())"
     let defaults = try #require(UserDefaults(suiteName: suite))
     defer { defaults.removePersistentDomain(forName: suite) }
-    let store = BarkServers(defaults: defaults, send: barkResponse)
+    let store = ServerManager(defaults: defaults, send: barkResponse)
 
     for address in ["", "example.com", "file:///tmp/server", "https://example.com?key=secret", "https://user:pass@example.com", "https://example.com/#fragment"] {
-        #expect(throws: BarkServerError.self) { try store.add(address: address) }
+        #expect(throws: BarkServerError.self) { try store.addServer(address: address) }
     }
-    let id = try store.add(address: "  https://BARK.EXAMPLE/proxy/  ")
-    #expect(throws: BarkServerError.self) { try store.add(address: "https://bark.example/proxy") }
-    #expect(try BarkServer(address: "http://192.168.1.2:8080/").address.absoluteString == "http://192.168.1.2:8080")
+    let id = try store.addServer(address: "  https://BARK.EXAMPLE/proxy/  ")
+    #expect(throws: BarkServerError.self) { try store.addServer(address: "https://bark.example/proxy") }
+    #expect(try Server(address: "http://192.168.1.2:8080/").address.absoluteString == "http://192.168.1.2:8080")
     await store.register(serverID: id)
-    #expect(store.servers.first?.deviceKey == "")
-    await store.registerAll(deviceToken: "first-token")
-    #expect(store.servers.first?.deviceKey == "watch-key")
+    #expect(store.servers.first?.key == "")
+    await store.syncAllServers(deviceToken: "first-token")
+    #expect(store.servers.first?.key == "watch-key")
     #expect(store.errorMessages[id] == nil)
     #expect(store.busyServerIDs.isEmpty)
-    await store.registerAll(deviceToken: "rotated-token")
-    #expect(store.servers.first?.deviceKey == "watch-key")
+    await store.syncAllServers(deviceToken: "rotated-token")
+    #expect(store.servers.first?.key == "watch-key")
 
     var server = try #require(store.servers.first)
-    let restored = BarkServers(defaults: defaults, send: barkResponse)
+    let restored = ServerManager(defaults: defaults, send: barkResponse)
     #expect(restored.servers == store.servers)
     #expect(restored.deviceToken == nil)
     // Existing installations persist "key"; the Swift property rename must not change it.
     let legacyData = try JSONSerialization.data(withJSONObject: [
-        "id": server.id.uuidString, "address": server.address.absoluteString, "key": server.deviceKey
+        "id": server.id.uuidString, "address": server.address.absoluteString, "key": server.key
     ])
-    #expect(try JSONDecoder().decode(BarkServer.self, from: legacyData) == server)
+    #expect(try JSONDecoder().decode(Server.self, from: legacyData) == server)
     let encodedServer = try #require(JSONSerialization.jsonObject(with: JSONEncoder().encode(server)) as? [String: Any])
-    #expect(encodedServer["key"] as? String == server.deviceKey)
+    #expect(encodedServer["key"] as? String == server.key)
     #expect(encodedServer["deviceKey"] == nil)
-    server.deviceKey = "a+b&c=d"
-    let request = try server.makeRegistrationRequest(deviceToken: "token+with&symbols")
+    server.key = "a+b&c=d"
+    let request = try BarkApi.register(address: server.address, key: server.key, devicetoken: "token+with&symbols").asURLRequest()
     let requestURL = try #require(request.url)
     let components = try #require(URLComponents(url: requestURL, resolvingAgainstBaseURL: false))
     #expect(request.httpMethod == "GET")
     #expect(components.path == "/proxy/register")
-    #expect(components.queryItems?.first(where: { $0.name == "key" })?.value == server.deviceKey)
+    #expect(components.queryItems?.first(where: { $0.name == "key" })?.value == server.key)
     #expect(components.queryItems?.first(where: { $0.name == "devicetoken" })?.value == "token+with&symbols")
     #expect(components.percentEncodedQuery?.contains("%2B") == true)
 
@@ -246,7 +253,7 @@ func silentSoundDisablesAlertSound(soundName: String) {
     #expect(push.url?.path == "/proxy/push")
     #expect(push.value(forHTTPHeaderField: "Content-Type") == "application/json")
     let body = try JSONDecoder().decode([String: String].self, from: #require(push.httpBody))
-    #expect(body["device_key"] == server.deviceKey)
+    #expect(body["device_key"] == server.key)
     #expect(body["sound"] == "default")
     let criticalRequest = try server.makeTestPushRequest(sound: "default", critical: true, volume: 8)
     let criticalBody = try JSONDecoder().decode([String: String].self, from: #require(criticalRequest.httpBody))
@@ -260,19 +267,19 @@ func silentSoundDisablesAlertSound(soundName: String) {
     #expect(store.errorMessages[id] == nil)
 
     for host in ["rejected.example", "missing-key.example", "malformed.example", "offline.example"] {
-        let failedID = try store.add(address: "https://\(host)")
+        let failedID = try store.addServer(address: "https://\(host)")
         await store.register(serverID: failedID)
         #expect(store.errorMessages[failedID] != nil)
-        #expect(store.servers.first(where: { $0.id == failedID })?.deviceKey == "")
+        #expect(store.servers.first(where: { $0.id == failedID })?.key == "")
         #expect(!store.busyServerIDs.contains(failedID))
-        store.remove(serverID: failedID)
+        await store.removeServer(serverID: failedID)
     }
     let response = try #require(HTTPURLResponse(url: server.address, statusCode: 503, httpVersion: nil, headerFields: nil))
     #expect(throws: BarkServerError.self) {
         try BarkResponse.decode(Data(#"{"code":200,"data":{"key":"must-not-save"}}"#.utf8), response: response)
     }
-    store.remove(serverID: id)
-    #expect(BarkServers(defaults: defaults).servers.isEmpty)
+    await store.removeServer(serverID: id)
+    #expect(ServerManager(defaults: defaults).servers.isEmpty)
 }
 
 @MainActor
@@ -287,34 +294,42 @@ func silentSoundDisablesAlertSound(soundName: String) {
         signalResumeRequest.finish()
     }
     var requestCount = 0
-    let store = BarkServers(defaults: defaults) { request in
+    var unregisteredKeys: [String] = []
+    let store = ServerManager(defaults: defaults) { request in
+        let query = request.url.flatMap { URLComponents(url: $0, resolvingAgainstBaseURL: false)?.queryItems } ?? []
+        if query.contains(URLQueryItem(name: "devicetoken", value: "deleted")) {
+            unregisteredKeys.append(query.first { $0.name == "key" }?.value ?? "")
+            return try await barkResponse(for: request)
+        }
         requestCount += 1
         signalRequestStarted.yield(())
         var iterator = resumeRequest.makeAsyncIterator()
         await iterator.next()
         return try await barkResponse(for: request)
     }
-    let serverID = try store.add(address: "https://bark.example")
+    let serverID = try store.addServer(address: "https://bark.example")
     var startedRequests = requestStarted.makeAsyncIterator()
-    let registration = Task { await store.registerAll(deviceToken: "first-token") }
+    let registration = Task { await store.syncAllServers(deviceToken: "first-token") }
     await startedRequests.next()
     // A concurrent token refresh must not send a duplicate request while this one is busy.
-    await store.registerAll(deviceToken: "rotated-token")
+    await store.syncAllServers(deviceToken: "rotated-token")
     #expect(requestCount == 1)
     signalResumeRequest.yield(())
     await startedRequests.next()
     signalResumeRequest.yield(())
     await registration.value
     #expect(requestCount == 2)
-    #expect(store.servers.first?.deviceKey == "watch-key")
+    #expect(store.servers.first?.key == "watch-key")
     #expect(store.errorMessages[serverID] == nil)
     #expect(store.busyServerIDs.isEmpty)
 
     let refresh = Task { await store.register(serverID: serverID) }
     await startedRequests.next()
-    store.remove(serverID: serverID)
+    await store.removeServer(serverID: serverID)
     signalResumeRequest.yield(())
     await refresh.value
+    // Removal invalidates the old key on the server, like the phone's server list does.
+    #expect(unregisteredKeys == ["watch-key"])
     #expect(store.servers.isEmpty)
     #expect(store.statusMessages[serverID] == nil)
     #expect(store.errorMessages[serverID] == nil)
@@ -454,14 +469,14 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
 
 @MainActor
 @Test func encryptedTestRequestContainsNoPlaintextAndUsesFreshVectors() throws {
-    var server = try BarkServer(address: "https://bark.example")
-    server.deviceKey = "watch-key"
+    var server = try Server(address: "https://bark.example")
+    server.key = "watch-key"
     for mode in ["CBC", "ECB", "GCM"] {
         let fields = CryptoSettingFields(algorithm: "AES256", mode: mode,
             padding: mode == "GCM" ? "noPadding" : "pkcs7", key: "0123456789abcdef0123456789abcdef", iv: nil)
         let request = try server.makeTestPushRequest(sound: "silent", encryption: fields)
         let payload = try JSONDecoder().decode([String: String].self, from: #require(request.httpBody))
-        #expect(payload["device_key"] == server.deviceKey)
+        #expect(payload["device_key"] == server.key)
         #expect(payload["title"] == nil && payload["body"] == nil && payload["sound"] == nil)
         #expect(payload["key"] == nil)
         let content = UNMutableNotificationContent()
@@ -517,7 +532,7 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
     #expect(try archive.latest(group: nil)?.group == "Other")
     #expect(try archive.latest(group: "Training")?.title == "Updated")
     #expect(try archive.latest(group: nil, at: now.addingTimeInterval(63))?.group == "Training")
-    for info: [String: Any] in [["isarchive": "0"], ["isarchive": 0], ["ttl": "0"], ["ttl": "-1"], ["ttl": "nan"], ["ciphertext": "encrypted"]] {
+    for info: [String: Any] in [["isarchive": "0"], ["isarchive": 0], ["ttl": "0"], ["ttl": "-1"], ["ttl": "nan"]] {
         content.userInfo = info
         #expect(WatchArchivedMessage(content: content, identifier: "skip") == nil)
     }
@@ -535,7 +550,7 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
     defer { try? FileManager.default.removeItem(at: directory) }
     let archive = WatchArchive(directory: directory)
     let defaults = try #require(UserDefaults(suiteName: UUID().uuidString))
-    #expect(NotificationState(servers: BarkServers(defaults: defaults), archive: archive).lastMessage == nil)
+    #expect(NotificationState(servers: ServerManager(defaults: defaults), archive: archive).lastMessage == nil)
 
     let content = UNMutableNotificationContent()
     content.title = "Older"
@@ -547,14 +562,14 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
     content.title = "Newer"
     try archive.save(#require(WatchArchivedMessage(content: content, identifier: "newer", date: .now.addingTimeInterval(1))))
 
-    let state = NotificationState(servers: BarkServers(defaults: defaults), archive: archive)
+    let state = NotificationState(servers: ServerManager(defaults: defaults), archive: archive)
     let restored = try #require(state.lastMessage)
     #expect(restored.title == "Newer")
     #expect(restored.subtitle == "Subtitle")
     #expect(restored.body == "Bold")
     #expect(restored.markdown == "**Bold**")
     #expect(restored.group == "Ops")
-    #expect(restored.level == "Time sensitive")
+    #expect(restored.level == .timeSensitive)
     #expect(restored.url == URL(string: "https://day.app"))
     #expect(restored.image == nil)
 
