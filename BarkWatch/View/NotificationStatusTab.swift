@@ -1,5 +1,5 @@
 //
-//  NotificationStatusLabel.swift
+//  NotificationStatusTab.swift
 //  Bark
 //
 //  Created by Jian Qin on 9/30/26.
@@ -7,8 +7,8 @@
 
 
 import SwiftUI
-
-struct NotificationStatusLabel: View {
+    
+struct NotificationStatusTab: View {
     let state: NotificationState
     var onAddServer: (UUID) -> Void = { _ in }
     @State private var isSyncing = false
@@ -112,7 +112,7 @@ struct NotificationStatusLabel: View {
     state.registrationState = .registering
     return ContentView(state: state)
 }
-//
+
 #Preview("Enabled") {
     let state = NotificationState()
     state.authorizationStatus = .authorized

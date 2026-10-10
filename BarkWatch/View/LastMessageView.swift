@@ -1,4 +1,12 @@
+//
+//  LastMessageView.swift
+//  Bark
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import AuthenticationServices
+import os
 import SwiftUI
 import UserNotifications
 import WatchKit
@@ -12,9 +20,9 @@ struct LastMessageView: View {
     /// Tint follows the interruption level, like the status card follows its state.
     private var tint: Color {
         switch message.level {
-        case "Critical": .red
-        case "Time sensitive": .orange
-        default: .secondary
+        case .critical: .red
+        case .timeSensitive: .orange
+        case .active, .passive: .secondary
         }
     }
 
@@ -54,7 +62,7 @@ struct LastMessageView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 2) {
-            Text("Lastest Notification")
+            Text("Latest Notification")
                 .font(.caption.weight(.semibold))
                 .foregroundStyle(.tertiary)
                 .minimumScaleFactor(0.8)
@@ -91,7 +99,7 @@ struct LastMessageView: View {
             if !message.group.isEmpty {
                 Label(message.group, systemImage: "folder")
             }
-            Label(message.level, systemImage: "bell")
+            Label(message.level.rawValue, systemImage: "bell")
         }
         .font(.footnote)
         .foregroundStyle(.secondary)
@@ -104,9 +112,7 @@ extension WebAuthenticationSession {
     /// The callback scheme never fires; the person closes the page with Cancel,
     /// which ends the session with an error that is ignored.
     func browse(_ url: URL) async {
-        #if DEBUG
-        print("Bark watch link: opening browser session for \(url)")
-        #endif
+        Logger.links.debug("Opening browser session for \(url)")
         do {
             // Ephemeral: don't share cookies with other sessions.
             _ = try await authenticate(
@@ -116,9 +122,7 @@ extension WebAuthenticationSession {
             )
         } catch {
             // Cancel is the normal way to close the page; anything else is worth seeing.
-            #if DEBUG
-            print("Bark watch link: browser session ended: \(error)")
-            #endif
+            Logger.links.debug("Browser session ended: \(error)")
         }
     }
 }
@@ -156,7 +160,6 @@ private struct LinkButtonStyle: ButtonStyle {
     content.body = "CPU usage exceeded 90% on web-01."
     content.threadIdentifier = "Monitoring"
     content.interruptionLevel = .critical
-//    content.userInfo = ["url": "https://day.app"]
 
     return TabView {
         LastMessageView(message: WatchMessage(content: content))
