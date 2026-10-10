@@ -156,13 +156,17 @@ extension AppDelegate {
                 }
 
                 if didChangeMessages {
-                    WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+                    Task {
+                        await WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
+                    }
                     self.notifyMessagesDidChange()
                 }
 
                 if !expiredMessageIds.isEmpty {
                     UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: expiredMessageIds)
-                    MessageImageCleaner.shared.removeUnreferencedImages(expiredImageUrls)
+                    Task {
+                        await MessageDeletionCoordinator.removeImageCaches(expiredImageUrls)
+                    }
                 }
 
                 for plistUrl in plistFiles {

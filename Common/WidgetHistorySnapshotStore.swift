@@ -33,19 +33,25 @@ final class WidgetHistorySnapshotStore {
     }
     private init() {}
 
-    func refreshFromRealmAsync(limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
-        accessQueue.async {
-            guard let realm = try? Realm() else {
-                return
+    func refreshFromRealmAsync(limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            accessQueue.async {
+                defer { continuation.resume() }
+                guard let realm = try? Realm() else {
+                    return
+                }
+                let messages = realm.widgetSnapshotItems(limit: limit)
+                self.syncFromMessagesLocked(messages, limit: limit)
             }
-            let messages = realm.widgetSnapshotItems(limit: limit)
-            self.syncFromMessagesLocked(messages, limit: limit)
         }
     }
 
-    func prependMessage(_ message: WidgetHistoryMessage, limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) {
-        accessQueue.sync {
-            prependMessageLocked(message, limit: limit)
+    func prependMessage(_ message: WidgetHistoryMessage, limit: Int = WidgetHistoryConstants.snapshotRetentionLimit) async {
+        await withCheckedContinuation { (continuation: CheckedContinuation<Void, Never>) in
+            accessQueue.async {
+                defer { continuation.resume() }
+                self.prependMessageLocked(message, limit: limit)
+            }
         }
     }
 

@@ -107,7 +107,7 @@ class ArchiveProcessor: NotificationContentProcessor {
                 image: image,
                 createDate: createDate
             )
-            WidgetHistorySnapshotStore.shared.prependMessage(snapshotItem)
+            await WidgetHistorySnapshotStore.shared.prependMessage(snapshotItem)
         }
         return bestAttemptContent
     }

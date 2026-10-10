@@ -128,24 +128,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [id])
 
         // 删除历史记录
-        if let realm = try? Realm(),
-           let message = realm.objects(Message.self).filter("id == %@", id).first
-        {
-            // 删除前收集图片地址
-            let imageUrl = message.image
-            try? realm.write {
-                realm.delete(message)
-            }
-            WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
-            notifyMessagesDidChange()
-            // 图片缓存删完再结束后台任务
-            MessageImageCleaner.shared.removeUnreferencedImages([imageUrl]) {
+        Task {
+            do {
+                try await MessageDeletionCoordinator.delete(ids: [id])
+                notifyMessagesDidChange()
                 completionHandler(.newData)
+            } catch {
+                completionHandler(.failed)
             }
-            return
         }
-
-        completionHandler(.newData)
     }
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
         return .alert

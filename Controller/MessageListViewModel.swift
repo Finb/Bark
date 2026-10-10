@@ -329,14 +329,12 @@ class MessageListViewModel: ViewModel, ViewModelType {
             switch item {
             case .message(let model):
                 // 删除数据库对应消息
-                if let realm = try? Realm(),
-                   let message = realm.objects(Message.self).filter("id == %@", model.id).first
-                {
-                    try? realm.write {
-                        realm.delete(message)
+                Task {
+                    do {
+                        try await MessageDeletionCoordinator.delete(ids: [model.id])
+                    } catch {
+                        self.errorAlert.accept(error.localizedDescription)
                     }
-                    WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
-                    MessageImageCleaner.shared.removeUnreferencedImages([model.image])
                 }
                 // 删除 cell item
                 section.messages.removeAll { cellItem in
@@ -347,7 +345,7 @@ class MessageListViewModel: ViewModel, ViewModelType {
                 }
             case .messageGroup(let groupName, _, let messages):
                 // 删除数据库中对应分组
-                if let realm = try? Realm(), let first = messages.first {
+                if let first = messages.first {
                     let messageResult: Results<Message>?
                     if let group = first.group {
                         messageResult = self.results?.filter("group == %@", group)
@@ -355,13 +353,14 @@ class MessageListViewModel: ViewModel, ViewModelType {
                         messageResult = self.results?.filter("group == nil")
                     }
                     if let messageResult {
-                        // 删除前收集图片地址
-                        let imageUrls = MessageImageCleaner.shared.imageUrls(in: messageResult)
-                        try? realm.write {
-                            realm.delete(messageResult)
+                        let messageIds = Array(messageResult.map(\.id))
+                        Task {
+                            do {
+                                try await MessageDeletionCoordinator.delete(ids: messageIds)
+                            } catch {
+                                self.errorAlert.accept(error.localizedDescription)
+                            }
                         }
-                        WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
-                        MessageImageCleaner.shared.removeUnreferencedImages(imageUrls)
                     }
                 }
                 // 删除 cell item
@@ -385,16 +384,14 @@ class MessageListViewModel: ViewModel, ViewModelType {
             guard var section = messagesRelay.value.first else {
                 return
             }
-            
+
             // 删除数据库里的 message
-            if let realm = try? Realm(),
-               let message = realm.objects(Message.self).filter("id == %@", model.id).first
-            {
-                try? realm.write {
-                    realm.delete(message)
+            Task {
+                do {
+                    try await MessageDeletionCoordinator.delete(ids: [model.id])
+                } catch {
+                    self.errorAlert.accept(error.localizedDescription)
                 }
-                WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
-                MessageImageCleaner.shared.removeUnreferencedImages([model.image])
             }
             
             if let index = section.messages.firstIndex(where: { item in
@@ -425,18 +422,17 @@ class MessageListViewModel: ViewModel, ViewModelType {
         input.delete.drive(onNext: { [weak self] range in
             guard let self else { return }
             
-            if let realm = try? Realm() {
-                guard let messages = self.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@ and createDate <= %@ ", range.startDate, range.endDate) else {
-                    return
+            guard let messages = self.getResults(filterGroups: filterGroups.value, searchText: nil)?.filter("createDate >= %@ and createDate <= %@ ", range.startDate, range.endDate) else {
+                return
+            }
+            let messageIds = Array(messages.map(\.id))
+
+            Task {
+                do {
+                    try await MessageDeletionCoordinator.delete(ids: messageIds)
+                } catch {
+                    self.errorAlert.accept(error.localizedDescription)
                 }
-                
-                // 删除前收集图片地址
-                let imageUrls = MessageImageCleaner.shared.imageUrls(in: messages)
-                try? realm.write {
-                    realm.delete(messages)
-                }
-                WidgetHistorySnapshotStore.shared.refreshFromRealmAsync()
-                MessageImageCleaner.shared.removeUnreferencedImages(imageUrls)
             }
             
             self.page = 0

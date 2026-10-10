@@ -14,12 +14,8 @@ import RealmSwift
  消息记录里的 image 字段只保存图片地址，图片本体由 NotificationServiceExtension 下载后，
  存放在 App Groups 共享的 Kingfisher 图片缓存中（详见 ImageDownloader）。
  存入时用的是 StorageExpiration.never，不会自动过期，所以消息删除后必须主动清理，否则图片文件会一直残留。
-
- 通知中心里推送显示的图不受影响，那是 NSE 复制出来的附件副本。
- 但下拉查看大图读的是同一份缓存，缓存删掉后会重新联网下载，离线时那条推送的大图就显示不出来了，
- 这是删图片必然要付出的代价。
  */
-class MessageImageCleaner {
+class MessageImageCleaner: @unchecked Sendable {
     static let shared = MessageImageCleaner()
 
     private let cleanQueue = DispatchQueue(label: "me.fin.bark.message-image-clean", qos: .utility)
@@ -36,48 +32,47 @@ class MessageImageCleaner {
 
     /// 收集这些消息引用的图片地址，需要在消息删除`之前`调用
     func imageUrls(in messages: Results<Message>) -> [String] {
-        return Array(Set(messages.filter("image != nil").compactMap { $0.image }))
+        Array(Set(messages.compactMap { $0.image }))
     }
 
     /// 删除不再被任何消息引用的图片缓存，需要在消息删除`之后`调用
-    /// - Parameter completion: 清理流程结束后回调，不代表全部删除成功。
-    ///   无候选图片时立即调用，其余情况在后台队列调用。
-    func removeUnreferencedImages(_ imageUrls: [String?], completion: (() -> Void)? = nil) {
-        let candidates = Set(imageUrls.compactMap { $0 })
+    func removeUnreferencedImages(_ imageUrls: [String]) async {
+        let candidates = Set(imageUrls)
         guard !candidates.isEmpty else {
-            completion?()
             return
         }
 
-        cleanQueue.async {
-            guard let cache = self.imageCache, let realm = try? Realm() else {
-                completion?()
-                return
-            }
-            // GCD 线程上的 Realm 不自动刷新，refresh 以避免读到旧快照
-            realm.refresh()
+        await withCheckedContinuation { continuation in
+            cleanQueue.async {
+                guard let cache = self.imageCache, let realm = try? Realm() else {
+                    continuation.resume()
+                    return
+                }
+                // GCD 线程上的 Realm 不自动刷新，refresh 以避免读到旧快照
+                realm.refresh()
 
-            // 按索引查询是否还被其它消息引用
-            let messages = realm.objects(Message.self)
-            let group = DispatchGroup()
-            for imageUrl in candidates {
-                guard let url = URL(string: imageUrl) else {
-                    continue
+                // 按索引查询是否还被其它消息引用
+                let messages = realm.objects(Message.self)
+                let group = DispatchGroup()
+                for imageUrl in candidates {
+                    guard let url = URL(string: imageUrl) else {
+                        continue
+                    }
+                    // 原始地址和百分号编码地址对应同一个缓存文件，二者皆查
+                    let aliases = Set([imageUrl, url.absoluteString, imageUrl.removingPercentEncoding].compactMap { $0 })
+                    guard messages.filter("image IN %@", aliases).isEmpty else {
+                        continue
+                    }
+                    // 缓存 key 与 ImageDownloader 存入时保持一致
+                    group.enter()
+                    cache.removeImage(forKey: url.cacheKey, fromMemory: true, fromDisk: true) {
+                        group.leave()
+                    }
                 }
-                // 原始地址和百分号编码地址对应同一个缓存文件，二者皆查
-                let aliases = Set([imageUrl, url.absoluteString, imageUrl.removingPercentEncoding].compactMap { $0 })
-                guard messages.filter("image IN %@", aliases).isEmpty else {
-                    continue
+                // 等所有异步删除操作结束后恢复调用任务
+                group.notify(queue: self.cleanQueue) {
+                    continuation.resume()
                 }
-                // 缓存 key 与 ImageDownloader 存入时保持一致
-                group.enter()
-                cache.removeImage(forKey: url.cacheKey, fromMemory: true, fromDisk: true) {
-                    group.leave()
-                }
-            }
-            // 等所有异步删除操作结束后再回调，不阻塞清理队列
-            group.notify(queue: self.cleanQueue) {
-                completion?()
             }
         }
     }
