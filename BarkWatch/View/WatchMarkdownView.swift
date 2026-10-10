@@ -10,9 +10,14 @@ import SwiftUI
 import UIKit
 
 // Render the phone parser's attributed text, retaining paragraph indentation that
-// SwiftUI Text does not carry over from NSParagraphStyle.
+// SwiftUI Text does not carry over from NSParagraphStyle. Used by both the app and
+// the notification interface.
 struct WatchMarkdownView: View {
     let source: String
+    /// Handles tapped web links. When nil, links go to the environment's `openURL`,
+    /// which the app routes to a browser session. The notification interface can't
+    /// open a browser, so it passes its own handler.
+    var openLink: ((URL) -> Void)?
     @ScaledMetric(relativeTo: .body) private var fontSize = 14
     @Environment(\.openURL) private var openURL
 
@@ -39,11 +44,10 @@ struct WatchMarkdownView: View {
             }
         }
         .tint(.cyan)
-        // Only web links are allowed; they go to the enclosing handler so the app
-        // can open them in a browser session instead of the unsupported system action.
-        .environment(\.openURL, OpenURLAction { [openURL] url in
+        // Only web links are allowed; anything else is discarded.
+        .environment(\.openURL, OpenURLAction { [openURL, openLink] url in
             guard WatchNotification.validatedWebURL(url.absoluteString) != nil else { return .discarded }
-            openURL(url)
+            if let openLink { openLink(url) } else { openURL(url) }
             return .handled
         })
     }

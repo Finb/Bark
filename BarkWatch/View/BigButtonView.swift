@@ -87,25 +87,3 @@ private struct BigButtonStyle: ButtonStyle {
         }
     }
 }
-
-//#Preview("With message") {
-//    BigButtonView(
-//        caption: "Notifications",
-//        title: "Disabled",
-//        tint: .red,
-//        message: Text("Delete the App,\nor redownload it.")
-//    ) {
-//        EmptyView()
-//    }
-//}
-//
-//#Preview("WatchMessage and button") {
-//    BigButtonView(
-//        caption: "Servers",
-//        title: "2 saved",
-//        message: Text("Servers could not be saved.").font(.footnote).foregroundStyle(.red)
-//    ) {
-//        Button("Add") {}
-//    }
-//}
-

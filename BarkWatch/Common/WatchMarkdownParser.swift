@@ -1,3 +1,10 @@
+//
+//  WatchMarkdownParser.swift
+//  Bark
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import Markdown
 import UIKit
 
@@ -7,6 +14,8 @@ extension NSAttributedString.Key {
 }
 
 // Retain the phone parser; adapt attachments and paragraph metadata for SwiftUI.
+// Assumes Common/MarkdownParser.swift renders each task-list checkbox as one text
+// attachment, in document order.
 enum WatchMarkdownParser {
     static func parse(_ source: String, configuration: MarkdownParser.Configuration = .default) -> NSAttributedString {
         let text = NSMutableAttributedString(attributedString: MarkdownParser(configuration: configuration).parse(source))
@@ -21,6 +30,8 @@ enum WatchMarkdownParser {
             text.replaceCharacters(in: range, with: NSAttributedString(string: checked ? "☑" : "☐", attributes: attributes))
         }
         // The phone distinguishes block code from inline code through its text color.
+        // This depends on Common/MarkdownParser.swift styling code blocks with a monospaced
+        // font, `codeBlockTextColor`, and a background color; update this if that styling changes.
         var codeRanges: [NSRange] = []
         text.enumerateAttributes(in: NSRange(location: 0, length: text.length)) { attributes, range, _ in
             if (attributes[.font] as? UIFont)?.fontDescriptor.symbolicTraits.contains(.traitMonoSpace) == true,

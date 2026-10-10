@@ -6,6 +6,7 @@
 //
 
 import AuthenticationServices
+import os
 import SwiftUI
 
 struct ContentView: View {
@@ -22,7 +23,7 @@ struct ContentView: View {
         NavigationStack {
             TabView(selection: $selection) {
                 if state.needsNotificationSetup {
-                    NotificationStatusLabel(state: state) { selection = .server($0) }
+                    NotificationStatusTab(state: state) { selection = .server($0) }
                         .tag(Tab.status)
                 }
 
@@ -68,35 +69,12 @@ struct ContentView: View {
     /// active: presenting the browser while the app is still launching from the
     /// notification leaves it stuck and unresponsive.
     private func openPendingLink() {
-        #if DEBUG
-        print("Bark watch link: pending \(state.pendingBrowserURL?.absoluteString ?? "none"), scene phase \(scenePhase)")
-        #endif
+        Logger.links.debug("Pending link: \(state.pendingBrowserURL?.absoluteString ?? "none"), scene phase: \(String(describing: scenePhase))")
         guard let url = state.pendingBrowserURL, scenePhase == .active else { return }
         state.pendingBrowserURL = nil
         selection = .lastMessage
         Task { @MainActor in
-            // Let the launch transition finish before presenting over it.
-//            try? await Task.sleep(for: .milliseconds(500))
             await webAuthenticationSession.browse(url)
         }
     }
 }
-
-//#Preview("Enabled") {
-//    let state = NotificationState()
-//    state.authorizationStatus = .authorized
-//    state.registrationState = .registered("preview")
-//    return ContentView(state: state)
-//}
-//
-//#Preview("Permission needed") {
-//    let state = NotificationState()
-//    state.authorizationStatus = .notDetermined
-//    return ContentView(state: state)
-//}
-//
-//#Preview("Large text") {
-//    let state = NotificationState()
-//    state.authorizationStatus = .denied
-//    return ContentView(state: state).environment(\.dynamicTypeSize, .accessibility3)
-//}

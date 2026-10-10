@@ -1,3 +1,10 @@
+//
+//  WatchNotification.swift
+//  Bark
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import Foundation
 import ImageIO
 import Intents
@@ -51,18 +58,36 @@ nonisolated enum WatchNotification {
         return min(1, max(0, volume / 10))
     }
 
+    /// Runs every content step in the same order as the notification pipeline.
     static func prepare(_ content: UNMutableNotificationContent, criticalAlertsEnabled: Bool = false) {
-        let userInfo = content.userInfo
-        if let markdown = stringValue("markdown", in: userInfo), !markdown.isEmpty {
-            content.body = markdownSummary(markdown)
-            content.categoryIdentifier = markdownCategoryIdentifier
-            var aps = userInfo["aps"] as? [String: Any] ?? [:]
-            var alert = aps["alert"] as? [String: Any] ?? [:]
-            alert["body"] = content.body
-            aps["alert"] = alert
-            content.userInfo["aps"] = aps
+        applyMarkdown(content)
+        applyGroup(content)
+        applyLevel(content, criticalAlertsEnabled: criticalAlertsEnabled)
+        clearBadge(content)
+    }
+
+    /// Matches the phone's `MarkdownProcessor`: shows a plain-text summary as the body.
+    static func applyMarkdown(_ content: UNMutableNotificationContent) {
+        guard let markdown = stringValue("markdown", in: content.userInfo), !markdown.isEmpty else { return }
+        content.body = markdownSummary(markdown)
+        content.categoryIdentifier = markdownCategoryIdentifier
+        var aps = content.userInfo["aps"] as? [String: Any] ?? [:]
+        var alert = aps["alert"] as? [String: Any] ?? [:]
+        alert["body"] = content.body
+        aps["alert"] = alert
+        content.userInfo["aps"] = aps
+    }
+
+    static func applyGroup(_ content: UNMutableNotificationContent) {
+        if let group = stringValue("group", in: content.userInfo) {
+            content.threadIdentifier = group
         }
-        if let group = stringValue("group", in: userInfo) { content.threadIdentifier = group }
+    }
+
+    /// Matches the phone's `LevelProcessor`. The sound is chosen here because it
+    /// depends on the final level, after an unauthorized critical alert is downgraded.
+    static func applyLevel(_ content: UNMutableNotificationContent, criticalAlertsEnabled: Bool = false) {
+        let userInfo = content.userInfo
         if let requestedLevel = stringValue("level", in: userInfo)?.lowercased() {
             content.interruptionLevel = switch requestedLevel {
             case "passive": .passive
@@ -87,6 +112,10 @@ nonisolated enum WatchNotification {
             // watchOS supports the system notification sound, not named custom sounds.
             content.sound = .default
         }
+    }
+
+    /// Matches the phone's `BadgeProcessor`; the watch never shows a badge.
+    static func clearBadge(_ content: UNMutableNotificationContent) {
         content.badge = nil
     }
 
