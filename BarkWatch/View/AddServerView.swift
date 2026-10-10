@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct AddServerView: View {
-    let servers: BarkServers
+    let servers: ServerManager
     var onAdd: (UUID) -> Void = { _ in }
     @Environment(\.dismiss) private var dismiss
     @State private var address = "https://"
@@ -39,7 +39,7 @@ struct AddServerView: View {
         error = nil
 
         do {
-            let id = try servers.add(address: address)
+            let id = try servers.addServer(address: address)
             isAdding = true
             Task {
                 await servers.register(serverID: id)
@@ -47,7 +47,7 @@ struct AddServerView: View {
 
                 if let registrationError = servers.errorMessages[id] {
                     error = registrationError
-                    servers.remove(serverID: id)
+                    await servers.removeServer(serverID: id)
                 } else {
                     onAdd(id)
                     dismiss()

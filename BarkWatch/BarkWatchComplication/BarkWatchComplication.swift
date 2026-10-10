@@ -1,3 +1,10 @@
+//
+//  BarkWatchComplication.swift
+//  BarkWatchComplication
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import WidgetKit
 import SwiftUI
 

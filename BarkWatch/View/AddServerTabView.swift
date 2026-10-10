@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-/// Trailing tab for adding a server, laid out like `NotificationStatusLabel`.
+/// Trailing tab for adding a server, laid out like `NotificationStatusTab`.
 struct AddServerTabView: View {
-    let servers: BarkServers
+    let servers: ServerManager
     let onAdd: (UUID) -> Void
 
     var body: some View {

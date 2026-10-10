@@ -1,3 +1,10 @@
+//
+//  AppIntent.swift
+//  BarkWatchComplication
+//
+//  Created by Jian Qin on 9/28/26.
+//
+
 import AppIntents
 
 struct ArchiveGroup: AppEntity {

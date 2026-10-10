@@ -1,3 +1,10 @@
+//
+//  WatchArchive.swift
+//  Bark
+//
+//  Created by Jian Qin on 9/30/26.
+//
+
 import Foundation
 import WidgetKit
 import Darwin
@@ -15,21 +22,21 @@ nonisolated struct WatchArchivedMessage: Codable, Equatable, Sendable {
     // before these fields existed still decode.
     let subtitle: String?
     let markdown: String?
-    let level: String?
+    let level: WatchNotificationLevel?
     let url: String?
     let image: String?
     let usedCriticalAlertFallback: Bool?
 
     /// Expects content already prepared by `WatchNotification.prepare`, so the
-    /// body, group, and interruption level match what was delivered.
+    /// body, group, and interruption level match what was delivered. Encrypted
+    /// pushes arrive here already decrypted and are archived like the phone does.
     init?(content: UNNotificationContent, identifier: String, date: Date = .now) {
         let info = content.userInfo
         func text(_ key: String) -> String? {
             (info[key] as? String) ?? (info[key] as? NSNumber)?.stringValue
         }
         guard text("isarchive").map({ $0 == "1" }) ?? true,
-              text("delete") != "1",
-              info["ciphertext"] == nil else { return nil }
+              text("delete") != "1" else { return nil }
         let ttl = text("ttl").flatMap(TimeInterval.init)
         if let ttl, !ttl.isFinite || ttl <= 0 { return nil }
         let customID = text("id") ?? ""
@@ -41,7 +48,7 @@ nonisolated struct WatchArchivedMessage: Codable, Equatable, Sendable {
         expires = ttl.map { date.addingTimeInterval($0) }
         subtitle = content.subtitle
         markdown = text("markdown")
-        level = content.interruptionLevel.displayName
+        level = WatchNotificationLevel(content.interruptionLevel)
         url = text("url")
         image = text("image")
         usedCriticalAlertFallback = info[Self.criticalAlertFallbackKey] as? Bool
@@ -52,13 +59,20 @@ nonisolated struct WatchArchivedMessage: Codable, Equatable, Sendable {
     static let criticalAlertFallbackKey = "bark_watch_critical_fallback"
 }
 
-nonisolated extension UNNotificationInterruptionLevel {
-    var displayName: String {
-        switch self {
-        case .passive: "Passive"
-        case .timeSensitive: "Time sensitive"
-        case .critical: "Critical"
-        default: "Active"
+/// The interruption level a message was delivered with, as shown in the app and
+/// complication. The raw values are stored in the archive, so don't change them.
+nonisolated enum WatchNotificationLevel: String, Codable, Sendable {
+    case passive = "Passive"
+    case active = "Active"
+    case timeSensitive = "Time sensitive"
+    case critical = "Critical"
+
+    init(_ level: UNNotificationInterruptionLevel) {
+        switch level {
+        case .passive: self = .passive
+        case .timeSensitive: self = .timeSensitive
+        case .critical: self = .critical
+        default: self = .active
         }
     }
 }
@@ -76,7 +90,7 @@ nonisolated struct WatchArchive: Sendable {
         return components.url ?? URL(string: "bark-watch://message")!
     }
     static let shared = WatchArchive(directory: FileManager.default.containerURL(
-        forSecurityApplicationGroupIdentifier: "group.com.sebersta.BarkWatchPrototype"))
+        forSecurityApplicationGroupIdentifier: WatchConstants.appGroupIdentifier))
     let directory: URL?
 
     func messages(at date: Date = .now) throws -> [WatchArchivedMessage] {
@@ -117,7 +131,6 @@ nonisolated struct WatchArchive: Sendable {
         var items = try messages()
         guard update(&items) else { return false }
         items.sort { $0.date > $1.date }
-        // ponytail: retain 100 recent notifications, matching the phone widget snapshot.
         let data = try JSONEncoder().encode(Array(items.prefix(100)))
         try data.write(to: directory.appendingPathComponent("recent_messages.json"),
                        options: [.atomic, .completeFileProtectionUntilFirstUserAuthentication])

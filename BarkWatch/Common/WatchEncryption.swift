@@ -2,8 +2,10 @@
 //  WatchEncryption.swift — watch storage and notification presentation
 //  Bark
 //
-//  Created by huangfeng on 2023/2/23.
-//  Copyright © 2023 Fin. All rights reserved.
+//  Created by Jian Qin on 9/30/26.
+//
+//  Builds on the shared phone source Model/Algorithm.swift (Algorithm,
+//  CryptoSettingFields, AESCryptoModel) without modifying it.
 //
 
 import Foundation
@@ -97,6 +99,15 @@ nonisolated enum WatchEncryption {
         return result
     }
 
+    /// The initialization vector length a mode needs, in UTF-8 bytes. ECB uses none.
+    static func vectorLength(for mode: String) -> Int {
+        switch mode {
+        case "CBC": 16
+        case "GCM": 12
+        default: 0
+        }
+    }
+
     static func randomText(length: Int) throws -> String {
         if length == 0 { return "" }
         var bytes = [UInt8](repeating: 0, count: length)
@@ -109,7 +120,7 @@ nonisolated enum WatchEncryption {
 
     static func encrypt(_ payload: [String: String], fields: CryptoSettingFields) throws -> [String: String] {
         var fields = fields
-        fields.iv = try randomText(length: fields.mode == "GCM" ? 12 : fields.mode == "CBC" ? 16 : 0)
+        fields.iv = try randomText(length: vectorLength(for: fields.mode))
         let data = try JSONEncoder().encode(payload)
         let cipher = try AESCryptoModel(watchFields: fields).encrypt(text: String(decoding: data, as: UTF8.self))
         var result = ["ciphertext": cipher]
@@ -163,11 +174,15 @@ nonisolated enum WatchEncryption {
 }
 
 // Extend the phone model with byte-based validation without changing its source.
+// The phone's AESCryptoModel.validate compares `key.count` (characters); AES needs
+// UTF-8 bytes, which differ for non-ASCII keys.
+// Assigns every stored property of AESCryptoModel in Model/Algorithm.swift, so it must
+// be updated whenever that struct's stored properties change.
 extension AESCryptoModel {
     init(watchFields fields: CryptoSettingFields) throws {
         try WatchEncryption.validate(fields)
         let key = fields.key!
-        let vectorLength = fields.mode == "CBC" ? 16 : fields.mode == "GCM" ? 12 : 0
+        let vectorLength = WatchEncryption.vectorLength(for: fields.mode)
         if vectorLength > 0, fields.iv?.utf8.count != vectorLength {
             throw WatchCryptoError("The initialization vector must contain \(vectorLength) UTF-8 bytes.")
         }
