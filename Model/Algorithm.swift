@@ -113,6 +113,38 @@ struct AESCryptoModel {
     }
 
     func decrypt(ciphertext: String) throws -> String {
-        return try String(data: Data(aes.decrypt(Array(base64: ciphertext))), encoding: .utf8) ?? ""
+        guard !ciphertext.isEmpty else {
+            throw "Ciphertext is empty"
+        }
+        guard let data = Data(base64Encoded: ciphertext, options: .ignoreUnknownCharacters) else {
+            throw "Invalid Base64 ciphertext"
+        }
+        let decryptedBytes: [UInt8]
+        do {
+            decryptedBytes = try aes.decrypt(data.bytes)
+        } catch let gcmError as GCM.Error {
+            switch gcmError {
+            case .fail:
+                throw "GCM authentication failed (check key or IV)"
+            case .invalidInitializationVector:
+                throw "Invalid IV"
+            }
+        } catch let aesError as AES.Error {
+            switch aesError {
+            case .dataPaddingRequired:
+                throw "Ciphertext length invalid (data padding required)"
+            case .invalidKeySize:
+                throw "Invalid key size"
+            default:
+                throw "AES decryption failed: \(aesError)"
+            }
+        } catch {
+            throw "Decryption failed: \(error.rawString())"
+        }
+
+        guard let decryptedString = String(bytes: decryptedBytes, encoding: .utf8) else {
+            throw "Decrypted data is not valid UTF-8 string (check key or IV)"
+        }
+        return decryptedString
     }
 }

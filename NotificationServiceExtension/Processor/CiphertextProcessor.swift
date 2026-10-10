@@ -58,8 +58,13 @@ class CiphertextProcessor: NotificationContentProcessor {
             bestAttemptContent.userInfo = userInfo
             return bestAttemptContent
         } catch {
-            bestAttemptContent.body = "Decryption Failed"
-            bestAttemptContent.userInfo = ["aps": ["alert": ["body": bestAttemptContent.body]]]
+            bestAttemptContent.title = "Decryption Failed"
+            bestAttemptContent.body = error.rawString()
+            let alert: [String: Any] = [
+                "title": bestAttemptContent.title,
+                "body": bestAttemptContent.body
+            ]
+            bestAttemptContent.userInfo = ["aps": ["alert": alert]]
             throw NotificationContentProcessorError.error(content: bestAttemptContent)
         }
     }
@@ -82,8 +87,17 @@ class CiphertextProcessor: NotificationContentProcessor {
         
         let json = try aes.decrypt(ciphertext: ciphertext)
         
-        guard let data = json.data(using: .utf8), let map = JSON(data).dictionaryObject else {
+        guard let data = json.data(using: .utf8) else {
+            throw "Failed to convert decrypted text to UTF-8 data"
+        }
+        let jsonObject: JSON
+        do {
+            jsonObject = try JSON(data: data)
+        } catch {
             throw "JSON parsing failed"
+        }
+        guard let map = jsonObject.dictionaryObject else {
+            throw "JSON root must be an object/dictionary"
         }
         
         var result: [AnyHashable: Any] = [:]
