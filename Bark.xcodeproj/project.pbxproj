@@ -288,6 +288,7 @@
 		1E73F99E2C282822002BF649 /* SectionViewController-iPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E73F99D2C282822002BF649 /* SectionViewController-iPad.swift */; };
 		1EFB545D2C314A6800B8E51B /* BarkSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFB545C2C314A6800B8E51B /* BarkSplitViewController.swift */; };
 		1EFB545F2C32514000B8E51B /* SectionViewModel-iPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFB545E2C32514000B8E51B /* SectionViewModel-iPad.swift */; };
+		2FEAABEDC1A6FF1648620312 /* libPods-BarkWatchTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */; };
 		3428272069AFAFE2C683FEB0 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC722470308049D180876C7 /* libPods-Bark.a */; };
 		3DBD074B306B95A100A86B41 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBD074A306B95A100A86B41 /* WidgetKit.framework */; };
 		3DBD074D306B95A100A86B41 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBD074C306B95A100A86B41 /* SwiftUI.framework */; };
@@ -296,18 +297,18 @@
 		88757E3ACE0EA6A48577C958 /* libPods-NotificationContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */; };
 		A10000000000000000000006 /* WatchNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WatchNotificationService.swift */; };
 		A10000000000000000000007 /* BarkWatchNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* BarkWatchNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B20000000000000000000004 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B20000000000000000000021 /* CryptoSwift */; };
-		B20000000000000000000005 /* CryptoSwift in Frameworks */ = {isa = PBXBuildFile; productRef = B20000000000000000000022 /* CryptoSwift */; };
 		B20000000000000000000051 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = B20000000000000000000053 /* Markdown */; };
 		B20000000000000000000052 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = B20000000000000000000054 /* Markdown */; };
 		B963F7D5BA7AC2571E71EF66 /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */; };
 		C30000000000000000000002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30000000000000000000001 /* Assets.xcassets */; };
+		CFBE41F3462A6D4F0E1A4B12 /* libPods-BarkWatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 366FB0FC6350F5E40F91FC1D /* libPods-BarkWatch.a */; };
 		E10000000000000000000000 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
 		E10000000000000000000001 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C777CF2ECEFF210032A044 /* MarkdownParser.swift */; };
 		E10000000000000000000002 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
 		E10000000000000000000010 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
 		E10000000000000000000011 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C777CF2ECEFF210032A044 /* MarkdownParser.swift */; };
 		E10000000000000000000012 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
+		E68AEB0E47866777F8755476 /* libPods-BarkWatchNotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A370B19AC77E9A43813B2 /* libPods-BarkWatchNotificationService.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -448,6 +449,7 @@
 		000000000000000000000032 /* BarkWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarkWatch.entitlements; sourceTree = "<group>"; };
 		000000000000000000000033 /* TestNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestNotification.apns; sourceTree = "<group>"; };
 		000000000000000000000034 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		056A370B19AC77E9A43813B2 /* libPods-BarkWatchNotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatchNotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0603706620E1E31600F4CA05 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
 		0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSFSafariViewController.swift; sourceTree = "<group>"; };
@@ -626,9 +628,14 @@
 		06FB04032C53575400F3A213 /* SharedDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefines.swift; sourceTree = "<group>"; };
 		121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
 		138CE8CB688587E893BC5C44 /* Pods-Bark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.debug.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.debug.xcconfig"; sourceTree = "<group>"; };
+		178D8742EC982295ED31D74C /* Pods-BarkWatchNotificationService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatchNotificationService.debug.xcconfig"; path = "Target Support Files/Pods-BarkWatchNotificationService/Pods-BarkWatchNotificationService.debug.xcconfig"; sourceTree = "<group>"; };
 		1E73F99D2C282822002BF649 /* SectionViewController-iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SectionViewController-iPad.swift"; sourceTree = "<group>"; };
 		1EFB545C2C314A6800B8E51B /* BarkSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSplitViewController.swift; sourceTree = "<group>"; };
 		1EFB545E2C32514000B8E51B /* SectionViewModel-iPad.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SectionViewModel-iPad.swift"; sourceTree = "<group>"; };
+		2E2E32D47067F72822D1BE12 /* Pods-BarkWatchNotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatchNotificationService.release.xcconfig"; path = "Target Support Files/Pods-BarkWatchNotificationService/Pods-BarkWatchNotificationService.release.xcconfig"; sourceTree = "<group>"; };
+		2EB8EE587788EAA2C88A9C1A /* Pods-BarkWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatch.release.xcconfig"; path = "Target Support Files/Pods-BarkWatch/Pods-BarkWatch.release.xcconfig"; sourceTree = "<group>"; };
+		35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatchTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		366FB0FC6350F5E40F91FC1D /* libPods-BarkWatch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D23D570307AEB510087F74C /* BarkWatch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BarkWatch.xcconfig; sourceTree = "<group>"; };
 		3DBD0748306B95A100A86B41 /* BarkWatchComplicationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BarkWatchComplicationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DBD074A306B95A100A86B41 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
@@ -636,6 +643,8 @@
 		3DBD075F306B969400A86B41 /* BarkWatchComplicationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarkWatchComplicationExtension.entitlements; sourceTree = "<group>"; };
 		4A9C3B74281C8607B364CED7 /* Pods-NotificationContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationContentExtension/Pods-NotificationContentExtension.release.xcconfig"; sourceTree = "<group>"; };
 		519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
+		5D0DEDA9FEBA14EA5DB8B9A1 /* Pods-BarkWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatch.debug.xcconfig"; path = "Target Support Files/Pods-BarkWatch/Pods-BarkWatch.debug.xcconfig"; sourceTree = "<group>"; };
+		62DF9BBF3FDB3BE69663075F /* Pods-BarkWatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatchTests.release.xcconfig"; path = "Target Support Files/Pods-BarkWatchTests/Pods-BarkWatchTests.release.xcconfig"; sourceTree = "<group>"; };
 		6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationContentExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000000000000000000002 /* WatchNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchNotificationService.swift; sourceTree = "<group>"; };
@@ -647,6 +656,7 @@
 		CCC722470308049D180876C7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF45D2197673129A8128ADB7 /* Pods-NotificationContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationContentExtension/Pods-NotificationContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		F20815A821395CCA155806A4 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		F877138E6E8864F7E43BC3EC /* Pods-BarkWatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatchTests.debug.xcconfig"; path = "Target Support Files/Pods-BarkWatchTests/Pods-BarkWatchTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB59D77AB30F7AD98BA72C3E /* Pods-BarkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.debug.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -689,8 +699,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B20000000000000000000004 /* CryptoSwift in Frameworks */,
 				B20000000000000000000051 /* Markdown in Frameworks */,
+				CFBE41F3462A6D4F0E1A4B12 /* libPods-BarkWatch.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -698,6 +708,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2FEAABEDC1A6FF1648620312 /* libPods-BarkWatchTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -761,8 +772,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B20000000000000000000005 /* CryptoSwift in Frameworks */,
 				B20000000000000000000052 /* Markdown in Frameworks */,
+				E68AEB0E47866777F8755476 /* libPods-BarkWatchNotificationService.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1122,6 +1133,9 @@
 				6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */,
 				06697FDA2F70ED9400C4680E /* WidgetKit.framework */,
 				06697FDC2F70ED9400C4680E /* SwiftUI.framework */,
+				366FB0FC6350F5E40F91FC1D /* libPods-BarkWatch.a */,
+				056A370B19AC77E9A43813B2 /* libPods-BarkWatchNotificationService.a */,
+				35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -1145,6 +1159,12 @@
 				519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */,
 				EF45D2197673129A8128ADB7 /* Pods-NotificationContentExtension.debug.xcconfig */,
 				4A9C3B74281C8607B364CED7 /* Pods-NotificationContentExtension.release.xcconfig */,
+				5D0DEDA9FEBA14EA5DB8B9A1 /* Pods-BarkWatch.debug.xcconfig */,
+				2EB8EE587788EAA2C88A9C1A /* Pods-BarkWatch.release.xcconfig */,
+				178D8742EC982295ED31D74C /* Pods-BarkWatchNotificationService.debug.xcconfig */,
+				2E2E32D47067F72822D1BE12 /* Pods-BarkWatchNotificationService.release.xcconfig */,
+				F877138E6E8864F7E43BC3EC /* Pods-BarkWatchTests.debug.xcconfig */,
+				62DF9BBF3FDB3BE69663075F /* Pods-BarkWatchTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -1156,10 +1176,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 000000000000000000000066 /* Build configuration list for PBXNativeTarget "BarkWatch" */;
 			buildPhases = (
+				E5FD9C4368A7FF25FE7E6852 /* [CP] Check Pods Manifest.lock */,
 				00000000000000000000003C /* Sources */,
 				00000000000000000000003D /* Frameworks */,
 				00000000000000000000003E /* Resources */,
 				A10000000000000000000008 /* Embed App Extensions */,
+				A2154E7DFCD0C8DCBE650FC7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1175,7 +1197,6 @@
 			);
 			name = BarkWatch;
 			packageProductDependencies = (
-				B20000000000000000000021 /* CryptoSwift */,
 				B20000000000000000000053 /* Markdown */,
 			);
 			productName = BarkWatch;
@@ -1186,6 +1207,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 000000000000000000000070 /* Build configuration list for PBXNativeTarget "BarkWatchTests" */;
 			buildPhases = (
+				F9620B9B24668A0183324C97 /* [CP] Check Pods Manifest.lock */,
 				000000000000000000000046 /* Sources */,
 				000000000000000000000047 /* Frameworks */,
 				000000000000000000000048 /* Resources */,
@@ -1258,8 +1280,6 @@
 				06697FDE2F70ED9400C4680E /* Widget */,
 			);
 			name = WidgetExtension;
-			packageProductDependencies = (
-			);
 			productName = WidgetExtension;
 			productReference = 06697FD92F70ED9400C4680E /* WidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1318,8 +1338,6 @@
 				3DBD074E306B95A100A86B41 /* BarkWatchComplication */,
 			);
 			name = BarkWatchComplicationExtension;
-			packageProductDependencies = (
-			);
 			productName = BarkWatchComplicationExtension;
 			productReference = 3DBD0748306B95A100A86B41 /* BarkWatchComplicationExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
@@ -1328,8 +1346,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A10000000000000000000015 /* Build configuration list for PBXNativeTarget "BarkWatchNotificationService" */;
 			buildPhases = (
+				3B98E5E78A1D36EC471122CC /* [CP] Check Pods Manifest.lock */,
 				A10000000000000000000012 /* Sources */,
 				B20000000000000000000013 /* Frameworks */,
+				A4998B6FADC364DE3903378A /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1340,7 +1360,6 @@
 			);
 			name = BarkWatchNotificationService;
 			packageProductDependencies = (
-				B20000000000000000000022 /* CryptoSwift */,
 				B20000000000000000000054 /* Markdown */,
 			);
 			productName = BarkWatchNotificationService;
@@ -1414,7 +1433,6 @@
 			mainGroup = 0661A536204FDA4100965E4E;
 			packageReferences = (
 				06C777D12ECF05990032A044 /* XCRemoteSwiftPackageReference "swift-markdown" */,
-				B20000000000000000000020 /* XCRemoteSwiftPackageReference "CryptoSwift" */,
 			);
 			productRefGroup = 0661A540204FDA4100965E4E /* Products */;
 			projectDirPath = "";
@@ -1637,7 +1655,7 @@
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Bark/Pods-Bark-resources.sh",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-iOS/CryptoSwift.bundle",
 				"${PODS_ROOT}/DropDown/DropDown/resources/DropDownCell.xib",
 				"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardCore/IQKeyboardCore.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardNotification/IQKeyboardNotification.bundle",
@@ -1693,6 +1711,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Bark/Pods-Bark-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		3B98E5E78A1D36EC471122CC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BarkWatchNotificationService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		73BB82AB466F692F871A6876 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1700,7 +1740,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift/CryptoSwift.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-iOS/CryptoSwift.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Realm/realm_objc_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/realm_swift_privacy.bundle",
@@ -1735,6 +1775,86 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Bark-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A2154E7DFCD0C8DCBE650FC7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BarkWatch/Pods-BarkWatch-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-watchOS/CryptoSwift.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CryptoSwift.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BarkWatch/Pods-BarkWatch-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A4998B6FADC364DE3903378A /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-BarkWatchNotificationService/Pods-BarkWatchNotificationService-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-watchOS/CryptoSwift.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CryptoSwift.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BarkWatchNotificationService/Pods-BarkWatchNotificationService-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E5FD9C4368A7FF25FE7E6852 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BarkWatch-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9620B9B24668A0183324C97 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BarkWatchTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -2046,6 +2166,7 @@
 /* Begin XCBuildConfiguration section */
 		000000000000000000000064 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5D0DEDA9FEBA14EA5DB8B9A1 /* Pods-BarkWatch.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BARK_WATCH_ENTITLEMENTS = BarkWatch/BarkWatch.entitlements;
@@ -2086,6 +2207,7 @@
 		};
 		000000000000000000000065 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2EB8EE587788EAA2C88A9C1A /* Pods-BarkWatch.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				BARK_WATCH_ENTITLEMENTS = BarkWatch/BarkWatch.entitlements;
@@ -2124,6 +2246,7 @@
 		};
 		00000000000000000000006E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F877138E6E8864F7E43BC3EC /* Pods-BarkWatchTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -2157,6 +2280,7 @@
 		};
 		00000000000000000000006F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 62DF9BBF3FDB3BE69663075F /* Pods-BarkWatchTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
@@ -2795,6 +2919,7 @@
 		};
 		A10000000000000000000013 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 178D8742EC982295ED31D74C /* Pods-BarkWatchNotificationService.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -2830,6 +2955,7 @@
 		};
 		A10000000000000000000014 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2E2E32D47067F72822D1BE12 /* Pods-BarkWatchNotificationService.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				APPLICATION_EXTENSION_API_ONLY = YES;
@@ -2965,14 +3091,6 @@
 				minimumVersion = 0.7.3;
 			};
 		};
-		B20000000000000000000020 /* XCRemoteSwiftPackageReference "CryptoSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/krzyzanowskim/CryptoSwift.git";
-			requirement = {
-				kind = exactVersion;
-				version = 1.8.4;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -2985,16 +3103,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 06C777D12ECF05990032A044 /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
-		};
-		B20000000000000000000021 /* CryptoSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B20000000000000000000020 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
-			productName = CryptoSwift;
-		};
-		B20000000000000000000022 /* CryptoSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B20000000000000000000020 /* XCRemoteSwiftPackageReference "CryptoSwift" */;
-			productName = CryptoSwift;
 		};
 		B20000000000000000000053 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;
