@@ -28,14 +28,6 @@ extension UIViewController {
     }
 }
 
-let kNavigationHeight: CGFloat = {
-    kSafeAreaInsets.top + 44
-}()
-
-let kSafeAreaInsets: UIEdgeInsets = {
-    UIWindow().safeAreaInsets
-}()
-
 func castOrThrow<T>(_ resultType: T.Type, _ object: Any) throws -> T {
     guard let returnValue = object as? T else {
         throw RxCocoaError.castingError(object: object, targetType: resultType)

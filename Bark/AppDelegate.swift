@@ -15,13 +15,9 @@ import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    var window: UIWindow?
     private var initialPendingMessagesTask: Task<Void, Never>?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        self.window?.backgroundColor = UIColor.black
-
         // 必须在应用一开始就配置，否则应用可能提前在配置之前试用了 Realm() ，则会创建两个独立数据库。
         setupRealm()
         
@@ -29,19 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         
         IQKeyboardManager.shared.isEnabled = true
         IQKeyboardToolbarManager.shared.isEnabled = true
-        if #available(iOS 14, *), UIDevice.current.userInterfaceIdiom == .pad {
-            let splitViewController = BarkSplitViewController(style: .doubleColumn)
-            self.window?.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
-        } else {
-            let tabBarController = BarkTabBarController()
-            self.window?.rootViewController = BarkSnackbarController(
-                rootViewController: tabBarController
-            )
-        }
-        
-        // 需先配置好 tabBarController 的 viewControllers，显示时会默认显示上次打开的页面
-        self.window?.makeKeyAndVisible()
-        
         // 注册 Darwin Notification 监听
         let notificationCenter = CFNotificationCenterGetDarwinNotifyCenter()
         CFNotificationCenterAddObserver(
@@ -112,11 +95,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        defer { completionHandler() }
         guard response.actionIdentifier != UNNotificationDismissActionIdentifier else {
             // clear 推送时，不要弹出提示框
             return
         }
-        notificatonHandler(userInfo: response.notification.request.content.userInfo)
+        handleNotification(userInfo: response.notification.request.content.userInfo)
     }
     func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         guard let delete = userInfo["delete"] as? String, delete == "1", let id = userInfo["id"] as? String else {
@@ -142,7 +126,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         return .alert
     }
     
-    private func notificatonHandler(userInfo: [AnyHashable: Any]) {
+    func handleNotification(userInfo: [AnyHashable: Any]) {
         let action = userInfo["action"] as? String
         if action == "none" {
             return
@@ -162,62 +146,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         Client.shared.currentTabPage = .messageHistory
     }
 
-    func applicationWillResignActive(_ application: UIApplication) {
-        // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-        // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
-    }
-
-    func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-    }
-
-    func applicationWillEnterForeground(_ application: UIApplication) {
-        // 设置 -1 可以清除应用角标，但不清除通知中心的推送
-        // 设置 0 会将通知中心的所有推送一起清空掉
-        UIApplication.shared.applicationIconBadgeNumber = -1
-        
-        // 处理待处理的消息
-        Task {
-            await processPendingMessages()
-        }
-    }
-
-    func applicationWillTerminate(_ application: UIApplication) {
-        // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
-        if handleWidgetDeepLink(url) {
-            return true
-        }
-
-        if url.scheme?.lowercased() == "bark" && url.host?.lowercased() == "addserver" {
-            // 提取参数
-            let queryItems = URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems
-            let address = queryItems?.first(where: { $0.name == "address" })?.value
-
-            // 处理添加服务器的逻辑
-            if let serverAddress = try? address?.asURL() {
-                let server = Server(address: serverAddress.absoluteString, key: "")
-                ServerManager.shared.addServer(server: server)
-                ServerManager.shared.setCurrentServer(serverId: server.id)
-                ServerManager.shared.syncAllServers()
-                HUDSuccess("AddedSuccessfully".localized)
-            }
-            return true
-        }
-        return false
-    }
-
-    private func handleWidgetDeepLink(_ url: URL) -> Bool {
-        guard url.scheme?.lowercased() == "bark", url.host?.lowercased() == "history" else {
-            return false
-        }
-
-        Client.shared.currentTabPage = .messageHistory
-        return true
-    }
 }
 
 extension AppDelegate {

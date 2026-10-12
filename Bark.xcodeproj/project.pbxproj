@@ -92,6 +92,7 @@
 		065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */; };
 		065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4542565055F002A8CA4 /* HomeViewModel.swift */; };
 		0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A542204FDA4100965E4E /* AppDelegate.swift */; };
+		06A200022FED000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A200012FED000100000001 /* SceneDelegate.swift */; };
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
@@ -372,6 +373,7 @@
 		0660480A2700550600938904 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		0661A53F204FDA4100965E4E /* Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0661A542204FDA4100965E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		06A200012FED000100000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0661A544204FDA4100965E4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0661A549204FDA4100965E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0661A54C204FDA4100965E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -763,6 +765,7 @@
 				06EF49132D682A82008B91D2 /* Intents */,
 				0683486A2050F1310024B6DA /* Bark.entitlements */,
 				0661A542204FDA4100965E4E /* AppDelegate.swift */,
+				06A200012FED000100000001 /* SceneDelegate.swift */,
 				06F808902EF4056C0007352A /* AppDelegate+Realm.swift */,
 				0661A549204FDA4100965E4E /* Assets.xcassets */,
 				0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */,
@@ -1485,6 +1488,7 @@
 				06BBB8B72567AC140076F63E /* MessageSettingsViewModel.swift in Sources */,
 				06BBB8C12567B3EF0076F63E /* BaseTableViewCell.swift in Sources */,
 				0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */,
+				06A200022FED000100000001 /* SceneDelegate.swift in Sources */,
 				06EF49172D682AC4008B91D2 /* OptionsProvider.swift in Sources */,
 				06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */,
 				06F808912EF4056C0007352A /* AppDelegate+Realm.swift in Sources */,

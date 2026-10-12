@@ -68,7 +68,7 @@ class NewServerViewController: BaseViewController<NewServerViewModel> {
         self.view.addSubview(addressTextField)
         self.view.addSubview(noticeLabel)
         addressTextField.snp.makeConstraints { make in
-            make.top.equalTo(kNavigationHeight + 40)
+            make.top.equalTo(self.view.safeAreaLayoutGuide).offset(40)
             make.left.right.equalTo(self.view.safeAreaLayoutGuide).inset(16)
         }
         noticeLabel.snp.makeConstraints { make in

@@ -18,7 +18,10 @@ class Client: NSObject {
     }
 
     var window: UIWindow? {
-        return UIApplication.shared.delegate?.window ?? nil
+        UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first(where: \.isKeyWindow)
     }
 
     var currentSnackbarController: BarkSnackbarController? {

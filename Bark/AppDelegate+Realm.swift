@@ -74,16 +74,7 @@ extension AppDelegate {
             // 标记为已迁移
             UserDefaults.standard.set(true, forKey: "hasRealmMigrated")
         } catch {
-            // 迁移失败，弹出提示
-            DispatchQueue.main.async {
-                let alert = UIAlertController(
-                    title: "Migration Failed",
-                    message: "Failed to migrate database file. Please contact support.",
-                    preferredStyle: .alert
-                )
-                alert.addAction(UIAlertAction(title: "OK", style: .default))
-                self.window?.rootViewController?.present(alert, animated: true)
-            }
+            print("Realm migration failed: \(error)")
         }
     }
     
