@@ -145,7 +145,7 @@ class HomeViewModel: ViewModel, ViewModelType {
         let key = server.key.isEmpty ? "YOUR_KEY" : server.key
         switch type {
         case .get:
-            return "curl -X GET \(address)/\(key)/\(ExampleParams.title)/\(ExampleParams.body)?group=\(ExampleParams.group)&ttl=\(ExampleParams.ttl)"
+            return "curl -X GET '\(address)/\(key)/\(ExampleParams.title)/\(ExampleParams.body)?group=\(ExampleParams.group)&ttl=\(ExampleParams.ttl)'"
         case .post:
             return """
             curl -X POST \(address)/\(key) \\
