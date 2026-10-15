@@ -394,7 +394,7 @@
 		066E0C8B2BB6AC9A00873838 /* AddSoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddSoundCell.swift; sourceTree = "<group>"; };
 		0672CB05256903F700570C9D /* MessageListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewModel.swift; sourceTree = "<group>"; };
 		06787C382A710568008ABDD7 /* GesturePassTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePassTextView.swift; sourceTree = "<group>"; };
-		067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UNNotificationContent+Extension.swift"; path = "notificationContentExtension/UNNotificationContent+Extension.swift"; sourceTree = SOURCE_ROOT; };
+		067AFB1B2E5D8BE300AE78E7 /* UNNotificationContent+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UNNotificationContent+Extension.swift"; path = "NotificationContentExtension/UNNotificationContent+Extension.swift"; sourceTree = SOURCE_ROOT; };
 		067B2EB425693E38008B6BE1 /* MessageSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSection.swift; sourceTree = "<group>"; };
 		0683486A2050F1310024B6DA /* Bark.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bark.entitlements; sourceTree = "<group>"; };
 		0683487020510FB20024B6DA /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
