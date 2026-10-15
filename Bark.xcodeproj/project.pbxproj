@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		000000000000000000000029 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000028 /* NotificationTests.swift */; };
 		0603706720E1E31600F4CA05 /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706620E1E31600F4CA05 /* Defines.swift */; };
 		0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
 		0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */; };
@@ -23,56 +24,6 @@
 		061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E35852D1E5028009A2D6F /* MessageItemModel.swift */; };
 		062218542F741C91003E2DA0 /* MessageImageCleaner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062218512F741C91003E2DA0 /* MessageImageCleaner.swift */; };
 		062218562F741C91003E2DA0 /* MessageDeletionCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062218552F741C91003E2DA0 /* MessageDeletionCoordinator.swift */; };
-		0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABA298B6EA2002F3F69 /* DropBoxView.swift */; };
-		0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABC2990D615002F3F69 /* BorderTextField.swift */; };
-		062B98C3251B2762004562E7 /* BKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062B98C2251B2762004562E7 /* BKButton.swift */; };
-		062B98C8251B27AE004562E7 /* UINavigationItem+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */; };
-		0632050F250B6DD4001561EC /* gotosleep.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F0250B6DD1001561EC /* gotosleep.caf */; };
-		06320510250B6DD4001561EC /* paymentsuccess.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F1250B6DD1001561EC /* paymentsuccess.caf */; };
-		06320511250B6DD4001561EC /* shake.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F2250B6DD1001561EC /* shake.caf */; };
-		06320512250B6DD4001561EC /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F3250B6DD1001561EC /* alarm.caf */; };
-		06320513250B6DD4001561EC /* bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F4250B6DD1001561EC /* bloom.caf */; };
-		06320514250B6DD4001561EC /* sherwoodforest.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F5250B6DD2001561EC /* sherwoodforest.caf */; };
-		06320515250B6DD4001561EC /* healthnotification.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F6250B6DD2001561EC /* healthnotification.caf */; };
-		06320516250B6DD4001561EC /* calypso.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F7250B6DD2001561EC /* calypso.caf */; };
-		06320517250B6DD4001561EC /* descent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F8250B6DD2001561EC /* descent.caf */; };
-		06320518250B6DD4001561EC /* ladder.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F9250B6DD2001561EC /* ladder.caf */; };
-		06320519250B6DD4001561EC /* tiptoes.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FA250B6DD2001561EC /* tiptoes.caf */; };
-		0632051A250B6DD4001561EC /* fanfare.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FB250B6DD2001561EC /* fanfare.caf */; };
-		0632051B250B6DD4001561EC /* birdsong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FC250B6DD2001561EC /* birdsong.caf */; };
-		0632051C250B6DD4001561EC /* typewriters.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FD250B6DD2001561EC /* typewriters.caf */; };
-		0632051D250B6DD4001561EC /* anticipate.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FE250B6DD2001561EC /* anticipate.caf */; };
-		0632051E250B6DD4001561EC /* choo.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FF250B6DD3001561EC /* choo.caf */; };
-		0632051F250B6DD4001561EC /* glass.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320500250B6DD3001561EC /* glass.caf */; };
-		06320520250B6DD4001561EC /* telegraph.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320501250B6DD3001561EC /* telegraph.caf */; };
-		06320521250B6DD4001561EC /* multiwayinvitation.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320502250B6DD3001561EC /* multiwayinvitation.caf */; };
-		06320522250B6DD4001561EC /* newmail.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320503250B6DD3001561EC /* newmail.caf */; };
-		06320523250B6DD4001561EC /* update.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320504250B6DD3001561EC /* update.caf */; };
-		06320524250B6DD4001561EC /* minuet.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320505250B6DD3001561EC /* minuet.caf */; };
-		06320525250B6DD4001561EC /* suspense.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320506250B6DD3001561EC /* suspense.caf */; };
-		06320526250B6DD4001561EC /* mailsent.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320507250B6DD3001561EC /* mailsent.caf */; };
-		06320527250B6DD4001561EC /* noir.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320508250B6DD3001561EC /* noir.caf */; };
-		06320528250B6DD4001561EC /* chime.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06320509250B6DD4001561EC /* chime.caf */; };
-		06320529250B6DD4001561EC /* spell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050A250B6DD4001561EC /* spell.caf */; };
-		0632052A250B6DD4001561EC /* electronic.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050B250B6DD4001561EC /* electronic.caf */; };
-		0632052B250B6DD4001561EC /* bell.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050C250B6DD4001561EC /* bell.caf */; };
-		0632052C250B6DD4001561EC /* horn.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050D250B6DD4001561EC /* horn.caf */; };
-		0632052D250B6DD4001561EC /* newsflash.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0632050E250B6DD4001561EC /* newsflash.caf */; };
-		000000000000000000000029 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000028 /* NotificationTests.swift */; };
-		0603706720E1E31600F4CA05 /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706620E1E31600F4CA05 /* Defines.swift */; };
-		0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
-		0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */; };
-		060481EE250F404500BC9799 /* SoundsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060481ED250F404500BC9799 /* SoundsViewController.swift */; };
-		060481F0250F51CA00BC9799 /* SoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 060481EF250F51CA00BC9799 /* SoundCell.swift */; };
-		0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604F7DE20620D4900B32F09 /* ServerManager.swift */; };
-		0608F06E2994D115006B8029 /* BKDropDownCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0608F06D2994D115006B8029 /* BKDropDownCell.swift */; };
-		0608F0722994D269006B8029 /* BKDropDownCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0608F0712994D269006B8029 /* BKDropDownCell.xib */; };
-		06172FDA27F6DAEF002333A4 /* ServerListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06172FD927F6DAEF002333A4 /* ServerListTableViewCell.swift */; };
-		06172FDC27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06172FDB27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift */; };
-		061894C529962EB900E001C2 /* GradientButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C429962EB900E001C2 /* GradientButton.swift */; };
-		061894C729A75BEA00E001C2 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
-		061C17082D1BDA4B00891D66 /* MessageGroupMoreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */; };
-		061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061E35852D1E5028009A2D6F /* MessageItemModel.swift */; };
 		0627DABB298B6EA2002F3F69 /* DropBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABA298B6EA2002F3F69 /* DropBoxView.swift */; };
 		0627DABD2990D615002F3F69 /* BorderTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0627DABC2990D615002F3F69 /* BorderTextField.swift */; };
 		062B98C3251B2762004562E7 /* BKButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062B98C2251B2762004562E7 /* BKButton.swift */; };
@@ -132,6 +83,8 @@
 		0647DB682CE604AA00102066 /* MessageSettingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0647DB672CE604AA00102066 /* MessageSettingFooter.swift */; };
 		0653677629B719BC0038BDB8 /* CryptoSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */; };
 		0653677829B727A60038BDB8 /* CryptoSettingRelay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */; };
+		065632CB3080A88400A0C5A4 /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
+		065632CC3080A88400A0C5A4 /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
 		065752C12CB6844A001426D8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 065752C02CB6844A001426D8 /* Localizable.xcstrings */; };
 		065752C22CB6844A001426D8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 065752C02CB6844A001426D8 /* Localizable.xcstrings */; };
 		065752C32CB6844A001426D8 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 065752C02CB6844A001426D8 /* Localizable.xcstrings */; };
@@ -142,7 +95,6 @@
 		065BE4502563D939002A8CA4 /* SoundCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE44F2563D939002A8CA4 /* SoundCellViewModel.swift */; };
 		065BE4552565055F002A8CA4 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065BE4542565055F002A8CA4 /* HomeViewModel.swift */; };
 		0661A543204FDA4100965E4E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A542204FDA4100965E4E /* AppDelegate.swift */; };
-		06A200022FED000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A200012FED000100000001 /* SceneDelegate.swift */; };
 		0661A545204FDA4100965E4E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0661A544204FDA4100965E4E /* HomeViewController.swift */; };
 		0661A54A204FDA4100965E4E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0661A549204FDA4100965E4E /* Assets.xcassets */; };
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
@@ -196,8 +148,10 @@
 		06A100152FEE0001000000A1 /* HomeSettingsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100142FEE0001000000A1 /* HomeSettingsCard.swift */; };
 		06A100172FEE0001000000A1 /* HomeDocumentsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100162FEE0001000000A1 /* HomeDocumentsCard.swift */; };
 		06A100192FEE0001000000A1 /* CodeHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100182FEE0001000000A1 /* CodeHighlighter.swift */; };
+		06C10A022FB20001000000D1 /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A012FB20001000000D1 /* QRCodeGenerator.swift */; };
 		06A1001B2FEE0001000000A1 /* HomeFlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */; };
 		06A100212FEE0001000000A1 /* HomeSplitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100202FEE0001000000A1 /* HomeSplitButton.swift */; };
+		06A200022FED000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A200012FED000100000001 /* SceneDelegate.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
 		06B1158F247BB1FB006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
 		06B11591247BC132006D91FB /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06B1158E247BB1FB006D91FB /* Message.swift */; };
@@ -281,6 +235,7 @@
 		06F08EA829B1DE0A006AB9CA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
 		06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAE29B5D9FF006AB9CA /* HUD.swift */; };
 		06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
+		06C10A042FB20001000000D1 /* PushQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */; };
 		06F808912EF4056C0007352A /* AppDelegate+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F808902EF4056C0007352A /* AppDelegate+Realm.swift */; };
 		06FB04042C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
 		06FB04052C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
@@ -392,57 +347,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		0603706620E1E31600F4CA05 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
-		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkSFSafariViewController.swift; sourceTree = "<group>"; };
-		060481ED250F404500BC9799 /* SoundsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundsViewController.swift; sourceTree = "<group>"; };
-		060481EF250F51CA00BC9799 /* SoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCell.swift; sourceTree = "<group>"; };
-		0604F7DE20620D4900B32F09 /* ServerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerManager.swift; sourceTree = "<group>"; };
-		0608F06D2994D115006B8029 /* BKDropDownCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKDropDownCell.swift; sourceTree = "<group>"; };
-		0608F0712994D269006B8029 /* BKDropDownCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BKDropDownCell.xib; sourceTree = "<group>"; };
-		06172FD927F6DAEF002333A4 /* ServerListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListTableViewCell.swift; sourceTree = "<group>"; };
-		06172FDB27F6DB06002333A4 /* ServerListTableViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListTableViewCellViewModel.swift; sourceTree = "<group>"; };
-		061894C429962EB900E001C2 /* GradientButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientButton.swift; sourceTree = "<group>"; };
-		061894C629A75BEA00E001C2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
-		061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupMoreView.swift; sourceTree = "<group>"; };
-		061E35852D1E5028009A2D6F /* MessageItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemModel.swift; sourceTree = "<group>"; };
-		062218512F741C91003E2DA0 /* MessageImageCleaner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImageCleaner.swift; sourceTree = "<group>"; };
-		062218552F741C91003E2DA0 /* MessageDeletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeletionCoordinator.swift; sourceTree = "<group>"; };
-		0627DABA298B6EA2002F3F69 /* DropBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropBoxView.swift; sourceTree = "<group>"; };
-		0627DABC2990D615002F3F69 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
-		062B98C2251B2762004562E7 /* BKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKButton.swift; sourceTree = "<group>"; };
-		062B98C7251B27AE004562E7 /* UINavigationItem+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationItem+Extension.swift"; sourceTree = "<group>"; };
-		063204F0250B6DD1001561EC /* gotosleep.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = gotosleep.caf; sourceTree = "<group>"; };
-		063204F1250B6DD1001561EC /* paymentsuccess.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = paymentsuccess.caf; sourceTree = "<group>"; };
-		063204F2250B6DD1001561EC /* shake.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = shake.caf; sourceTree = "<group>"; };
-		063204F3250B6DD1001561EC /* alarm.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = alarm.caf; sourceTree = "<group>"; };
-		063204F4250B6DD1001561EC /* bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bloom.caf; sourceTree = "<group>"; };
-		063204F5250B6DD2001561EC /* sherwoodforest.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = sherwoodforest.caf; sourceTree = "<group>"; };
-		063204F6250B6DD2001561EC /* healthnotification.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = healthnotification.caf; sourceTree = "<group>"; };
-		063204F7250B6DD2001561EC /* calypso.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = calypso.caf; sourceTree = "<group>"; };
-		063204F8250B6DD2001561EC /* descent.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = descent.caf; sourceTree = "<group>"; };
-		063204F9250B6DD2001561EC /* ladder.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = ladder.caf; sourceTree = "<group>"; };
-		063204FA250B6DD2001561EC /* tiptoes.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tiptoes.caf; sourceTree = "<group>"; };
-		063204FB250B6DD2001561EC /* fanfare.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fanfare.caf; sourceTree = "<group>"; };
-		063204FC250B6DD2001561EC /* birdsong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = birdsong.caf; sourceTree = "<group>"; };
-		063204FD250B6DD2001561EC /* typewriters.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = typewriters.caf; sourceTree = "<group>"; };
-		063204FE250B6DD2001561EC /* anticipate.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = anticipate.caf; sourceTree = "<group>"; };
-		063204FF250B6DD3001561EC /* choo.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = choo.caf; sourceTree = "<group>"; };
-		06320500250B6DD3001561EC /* glass.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = glass.caf; sourceTree = "<group>"; };
-		06320501250B6DD3001561EC /* telegraph.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = telegraph.caf; sourceTree = "<group>"; };
-		06320502250B6DD3001561EC /* multiwayinvitation.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = multiwayinvitation.caf; sourceTree = "<group>"; };
-		06320503250B6DD3001561EC /* newmail.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newmail.caf; sourceTree = "<group>"; };
-		06320504250B6DD3001561EC /* update.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = update.caf; sourceTree = "<group>"; };
-		06320505250B6DD3001561EC /* minuet.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = minuet.caf; sourceTree = "<group>"; };
-		06320506250B6DD3001561EC /* suspense.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = suspense.caf; sourceTree = "<group>"; };
-		06320507250B6DD3001561EC /* mailsent.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = mailsent.caf; sourceTree = "<group>"; };
-		06320508250B6DD3001561EC /* noir.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = noir.caf; sourceTree = "<group>"; };
-		06320509250B6DD4001561EC /* chime.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = chime.caf; sourceTree = "<group>"; };
-		0632050A250B6DD4001561EC /* spell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = spell.caf; sourceTree = "<group>"; };
-		0632050B250B6DD4001561EC /* electronic.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = electronic.caf; sourceTree = "<group>"; };
-		0632050C250B6DD4001561EC /* bell.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bell.caf; sourceTree = "<group>"; };
-		0632050D250B6DD4001561EC /* horn.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = horn.caf; sourceTree = "<group>"; };
-		0632050E250B6DD4001561EC /* newsflash.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = newsflash.caf; sourceTree = "<group>"; };
 		000000000000000000000006 /* BarkWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = BarkWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000007 /* BarkWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BarkWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000028 /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
@@ -464,6 +368,8 @@
 		061894C629A75BEA00E001C2 /* Algorithm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Algorithm.swift; sourceTree = "<group>"; };
 		061C17072D1BDA4B00891D66 /* MessageGroupMoreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupMoreView.swift; sourceTree = "<group>"; };
 		061E35852D1E5028009A2D6F /* MessageItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemModel.swift; sourceTree = "<group>"; };
+		062218512F741C91003E2DA0 /* MessageImageCleaner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageImageCleaner.swift; sourceTree = "<group>"; };
+		062218552F741C91003E2DA0 /* MessageDeletionCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeletionCoordinator.swift; sourceTree = "<group>"; };
 		0627DABA298B6EA2002F3F69 /* DropBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropBoxView.swift; sourceTree = "<group>"; };
 		0627DABC2990D615002F3F69 /* BorderTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BorderTextField.swift; sourceTree = "<group>"; };
 		062B98C2251B2762004562E7 /* BKButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BKButton.swift; sourceTree = "<group>"; };
@@ -529,7 +435,6 @@
 		0660480A2700550600938904 /* Intents.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Intents.framework; path = System/Library/Frameworks/Intents.framework; sourceTree = SDKROOT; };
 		0661A53F204FDA4100965E4E /* Bark.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bark.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0661A542204FDA4100965E4E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		06A200012FED000100000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		0661A544204FDA4100965E4E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		0661A549204FDA4100965E4E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0661A54C204FDA4100965E4E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -574,8 +479,10 @@
 		06A100142FEE0001000000A1 /* HomeSettingsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsCard.swift; sourceTree = "<group>"; };
 		06A100162FEE0001000000A1 /* HomeDocumentsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDocumentsCard.swift; sourceTree = "<group>"; };
 		06A100182FEE0001000000A1 /* CodeHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeHighlighter.swift; sourceTree = "<group>"; };
+		06C10A012FB20001000000D1 /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlatButton.swift; sourceTree = "<group>"; };
 		06A100202FEE0001000000A1 /* HomeSplitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSplitButton.swift; sourceTree = "<group>"; };
+		06A200012FED000100000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		06B1158C247BA6D5006D91FB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		06B1158E247BB1FB006D91FB /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		06B11590247BBC15006D91FB /* NotificationServiceExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationServiceExtension.entitlements; sourceTree = "<group>"; };
@@ -624,6 +531,7 @@
 		06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		06F08EAE29B5D9FF006AB9CA /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushQRCodeViewController.swift; sourceTree = "<group>"; };
 		06F808902EF4056C0007352A /* AppDelegate+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Realm.swift"; sourceTree = "<group>"; };
 		06FB04032C53575400F3A213 /* SharedDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefines.swift; sourceTree = "<group>"; };
 		121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -819,6 +727,7 @@
 				060481ED250F404500BC9799 /* SoundsViewController.swift */,
 				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
 				06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */,
+				06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */,
 				068EC15727ED99C900D5D11E /* ServerListViewController.swift */,
 				068EC15927ED99E700D5D11E /* ServerListViewModel.swift */,
 				06EEF332291CCFF400CA228A /* CryptoSettingController.swift */,
@@ -961,6 +870,7 @@
 				06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */,
 				06C777CF2ECEFF210032A044 /* MarkdownParser.swift */,
 				06A100182FEE0001000000A1 /* CodeHighlighter.swift */,
+				06C10A012FB20001000000D1 /* QRCodeGenerator.swift */,
 				066B10002F73F00100C4680E /* WidgetHistoryModels.swift */,
 				06697FED2F70ED9600C4680E /* WidgetHistorySnapshotStore.swift */,
 				06697FF52F70ED9600C4680E /* WidgetHistorySnapshotSupport.swift */,
@@ -1893,6 +1803,7 @@
 				E10000000000000000000000 /* Algorithm.swift in Sources */,
 				E10000000000000000000001 /* MarkdownParser.swift in Sources */,
 				E10000000000000000000002 /* UIFont+Extension.swift in Sources */,
+				065632CB3080A88400A0C5A4 /* Error+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1984,6 +1895,7 @@
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
 				0635A8052CE47DFE0027E00F /* SettingSectionHeader.swift in Sources */,
 				06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */,
+				06C10A042FB20001000000D1 /* PushQRCodeViewController.swift in Sources */,
 				0608F06E2994D115006B8029 /* BKDropDownCell.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */,
@@ -1999,6 +1911,7 @@
 				06A100112FEE0001000000A1 /* HomePermissionCard.swift in Sources */,
 				06A100132FEE0001000000A1 /* HomeExampleCard.swift in Sources */,
 				06A100192FEE0001000000A1 /* CodeHighlighter.swift in Sources */,
+				06C10A022FB20001000000D1 /* QRCodeGenerator.swift in Sources */,
 				06A100152FEE0001000000A1 /* HomeSettingsCard.swift in Sources */,
 				06A100172FEE0001000000A1 /* HomeDocumentsCard.swift in Sources */,
 				061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */,
@@ -2101,6 +2014,7 @@
 				E10000000000000000000011 /* MarkdownParser.swift in Sources */,
 				E10000000000000000000012 /* UIFont+Extension.swift in Sources */,
 				A10000000000000000000006 /* WatchNotificationService.swift in Sources */,
+				065632CC3080A88400A0C5A4 /* Error+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
