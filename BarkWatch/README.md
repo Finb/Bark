@@ -1,26 +1,26 @@
 
 BarkWatch
 
-A standalone watch application prototype for watchOS 10 or later. Communication with the phone app is not yet implemented. BarkWatch shares the unchanged iOS sources `Model/Algorithm.swift`, `Common/MarkdownParser.swift`, and `Common/UIFont+Extension.swift`. Watch-specific adaptations live in `BarkWatch/Common`.
+A standalone watch application prototype for watchOS 10 or later. Communication with the phone app is not yet implemented. BarkWatch shares the unchanged iOS sources `Model/Algorithm.swift`, `Common/MarkdownParser.swift`, `Common/UIFont+Extension.swift`, and `Common/Error+Extension.swift`. Watch-specific adaptations live in `BarkWatch/Common`.
 
 **BarkWatch cannot use the official Bark server because its push configuration targets the official phone app.** Use a custom Bark server with your Apple signing credentials, the watch's bundle identifier (`com.sebersta.BarkWatchPrototype` in this checkout).
 
 ## Shared iOS Code
-The watch targets compile three iOS files. Change to these files can break the watch build.
+The watch targets compile four iOS files. Change to these files can break the watch build.
 
 | iOS file | Watch relies on |
 | --- | --- |
 | `Model/Algorithm.swift` | `Algorithm` (`modes`, `keyLength`), `CryptoSettingFields`, and all four stored properties of `AESCryptoModel` (`key`, `mode`, `padding`, `aes`), which `AESCryptoModel(watchFields:)` assigns |
 | `Common/MarkdownParser.swift` | `MarkdownParser.Configuration`; `WatchMarkdownParser` identifies code blocks by monospaced font plus `codeBlockTextColor` plus a background color, and task-list checkboxes as text attachments |
 | `Common/UIFont+Extension.swift` | `UIFont.preferredFont(ofSize:weight:)` used by `MarkdownParser` |
+| `Common/Error+Extension.swift` | The `String: Error` conformance, which makes `Algorithm.swift`'s plain-string throws (`throw "Invalid Mode"`) compile, and `Error.rawString()`, which formats decryption errors |
 
 ### PhoneCompatibility.swift
-`Algorithm.swift` and `MarkdownParser.swift` use code from three other iOS files. The watch App does not compile those files, so `BarkWatch/Common/PhoneCompatibility.swift` contains copies of just the parts that are used:
+`Algorithm.swift` and `MarkdownParser.swift` use code from two other iOS files. The watch App does not compile those files, so `BarkWatch/Common/PhoneCompatibility.swift` contains copies of just the parts that are used:
 
 | iOS file | Why  BarkWatch needs a copy |
 | --- | --- |
 | `Common/BKColor.swift` | `MarkdownParser` uses four `BKColor` colors as defaults. The iOS app loads them from its asset catalog, which the watch does not have, so the watch defines them as fixed colors manually. |
-| `Common/Error+Extension.swift` | `Algorithm.swift` throws plain strings (`throw "Invalid Mode"`). This only compiles because of `extension String: Error {}`, which the watch copies. |
 | `Common/String+Extension.swift` | Both files call `.localized`. The watch has its own `.localized` without the iOS app's string catalog. |
 
 The tests encryptedNotificationsMatchPhoneWireFormat and markdownUsesPhoneParserForFormattingAndNotificationFallback in BarkWatch/Tests/NotificationTests.swift check that the watch's encryption and Markdown output still match the iOS.
