@@ -26,9 +26,6 @@ enum BKColor {
     }
 }
 
-// Mirrors Common/Error+Extension.swift so Algorithm.swift's `throw "…"` compiles.
-extension String: @retroactive Error {}
-
 // Stands in for `localized` in Common/String+Extension.swift. The watch has no
 // copy of Localizable.xcstrings, so the "image" key used by MarkdownParser falls back to "Image".
 extension String {
