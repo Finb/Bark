@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import WidgetKit
 import Darwin
 import UserNotifications
 
@@ -54,13 +53,11 @@ nonisolated struct WatchArchivedMessage: Codable, Equatable, Sendable {
         usedCriticalAlertFallback = info[Self.criticalAlertFallbackKey] as? Bool
     }
 
-    // Defined here rather than in WatchNotification because the complication
-    // target compiles this file without it.
     static let criticalAlertFallbackKey = "bark_watch_critical_fallback"
 }
 
-/// The interruption level a message was delivered with, as shown in the app and
-/// complication. The raw values are stored in the archive, so don't change them.
+/// The interruption level a message was delivered with, as shown in the app.
+/// The raw values are stored in the archive, so don't change them.
 nonisolated enum WatchNotificationLevel: String, Codable, Sendable {
     case passive = "Passive"
     case active = "Active"
@@ -78,17 +75,6 @@ nonisolated enum WatchNotificationLevel: String, Codable, Sendable {
 }
 
 nonisolated struct WatchArchive: Sendable {
-    static let widgetKind = "BarkWatchComplication"
-    /// Opened by tapping the complication; `id` names the archived message it shows.
-    static let messageURLHost = "message"
-
-    static func messageURL(id: String?) -> URL {
-        var components = URLComponents()
-        components.scheme = "bark-watch"
-        components.host = messageURLHost
-        components.queryItems = id.map { [URLQueryItem(name: "id", value: $0)] }
-        return components.url ?? URL(string: "bark-watch://message")!
-    }
     static let shared = WatchArchive(directory: FileManager.default.containerURL(
         forSecurityApplicationGroupIdentifier: WatchConstants.appGroupIdentifier))
     let directory: URL?
@@ -139,9 +125,5 @@ nonisolated struct WatchArchive: Sendable {
 
     func latest(group: String?, at date: Date = .now) throws -> WatchArchivedMessage? {
         try messages(at: date).first { group == nil || $0.group == group }
-    }
-
-    func message(id: String, at date: Date = .now) throws -> WatchArchivedMessage? {
-        try messages(at: date).first { $0.id == id }
     }
 }
