@@ -540,6 +540,8 @@
 		76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000000000000000000002 /* WatchNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchNotificationService.swift; sourceTree = "<group>"; };
 		A10000000000000000000003 /* BarkWatchNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = BarkWatchNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A10000000000000000000022 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
 		A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
 		B20000000000000000000055 /* MarkdownNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = MarkdownNotification.apns; sourceTree = "<group>"; };
 		B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -658,9 +660,19 @@
 				000000000000000000000032 /* BarkWatch.entitlements */,
 				000000000000000000000033 /* TestNotification.apns */,
 				B20000000000000000000055 /* MarkdownNotification.apns */,
-				A10000000000000000000002 /* WatchNotificationService.swift */,
+				A10000000000000000000020 /* NotificationService */,
 			);
 			path = BarkWatch;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000020 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000002 /* WatchNotificationService.swift */,
+				A10000000000000000000021 /* Info.plist */,
+				A10000000000000000000022 /* NotificationService.entitlements */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 		0604F7DB20620D2700B32F09 /* Controller */ = {
