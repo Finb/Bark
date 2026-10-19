@@ -127,7 +127,6 @@
 		06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */; };
 		0689CF4C2C7484A7007203A6 /* BarkTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */; };
 		068A4B962D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068A4B952D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift */; };
-		06C10A062FB20001000000D1 /* QRCodeGeneratorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A052FB20001000000D1 /* QRCodeGeneratorTest.swift */; };
 		068EC15827ED99C900D5D11E /* ServerListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15727ED99C900D5D11E /* ServerListViewController.swift */; };
 		068EC15A27ED99E700D5D11E /* ServerListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068EC15927ED99E700D5D11E /* ServerListViewModel.swift */; };
 		068F66B3247BD84C00DAD25A /* MessageListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 068F66B2247BD84C00DAD25A /* MessageListViewController.swift */; };
@@ -407,7 +406,6 @@
 		06885EB5247FB9880004A303 /* MessageSettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageSettingsViewController.swift; sourceTree = "<group>"; };
 		0689CF4B2C7484A7007203A6 /* BarkTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarkTabBarController.swift; sourceTree = "<group>"; };
 		068A4B952D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageDeleteTimeRangeTest.swift; sourceTree = "<group>"; };
-		06C10A052FB20001000000D1 /* QRCodeGeneratorTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGeneratorTest.swift; sourceTree = "<group>"; };
 		068EC15727ED99C900D5D11E /* ServerListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewController.swift; sourceTree = "<group>"; };
 		068EC15927ED99E700D5D11E /* ServerListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerListViewModel.swift; sourceTree = "<group>"; };
 		068F66B2247BD84C00DAD25A /* MessageListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageListViewController.swift; sourceTree = "<group>"; };
@@ -849,7 +847,6 @@
 				06EE1FD226843E9300586708 /* BarkTests.swift */,
 				06EE1FD426843E9300586708 /* Info.plist */,
 				068A4B952D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift */,
-				06C10A052FB20001000000D1 /* QRCodeGeneratorTest.swift */,
 			);
 			path = BarkTests;
 			sourceTree = "<group>";
@@ -1559,7 +1556,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				068A4B962D2E11CD00982449 /* MessageDeleteTimeRangeTest.swift in Sources */,
-				06C10A062FB20001000000D1 /* QRCodeGeneratorTest.swift in Sources */,
 				06EE1FD326843E9300586708 /* BarkTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
