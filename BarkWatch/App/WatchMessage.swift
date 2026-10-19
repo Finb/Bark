@@ -10,7 +10,6 @@ import Observation
 import os
 import UserNotifications
 import WatchKit
-import WidgetKit
 
 struct WatchMessage: Equatable, Sendable {
     let title: String
@@ -81,14 +80,6 @@ final class NotificationState {
     init(servers: ServerManager = ServerManager(), archive: WatchArchive = .shared) {
         self.servers = servers
         lastMessage = (try? archive.latest(group: nil)).flatMap(WatchMessage.init(archived:))
-    }
-
-    /// Shows the archived message a complication was displaying, falling back to
-    /// the newest one if it has since expired. Returns whether a message is shown.
-    func showArchivedMessage(id: String?, archive: WatchArchive = .shared) -> Bool {
-        let archived = id.flatMap { try? archive.message(id: $0) } ?? (try? archive.latest(group: nil))
-        if let archived { lastMessage = WatchMessage(archived: archived) }
-        return lastMessage != nil
     }
 
     var hasNotificationPermission: Bool {
@@ -222,9 +213,7 @@ final class NotificationDelegate: NSObject, WKApplicationDelegate, UNUserNotific
         UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: [identifier])
         state.removeMessage(withIdentifier: identifier)
         do {
-            if try archive.remove(id: identifier) {
-                WidgetCenter.shared.reloadTimelines(ofKind: WatchArchive.widgetKind)
-            }
+            try archive.remove(id: identifier)
             return .newData
         } catch {
             logger.error("Could not delete archived notification: \(error.localizedDescription)")

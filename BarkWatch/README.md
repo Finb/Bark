@@ -36,7 +36,7 @@ The tests encryptedNotificationsMatchPhoneWireFormat and markdownUsesPhoneParser
 | `sound` | Custom sound unavailable. `silent` supported. |
 | `image`, `icon` | Supported |
 | `url` | Explicit Open Link button. |
-| `group` | Thread metadata and complication filtering; no group muting. |
+| `group` | Thread metadata; no group muting. |
 | `id` | Supported |
 | `isArchive`, `ttl` | Supported |
 | `badge`, `call` | Unavailable |
@@ -45,6 +45,3 @@ The tests encryptedNotificationsMatchPhoneWireFormat and markdownUsesPhoneParser
 | `delete` | Supported |
 
 Opening web links requires an extra handoff on the watch. The notification interface cannot present the browser directly: tapping **Open link** or a Markdown link passes the selected address and launches the app. BarkWatch waits until it is active before presenting the page. BarkWatch uses `WebAuthenticationSession` to display web pages. The app requests an ephemeral session so cookies are not shared with other sessions. Only links using `http` or `https` are accepted; application links and addresses containing embedded login credentials are rejected.
-
-## Widget
-BarkWatch supports a rectangular widget that displays the latest notification. The background color of the complication changes depending on the notification `level`.

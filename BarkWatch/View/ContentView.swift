@@ -56,13 +56,6 @@ struct ContentView: View {
             selection = state.needsNotificationSetup ? .status :
                 state.servers.servers.first.map { .server($0.id) } ?? .add
         }
-        // Tapping the complication shows the message it displays.
-        .onOpenURL { url in
-            guard url.host() == WatchArchive.messageURLHost else { return }
-            let id = URLComponents(url: url, resolvingAgainstBaseURL: false)?
-                .queryItems?.first { $0.name == "id" }?.value
-            if state.showArchivedMessage(id: id) { selection = .lastMessage }
-        }
     }
 
     /// Opens a link tapped in the notification interface. Waits for the app to be

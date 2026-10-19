@@ -10,7 +10,6 @@ import Intents
 import os
 import UniformTypeIdentifiers
 import UserNotifications
-import WidgetKit
 
 /// The notification service pipeline, kept out of the extension's principal class
 /// so tests can drive it without APNs, the network, or a Siri donation.
@@ -31,9 +30,6 @@ nonisolated final class WatchNotificationDelivery: @unchecked Sendable {
         }
         var donate: (INInteraction) async throws -> Void = { interaction in
             try await interaction.donate()
-        }
-        var reloadComplications: () -> Void = {
-            WidgetCenter.shared.reloadTimelines(ofKind: WatchArchive.widgetKind)
         }
     }
 
@@ -126,7 +122,6 @@ nonisolated final class WatchNotificationDelivery: @unchecked Sendable {
         }
         do {
             try dependencies.archive.save(message)
-            dependencies.reloadComplications()
         } catch {
             logger.error("Could not archive notification: \(error.localizedDescription)")
         }

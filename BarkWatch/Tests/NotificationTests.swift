@@ -510,7 +510,7 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
     #expect(try WatchCryptoStore.load(account: account) == nil)
 }
 
-@Test func complicationArchivePersistsFiltersReplacesAndExpires() throws {
+@Test func archivePersistsFiltersReplacesAndExpires() throws {
     let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: directory) }
     let archive = WatchArchive(directory: directory)
@@ -545,7 +545,7 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
 }
 
 @MainActor
-@Test func lastMessageIsRestoredFromArchiveAndComplicationTap() throws {
+@Test func lastMessageIsRestoredFromArchive() throws {
     let directory = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
     defer { try? FileManager.default.removeItem(at: directory) }
     let archive = WatchArchive(directory: directory)
@@ -572,14 +572,6 @@ private func barkResponse(for request: URLRequest) async throws -> (Data, URLRes
     #expect(restored.level == .timeSensitive)
     #expect(restored.url == URL(string: "https://day.app"))
     #expect(restored.image == nil)
-
-    #expect(state.showArchivedMessage(id: "older", archive: archive))
-    #expect(state.lastMessage?.title == "Older")
-    #expect(state.showArchivedMessage(id: "expired", archive: archive))
-    #expect(state.lastMessage?.title == "Newer")
-    let url = WatchArchive.messageURL(id: "id with spaces&more")
-    #expect(url.host() == WatchArchive.messageURLHost)
-    #expect(URLComponents(url: url, resolvingAgainstBaseURL: false)?.queryItems?.first?.value == "id with spaces&more")
 }
 
 @MainActor
