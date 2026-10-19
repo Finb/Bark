@@ -9,12 +9,12 @@ import os
 
 /// Identifiers shared by the watch app and its extensions.
 ///
-/// These must match the `.entitlements` files and the `BarkKeychainAccessGroup`
-/// Info.plist entries; update them together when the prototype bundle
-/// identifier changes.
+/// The keychain group must match the `.entitlements` files and the
+/// `BarkKeychainAccessGroup` Info.plist entries; update them together when the
+/// bundle identifier changes.
 nonisolated enum WatchConstants {
-    static let bundleIdentifier = "com.sebersta.BarkWatchPrototype"
-    static let appGroupIdentifier = "group.\(bundleIdentifier)"
+    static let bundleIdentifier = "me.fin.BarkWatch"
+    static let appGroupIdentifier = "group.bark"
 }
 
 nonisolated extension Logger {

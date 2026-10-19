@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>BarkKeychainAccessGroup</key>
-    <string>$(AppIdentifierPrefix)com.sebersta.BarkWatchPrototype.encryption</string>
+    <string>$(AppIdentifierPrefix)me.fin.bark.shared</string>
     <key>NSUserActivityTypes</key>
     <array>
         <string>INSendMessageIntent</string>
