@@ -4,11 +4,11 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.sebersta.BarkWatchPrototype</string>
+		<string>group.bark</string>
 	</array>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)com.sebersta.BarkWatchPrototype.encryption</string>
+		<string>$(AppIdentifierPrefix)me.fin.bark.shared</string>
 	</array>
 </dict>
 </plist>

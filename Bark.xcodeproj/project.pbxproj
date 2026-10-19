@@ -340,8 +340,7 @@
 		000000000000000000000007 /* BarkWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BarkWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000028 /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		000000000000000000000032 /* BarkWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarkWatch.entitlements; sourceTree = "<group>"; };
-		000000000000000000000033 /* TestNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestNotification.apns; sourceTree = "<group>"; };
-		000000000000000000000034 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		000000000000000000000033 /* TestNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestNotification.apns; sourceTree = "<group>"; };
 		056A370B19AC77E9A43813B2 /* libPods-BarkWatchNotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatchNotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0603706620E1E31600F4CA05 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -533,7 +532,6 @@
 		2EB8EE587788EAA2C88A9C1A /* Pods-BarkWatch.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatch.release.xcconfig"; path = "Target Support Files/Pods-BarkWatch/Pods-BarkWatch.release.xcconfig"; sourceTree = "<group>"; };
 		35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatchTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		366FB0FC6350F5E40F91FC1D /* libPods-BarkWatch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D23D570307AEB510087F74C /* BarkWatch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BarkWatch.xcconfig; sourceTree = "<group>"; };
 		4A9C3B74281C8607B364CED7 /* Pods-NotificationContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationContentExtension/Pods-NotificationContentExtension.release.xcconfig"; sourceTree = "<group>"; };
 		519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		5D0DEDA9FEBA14EA5DB8B9A1 /* Pods-BarkWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatch.debug.xcconfig"; path = "Target Support Files/Pods-BarkWatch/Pods-BarkWatch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -543,7 +541,7 @@
 		A10000000000000000000002 /* WatchNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchNotificationService.swift; sourceTree = "<group>"; };
 		A10000000000000000000003 /* BarkWatchNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = BarkWatchNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
-		B20000000000000000000055 /* MarkdownNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MarkdownNotification.apns; sourceTree = "<group>"; };
+		B20000000000000000000055 /* MarkdownNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = MarkdownNotification.apns; sourceTree = "<group>"; };
 		B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30000000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCC722470308049D180876C7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -660,9 +658,7 @@
 				000000000000000000000032 /* BarkWatch.entitlements */,
 				000000000000000000000033 /* TestNotification.apns */,
 				B20000000000000000000055 /* MarkdownNotification.apns */,
-				000000000000000000000034 /* README.md */,
 				A10000000000000000000002 /* WatchNotificationService.swift */,
-				3D23D570307AEB510087F74C /* BarkWatch.xcconfig */,
 			);
 			path = BarkWatch;
 			sourceTree = "<group>";
@@ -856,9 +852,9 @@
 				0661A541204FDA4100965E4E /* Bark */,
 				0632CE2120EC9098003FDF46 /* NotificationContentExtension */,
 				06CF784121C7A50300A052D7 /* NotificationServiceExtension */,
-				06EE1FD126843E9300586708 /* BarkTests */,
-				06697FDE2F70ED9400C4680E /* Widget */,
 				000000000000000000000002 /* BarkWatch */,
+				06697FDE2F70ED9400C4680E /* Widget */,
+				06EE1FD126843E9300586708 /* BarkTests */,
 				0661A540204FDA4100965E4E /* Products */,
 				99BD309BDB7F62B5DC0CECE1 /* Frameworks */,
 				E9062CB15F1B70C3719578FB /* Pods */,
@@ -1993,7 +1989,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/Info.plist;
@@ -2008,7 +2004,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototype;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
@@ -2034,7 +2030,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BarkWatch;
@@ -2048,7 +2044,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototype;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
@@ -2071,7 +2067,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -2081,7 +2077,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototypeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
@@ -2105,7 +2101,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2114,7 +2110,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototypeTests;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
@@ -2569,7 +2565,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/NotificationService/Info.plist;
@@ -2581,7 +2577,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototype.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
@@ -2605,7 +2601,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
+				DEVELOPMENT_TEAM = 5U8LBRXG3A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/NotificationService/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Bark Watch Notifications";
@@ -2616,7 +2612,7 @@
 				);
 				MARKETING_VERSION = 0.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototype.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;

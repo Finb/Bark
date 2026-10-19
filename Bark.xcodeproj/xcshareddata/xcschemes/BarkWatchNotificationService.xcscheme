@@ -18,6 +18,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "A10000000000000000000010"
                BuildableName = "BarkWatchNotificationService.appex"
+               BlueprintName = "BarkWatchNotificationService"
                ReferencedContainer = "container:Bark.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -31,6 +32,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "000000000000000000000004"
                BuildableName = "BarkWatch.app"
+               BlueprintName = "BarkWatch"
                ReferencedContainer = "container:Bark.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
