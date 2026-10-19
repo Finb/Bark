@@ -148,7 +148,6 @@
 		06A100152FEE0001000000A1 /* HomeSettingsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100142FEE0001000000A1 /* HomeSettingsCard.swift */; };
 		06A100172FEE0001000000A1 /* HomeDocumentsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100162FEE0001000000A1 /* HomeDocumentsCard.swift */; };
 		06A100192FEE0001000000A1 /* CodeHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100182FEE0001000000A1 /* CodeHighlighter.swift */; };
-		06C10A022FB20001000000D1 /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A012FB20001000000D1 /* QRCodeGenerator.swift */; };
 		06A1001B2FEE0001000000A1 /* HomeFlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */; };
 		06A100212FEE0001000000A1 /* HomeSplitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100202FEE0001000000A1 /* HomeSplitButton.swift */; };
 		06A200022FED000100000001 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A200012FED000100000001 /* SceneDelegate.swift */; };
@@ -169,6 +168,8 @@
 		06BCAE5B2CDB25120092867A /* MuteProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BCAE5A2CDB25120092867A /* MuteProcessor.swift */; };
 		06BD4DAA2901352E003364DB /* Object+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BD4DA92901352E003364DB /* Object+Dictionary.swift */; };
 		06BE84042E6EAE7100E6F856 /* InsetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06BE84032E6EAE7100E6F856 /* InsetView.swift */; };
+		06C10A022FB20001000000D1 /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A012FB20001000000D1 /* QRCodeGenerator.swift */; };
+		06C10A042FB20001000000D1 /* PushQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */; };
 		06C2CF232685B88D0034B127 /* TextCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF222685B88D0034B127 /* TextCell.swift */; };
 		06C2CF252685BDB80034B127 /* SpacerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C2CF242685BDB80034B127 /* SpacerCell.swift */; };
 		06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C5952C2480E3F8006B98F3 /* LabelCell.swift */; };
@@ -235,7 +236,6 @@
 		06F08EA829B1DE0A006AB9CA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
 		06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAE29B5D9FF006AB9CA /* HUD.swift */; };
 		06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
-		06C10A042FB20001000000D1 /* PushQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */; };
 		06F808912EF4056C0007352A /* AppDelegate+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F808902EF4056C0007352A /* AppDelegate+Realm.swift */; };
 		06FB04042C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
 		06FB04052C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
@@ -245,9 +245,6 @@
 		1EFB545F2C32514000B8E51B /* SectionViewModel-iPad.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EFB545E2C32514000B8E51B /* SectionViewModel-iPad.swift */; };
 		2FEAABEDC1A6FF1648620312 /* libPods-BarkWatchTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */; };
 		3428272069AFAFE2C683FEB0 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC722470308049D180876C7 /* libPods-Bark.a */; };
-		3DBD074B306B95A100A86B41 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBD074A306B95A100A86B41 /* WidgetKit.framework */; };
-		3DBD074D306B95A100A86B41 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DBD074C306B95A100A86B41 /* SwiftUI.framework */; };
-		3DBD075A306B95A300A86B41 /* BarkWatchComplicationExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 3DBD0748306B95A100A86B41 /* BarkWatchComplicationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		879AE4D4178855A9672009E4 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */; };
 		88757E3ACE0EA6A48577C958 /* libPods-NotificationContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */; };
 		A10000000000000000000006 /* WatchNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WatchNotificationService.swift */; };
@@ -302,13 +299,6 @@
 			remoteGlobalIDString = 0661A53E204FDA4100965E4E;
 			remoteInfo = Bark;
 		};
-		3DBD0758306B95A300A86B41 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0661A537204FDA4100965E4E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3DBD0747306B95A100A86B41;
-			remoteInfo = BarkWatchComplicationExtension;
-		};
 		A10000000000000000000011 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0661A537204FDA4100965E4E /* Project object */;
@@ -338,7 +328,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				3DBD075A306B95A300A86B41 /* BarkWatchComplicationExtension.appex in Embed App Extensions */,
 				A10000000000000000000007 /* BarkWatchNotificationService.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
@@ -479,7 +468,6 @@
 		06A100142FEE0001000000A1 /* HomeSettingsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsCard.swift; sourceTree = "<group>"; };
 		06A100162FEE0001000000A1 /* HomeDocumentsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDocumentsCard.swift; sourceTree = "<group>"; };
 		06A100182FEE0001000000A1 /* CodeHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeHighlighter.swift; sourceTree = "<group>"; };
-		06C10A012FB20001000000D1 /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlatButton.swift; sourceTree = "<group>"; };
 		06A100202FEE0001000000A1 /* HomeSplitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSplitButton.swift; sourceTree = "<group>"; };
 		06A200012FED000100000001 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -497,6 +485,8 @@
 		06BCAE5A2CDB25120092867A /* MuteProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MuteProcessor.swift; sourceTree = "<group>"; };
 		06BD4DA92901352E003364DB /* Object+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Object+Dictionary.swift"; sourceTree = "<group>"; };
 		06BE84032E6EAE7100E6F856 /* InsetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetView.swift; sourceTree = "<group>"; };
+		06C10A012FB20001000000D1 /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
+		06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushQRCodeViewController.swift; sourceTree = "<group>"; };
 		06C2CF222685B88D0034B127 /* TextCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextCell.swift; sourceTree = "<group>"; };
 		06C2CF242685BDB80034B127 /* SpacerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacerCell.swift; sourceTree = "<group>"; };
 		06C5952C2480E3F8006B98F3 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
@@ -531,7 +521,6 @@
 		06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		06F08EAE29B5D9FF006AB9CA /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
-		06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushQRCodeViewController.swift; sourceTree = "<group>"; };
 		06F808902EF4056C0007352A /* AppDelegate+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Realm.swift"; sourceTree = "<group>"; };
 		06FB04032C53575400F3A213 /* SharedDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefines.swift; sourceTree = "<group>"; };
 		121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -545,10 +534,6 @@
 		35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatchTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		366FB0FC6350F5E40F91FC1D /* libPods-BarkWatch.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatch.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D23D570307AEB510087F74C /* BarkWatch.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = BarkWatch.xcconfig; sourceTree = "<group>"; };
-		3DBD0748306B95A100A86B41 /* BarkWatchComplicationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = BarkWatchComplicationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DBD074A306B95A100A86B41 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
-		3DBD074C306B95A100A86B41 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
-		3DBD075F306B969400A86B41 /* BarkWatchComplicationExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarkWatchComplicationExtension.entitlements; sourceTree = "<group>"; };
 		4A9C3B74281C8607B364CED7 /* Pods-NotificationContentExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationContentExtension/Pods-NotificationContentExtension.release.xcconfig"; sourceTree = "<group>"; };
 		519481D715B40109627E1B49 /* Pods-NotificationServiceExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.release.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.release.xcconfig"; sourceTree = "<group>"; };
 		5D0DEDA9FEBA14EA5DB8B9A1 /* Pods-BarkWatch.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatch.debug.xcconfig"; path = "Target Support Files/Pods-BarkWatch/Pods-BarkWatch.debug.xcconfig"; sourceTree = "<group>"; };
@@ -576,30 +561,14 @@
 			);
 			target = 06697FD82F70ED9400C4680E /* WidgetExtension */;
 		};
-		3D099DDE306DBCFC00A96591 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				WatchArchive.swift,
-				WatchConstants.swift,
-			);
-			target = 3DBD0747306B95A100A86B41 /* BarkWatchComplicationExtension */;
-		};
-		3DBD075B306B95A300A86B41 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 3DBD0747306B95A100A86B41 /* BarkWatchComplicationExtension */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		06697FDE2F70ED9400C4680E /* Widget */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (06697FEA2F70ED9500C4680E /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Widget; sourceTree = "<group>"; };
 		3D099DCC306DBCEE00A96591 /* Model */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Model; sourceTree = "<group>"; };
 		3D099DD0306DBCF400A96591 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
-		3D099DD6306DBCFB00A96591 /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D099DDE306DBCFC00A96591 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
+		3D099DD6306DBCFB00A96591 /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
 		3D2E504F306D002800D53E4F /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
-		3DBD074E306B95A100A86B41 /* BarkWatchComplication */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3DBD075B306B95A300A86B41 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = BarkWatchComplication; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -667,15 +636,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3DBD0745306B95A100A86B41 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3DBD074D306B95A100A86B41 /* SwiftUI.framework in Frameworks */,
-				3DBD074B306B95A100A86B41 /* WidgetKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		B20000000000000000000013 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -695,15 +655,12 @@
 				3D099DCC306DBCEE00A96591 /* Model */,
 				3D2E504F306D002800D53E4F /* View */,
 				3D099DD6306DBCFB00A96591 /* Common */,
-				3DBD074E306B95A100A86B41 /* BarkWatchComplication */,
 				D40000000000000000000005 /* Tests */,
 				C30000000000000000000001 /* Assets.xcassets */,
 				000000000000000000000032 /* BarkWatch.entitlements */,
-				3DBD075F306B969400A86B41 /* BarkWatchComplicationExtension.entitlements */,
 				000000000000000000000033 /* TestNotification.apns */,
 				B20000000000000000000055 /* MarkdownNotification.apns */,
 				000000000000000000000034 /* README.md */,
-				3DBD0749306B95A100A86B41 /* Frameworks */,
 				A10000000000000000000002 /* WatchNotificationService.swift */,
 				3D23D570307AEB510087F74C /* BarkWatch.xcconfig */,
 			);
@@ -919,7 +876,6 @@
 				000000000000000000000006 /* BarkWatch.app */,
 				000000000000000000000007 /* BarkWatchTests.xctest */,
 				A10000000000000000000003 /* BarkWatchNotificationService.appex */,
-				3DBD0748306B95A100A86B41 /* BarkWatchComplicationExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1021,15 +977,6 @@
 			path = Intents;
 			sourceTree = "<group>";
 		};
-		3DBD0749306B95A100A86B41 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				3DBD074A306B95A100A86B41 /* WidgetKit.framework */,
-				3DBD074C306B95A100A86B41 /* SwiftUI.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		99BD309BDB7F62B5DC0CECE1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1097,7 +1044,6 @@
 			);
 			dependencies = (
 				A10000000000000000000009 /* PBXTargetDependency */,
-				3DBD0759306B95A300A86B41 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				3D099DCC306DBCEE00A96591 /* Model */,
@@ -1232,26 +1178,6 @@
 			productReference = 06EE1FD026843E9300586708 /* BarkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3DBD0747306B95A100A86B41 /* BarkWatchComplicationExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3DBD075C306B95A300A86B41 /* Build configuration list for PBXNativeTarget "BarkWatchComplicationExtension" */;
-			buildPhases = (
-				3DBD0744306B95A100A86B41 /* Sources */,
-				3DBD0745306B95A100A86B41 /* Frameworks */,
-				3DBD0746306B95A100A86B41 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				3DBD074E306B95A100A86B41 /* BarkWatchComplication */,
-			);
-			name = BarkWatchComplicationExtension;
-			productName = BarkWatchComplicationExtension;
-			productReference = 3DBD0748306B95A100A86B41 /* BarkWatchComplicationExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		A10000000000000000000010 /* BarkWatchNotificationService */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = A10000000000000000000015 /* Build configuration list for PBXNativeTarget "BarkWatchNotificationService" */;
@@ -1324,9 +1250,6 @@
 						ProvisioningStyle = Automatic;
 						TestTargetID = 0661A53E204FDA4100965E4E;
 					};
-					3DBD0747306B95A100A86B41 = {
-						CreatedOnToolsVersion = 27.0;
-					};
 				};
 			};
 			buildConfigurationList = 0661A53A204FDA4100965E4E /* Build configuration list for PBXProject "Bark" */;
@@ -1356,7 +1279,6 @@
 				000000000000000000000004 /* BarkWatch */,
 				000000000000000000000005 /* BarkWatchTests */,
 				A10000000000000000000010 /* BarkWatchNotificationService */,
-				3DBD0747306B95A100A86B41 /* BarkWatchComplicationExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1479,13 +1401,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		06EE1FCE26843E9300586708 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3DBD0746306B95A100A86B41 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1999,13 +1914,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3DBD0744306B95A100A86B41 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		A10000000000000000000012 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -2045,11 +1953,6 @@
 			isa = PBXTargetDependency;
 			target = 0661A53E204FDA4100965E4E /* Bark */;
 			targetProxy = 06EE1FD526843E9300586708 /* PBXContainerItemProxy */;
-		};
-		3DBD0759306B95A300A86B41 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3DBD0747306B95A100A86B41 /* BarkWatchComplicationExtension */;
-			targetProxy = 3DBD0758306B95A300A86B41 /* PBXContainerItemProxy */;
 		};
 		A10000000000000000000009 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -2655,182 +2558,6 @@
 			};
 			name = Release;
 		};
-		3DBD075D306B95A300A86B41 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = BarkWatch/BarkWatchComplicationExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BarkWatch/BarkWatchComplication/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BarkWatchComplication;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.1;
-				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototype.BarkWatchComplication;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Debug;
-		};
-		3DBD075E306B95A300A86B41 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_COMMA = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
-				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
-				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
-				CLANG_WARN_STRICT_PROTOTYPES = YES;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_ENTITLEMENTS = BarkWatch/BarkWatchComplicationExtension.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
-				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 1;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = 8HVQYZSB2F;
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu17;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = BarkWatch/BarkWatchComplication/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BarkWatchComplication;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-					"@executable_path/../../../../Frameworks",
-				);
-				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 0.1;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				MTL_FAST_MATH = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.sebersta.BarkWatchPrototype.BarkWatchComplication;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				REGISTER_APP_GROUPS = YES;
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				STRING_CATALOG_GENERATE_SYMBOLS = YES;
-				SWIFT_APPROACHABLE_CONCURRENCY = YES;
-				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
-				SWIFT_VERSION = 6.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
-			};
-			name = Release;
-		};
 		A10000000000000000000013 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 178D8742EC982295ED31D74C /* Pods-BarkWatchNotificationService.debug.xcconfig */;
@@ -2972,15 +2699,6 @@
 			buildConfigurations = (
 				06EE1FD826843E9300586708 /* Debug */,
 				06EE1FD926843E9300586708 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3DBD075C306B95A300A86B41 /* Build configuration list for PBXNativeTarget "BarkWatchComplicationExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3DBD075D306B95A300A86B41 /* Debug */,
-				3DBD075E306B95A300A86B41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
