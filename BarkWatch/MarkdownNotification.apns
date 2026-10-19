@@ -1,0 +1,13 @@
+{
+  "aps": {
+    "alert": {
+      "title": "Markdown on watch",
+      "body": "Open to see formatted Markdown."
+    },
+    "mutable-content": 1,
+    "category": "BarkMarkdown",
+    "sound": "default"
+  },
+  "markdown": "# Training\n**Strong**, *emphasis*, ~~removed~~ and `code`.\n\n> Steady effort.\n\n3. Warm up\n4. Main set\n   - Recover\n\n- [x] Completed\n- [ ] Pending\n\n```swift\nlet distance = 42\nprint(distance)\n```\n\n[Bark](https://bark.day.app) and ![Photo](https://example.com/photo.png)",
+  "isarchive": "0"
+}
