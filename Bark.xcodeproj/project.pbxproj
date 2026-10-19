@@ -146,6 +146,7 @@
 		06A100152FEE0001000000A1 /* HomeSettingsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100142FEE0001000000A1 /* HomeSettingsCard.swift */; };
 		06A100172FEE0001000000A1 /* HomeDocumentsCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100162FEE0001000000A1 /* HomeDocumentsCard.swift */; };
 		06A100192FEE0001000000A1 /* CodeHighlighter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100182FEE0001000000A1 /* CodeHighlighter.swift */; };
+		06C10A022FB20001000000D1 /* QRCodeGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A012FB20001000000D1 /* QRCodeGenerator.swift */; };
 		06A1001B2FEE0001000000A1 /* HomeFlatButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */; };
 		06A100212FEE0001000000A1 /* HomeSplitButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06A100202FEE0001000000A1 /* HomeSplitButton.swift */; };
 		06B1158D247BA6D5006D91FB /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B1158C247BA6D5006D91FB /* CloudKit.framework */; };
@@ -231,6 +232,7 @@
 		06F08EA829B1DE0A006AB9CA /* Error+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */; };
 		06F08EAF29B5D9FF006AB9CA /* HUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EAE29B5D9FF006AB9CA /* HUD.swift */; };
 		06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */; };
+		06C10A042FB20001000000D1 /* PushQRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */; };
 		06F808912EF4056C0007352A /* AppDelegate+Realm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F808902EF4056C0007352A /* AppDelegate+Realm.swift */; };
 		06FB04042C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
 		06FB04052C53575400F3A213 /* SharedDefines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06FB04032C53575400F3A213 /* SharedDefines.swift */; };
@@ -418,6 +420,7 @@
 		06A100142FEE0001000000A1 /* HomeSettingsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSettingsCard.swift; sourceTree = "<group>"; };
 		06A100162FEE0001000000A1 /* HomeDocumentsCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeDocumentsCard.swift; sourceTree = "<group>"; };
 		06A100182FEE0001000000A1 /* CodeHighlighter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeHighlighter.swift; sourceTree = "<group>"; };
+		06C10A012FB20001000000D1 /* QRCodeGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeGenerator.swift; sourceTree = "<group>"; };
 		06A1001A2FEE0001000000A1 /* HomeFlatButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFlatButton.swift; sourceTree = "<group>"; };
 		06A100202FEE0001000000A1 /* HomeSplitButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSplitButton.swift; sourceTree = "<group>"; };
 		06B1158C247BA6D5006D91FB /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -468,6 +471,7 @@
 		06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Extension.swift"; sourceTree = "<group>"; };
 		06F08EAE29B5D9FF006AB9CA /* HUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HUD.swift; sourceTree = "<group>"; };
 		06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushQRCodeViewController.swift; sourceTree = "<group>"; };
 		06F808902EF4056C0007352A /* AppDelegate+Realm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppDelegate+Realm.swift"; sourceTree = "<group>"; };
 		06FB04032C53575400F3A213 /* SharedDefines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedDefines.swift; sourceTree = "<group>"; };
 		121D9B1ED4E8D26F345BC5C0 /* Pods-BarkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.release.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -569,6 +573,7 @@
 				060481ED250F404500BC9799 /* SoundsViewController.swift */,
 				065BE43F2563D649002A8CA4 /* SoundsViewModel.swift */,
 				06F11E7627D9D5FB00F00298 /* QRScannerViewController.swift */,
+				06C10A032FB20001000000D1 /* PushQRCodeViewController.swift */,
 				068EC15727ED99C900D5D11E /* ServerListViewController.swift */,
 				068EC15927ED99E700D5D11E /* ServerListViewModel.swift */,
 				06EEF332291CCFF400CA228A /* CryptoSettingController.swift */,
@@ -711,6 +716,7 @@
 				06BCAE552CDB19260092867A /* GroupMuteSettingManager.swift */,
 				06C777CF2ECEFF210032A044 /* MarkdownParser.swift */,
 				06A100182FEE0001000000A1 /* CodeHighlighter.swift */,
+				06C10A012FB20001000000D1 /* QRCodeGenerator.swift */,
 				066B10002F73F00100C4680E /* WidgetHistoryModels.swift */,
 				06697FED2F70ED9600C4680E /* WidgetHistorySnapshotStore.swift */,
 				06697FF52F70ED9600C4680E /* WidgetHistorySnapshotSupport.swift */,
@@ -1450,6 +1456,7 @@
 				06885EB6247FB9880004A303 /* MessageSettingsViewController.swift in Sources */,
 				0635A8052CE47DFE0027E00F /* SettingSectionHeader.swift in Sources */,
 				06F11E7727D9D5FB00F00298 /* QRScannerViewController.swift in Sources */,
+				06C10A042FB20001000000D1 /* PushQRCodeViewController.swift in Sources */,
 				0608F06E2994D115006B8029 /* BKDropDownCell.swift in Sources */,
 				06C5952D2480E3F8006B98F3 /* LabelCell.swift in Sources */,
 				06787C392A710568008ABDD7 /* GesturePassTextView.swift in Sources */,
@@ -1465,6 +1472,7 @@
 				06A100112FEE0001000000A1 /* HomePermissionCard.swift in Sources */,
 				06A100132FEE0001000000A1 /* HomeExampleCard.swift in Sources */,
 				06A100192FEE0001000000A1 /* CodeHighlighter.swift in Sources */,
+				06C10A022FB20001000000D1 /* QRCodeGenerator.swift in Sources */,
 				06A100152FEE0001000000A1 /* HomeSettingsCard.swift in Sources */,
 				06A100172FEE0001000000A1 /* HomeDocumentsCard.swift in Sources */,
 				061E35862D1E5028009A2D6F /* MessageItemModel.swift in Sources */,
