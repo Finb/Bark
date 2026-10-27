@@ -27,6 +27,12 @@
             "state" : "translated",
             "value" : "添加成功！"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server aggiunto con successo."
+          }
         }
       }
     },
@@ -55,6 +61,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "添加私有服务器"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aggiungi un server"
           }
         }
       }
@@ -85,6 +97,12 @@
             "state" : "translated",
             "value" : "算法"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Algoritmo"
+          }
         }
       }
     },
@@ -113,6 +131,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "全部"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tutti"
           }
         }
       }
@@ -143,6 +167,12 @@
             "state" : "translated",
             "value" : "所有时间"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Da sempre"
+          }
         }
       }
     },
@@ -171,6 +201,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "当推送请求URL没有指定 isArchive 参数时，将按照此设置来决定是否保存通知消息"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archivia le notifiche di default se il parametro 'isArchive' non è impostato."
           }
         }
       }
@@ -201,6 +237,12 @@
             "state" : "translated",
             "value" : "设置角标"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conteggio badge"
+          }
         }
       }
     },
@@ -229,6 +271,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "如果提示 Decryption Failed， 尝试在 base64 命令后面 加上 -w 0"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Se ricevi l'errore 'Decrittografia fallita', prova ad aggiungere '-w 0' dopo il comando base64."
           }
         }
       }
@@ -259,6 +307,12 @@
             "state" : "translated",
             "value" : "一个月之前"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oltre un mese fa"
+          }
         }
       }
     },
@@ -287,6 +341,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "一小时之前"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oltre un'ora fa"
           }
         }
       }
@@ -317,6 +377,12 @@
             "state" : "translated",
             "value" : "今天之前"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prima di oggi"
+          }
         }
       }
     },
@@ -345,6 +411,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "昨天之前"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Prima di ieri"
           }
         }
       }
@@ -375,6 +447,12 @@
             "state" : "translated",
             "value" : "Bark 由 GitHub Actions 构建后上传到 App Store，此信息可帮助你确认当前版本是由开源代码所构建，未经任何人(包含作者)修改。"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bark usa GitHub Actions per compilarsi e pubblicarsi sull'App Store. Puoi verificare il 'run_id' nell'URL per assicurarti che Bark sia stato compilato dal codice sorgente open-source originale."
+          }
         }
       }
     },
@@ -403,6 +481,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "取消"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Annulla"
           }
         }
       }
@@ -433,6 +517,12 @@
             "state" : "translated",
             "value" : "密文可能有特殊字符，所以记得 URL 编码一下。"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codifica il testo cifrato in URL encoding, potrebbe contenere caratteri speciali."
+          }
         }
       }
     },
@@ -461,6 +551,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "清除"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Svuota"
           }
         }
       }
@@ -491,6 +587,12 @@
             "state" : "translated",
             "value" : "清除以下时间段的历史消息:"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancella da:"
+          }
         }
       }
     },
@@ -519,6 +621,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "关闭"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chiudi"
           }
         }
       }
@@ -549,6 +657,12 @@
             "state" : "translated",
             "value" : "确定"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Conferma"
+          }
         }
       }
     },
@@ -577,6 +691,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "确定删除服务器吗？"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Sei sicuro di voler eliminare questo server?"
           }
         }
       }
@@ -607,6 +727,12 @@
             "state" : "translated",
             "value" : "控制台将打印"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "La console stamperà"
+          }
         }
       }
     },
@@ -635,6 +761,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "持续支持"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Supporto continuativo"
           }
         }
       }
@@ -665,6 +797,12 @@
             "state" : "translated",
             "value" : "复制成功"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copiato!"
+          }
         }
       }
     },
@@ -693,6 +831,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "复制"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia"
           }
         }
       }
@@ -723,6 +867,12 @@
             "state" : "translated",
             "value" : "复制地址和Key"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia indirizzo e chiave"
+          }
         }
       }
     },
@@ -751,6 +901,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "复制内容"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia il contenuto"
           }
         }
       }
@@ -781,6 +937,12 @@
             "state" : "translated",
             "value" : "复制发送脚本示例"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia lo script di esempio"
+          }
         }
       }
     },
@@ -809,6 +971,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "复制Key"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copia chiave"
           }
         }
       }
@@ -839,6 +1007,12 @@
             "state" : "translated",
             "value" : "重要警告"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avviso critico"
+          }
         }
       }
     },
@@ -867,6 +1041,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重要警告权限未开启"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Avvisi critici disabilitati"
           }
         }
       }
@@ -897,6 +1077,12 @@
             "state" : "translated",
             "value" : "重要警告推送将降级为普通推送"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gli avvisi critici verranno consegnati come notifiche normali"
+          }
         }
       }
     },
@@ -925,6 +1111,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "这里改成你自己的推送内容"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Testo del messaggio"
           }
         }
       }
@@ -955,6 +1147,12 @@
             "state" : "translated",
             "value" : "推送标题"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titolo"
+          }
         }
       }
     },
@@ -983,6 +1181,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自定义铃声"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suoni personalizzati"
           }
         }
       }
@@ -1013,6 +1217,12 @@
             "state" : "translated",
             "value" : "默认"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Default"
+          }
         }
       }
     },
@@ -1041,6 +1251,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "默认保存"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archivia di default"
           }
         }
       }
@@ -1071,6 +1287,12 @@
             "state" : "translated",
             "value" : "默认铃声"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suoni predefiniti"
+          }
         }
       }
     },
@@ -1099,6 +1321,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "删除成功！"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server eliminato con successo."
           }
         }
       }
@@ -1129,6 +1357,12 @@
             "state" : "translated",
             "value" : "不能删除，服务器至少需保留一个"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Devi avere almeno un server configurato."
+          }
         }
       }
     },
@@ -1157,6 +1391,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "删除服务器"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Elimina server"
           }
         }
       }
@@ -1187,6 +1427,12 @@
             "state" : "translated",
             "value" : "查看服务端部署教程"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Installa un server Bark self-hosted"
+          }
         }
       }
     },
@@ -1215,6 +1461,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "https://bark.day.app/#/deploy"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/deploy"
           }
         }
       }
@@ -1245,6 +1497,12 @@
             "state" : "translated",
             "value" : "设备未注册成功，推送服务暂不可用"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dispositivo non registrato. Servizio push non disponibile."
+          }
         }
       }
     },
@@ -1273,6 +1531,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用文档"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documentazione"
           }
         }
       }
@@ -1303,6 +1567,12 @@
             "state" : "translated",
             "value" : "文档与示例"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Documenti ed esempi"
+          }
         }
       }
     },
@@ -1331,6 +1601,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "查看推送参数和常见问题"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedi i parametri push e le FAQ"
           }
         }
       }
@@ -1361,6 +1637,12 @@
             "state" : "translated",
             "value" : "https://bark.day.app/#/?id=bark"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/?id=bark"
+          }
         }
       }
     },
@@ -1390,6 +1672,12 @@
             "state" : "translated",
             "value" : "捐赠"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Dona"
+          }
         }
       }
     },
@@ -1415,6 +1703,12 @@
           }
         },
         "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "🤝"
+          }
+        },
+        "it" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "🤝"
@@ -1448,6 +1742,12 @@
             "state" : "translated",
             "value" : "完成"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fatto"
+          }
         }
       }
     },
@@ -1476,6 +1776,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "加密设置"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostazioni crittografia"
           }
         }
       }
@@ -1506,6 +1812,12 @@
             "state" : "translated",
             "value" : "https://bark.day.app/#/encryption"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/encryption"
+          }
         }
       }
     },
@@ -1534,6 +1846,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请输入%d位Iv"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci l'IV da %d byte"
           }
         }
       }
@@ -1564,6 +1882,12 @@
             "state" : "translated",
             "value" : "请输入%d位Key"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci la chiave da %d byte"
+          }
         }
       }
     },
@@ -1592,6 +1916,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导出"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esporta"
           }
         }
       }
@@ -1622,6 +1952,12 @@
             "state" : "translated",
             "value" : "常见问题"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "FAQ"
+          }
         }
       }
     },
@@ -1650,6 +1986,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "https://bark.day.app/#/faq"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/faq"
           }
         }
       }
@@ -1680,6 +2022,12 @@
             "state" : "translated",
             "value" : "去开启"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abilita"
+          }
         }
       }
     },
@@ -1707,6 +2055,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "分组"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppo"
           }
         }
       }
@@ -1737,6 +2091,12 @@
             "state" : "translated",
             "value" : "分组 \"%@\" 已静音"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gruppo \"%@\" silenziato!"
+          }
         }
       }
     },
@@ -1765,6 +2125,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "历史消息"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cronologia messaggi"
           }
         }
       }
@@ -1795,6 +2161,12 @@
             "state" : "translated",
             "value" : "图片"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Immagine"
+          }
         }
       }
     },
@@ -1823,6 +2195,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "导入"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Importa"
           }
         }
       }
@@ -1853,6 +2231,12 @@
             "state" : "translated",
             "value" : "信息"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Info"
+          }
         }
       }
     },
@@ -1881,6 +2265,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "填写的服务器无效，请重试!"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del server non valido."
           }
         }
       }
@@ -1911,6 +2301,12 @@
             "state" : "translated",
             "value" : "输入的URL好像不对劲!"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "URL non valido."
+          }
         }
       }
     },
@@ -1939,6 +2335,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "条消息"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "messaggi"
           }
         }
       }
@@ -1969,6 +2371,12 @@
             "state" : "translated",
             "value" : "IV 请随机生成，并放进 iv 参数一起发送。"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Genera un IV casuale e invialo tramite il parametro iv."
+          }
         }
       }
     },
@@ -1997,6 +2405,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "必须%d位"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deve essere lunga %d bit"
           }
         }
       }
@@ -2027,6 +2441,12 @@
             "state" : "translated",
             "value" : "最近一小时"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultima ora"
+          }
         }
       }
     },
@@ -2055,6 +2475,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "最近一个月"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ultimo mese"
           }
         }
       }
@@ -2085,6 +2511,12 @@
             "state" : "translated",
             "value" : "模式"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modalità"
+          }
         }
       }
     },
@@ -2113,6 +2545,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "更多"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altro"
           }
         }
       }
@@ -2143,6 +2581,12 @@
             "state" : "translated",
             "value" : "更多操作"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altre azioni"
+          }
         }
       }
     },
@@ -2171,6 +2615,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1小时内不再提醒此分组"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silenzia questo gruppo per 1 ora"
           }
         }
       }
@@ -2201,6 +2651,12 @@
             "state" : "translated",
             "value" : "没有权限"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun permesso"
+          }
         }
       }
     },
@@ -2229,6 +2685,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "自定义推送图标（需iOS15或以上）"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Icona"
           }
         }
       }
@@ -2259,6 +2721,12 @@
             "state" : "translated",
             "value" : "发送测试前请先开启通知权限。"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abilita il permesso alle notifiche prima di inviare un test."
+          }
         }
       }
     },
@@ -2287,6 +2755,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通知权限未开启"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifiche disabilitate"
           }
         }
       }
@@ -2317,6 +2791,12 @@
             "state" : "translated",
             "value" : "需开启以接收消息推送"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Abilitale per ricevere notifiche push"
+          }
         }
       }
     },
@@ -2345,6 +2825,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "通知权限已开启"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifiche abilitate"
           }
         }
       }
@@ -2375,6 +2861,12 @@
             "state" : "translated",
             "value" : "现在可以正常接收消息推送"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ora puoi ricevere notifiche push"
+          }
         }
       }
     },
@@ -2403,6 +2895,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "推送铃声"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suono di notifica"
           }
         }
       }
@@ -2433,6 +2931,12 @@
             "state" : "translated",
             "value" : "一次性捐赠"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donazione una tantum"
+          }
         }
       }
     },
@@ -2461,6 +2965,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "OpenSSL 要求输入的 Key 和 IV 需使用十六进制编码。"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "openssl richiede la codifica Hex per chiavi e IV manuali, non la codifica ASCII."
           }
         }
       }
@@ -2491,6 +3001,12 @@
             "state" : "translated",
             "value" : "其他"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Altro"
+          }
         }
       }
     },
@@ -2519,6 +3035,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "https://bark.day.app/#/params"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "https://bark.day.app/#/en-us/params"
           }
         }
       }
@@ -2549,6 +3071,12 @@
             "state" : "translated",
             "value" : "隐私政策"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Privacy"
+          }
         }
       }
     },
@@ -2577,6 +3105,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "推送参数"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Parametri"
           }
         }
       }
@@ -2607,6 +3141,12 @@
             "state" : "translated",
             "value" : "删除"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rimuovi"
+          }
         }
       }
     },
@@ -2635,6 +3175,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "将永久删除并且无法恢复。"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Verrà eliminato definitivamente e non potrà essere recuperato."
           }
         }
       }
@@ -2665,6 +3211,12 @@
             "state" : "translated",
             "value" : "重置失败"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ripristino fallito"
+          }
         }
       }
     },
@@ -2693,6 +3245,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重置失败，没有获取到 DeviceToken"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bark non è riuscito a ottenere un DeviceToken dal server."
           }
         }
       }
@@ -2723,6 +3281,12 @@
             "state" : "translated",
             "value" : "重置或还原Key"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Reimposta o ripristina la chiave"
+          }
         }
       }
     },
@@ -2751,6 +3315,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重置直接点确定，还原请先输入旧的Key"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lascia vuoto per reimpostare. Inserisci una vecchia chiave per ripristinarla."
           }
         }
       }
@@ -2781,6 +3351,12 @@
             "state" : "translated",
             "value" : "不输入或输入旧的Key"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Non inserire nulla o inserisci la vecchia chiave"
+          }
         }
       }
     },
@@ -2809,6 +3385,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "恢复订阅"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ripristina abbonamento"
           }
         }
       }
@@ -2839,6 +3421,12 @@
             "state" : "translated",
             "value" : "持续响铃"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Suoneria"
+          }
         }
       }
     },
@@ -2867,6 +3455,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "重要警告铃声音量"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Volume suoneria per avvisi critici"
           }
         }
       }
@@ -2897,6 +3491,12 @@
             "state" : "translated",
             "value" : "保存"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salva"
+          }
         }
       }
     },
@@ -2926,6 +3526,12 @@
             "state" : "translated",
             "value" : "已保存到相册！"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Salvato nelle tue foto!"
+          }
         }
       }
     },
@@ -2954,6 +3560,12 @@
             "state" : "translated",
             "value" : "发送推送到此设备"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia notifica a questo dispositivo"
+          }
         }
       }
     },
@@ -2981,6 +3593,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "发送推送到其他设备"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia notifica a un altro dispositivo"
           }
         }
       }
@@ -3011,6 +3629,12 @@
             "state" : "translated",
             "value" : "发送测试"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invia test"
+          }
         }
       }
     },
@@ -3039,6 +3663,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "服务器地址"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Indirizzo del server"
           }
         }
       }
@@ -3069,6 +3699,12 @@
             "state" : "translated",
             "value" : "服务器错误"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Errore del server"
+          }
         }
       }
     },
@@ -3097,6 +3733,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "输入服务器地址，例如: https://api.day.app"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inserisci l'indirizzo del server, es. https://api.day.app"
           }
         }
       }
@@ -3127,6 +3769,12 @@
             "state" : "translated",
             "value" : "服务器列表"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lista server"
+          }
         }
       }
     },
@@ -3155,6 +3803,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "服务器"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Servizio"
           }
         }
       }
@@ -3185,6 +3839,12 @@
             "state" : "translated",
             "value" : "设为预览服务器"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta come server predefinito"
+          }
         }
       }
     },
@@ -3213,6 +3873,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置服务器名称"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Imposta nome server"
           }
         }
       }
@@ -3243,6 +3909,12 @@
             "state" : "translated",
             "value" : "设置成功！"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostato con successo"
+          }
         }
       }
     },
@@ -3271,6 +3943,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "设置"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Impostazioni"
           }
         }
       }
@@ -3301,6 +3979,12 @@
             "state" : "translated",
             "value" : "折叠"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra meno"
+          }
         }
       }
     },
@@ -3329,6 +4013,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "显示二维码"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mostra QR Code"
           }
         }
       }
@@ -3359,6 +4049,12 @@
             "state" : "translated",
             "value" : "开源代码"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Codice sorgente"
+          }
         }
       }
     },
@@ -3387,6 +4083,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "成功捐赠"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Donazione"
           }
         }
       }
@@ -3417,6 +4119,12 @@
             "state" : "translated",
             "value" : "测试推送发送失败: %@"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Invio notifica di test fallito: %@"
+          }
         }
       }
     },
@@ -3445,6 +4153,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "测试推送已发送"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Notifica di test inviata"
           }
         }
       }
@@ -3475,6 +4189,12 @@
             "state" : "translated",
             "value" : "谢谢你的慷慨支持"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Grazie per il tuo supporto"
+          }
         }
       }
     },
@@ -3503,6 +4223,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "已过期"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scaduto"
           }
         }
       }
@@ -3533,6 +4259,12 @@
             "state" : "translated",
             "value" : "%1$d天后过期"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scade tra %1$d giorni"
+          }
         }
       }
     },
@@ -3561,6 +4293,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$d小时后过期"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scade tra %1$d ore"
           }
         }
       }
@@ -3591,6 +4329,12 @@
             "state" : "translated",
             "value" : "%1$d分钟后过期"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scade tra %1$d minuti"
+          }
         }
       }
     },
@@ -3619,6 +4363,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$d月后过期"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scade tra %1$d mesi"
           }
         }
       }
@@ -3649,6 +4399,12 @@
             "state" : "translated",
             "value" : "%1$d秒后过期"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scade tra %1$d secondi"
+          }
         }
       }
     },
@@ -3677,6 +4433,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$d年后过期"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scade tra %1$d anni"
           }
         }
       }
@@ -3707,6 +4469,12 @@
             "state" : "translated",
             "value" : "%1$d小时前"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$d ora fa"
+          }
         }
       }
     },
@@ -3735,6 +4503,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "刚刚"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adesso"
           }
         }
       }
@@ -3765,6 +4539,12 @@
             "state" : "translated",
             "value" : "%1$d分钟前"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$d minuto fa"
+          }
         }
       }
     },
@@ -3793,6 +4573,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%1$d小时%2$d分钟前"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$d ore %2$d minuti fa"
           }
         }
       }
@@ -3823,6 +4609,12 @@
             "state" : "translated",
             "value" : "今天"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oggi"
+          }
         }
       }
     },
@@ -3852,6 +4644,12 @@
             "state" : "translated",
             "value" : "昨天和今天"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Oggi e ieri"
+          }
         }
       }
     },
@@ -3879,6 +4677,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "有效期（秒）"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "TTL (secondi)"
           }
         }
       }
@@ -3909,6 +4713,12 @@
             "state" : "translated",
             "value" : "切换"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attiva/disattiva"
+          }
         }
       }
     },
@@ -3937,6 +4747,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "未知"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Stato sconosciuto"
           }
         }
       }
@@ -3967,6 +4783,12 @@
             "state" : "translated",
             "value" : "上传铃声"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Carica suono"
+          }
         }
       }
     },
@@ -3995,6 +4817,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "请先将铃声转换成 caf 格式，时长不超过 30 秒。"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Converti il file audio in formato caf e assicurati che non superi i 30 secondi."
           }
         }
       }
@@ -4025,6 +4853,12 @@
             "state" : "translated",
             "value" : "转换成 caf 格式"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "converti il file audio in formato caf"
+          }
         }
       }
     },
@@ -4053,6 +4887,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "使用示例"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esempi d'uso"
           }
         }
       }
@@ -4083,6 +4923,12 @@
             "state" : "translated",
             "value" : "用户协议"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Termini di servizio"
+          }
         }
       }
     },
@@ -4111,6 +4957,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "版本"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Versione"
           }
         }
       }
@@ -4141,6 +4993,12 @@
             "state" : "translated",
             "value" : "查看全部%d条消息"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedi tutti i %d messaggi"
+          }
         }
       }
     },
@@ -4168,6 +5026,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "选择此小组件应显示的消息分组"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scegli quale gruppo di messaggi mostrare in questo widget."
           }
         }
       }
@@ -4198,6 +5062,12 @@
             "state" : "translated",
             "value" : "最近消息"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Messaggi recenti"
+          }
         }
       }
     },
@@ -4226,6 +5096,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "快速查看 Bark 历史中的最新消息。"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vedi a colpo d'occhio gli ultimi elementi della cronologia di Bark."
           }
         }
       }
@@ -4256,6 +5132,12 @@
             "state" : "translated",
             "value" : "当收到新推送时会显示在这里"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Le nuove notifiche appariranno qui quando arriveranno"
+          }
         }
       }
     },
@@ -4284,6 +5166,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "无新消息"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nessun nuovo messaggio"
           }
         }
       }
@@ -4314,6 +5202,12 @@
             "state" : "translated",
             "value" : "部署已成功完成"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Distribuzione completata con successo"
+          }
         }
       }
     },
@@ -4343,6 +5237,12 @@
             "state" : "translated",
             "value" : "服务器"
           }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Server"
+          }
         }
       }
     },
@@ -4371,6 +5271,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "构建完成"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build completata"
           }
         }
       }

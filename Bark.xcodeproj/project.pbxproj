@@ -1047,6 +1047,7 @@
 				"zh-Hans",
 				tr,
 				ja,
+				it,
 			);
 			mainGroup = 0661A536204FDA4100965E4E;
 			packageReferences = (
