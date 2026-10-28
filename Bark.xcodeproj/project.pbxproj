@@ -665,16 +665,6 @@
 			path = BarkWatch;
 			sourceTree = "<group>";
 		};
-		A10000000000000000000020 /* NotificationService */ = {
-			isa = PBXGroup;
-			children = (
-				A10000000000000000000002 /* WatchNotificationService.swift */,
-				A10000000000000000000021 /* Info.plist */,
-				A10000000000000000000022 /* NotificationService.entitlements */,
-			);
-			path = NotificationService;
-			sourceTree = "<group>";
-		};
 		0604F7DB20620D2700B32F09 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -1003,6 +993,16 @@
 				35C5FA69E454ECCC30629574 /* libPods-BarkWatchTests.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A10000000000000000000020 /* NotificationService */ = {
+			isa = PBXGroup;
+			children = (
+				A10000000000000000000002 /* WatchNotificationService.swift */,
+				A10000000000000000000021 /* Info.plist */,
+				A10000000000000000000022 /* NotificationService.entitlements */,
+			);
+			path = NotificationService;
 			sourceTree = "<group>";
 		};
 		D40000000000000000000005 /* Tests */ = {
@@ -1999,9 +1999,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(BARK_WATCH_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5U8LBRXG3A;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/Info.plist;
@@ -2018,6 +2020,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match Development me.fin.BarkWatch";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
@@ -2040,9 +2044,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = "$(BARK_WATCH_ENTITLEMENTS)";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5U8LBRXG3A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = BarkWatch;
@@ -2058,6 +2064,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore me.fin.BarkWatch";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
@@ -2575,9 +2583,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = BarkWatch/NotificationService/NotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5U8LBRXG3A;
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/NotificationService/Info.plist;
@@ -2591,6 +2601,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match Development me.fin.BarkWatch.NotificationService";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2611,9 +2623,11 @@
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CODE_SIGN_ENTITLEMENTS = BarkWatch/NotificationService/NotificationService.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 5U8LBRXG3A;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5U8LBRXG3A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/NotificationService/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Bark Watch Notifications";
@@ -2626,6 +2640,8 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore me.fin.BarkWatch.NotificationService";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
