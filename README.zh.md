@@ -1,4 +1,4 @@
-**[English](README.en.md)** | 中文 
+**[English](README.en.md)** | 中文 | **[日本語](README.ja.md)**
 ## Bark
 Bark 是一款免费的推送通知工具 App。<br/>
 它简单、安全，基于 APNs 实现，不会额外消耗设备电量。<br/>
