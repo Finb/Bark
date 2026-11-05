@@ -56,6 +56,11 @@ end
 target 'BarkWatch' do
     platform :watchos, '10.0'
     pod 'CryptoSwift'
+    pod 'Moya/RxSwift'
+    pod 'RxCocoa'
+    pod 'DefaultsKit'
+    pod 'SwiftyJSON'
+    pod 'ObjectMapper'
 
     target 'BarkWatchTests' do
       inherit! :search_paths

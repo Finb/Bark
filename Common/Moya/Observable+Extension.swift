@@ -6,13 +6,11 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
-import UIKit
-
+import Foundation
 import Moya
 import ObjectMapper
 import RxSwift
 import SwiftyJSON
-import UIKit
 
 extension Observable where Element: Moya.Response {
     /// 过滤 HTTP 错误，例如超时，请求失败等

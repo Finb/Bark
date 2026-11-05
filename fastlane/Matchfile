@@ -9,8 +9,8 @@ app_identifier([
   "me.fin.bark.NotificationContent",
   "me.fin.bark.NotificationServiceExtension",
   "me.fin.bark.Widget",
-  "me.fin.BarkWatch",
-  "me.fin.BarkWatch.NotificationService"
+  "me.fin.bark.watch",
+  "me.fin.bark.watch.NotificationService"
 ])
 # username("user@fastlane.tools") # Your Apple Developer Portal username
 

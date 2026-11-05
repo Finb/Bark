@@ -6,9 +6,5 @@
 	<array>
 		<string>group.bark</string>
 	</array>
-	<key>keychain-access-groups</key>
-	<array>
-		<string>$(AppIdentifierPrefix)me.fin.bark.shared</string>
-	</array>
 </dict>
 </plist>

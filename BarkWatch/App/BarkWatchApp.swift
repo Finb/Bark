@@ -1,23 +1,19 @@
-//
-//  BarkWatchApp.swift
-//  Bark
-//
-//  Created by Jian Qin on 9/30/26.
-//
-
-
 import SwiftUI
 import WatchKit
 
 @main
 struct BarkWatchApp: App {
-    @WKApplicationDelegateAdaptor(NotificationDelegate.self) private var delegate
+    @WKApplicationDelegateAdaptor(AppDelegate.self) private var appDelegate
 
     var body: some Scene {
         WindowGroup {
-            ContentView(state: delegate.state)
+            RootTabView()
+                .environment(appDelegate.model)
         }
-        WKNotificationScene(controller: MarkdownNotificationController.self,
-                            category: WatchNotification.markdownCategoryIdentifier)
+
+        WKNotificationScene(
+            controller: NotificationController.self,
+            category: WatchNotificationCategory.markdown
+        )
     }
 }

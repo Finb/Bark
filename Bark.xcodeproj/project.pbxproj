@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		000000000000000000000029 /* NotificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 000000000000000000000028 /* NotificationTests.swift */; };
 		0603706720E1E31600F4CA05 /* Defines.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706620E1E31600F4CA05 /* Defines.swift */; };
 		0603706B20E20A7C00F4CA05 /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706A20E20A7C00F4CA05 /* String+Extension.swift */; };
 		0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0603706C20E23EC000F4CA05 /* BarkSFSafariViewController.swift */; };
@@ -100,6 +99,8 @@
 		0661A54D204FDA4100965E4E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0661A54B204FDA4100965E4E /* LaunchScreen.storyboard */; };
 		0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D191247D162C005DE2ED /* MessageTableViewCell.swift */; };
 		0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0667D193247D1BA0005DE2ED /* Date+Extension.swift */; };
+		06D47E582F8A1C0000BEEF01 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D47E572F8A1C0000BEEF01 /* Date+Shared.swift */; };
+		A20000000000000000000022 /* Date+Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D47E572F8A1C0000BEEF01 /* Date+Shared.swift */; };
 		066890082D1946D500E106F2 /* MessageItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066890072D1946D500E106F2 /* MessageItemView.swift */; };
 		0668900B2D19525400E106F2 /* ShowLessAndClearView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */; };
 		0668900D2D19582400E106F2 /* MessageGroupHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */; };
@@ -247,20 +248,34 @@
 		3428272069AFAFE2C683FEB0 /* libPods-Bark.a in Frameworks */ = {isa = PBXBuildFile; fileRef = CCC722470308049D180876C7 /* libPods-Bark.a */; };
 		879AE4D4178855A9672009E4 /* libPods-NotificationServiceExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */; };
 		88757E3ACE0EA6A48577C958 /* libPods-NotificationContentExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */; };
-		A10000000000000000000006 /* WatchNotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* WatchNotificationService.swift */; };
+		A10000000000000000000006 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* NotificationService.swift */; };
 		A10000000000000000000007 /* BarkWatchNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* BarkWatchNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		B20000000000000000000051 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = B20000000000000000000053 /* Markdown */; };
-		B20000000000000000000052 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = B20000000000000000000054 /* Markdown */; };
+		A20000000000000000000002 /* WatchSyncProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* WatchSyncProtocol.swift */; };
+		A20000000000000000000003 /* WatchSyncProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000001 /* WatchSyncProtocol.swift */; };
+		A20000000000000000000005 /* WatchSyncManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A20000000000000000000004 /* WatchSyncManager.swift */; };
+		A20000000000000000000011 /* BarkWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 000000000000000000000006 /* BarkWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		A20000000000000000000021 /* MessageDeleteTimeRange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 066DF4812D2D31A30092B04E /* MessageDeleteTimeRange.swift */; };
 		B963F7D5BA7AC2571E71EF66 /* libPods-BarkTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */; };
 		C30000000000000000000002 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C30000000000000000000001 /* Assets.xcassets */; };
 		CFBE41F3462A6D4F0E1A4B12 /* libPods-BarkWatch.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 366FB0FC6350F5E40F91FC1D /* libPods-BarkWatch.a */; };
 		E10000000000000000000000 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
-		E10000000000000000000001 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C777CF2ECEFF210032A044 /* MarkdownParser.swift */; };
-		E10000000000000000000002 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
 		E10000000000000000000010 /* Algorithm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 061894C629A75BEA00E001C2 /* Algorithm.swift */; };
-		E10000000000000000000011 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C777CF2ECEFF210032A044 /* MarkdownParser.swift */; };
-		E10000000000000000000012 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
 		E68AEB0E47866777F8755476 /* libPods-BarkWatchNotificationService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 056A370B19AC77E9A43813B2 /* libPods-BarkWatchNotificationService.a */; };
+		F10000000000000000000001 /* ServerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0604F7DE20620D4900B32F09 /* ServerManager.swift */; };
+		F10000000000000000000002 /* BarkApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7B20E0930E00E80174 /* BarkApi.swift */; };
+		F10000000000000000000003 /* BarkTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7720E0926D00E80174 /* BarkTargetType.swift */; };
+		F10000000000000000000004 /* Observable+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7920E092B300E80174 /* Observable+Extension.swift */; };
+		F10000000000000000000005 /* BarkSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0637FA7F20E0981E00E80174 /* BarkSettings.swift */; };
+		F30000000000000000000001 /* CryptoSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */; };
+		F30000000000000000000002 /* CryptoSettingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */; };
+		F30000000000000000000004 /* NotificationPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = F30000000000000000000003 /* NotificationPipeline.swift */; };
+		F30000000000000000000005 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 065752C02CB6844A001426D8 /* Localizable.xcstrings */; };
+		F40000000000000000000003 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = F40000000000000000000001 /* Markdown */; };
+		F40000000000000000000004 /* Markdown in Frameworks */ = {isa = PBXBuildFile; productRef = F40000000000000000000002 /* Markdown */; };
+		F40000000000000000000005 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C777CF2ECEFF210032A044 /* MarkdownParser.swift */; };
+		F40000000000000000000006 /* MarkdownParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06C777CF2ECEFF210032A044 /* MarkdownParser.swift */; };
+		F40000000000000000000007 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
+		F40000000000000000000008 /* UIFont+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0687F2A72CCB791A00B2A52F /* UIFont+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +321,13 @@
 			remoteGlobalIDString = A10000000000000000000010;
 			remoteInfo = BarkWatchNotificationService;
 		};
+		A20000000000000000000013 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0661A537204FDA4100965E4E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 000000000000000000000004;
+			remoteInfo = BarkWatch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -333,14 +355,23 @@
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A20000000000000000000010 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				A20000000000000000000011 /* BarkWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		000000000000000000000006 /* BarkWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = BarkWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		000000000000000000000007 /* BarkWatchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; path = BarkWatchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		000000000000000000000028 /* NotificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		000000000000000000000032 /* BarkWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BarkWatch.entitlements; sourceTree = "<group>"; };
-		000000000000000000000033 /* TestNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = TestNotification.apns; sourceTree = "<group>"; };
 		056A370B19AC77E9A43813B2 /* libPods-BarkWatchNotificationService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkWatchNotificationService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0603706620E1E31600F4CA05 /* Defines.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defines.swift; sourceTree = "<group>"; };
 		0603706A20E20A7C00F4CA05 /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
@@ -429,6 +460,7 @@
 		0661A54E204FDA4100965E4E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0667D191247D162C005DE2ED /* MessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageTableViewCell.swift; sourceTree = "<group>"; };
 		0667D193247D1BA0005DE2ED /* Date+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		06D47E572F8A1C0000BEEF01 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
 		066890072D1946D500E106F2 /* MessageItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageItemView.swift; sourceTree = "<group>"; };
 		0668900A2D19525400E106F2 /* ShowLessAndClearView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowLessAndClearView.swift; sourceTree = "<group>"; };
 		0668900C2D19582400E106F2 /* MessageGroupHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageGroupHeaderView.swift; sourceTree = "<group>"; };
@@ -538,17 +570,19 @@
 		62DF9BBF3FDB3BE69663075F /* Pods-BarkWatchTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatchTests.release.xcconfig"; path = "Target Support Files/Pods-BarkWatchTests/Pods-BarkWatchTests.release.xcconfig"; sourceTree = "<group>"; };
 		6616B1ACAA7E422700D90C2B /* libPods-NotificationContentExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationContentExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		76381A752CCCD4DA6BB2A566 /* libPods-BarkTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BarkTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A10000000000000000000002 /* WatchNotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchNotificationService.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		A10000000000000000000003 /* BarkWatchNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; path = BarkWatchNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		A10000000000000000000021 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A10000000000000000000022 /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
+		A20000000000000000000001 /* WatchSyncProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncProtocol.swift; sourceTree = "<group>"; };
+		A20000000000000000000004 /* WatchSyncManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchSyncManager.swift; sourceTree = "<group>"; };
 		A69B47DA6DB3B168D5770B45 /* Pods-Bark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bark.release.xcconfig"; path = "Target Support Files/Pods-Bark/Pods-Bark.release.xcconfig"; sourceTree = "<group>"; };
-		B20000000000000000000055 /* MarkdownNotification.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = MarkdownNotification.apns; sourceTree = "<group>"; };
 		B7F8BDFAA047451561798F58 /* libPods-NotificationServiceExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NotificationServiceExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C30000000000000000000001 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CCC722470308049D180876C7 /* libPods-Bark.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bark.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF45D2197673129A8128ADB7 /* Pods-NotificationContentExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationContentExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationContentExtension/Pods-NotificationContentExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		F20815A821395CCA155806A4 /* Pods-NotificationServiceExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NotificationServiceExtension.debug.xcconfig"; path = "Target Support Files/Pods-NotificationServiceExtension/Pods-NotificationServiceExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		F30000000000000000000003 /* NotificationPipeline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationPipeline.swift; sourceTree = "<group>"; };
 		F877138E6E8864F7E43BC3EC /* Pods-BarkWatchTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkWatchTests.debug.xcconfig"; path = "Target Support Files/Pods-BarkWatchTests/Pods-BarkWatchTests.debug.xcconfig"; sourceTree = "<group>"; };
 		FB59D77AB30F7AD98BA72C3E /* Pods-BarkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BarkTests.debug.xcconfig"; path = "Target Support Files/Pods-BarkTests/Pods-BarkTests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -569,6 +603,7 @@
 		3D099DD0306DBCF400A96591 /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
 		3D099DD6306DBCFB00A96591 /* Common */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Common; sourceTree = "<group>"; };
 		3D2E504F306D002800D53E4F /* View */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = View; sourceTree = "<group>"; };
+		F50000000000000000000001 /* Tests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Tests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -576,8 +611,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B20000000000000000000051 /* Markdown in Frameworks */,
 				CFBE41F3462A6D4F0E1A4B12 /* libPods-BarkWatch.a in Frameworks */,
+				F40000000000000000000003 /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -640,8 +675,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B20000000000000000000052 /* Markdown in Frameworks */,
 				E68AEB0E47866777F8755476 /* libPods-BarkWatchNotificationService.a in Frameworks */,
+				F40000000000000000000004 /* Markdown in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -655,11 +690,9 @@
 				3D099DCC306DBCEE00A96591 /* Model */,
 				3D2E504F306D002800D53E4F /* View */,
 				3D099DD6306DBCFB00A96591 /* Common */,
-				D40000000000000000000005 /* Tests */,
+				F50000000000000000000001 /* Tests */,
 				C30000000000000000000001 /* Assets.xcassets */,
 				000000000000000000000032 /* BarkWatch.entitlements */,
-				000000000000000000000033 /* TestNotification.apns */,
-				B20000000000000000000055 /* MarkdownNotification.apns */,
 				A10000000000000000000020 /* NotificationService */,
 			);
 			path = BarkWatch;
@@ -810,6 +843,7 @@
 				0604F7DE20620D4900B32F09 /* ServerManager.swift */,
 				0637FA7D20E0969800E80174 /* Client.swift */,
 				0667D193247D1BA0005DE2ED /* Date+Extension.swift */,
+				06D47E572F8A1C0000BEEF01 /* Date+Shared.swift */,
 				06C5953224811505006B98F3 /* ArchiveSettingManager.swift */,
 				06BBB8C82567B6730076F63E /* Operators.swift */,
 				0633E809256A091B00ED0680 /* MJRefresh+Rx.swift */,
@@ -817,6 +851,8 @@
 				065AE76A2987777F00323230 /* ArchiveSettingRelay.swift */,
 				06F08EA329B098DD006AB9CA /* CryptoSettingManager.swift */,
 				0653677729B727A60038BDB8 /* CryptoSettingRelay.swift */,
+				A20000000000000000000001 /* WatchSyncProtocol.swift */,
+				A20000000000000000000004 /* WatchSyncManager.swift */,
 				06F08EA629B1DDFE006AB9CA /* Error+Extension.swift */,
 				06E944742C07012E00AC86AB /* RealmConfiguration.swift */,
 				062218512F741C91003E2DA0 /* MessageImageCleaner.swift */,
@@ -998,19 +1034,12 @@
 		A10000000000000000000020 /* NotificationService */ = {
 			isa = PBXGroup;
 			children = (
-				A10000000000000000000002 /* WatchNotificationService.swift */,
+				A10000000000000000000002 /* NotificationService.swift */,
+				F30000000000000000000003 /* NotificationPipeline.swift */,
 				A10000000000000000000021 /* Info.plist */,
 				A10000000000000000000022 /* NotificationService.entitlements */,
 			);
 			path = NotificationService;
-			sourceTree = "<group>";
-		};
-		D40000000000000000000005 /* Tests */ = {
-			isa = PBXGroup;
-			children = (
-				000000000000000000000028 /* NotificationTests.swift */,
-			);
-			path = Tests;
 			sourceTree = "<group>";
 		};
 		E9062CB15F1B70C3719578FB /* Pods */ = {
@@ -1061,7 +1090,7 @@
 			);
 			name = BarkWatch;
 			packageProductDependencies = (
-				B20000000000000000000053 /* Markdown */,
+				F40000000000000000000001 /* Markdown */,
 			);
 			productName = BarkWatch;
 			productReference = 000000000000000000000006 /* BarkWatch.app */;
@@ -1080,6 +1109,9 @@
 			);
 			dependencies = (
 				000000000000000000000051 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				F50000000000000000000001 /* Tests */,
 			);
 			name = BarkWatchTests;
 			productName = BarkWatchTests;
@@ -1114,6 +1146,7 @@
 				0661A53C204FDA4100965E4E /* Frameworks */,
 				0661A53D204FDA4100965E4E /* Resources */,
 				0632CE2E20EC9098003FDF46 /* Embed Foundation Extensions */,
+				A20000000000000000000010 /* Embed Watch Content */,
 				330C2B4092D535691BE03E9D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
@@ -1122,6 +1155,7 @@
 				062E6DA02F73B6A00080657A /* PBXTargetDependency */,
 				0632CE2920EC9098003FDF46 /* PBXTargetDependency */,
 				06CF784621C7A50300A052D7 /* PBXTargetDependency */,
+				A20000000000000000000012 /* PBXTargetDependency */,
 			);
 			name = Bark;
 			productName = Bark;
@@ -1204,7 +1238,7 @@
 			);
 			name = BarkWatchNotificationService;
 			packageProductDependencies = (
-				B20000000000000000000054 /* Markdown */,
+				F40000000000000000000002 /* Markdown */,
 			);
 			productName = BarkWatchNotificationService;
 			productReference = A10000000000000000000003 /* BarkWatchNotificationService.appex */;
@@ -1298,6 +1332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C30000000000000000000002 /* Assets.xcassets in Resources */,
+				F30000000000000000000005 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1488,7 +1523,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-Bark/Pods-Bark-resources.sh",
-				"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire/Alamofire.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-iOS/Alamofire.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-iOS/CryptoSwift.bundle",
 				"${PODS_ROOT}/DropDown/DropDown/resources/DropDownCell.xib",
 				"${PODS_CONFIGURATION_BUILD_DIR}/IQKeyboardCore/IQKeyboardCore.bundle",
@@ -1502,16 +1537,16 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/Material/com.cosmicmind.material.icons.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Material/com.cosmicmind.material.fonts.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/MercariQRScanner/QRScannerAssets.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper/Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper-iOS/Privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Realm/realm_objc_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/realm_swift_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa/RxCocoa_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RxRelay/RxRelay_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift/RxSwift_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa-iOS/RxCocoa_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RxRelay-iOS/RxRelay_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-iOS/RxSwift_Privacy.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/SVProgressHUD.bundle",
 				"${PODS_ROOT}/SVProgressHUD/SVProgressHUD/PrivacyInfo.xcprivacy",
 				"${PODS_CONFIGURATION_BUILD_DIR}/SnapKit/SnapKit_Privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON-iOS/SwiftyJSON.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1578,7 +1613,7 @@
 				"${PODS_CONFIGURATION_BUILD_DIR}/Kingfisher/Kingfisher.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/Realm/realm_objc_privacy.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift/realm_swift_privacy.bundle",
-				"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON/SwiftyJSON.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON-iOS/SwiftyJSON.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
@@ -1622,11 +1657,23 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BarkWatch/Pods-BarkWatch-resources.sh",
+				"${PODS_CONFIGURATION_BUILD_DIR}/Alamofire-watchOS/Alamofire.bundle",
 				"${PODS_CONFIGURATION_BUILD_DIR}/CryptoSwift-watchOS/CryptoSwift.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/ObjectMapper-watchOS/Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RxCocoa-watchOS/RxCocoa_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RxRelay-watchOS/RxRelay_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/RxSwift-watchOS/RxSwift_Privacy.bundle",
+				"${PODS_CONFIGURATION_BUILD_DIR}/SwiftyJSON-watchOS/SwiftyJSON.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Alamofire.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/CryptoSwift.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RxCocoa_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RxRelay_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/RxSwift_Privacy.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SwiftyJSON.bundle",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1724,10 +1771,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F10000000000000000000001 /* ServerManager.swift in Sources */,
+				F10000000000000000000002 /* BarkApi.swift in Sources */,
+				F10000000000000000000003 /* BarkTargetType.swift in Sources */,
+				F10000000000000000000004 /* Observable+Extension.swift in Sources */,
+				F10000000000000000000005 /* BarkSettings.swift in Sources */,
 				E10000000000000000000000 /* Algorithm.swift in Sources */,
-				E10000000000000000000001 /* MarkdownParser.swift in Sources */,
-				E10000000000000000000002 /* UIFont+Extension.swift in Sources */,
 				065632CB3080A88400A0C5A4 /* Error+Extension.swift in Sources */,
+				F30000000000000000000001 /* CryptoSettingManager.swift in Sources */,
+				A20000000000000000000003 /* WatchSyncProtocol.swift in Sources */,
+				F40000000000000000000005 /* MarkdownParser.swift in Sources */,
+				F40000000000000000000007 /* UIFont+Extension.swift in Sources */,
+				A20000000000000000000021 /* MessageDeleteTimeRange.swift in Sources */,
+				A20000000000000000000022 /* Date+Shared.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1735,7 +1791,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				000000000000000000000029 /* NotificationTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1779,6 +1834,8 @@
 				06EEF333291CCFF400CA228A /* CryptoSettingController.swift in Sources */,
 				0603706D20E23EC000F4CA05 /* BarkSFSafariViewController.swift in Sources */,
 				06F08EA429B098DD006AB9CA /* CryptoSettingManager.swift in Sources */,
+				A20000000000000000000002 /* WatchSyncProtocol.swift in Sources */,
+				A20000000000000000000005 /* WatchSyncManager.swift in Sources */,
 				0668900B2D19525400E106F2 /* ShowLessAndClearView.swift in Sources */,
 				06BD4DAA2901352E003364DB /* Object+Dictionary.swift in Sources */,
 				06C5953124811392006B98F3 /* ArchiveSettingCell.swift in Sources */,
@@ -1809,6 +1866,7 @@
 				0637FA7A20E092B300E80174 /* Observable+Extension.swift in Sources */,
 				060481F0250F51CA00BC9799 /* SoundCell.swift in Sources */,
 				0667D194247D1BA0005DE2ED /* Date+Extension.swift in Sources */,
+				06D47E582F8A1C0000BEEF01 /* Date+Shared.swift in Sources */,
 				0604F7DF20620D4900B32F09 /* ServerManager.swift in Sources */,
 				0667D192247D162C005DE2ED /* MessageTableViewCell.swift in Sources */,
 				06E944762C07013000AC86AB /* RealmConfiguration.swift in Sources */,
@@ -1928,10 +1986,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E10000000000000000000010 /* Algorithm.swift in Sources */,
-				E10000000000000000000011 /* MarkdownParser.swift in Sources */,
-				E10000000000000000000012 /* UIFont+Extension.swift in Sources */,
-				A10000000000000000000006 /* WatchNotificationService.swift in Sources */,
+				A10000000000000000000006 /* NotificationService.swift in Sources */,
 				065632CC3080A88400A0C5A4 /* Error+Extension.swift in Sources */,
+				F30000000000000000000002 /* CryptoSettingManager.swift in Sources */,
+				F30000000000000000000004 /* NotificationPipeline.swift in Sources */,
+				F40000000000000000000006 /* MarkdownParser.swift in Sources */,
+				F40000000000000000000008 /* UIFont+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1967,6 +2027,11 @@
 			isa = PBXTargetDependency;
 			target = A10000000000000000000010 /* BarkWatchNotificationService */;
 			targetProxy = A10000000000000000000011 /* PBXContainerItemProxy */;
+		};
+		A20000000000000000000012 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 000000000000000000000004 /* BarkWatch */;
+			targetProxy = A20000000000000000000013 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -2007,23 +2072,25 @@
 				ENABLE_TESTABILITY = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BarkWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Bark;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKApplication = YES;
-				INFOPLIST_KEY_WKWatchOnly = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = me.fin.bark;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match Development me.fin.BarkWatch";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match Development me.fin.bark.watch";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DEBUG";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -2031,7 +2098,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -2051,30 +2118,32 @@
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5U8LBRXG3A;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BarkWatch/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = BarkWatch;
+				INFOPLIST_KEY_CFBundleDisplayName = Bark;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKApplication = YES;
-				INFOPLIST_KEY_WKWatchOnly = YES;
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = me.fin.bark;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.watch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore me.fin.BarkWatch";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore me.fin.bark.watch";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "watchos watchsimulator";
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated;
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -2095,7 +2164,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2108,7 +2177,7 @@
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarkWatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarkWatch";
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -2128,7 +2197,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatchTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2140,7 +2209,7 @@
 				SWIFT_VERSION = 6.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BarkWatch.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BarkWatch";
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -2597,12 +2666,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.watch.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match Development me.fin.BarkWatch.NotificationService";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match Development me.fin.bark.watch.NotificationService";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2611,7 +2680,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -2636,12 +2705,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 0.1;
+				MARKETING_VERSION = 1.0.0;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = me.fin.BarkWatch.NotificationService;
+				PRODUCT_BUNDLE_IDENTIFIER = me.fin.bark.watch.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore me.fin.BarkWatch.NotificationService";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "match AppStore me.fin.bark.watch.NotificationService";
 				REGISTER_APP_GROUPS = YES;
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -2649,7 +2718,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 10.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
@@ -2761,12 +2830,12 @@
 			package = 06C777D12ECF05990032A044 /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
 		};
-		B20000000000000000000053 /* Markdown */ = {
+		F40000000000000000000001 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 06C777D12ECF05990032A044 /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;
 		};
-		B20000000000000000000054 /* Markdown */ = {
+		F40000000000000000000002 /* Markdown */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 06C777D12ECF05990032A044 /* XCRemoteSwiftPackageReference "swift-markdown" */;
 			productName = Markdown;

@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum MessageDeleteTimeRange {
+enum MessageDeleteTimeRange: Hashable {
     /// 最近一小时
     case lastHour
     /// 今天

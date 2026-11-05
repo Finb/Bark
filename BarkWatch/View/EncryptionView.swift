@@ -1,88 +1,162 @@
-//
-//  EncryptionView.swift
-//  Bark
-//
-//  Created by Jian Qin on 9/30/26.
-//
-
-
 import SwiftUI
 
 struct EncryptionView: View {
-    @State private var algorithm = Algorithm.aes256.rawValue
+    @Environment(\.dismiss) private var dismiss
+
+    private let algorithms: [Algorithm] = [.aes128, .aes192, .aes256]
+    private let paddingLabel = "Padding"
+
+    @State private var algorithm: Algorithm = .aes256
     @State private var mode = "GCM"
     @State private var padding = "noPadding"
     @State private var key = ""
-    @State private var error: String?
-    @State private var saved: CryptoSettingFields?
-
-    private var paddings: [String] { mode == "GCM" ? ["noPadding"] : ["noPadding", "pkcs7"] }
+    @State private var errorMessage: String?
+    @State private var isSyncing = false
+    @State private var syncFailed = false
 
     var body: some View {
         Form {
-            Picker("Algorithm", selection: $algorithm) {
-                ForEach(Algorithm.allCases, id: \.rawValue) { Text($0.rawValue).tag($0.rawValue) }
+            Picker("algorithm", selection: $algorithm) {
+                ForEach(algorithms, id: \.self) { algorithm in
+                    Text(verbatim: algorithm.rawValue)
+                }
             }
-            Picker("Mode", selection: $mode) {
-                ForEach(Algorithm(rawValue: algorithm)?.modes ?? [], id: \.self) { Text($0).tag($0) }
+            .onChange(of: algorithm) { _, newValue in
+                if !newValue.modes.contains(mode) {
+                    mode = newValue.modes[0]
+                    padding = padding(for: mode)
+                }
             }
-            Picker("Padding", selection: $padding) {
-                ForEach(paddings, id: \.self) { Text($0).tag($0) }
+
+            Picker("mode", selection: $mode) {
+                ForEach(algorithm.modes, id: \.self) { mode in
+                    Text(verbatim: mode)
+                }
             }
+            .onChange(of: mode) { _, newValue in
+                padding = padding(for: newValue)
+            }
+
+            LabeledContent(paddingLabel, value: padding)
+
+            TextField("enterKey".localized(with: algorithm.keyLength), text: $key)
+                .font(.system(.body, design: .monospaced))
+                .autocorrectionDisabled()
+
+            if let errorMessage {
+                Text(verbatim: errorMessage)
+                    .font(.caption2)
+                    .foregroundStyle(.red)
+            }
+
             Section {
-                TextFieldLink(prompt: Text("Key")) {
-                    if key.isEmpty {
-                        Text("Key").foregroundStyle(.secondary)
-                    } else {
-                        // Zero-width spaces let the key wrap between any two characters
-                        // instead of being truncated or hyphenated.
-                        Text(key.map(String.init).joined(separator: "\u{200B}"))
-                            .frame(maxWidth: .infinity, alignment: .leading)
+                Button(action: sync) {
+                    HStack(spacing: 4) {
+                        Label("syncFromIPhone", systemImage: "arrow.down.circle")
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.7)
+                        Spacer(minLength: 0)
+                        if isSyncing {
+                            ProgressView()
+                        }
                     }
-                } onSubmit: { key = $0 }
-                Button("Generate key") {
-                    do {
-                        key = try WatchEncryption.randomText(length: Algorithm(rawValue: algorithm)?.keyLength ?? 32)
-                    } catch { self.error = error.localizedDescription }
                 }
-            } footer: {
-                if let error { Text(error).foregroundStyle(.red) }
+                .disabled(isSyncing)
             }
         }
-        .textInputAutocapitalization(.never)
-        .autocorrectionDisabled()
-        .navigationTitle("Encryption")
-        .onChange(of: mode) {
-            // GCM only supports noPadding.
-            if !paddings.contains(padding) { padding = "noPadding" }
+        .navigationTitle("encryptionSettings")
+        .alert("syncFromIPhoneFailed", isPresented: $syncFailed) {
+            Button("confirm", role: .cancel) {}
         }
-        .onChange(of: [algorithm, mode, padding, key]) { save() }
-        .task {
-            do {
-                if let fields = try WatchCryptoStore.load() {
-                    var loaded = fields
-                    loaded.iv = nil
-                    saved = loaded
-                    algorithm = fields.algorithm
-                    mode = fields.mode
-                    padding = fields.padding
-                    key = fields.key ?? ""
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button(action: save) {
+                    Image(systemName: "checkmark")
                 }
-            } catch { self.error = error.localizedDescription }
+                .disabled(!isValid)
+            }
+        }
+        .onAppear(perform: load)
+    }
+
+    private var isValid: Bool {
+        key.isEmpty || key.count == algorithm.keyLength
+    }
+
+    private func padding(for mode: String) -> String {
+        mode == "GCM" ? "noPadding" : "pkcs7"
+    }
+
+    private func load() {
+        guard let fields = CryptoSettingManager.shared.fields,
+              let storedAlgorithm = Algorithm(rawValue: fields.algorithm)
+        else {
+            return
+        }
+
+        algorithm = storedAlgorithm
+        mode = storedAlgorithm.modes.contains(fields.mode) ? fields.mode : storedAlgorithm.modes[0]
+        padding = padding(for: mode)
+        key = fields.key ?? ""
+    }
+
+    private func save() {
+        if key.isEmpty {
+            CryptoSettingManager.shared.fields = nil
+            dismiss()
+            return
+        }
+
+        let fields = CryptoSettingFields(
+            algorithm: algorithm.rawValue,
+            mode: mode,
+            padding: padding,
+            key: key,
+            iv: currentIv
+        )
+
+        do {
+            try AESCryptoModel.validate(cryptoFields: fields)
+            CryptoSettingManager.shared.fields = fields
+            dismiss()
+        } catch {
+            errorMessage = error.rawString()
         }
     }
 
-    /// Saves the settings whenever they change. An empty key removes the saved settings;
-    /// an invalid combination is reported but not saved.
-    private func save() {
-        let fields = key.isEmpty ? nil : CryptoSettingFields(algorithm: algorithm, mode: mode,
-            padding: padding, key: key, iv: nil)
-        // Skip the change events caused by loading the saved settings.
-        guard fields != saved else { return }
-        error = nil
-        do {
-            try WatchCryptoStore.save(fields)
-            saved = fields
-        } catch { self.error = error.localizedDescription }
+    private var currentIv: String? {
+        guard let iv = CryptoSettingManager.shared.fields?.iv else {
+            return nil
+        }
+        let expected = ["CBC": 16, "GCM": 12][mode] ?? 0
+        return iv.count == expected ? iv : nil
+    }
+
+    private func sync() {
+        guard !isSyncing else { return }
+        isSyncing = true
+        errorMessage = nil
+
+        Task {
+            defer { isSyncing = false }
+
+            do {
+                guard let data = try await PhoneSyncManager.shared.requestData(for: .cryptoSetting),
+                      let fields = try? JSONDecoder().decode(CryptoSettingFields.self, from: data),
+                      let storedAlgorithm = Algorithm(rawValue: fields.algorithm)
+                else {
+                    syncFailed = true
+                    return
+                }
+
+                algorithm = storedAlgorithm
+                mode = storedAlgorithm.modes.contains(fields.mode) ? fields.mode : storedAlgorithm.modes[0]
+                padding = fields.padding
+                key = fields.key ?? ""
+                CryptoSettingManager.shared.fields = fields
+            } catch {
+                syncFailed = true
+            }
+        }
     }
 }

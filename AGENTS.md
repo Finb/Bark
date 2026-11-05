@@ -137,6 +137,7 @@ Order matters - processors run sequentially in `NotificationService.swift`:
 - Localization is managed via `Localizable.xcstrings`
 - Custom notification sounds are in `Sounds/` directory
 - Code signing is disabled for Pods (see Podfile post_install)
+- **Do not use simulators for testing.** If simulator testing is absolutely necessary, you must obtain my approval beforehand.
 
 ## Testing
 
