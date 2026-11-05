@@ -11,3 +11,4 @@ Pods/
 ._.*
 xcuserdata
 buildServer.json
+*.p8

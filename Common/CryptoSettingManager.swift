@@ -9,7 +9,7 @@
 import Foundation
 
 class CryptoSettingManager: NSObject {
-    static let shared = CryptoSettingManager()
+    nonisolated(unsafe) static let shared = CryptoSettingManager()
     let defaults = UserDefaults(suiteName: "group.bark")
     var fields: CryptoSettingFields? {
         get {

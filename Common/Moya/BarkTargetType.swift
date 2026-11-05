@@ -8,10 +8,23 @@
 
 import Moya
 import RxSwift
-import UIKit
+import Foundation
 
 // 保存全局Providers
-private var retainProviders: [String: Any] = [:]
+private final class ProviderCache: @unchecked Sendable {
+    static let shared = ProviderCache()
+    private let lock = NSLock()
+    private var providers: [String: Any] = [:]
+
+    func provider<T>(for key: String, create: () -> T) -> T {
+        lock.lock()
+        defer { lock.unlock() }
+        if let provider = providers[key] as? T { return provider }
+        let provider = create()
+        providers[key] = provider
+        return provider
+    }
+}
 
 protocol BarkTargetType: TargetType {
     var parameters: [String: Any]? { get }
@@ -57,12 +70,7 @@ extension BarkTargetType {
     /// 实现此协议的类，将自动获得用该类实例化的 provider 对象
     static var provider: RxSwift.Reactive<MoyaProvider<Self>> {
         let key = "\(Self.self)"
-        if let provider = retainProviders[key] as? RxSwift.Reactive<MoyaProvider<Self>> {
-            return provider
-        }
-        let provider = Self.weakProvider
-        retainProviders[key] = provider
-        return provider
+        return ProviderCache.shared.provider(for: key) { Self.weakProvider }
     }
     
     /// 不被全局持有的 Provider ，使用时，需要持有它，否则将立即释放，请求随即终止

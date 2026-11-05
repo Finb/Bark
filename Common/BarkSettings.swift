@@ -7,7 +7,7 @@
 //
 
 import DefaultsKit
-import UIKit
+import Foundation
 
 enum BarkSettingKey: String {
     /// 存放key , 1.2.6 版本`之后`不再使用
@@ -22,7 +22,7 @@ enum BarkSettingKey: String {
     case selectedViewControllerIndex = "me.fin.bark.selectedViewControllerIndex"
 }
 
-class BarkSettings {
+class BarkSettings: @unchecked Sendable {
     static let shared = BarkSettings()
     private init() {}
     

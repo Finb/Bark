@@ -6,7 +6,7 @@
 //  Copyright © 2018 Fin. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 enum BarkApi {
     case ping(baseURL: String?)
@@ -31,7 +31,12 @@ extension BarkApi: BarkTargetType {
     var parameters: [String: Any]? {
         switch self {
         case let .register(_, key, devicetoken):
-            var params = ["devicetoken": devicetoken]
+            #if os(watchOS)
+            let deviceType = "watchos"
+            #else
+            let deviceType = "ios"
+            #endif
+            var params: [String: Any] = ["devicetoken": devicetoken, "device_type": deviceType]
             if let key = key {
                 params["key"] = key
             }

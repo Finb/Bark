@@ -6,10 +6,9 @@
 //  Copyright © 2018年 Fin. All rights reserved.
 //
 
+import Foundation
 import RxCocoa
 import RxSwift
-import SwiftUI
-import UIKit
 
 let defaultServer = "https://api.day.app"
 
@@ -63,8 +62,9 @@ class Server: Codable {
 }
 
 class ServerManager: NSObject {
-    static let shared = ServerManager()
-    override private init() {
+    // Callers and registration callbacks must use the main thread when mutating state.
+    nonisolated(unsafe) static let shared = ServerManager()
+    override init() {
         var servers: [Server] = []
         if let savedServers: [Server] = Settings[.servers] {
             servers = savedServers
@@ -160,26 +160,48 @@ class ServerManager: NSObject {
     }
 
     var dispose: Disposable?
-    /// 同步所有 server
-    func syncAllServers() {
-        guard let token = Client.shared.deviceToken.value, token.count > 0 else {
+
+    func register(server: Server, deviceToken: String) -> Observable<Result<String, ApiError>> {
+        BarkApi.provider.request(
+            .register(address: server.address, key: server.key, devicetoken: deviceToken)
+        )
+        .filterResponseError()
+        .map { result in
+            switch result {
+            case .success(let json):
+                guard let key = json["data", "key"].string,
+                      !key.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+                else {
+                    return .failure(.Error(info: "服务器未返回设备 key"))
+                }
+                return .success(key)
+            case .failure(let error):
+                return .failure(error)
+            }
+        }
+    }
+
+    func syncAllServers(deviceToken: String? = nil) {
+        let token: String?
+        
+        #if os(iOS)
+        token = deviceToken ?? Client.shared.deviceToken.value
+        #elseif os(watchOS)
+        token = deviceToken
+        #endif
+
+        guard let token, token.count > 0 else {
             return
         }
         dispose?.dispose()
 
         let apis = servers.map { server in
-            BarkApi.provider.request(
-                .register(
-                    address: server.address,
-                    key: server.key,
-                    devicetoken: token
-                ))
-                .filterResponseError()
+            register(server: server, deviceToken: token)
                 .map { result -> (Server, String?) in
 
                     switch result {
-                    case .success(let json):
-                        return (server, json["data", "key"].rawString())
+                    case .success(let key):
+                        return (server, key)
                     case .failure:
                         return (server, nil)
                     }
@@ -190,6 +212,7 @@ class ServerManager: NSObject {
 
         dispose = Observable
             .merge(apis)
+            .observe(on: MainScheduler.instance)
             .subscribe { result in
                 // 更新所有的 server key
                 if let key = result.1 {

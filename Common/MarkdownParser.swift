@@ -296,6 +296,7 @@ private struct AttributedStringWalker: MarkupWalker {
         attributedString.append(NSAttributedString(string: "\(prefix)", attributes: attributes))
         
         if let checkbox = listItem.checkbox {
+            #if os(iOS)
             let imageName = checkbox == .checked ? "checkmark.square" : "square"
             let font = attributes[.font] as? UIFont ?? configuration.baseFont
             let color = attributes[.foregroundColor] as? UIColor ?? configuration.baseColor
@@ -313,6 +314,10 @@ private struct AttributedStringWalker: MarkupWalker {
                 let text = checkbox == .checked ? "☑ " : "☐ "
                 attributedString.append(NSAttributedString(string: text, attributes: attributes))
             }
+            #else
+            let text = checkbox == .checked ? "☑ " : "☐ "
+            attributedString.append(NSAttributedString(string: text, attributes: attributes))
+            #endif
         }
         
         for child in listItem.children {
