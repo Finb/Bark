@@ -50,6 +50,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Setting -1 clears the badge without removing delivered notifications.
         UIApplication.shared.applicationIconBadgeNumber = -1
 
+        WatchSyncManager.shared.copyPendingIfNeeded()
+
         Task {
             await appDelegate?.processPendingMessages()
         }

@@ -18,6 +18,7 @@ final class ServerStore {
     private(set) var isSending = false
     private(set) var testResult: TestResult?
     private(set) var isSyncingServers = false
+    var copyToIPhoneSucceeded: Bool?
     var syncServersFailed = false
 
     init() {
@@ -115,6 +116,12 @@ final class ServerStore {
 
     func resetTestResult() {
         testResult = nil
+    }
+
+    func copyToIPhone(server: Server) {
+        PhoneSyncManager.shared.copyAddressAndKeyToPhone(server.addressAndKey) { [weak self] success in
+            Task { @MainActor in self?.copyToIPhoneSucceeded = success }
+        }
     }
 
     func sendTest(server: Server) async {

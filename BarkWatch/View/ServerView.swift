@@ -62,6 +62,15 @@ struct ServerView: View {
                             .foregroundStyle(.red)
                     }
                 }
+
+                Button {
+                    if let server { model.servers.copyToIPhone(server: server) }
+                } label: {
+                    Label("copyToIPhone", systemImage: "doc.on.doc")
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.7)
+                }
+                .disabled(!hasKey)
             }
 
             Section {
@@ -85,6 +94,15 @@ struct ServerView: View {
         .onAppear {
             model.servers.reload()
             model.servers.resetTestResult()
+        }
+        .alert(
+            model.servers.copyToIPhoneSucceeded == true ? "copyToIPhoneSent" : "syncFromIPhoneFailed",
+            isPresented: Binding(
+                get: { model.servers.copyToIPhoneSucceeded != nil },
+                set: { if !$0 { model.servers.copyToIPhoneSucceeded = nil } }
+            )
+        ) {
+            Button("confirm", role: .cancel) {}
         }
     }
 

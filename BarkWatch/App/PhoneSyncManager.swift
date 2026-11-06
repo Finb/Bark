@@ -42,6 +42,25 @@ final class PhoneSyncManager: NSObject, WCSessionDelegate, @unchecked Sendable {
         }
     }
 
+    func copyAddressAndKeyToPhone(_ value: String, completion: @escaping (Bool) -> Void) {
+        let session = WCSession.default
+        guard !value.isEmpty,
+              session.activationState == .activated
+        else {
+            completion(false)
+            return
+        }
+
+        session.sendMessage([
+            Key.type: WatchSyncAction.copyAddressAndKey.rawValue,
+            Key.payload: value
+        ], replyHandler: { reply in
+            completion((reply[Key.type] as? String) == WatchSyncAction.copyAddressAndKey.rawValue)
+        }, errorHandler: { _ in
+            completion(false)
+        })
+    }
+
     func session(
         _ session: WCSession,
         activationDidCompleteWith activationState: WCSessionActivationState,

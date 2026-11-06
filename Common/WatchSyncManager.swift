@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 import WatchConnectivity
 
 final class WatchSyncManager: NSObject {
@@ -8,6 +9,8 @@ final class WatchSyncManager: NSObject {
         static let type = "type"
         static let payload = "payload"
     }
+
+    private var pendingCopy: String?
 
     func activate() {
         guard WCSession.isSupported() else { return }
@@ -22,6 +25,30 @@ final class WatchSyncManager: NSObject {
         case .serverList:
             return try? JSONEncoder().encode(ServerManager.shared.servers.map(\.cleanAddress))
         }
+    }
+
+    func copyPendingIfNeeded() {
+        guard let value = pendingCopy else { return }
+        pendingCopy = nil
+        UIPasteboard.general.string = value
+        HUDSuccess("Copy".localized)
+    }
+
+    private func handleCopyAction(_ message: [String: Any]) -> Bool {
+        guard WatchSyncAction(rawValue: message[Key.type] as? String ?? "") == .copyAddressAndKey,
+              let value = message[Key.payload] as? String,
+              !value.isEmpty
+        else { return false }
+
+        dispatch_sync_safely_main_queue {
+            if UIApplication.shared.applicationState == .background {
+                self.pendingCopy = value
+            } else {
+                UIPasteboard.general.string = value
+                HUDSuccess("Copy".localized)
+            }
+        }
+        return true
     }
 }
 
@@ -43,6 +70,11 @@ extension WatchSyncManager: WCSessionDelegate {
         didReceiveMessage message: [String: Any],
         replyHandler: @escaping ([String: Any]) -> Void
     ) {
+        if handleCopyAction(message) {
+            replyHandler([Key.type: WatchSyncAction.copyAddressAndKey.rawValue])
+            return
+        }
+
         guard let rawValue = message[Key.type] as? String,
               let request = WatchSyncRequest(rawValue: rawValue)
         else {
