@@ -8,6 +8,7 @@ final class WatchMessage {
     var id: String
     var title: String?
     var subtitle: String?
+    var markdown: String?
     var body: String?
     var url: String?
     var image: String?
@@ -19,6 +20,7 @@ final class WatchMessage {
         id: String,
         title: String?,
         subtitle: String?,
+        markdown: String?,
         body: String?,
         url: String?,
         image: String?,
@@ -29,6 +31,7 @@ final class WatchMessage {
         self.id = id
         self.title = title
         self.subtitle = subtitle
+        self.markdown = markdown
         self.body = body
         self.url = url
         self.image = image

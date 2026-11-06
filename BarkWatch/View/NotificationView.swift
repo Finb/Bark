@@ -1,4 +1,3 @@
-import CoreText
 import SwiftUI
 import UserNotifications
 import WatchKit
@@ -18,36 +17,8 @@ final class NotificationController: WKUserNotificationHostingController<Notifica
         self.content = content
 
         if let source = content.userInfo["markdown"] as? String, !source.isEmpty {
-            markdown = Self.attributedString(from: MarkdownText.attributed(source))
+            markdown = MarkdownText.swiftUIAttributed(source)
         }
-    }
-
-    private static func attributedString(from text: NSAttributedString) -> AttributedString {
-        var result = AttributedString()
-
-        text.enumerateAttributes(in: NSRange(location: 0, length: text.length)) { attributes, range, _ in
-            var run = AttributedString(text.attributedSubstring(from: range).string)
-
-            if let font = attributes[.font] as? UIFont {
-                run.font = Font(font as CTFont)
-            }
-            if let color = attributes[.foregroundColor] as? UIColor {
-                run.foregroundColor = Color(uiColor: color)
-            }
-            if let background = attributes[.backgroundColor] as? UIColor {
-                run.backgroundColor = Color(uiColor: background)
-            }
-            if attributes[.underlineStyle] != nil {
-                run.underlineStyle = .single
-            }
-            if attributes[.strikethroughStyle] != nil {
-                run.strikethroughStyle = .single
-            }
-
-            result.append(run)
-        }
-
-        return result
     }
 }
 

@@ -192,6 +192,16 @@ private struct ClearRangeListView: View {
 
 private struct MessageDetailView: View {
     let message: MessageItem
+    private let renderedMarkdown: AttributedString?
+
+    init(message: MessageItem) {
+        self.message = message
+        if let markdown = message.markdown, !markdown.isEmpty {
+            renderedMarkdown = MarkdownText.swiftUIAttributed(markdown)
+        } else {
+            renderedMarkdown = nil
+        }
+    }
 
     var body: some View {
         ScrollView {
@@ -220,7 +230,9 @@ private struct MessageDetailView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                if let body = message.body, !body.isEmpty {
+                if let renderedMarkdown {
+                    Text(renderedMarkdown)
+                } else if let body = message.body, !body.isEmpty {
                     Text(verbatim: body)
                         .font(.body)
                 }

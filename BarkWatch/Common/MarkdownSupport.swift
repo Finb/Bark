@@ -1,3 +1,5 @@
+import CoreText
+import SwiftUI
 import UIKit
 
 enum WatchNotificationCategory {
@@ -36,5 +38,42 @@ enum MarkdownText {
 
     static func plain(_ source: String) -> String {
         attributed(source).string
+    }
+
+    static func swiftUIAttributed(_ source: String) -> AttributedString {
+        swiftUIAttributed(from: attributed(source))
+    }
+
+    static func swiftUIAttributed(from text: NSAttributedString) -> AttributedString {
+        var result = AttributedString()
+
+        text.enumerateAttributes(in: NSRange(location: 0, length: text.length)) { attributes, range, _ in
+            var run = AttributedString(text.attributedSubstring(from: range).string)
+
+            if let font = attributes[.font] as? UIFont {
+                run.font = Font(font as CTFont)
+            }
+            if let color = attributes[.foregroundColor] as? UIColor {
+                run.foregroundColor = Color(uiColor: color)
+            }
+            if let background = attributes[.backgroundColor] as? UIColor {
+                run.backgroundColor = Color(uiColor: background)
+            }
+            if attributes[.underlineStyle] != nil {
+                run.underlineStyle = .single
+            }
+            if attributes[.strikethroughStyle] != nil {
+                run.strikethroughStyle = .single
+            }
+            if let link = attributes[.link] as? String, let url = URL(string: link) {
+                run.link = url
+            } else if let url = attributes[.link] as? URL {
+                run.link = url
+            }
+
+            result.append(run)
+        }
+
+        return result
     }
 }

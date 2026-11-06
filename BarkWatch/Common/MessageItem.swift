@@ -4,6 +4,7 @@ struct MessageItem: Identifiable, Equatable {
     let id: String
     let title: String?
     let subtitle: String?
+    let markdown: String?
     let body: String?
     let url: String?
     let image: String?
@@ -14,6 +15,7 @@ struct MessageItem: Identifiable, Equatable {
         id = message.id
         title = message.title
         subtitle = message.subtitle
+        markdown = message.markdown
         body = message.body
         url = message.url
         image = message.image

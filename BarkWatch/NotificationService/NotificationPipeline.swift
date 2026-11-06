@@ -124,10 +124,13 @@ private extension NotificationPipeline {
             ?? (content.threadIdentifier.isEmpty ? nil : content.threadIdentifier)
             ?? ""
 
+        let markdown = stringValue(userInfo["markdown"]).flatMap { $0.isEmpty ? nil : $0 }
+
         let message = WatchMessage(
             id: id,
             title: content.title.isEmpty ? nil : content.title,
             subtitle: content.subtitle.isEmpty ? nil : content.subtitle,
+            markdown: markdown,
             body: content.body.isEmpty ? nil : content.body,
             url: stringValue(userInfo["url"]),
             image: stringValue(userInfo["image"]),

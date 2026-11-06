@@ -47,6 +47,7 @@ final class MessageStore {
         if let current = (try? context.fetch(descriptor))?.first {
             current.title = message.title
             current.subtitle = message.subtitle
+            current.markdown = message.markdown
             current.body = message.body
             current.url = message.url
             current.image = message.image
