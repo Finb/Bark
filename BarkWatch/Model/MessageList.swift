@@ -4,7 +4,7 @@ import Observation
 @MainActor
 @Observable
 final class MessageList {
-    private(set) var items: [WatchMessage] = []
+    private(set) var items: [MessageItem] = []
     private(set) var groupFilters: [MessageFilter] = [.all]
     private(set) var hasMore = false
     private(set) var filter: MessageFilter = .all

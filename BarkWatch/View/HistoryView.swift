@@ -105,7 +105,7 @@ struct HistoryView: View {
         }
     }
 
-    private func row(for message: WatchMessage) -> some View {
+    private func row(for message: MessageItem) -> some View {
         let title = message.title.flatMap { $0.isEmpty ? nil : $0 }
         let body = message.body.flatMap { $0.isEmpty ? nil : $0 }
 
@@ -191,7 +191,7 @@ private struct ClearRangeListView: View {
 }
 
 private struct MessageDetailView: View {
-    let message: WatchMessage
+    let message: MessageItem
 
     var body: some View {
         ScrollView {

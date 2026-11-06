@@ -69,7 +69,7 @@ final class MessageStore {
         filter: MessageFilter,
         before cursor: PageCursor?,
         limit: Int = MessageStore.pageSize
-    ) -> (items: [WatchMessage], hasMore: Bool) {
+    ) -> (items: [MessageItem], hasMore: Bool) {
         guard let context else { return ([], false) }
 
         var descriptor = FetchDescriptor<WatchMessage>(
@@ -82,8 +82,8 @@ final class MessageStore {
         descriptor.fetchLimit = limit + 1
 
         let fetched = (try? context.fetch(descriptor)) ?? []
-        let items = Array(fetched.prefix(limit))
-        return (items, fetched.count > limit)
+        let items = fetched.prefix(limit).map(MessageItem.init)
+        return (Array(items), fetched.count > limit)
     }
 
     func fetchGroups() -> [WatchGroup] {
