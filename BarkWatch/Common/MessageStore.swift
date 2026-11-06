@@ -43,10 +43,24 @@ final class MessageStore {
         let id = message.id
         var descriptor = FetchDescriptor<WatchMessage>(predicate: #Predicate { $0.id == id })
         descriptor.fetchLimit = 1
-        if (try? context.fetch(descriptor).first) != nil {
-            return
+
+        if let current = (try? context.fetch(descriptor))?.first {
+            current.title = message.title
+            current.subtitle = message.subtitle
+            current.body = message.body
+            current.url = message.url
+            current.image = message.image
+            current.createDate = message.createDate
+            current.expireDate = message.expireDate
+
+            if current.group != message.group {
+                current.group = message.group
+                reconcileGroups(in: context)
+            }
+        } else {
+            context.insert(message)
         }
-        context.insert(message)
+
         upsertGroup(message.group, date: message.createDate, in: context)
         try? context.save()
     }
@@ -62,7 +76,7 @@ final class MessageStore {
             predicate: pagePredicate(filter: filter, before: cursor),
             sortBy: [
                 SortDescriptor(\.createDate, order: .reverse),
-                SortDescriptor(\.id, order: .reverse),
+                SortDescriptor(\.id, order: .reverse)
             ]
         )
         descriptor.fetchLimit = limit + 1
@@ -165,11 +179,11 @@ final class MessageStore {
         switch (filter, cursor) {
         case (.all, nil):
             return nil
-        case let (.all, cursor?):
+        case (.all, let cursor?):
             return cursorPredicate(cursor)
-        case let (.group(key), nil):
+        case (.group(let key), nil):
             return #Predicate { message in message.group == key }
-        case let (.group(key), cursor?):
+        case (.group(let key), let cursor?):
             let date = cursor.createDate
             let id = cursor.id
             return #Predicate { message in

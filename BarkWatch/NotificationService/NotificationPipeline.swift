@@ -119,7 +119,7 @@ private extension NotificationPipeline {
             expireDate = Date().addingTimeInterval(TimeInterval(seconds))
         }
 
-        let id = stringValue(userInfo["id"]) ?? identifier
+        let id = stringValue(userInfo["id"]).flatMap { $0.isEmpty ? nil : $0 } ?? identifier
         let group = stringValue(userInfo["group"]).flatMap { $0.isEmpty ? nil : $0 }
             ?? (content.threadIdentifier.isEmpty ? nil : content.threadIdentifier)
             ?? ""
