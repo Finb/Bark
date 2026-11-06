@@ -1022,31 +1022,31 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Sent to iPhone. Open Bark to finish copying."
+            "value" : "Sent to iPhone. Open Bark on your iPhone to finish copying."
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Inviato all'iPhone. Apri Bark per completare la copia."
+            "value" : "Inviato all'iPhone. Apri Bark sul tuo iPhone per completare la copia."
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iPhone に送信しました。Bark を開いてコピーを完了してください"
+            "value" : "iPhone に送信しました。iPhone の Bark を開いてコピーを完了してください。"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "iPhone'a gönderildi. Kopyalamayı tamamlamak için Bark'ı açın."
+            "value" : "iPhone'a gönderildi. Kopyalamayı tamamlamak için iPhone'unuzdaki Bark'ı açın."
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "已发送到 iPhone，打开 Bark 完成复制"
+            "value" : "已发送到 iPhone，打开 iPhone 上的 Bark 完成复制"
           }
         }
       }
