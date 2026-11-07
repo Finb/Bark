@@ -66,7 +66,7 @@ class SoundsViewModel: ViewModel, ViewModelType {
         do {
             let files = try fileManager.contentsOfDirectory(atPath: directory)
             return files.compactMap { file -> URL? in
-                if file.hasSuffix(suffix), !file.hasPrefix(kBarkSoundPrefix) {
+                if file.hasSuffix(suffix), !file.hasPrefix(kBarkSoundPrefix), !file.hasPrefix(kBarkRemoteSoundPrefix) {
                     // 不要包含 kBarkSoundPrefix 开头的，这些是为了 call=1 合成的 30s 长铃声,不算用户上传的
                     return URL(fileURLWithPath: directory).appendingPathComponent(file)
                 }

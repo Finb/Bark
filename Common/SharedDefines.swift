@@ -9,3 +9,5 @@
 import Foundation
 
 let kBarkSoundPrefix = "bark.sounds.30s"
+/// Prefix of sounds downloaded via the `soundUrl` parameter; not shown as user sounds
+let kBarkRemoteSoundPrefix = "bark.sounds.remote"

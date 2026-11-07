@@ -34,6 +34,7 @@ class NotificationService: UNNotificationServiceExtension {
                 .archive,
                 .mute,
                 .call,
+                .soundUrl,
                 .setImage,
                 .setIcon
             ]
