@@ -14,21 +14,22 @@ class SoundUrlProcessor: NotificationContentProcessor {
     /// Same shared folder as imported sounds; iOS looks up notification sounds here.
     let soundsDirectoryUrl = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: "group.bark")?.appendingPathComponent("Library/Sounds")
 
-    /// Formats iOS can play as a notification sound.
-    static let supportedExtensions: Set<String> = ["caf", "wav", "aif", "aiff", "mp3"]
-    /// Upper bound for a downloaded file; a 30 s 16-bit 44.1 kHz stereo WAV is ~5.3 MB.
+    /// Only CAF is supported, same as sounds imported in the app.
+    static let fileExtension = "caf"
+    /// Upper bound for a downloaded file; a 30 s 16-bit 44.1 kHz stereo file is ~5.3 MB.
     static let maxFileSize = 6 * 1024 * 1024
     /// Upper bound for all downloaded sounds together; least recently used are removed first.
     static let maxCacheSize = 20 * 1024 * 1024
     /// Leaves time for the other processors within the extension's ~30 s budget.
     static let downloadTimeout: TimeInterval = 10
     /// Downloaded sounds not used for this long are removed.
-    static let maxCacheAge: TimeInterval = 24 * 60 * 60
+    static let maxCacheAge: TimeInterval = 30 * 24 * 60 * 60
 
     func process(identifier: String, content bestAttemptContent: UNMutableNotificationContent) async throws -> UNMutableNotificationContent {
         guard let urlString = bestAttemptContent.soundUrlString,
               let url = URL(string: urlString),
-              url.scheme?.lowercased() == "https"
+              let scheme = url.scheme?.lowercased(),
+              scheme == "http" || scheme == "https"
         else {
             return bestAttemptContent
         }
@@ -43,11 +44,14 @@ class SoundUrlProcessor: NotificationContentProcessor {
         // Enforce the size cap now that a new file may have been added, keeping the one about to play.
         cleanupCache(keeping: fileName)
 
-        if bestAttemptContent.isCritical {
-            LevelProcessor.setCriticalSound(content: bestAttemptContent, soundName: fileName)
-        } else {
-            bestAttemptContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: fileName))
-        }
+        // This processor runs before `level` and `call`, which read the sound name from `aps.sound`,
+        // so they turn the downloaded file into a critical sound or a 30 s ringtone.
+        var userInfo = bestAttemptContent.userInfo
+        var aps = userInfo["aps"] as? [AnyHashable: Any] ?? [:]
+        aps["sound"] = fileName
+        userInfo["aps"] = aps
+        bestAttemptContent.userInfo = userInfo
+        bestAttemptContent.sound = UNNotificationSound(named: UNNotificationSoundName(rawValue: fileName))
         return bestAttemptContent
     }
 }
@@ -69,7 +73,7 @@ extension SoundUrlProcessor {
             .prefix(12)
             .map { String(format: "%02x", $0) }
             .joined()
-        let cachePrefix = "\(kBarkRemoteSoundPrefix).\(hash)."
+        let cachePrefix = "\(kBarkRemoteSoundPrefix)-\(hash)."
 
         if let cached = cachedFile(prefix: cachePrefix) {
             touch(cached)
@@ -92,12 +96,12 @@ extension SoundUrlProcessor {
 
         let size = (try? FileManager.default.attributesOfItem(atPath: tempUrl.path)[.size] as? Int) ?? 0
         guard size > 0, size <= Self.maxFileSize,
-              let ext = Self.fileExtension(url: url, mimeType: httpResponse.mimeType)
+              Self.isCAF(url: url, mimeType: httpResponse.mimeType)
         else {
             return nil
         }
 
-        let fileName = "\(cachePrefix)\(ext)"
+        let fileName = "\(cachePrefix)\(Self.fileExtension)"
         let destination = soundsDirectoryUrl.appendingPathComponent(fileName)
         do {
             try FileManager.default.moveItem(at: tempUrl, to: destination)
@@ -112,24 +116,12 @@ extension SoundUrlProcessor {
         return fileName
     }
 
-    /// Picks the file extension from the URL path, falling back to the response MIME type.
-    static func fileExtension(url: URL, mimeType: String?) -> String? {
-        let pathExtension = url.pathExtension.lowercased()
-        if supportedExtensions.contains(pathExtension) {
-            return pathExtension
+    /// The URL path must end in `.caf`, or the response must be served as CAF.
+    static func isCAF(url: URL, mimeType: String?) -> Bool {
+        if url.pathExtension.lowercased() == fileExtension {
+            return true
         }
-        switch mimeType?.lowercased() {
-        case "audio/x-caf", "audio/caf":
-            return "caf"
-        case "audio/wav", "audio/wave", "audio/x-wav", "audio/vnd.wave":
-            return "wav"
-        case "audio/aiff", "audio/x-aiff":
-            return "aiff"
-        case "audio/mpeg", "audio/mp3":
-            return "mp3"
-        default:
-            return nil
-        }
+        return ["audio/x-caf", "audio/caf"].contains(mimeType?.lowercased())
     }
 }
 
@@ -156,6 +148,13 @@ extension SoundUrlProcessor {
         )
     }
 
+    /// Removes a cached sound together with the 30 s copy `call` may have made from it.
+    func remove(_ file: URL) {
+        try? FileManager.default.removeItem(at: file)
+        let longCopy = file.deletingLastPathComponent().appendingPathComponent("\(kBarkSoundPrefix).\(file.lastPathComponent)")
+        try? FileManager.default.removeItem(at: longCopy)
+    }
+
     /// Removes downloaded sounds not used within `maxCacheAge`, then the least recently used ones
     /// until all downloads together fit in `maxCacheSize`. `keeping` is never removed.
     /// Imported, built-in and `call` sounds are never touched.
@@ -172,12 +171,12 @@ extension SoundUrlProcessor {
         let cutoff = Date().addingTimeInterval(-Self.maxCacheAge)
         var remaining: [(url: URL, used: Date, size: Int)] = []
 
-        for file in files where file.lastPathComponent.hasPrefix("\(kBarkRemoteSoundPrefix).") {
+        for file in files where file.lastPathComponent.hasPrefix("\(kBarkRemoteSoundPrefix)-") {
             let values = try? file.resourceValues(forKeys: [.contentModificationDateKey, .fileSizeKey])
             let used = values?.contentModificationDate ?? .distantPast
             let size = values?.fileSize ?? 0
             if used < cutoff, file.lastPathComponent != keeping {
-                try? FileManager.default.removeItem(at: file)
+                remove(file)
             } else {
                 remaining.append((file, used, size))
             }
@@ -188,7 +187,7 @@ extension SoundUrlProcessor {
             if file.url.lastPathComponent == keeping {
                 continue
             }
-            try? FileManager.default.removeItem(at: file.url)
+            remove(file.url)
             totalSize -= file.size
         }
     }

@@ -28,13 +28,13 @@ class NotificationService: UNNotificationServiceExtension {
             let processors: [NotificationContentProcessorItem] = [
                 .ciphertext,
                 .markdown,
+                .soundUrl,
                 .level,
                 .badge,
                 .autoCopy,
                 .archive,
                 .mute,
                 .call,
-                .soundUrl,
                 .setImage,
                 .setIcon
             ]
