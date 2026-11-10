@@ -211,6 +211,7 @@
 		06D69E3D2C1159E200161A35 /* silence.caf in Resources */ = {isa = PBXBuildFile; fileRef = 06BBB8CD2567B8E60076F63E /* silence.caf */; };
 		06D69E3E2C1159E200161A35 /* alarm.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204F3250B6DD1001561EC /* alarm.caf */; };
 		06D69E3F2C1159E200161A35 /* fanfare.caf in Resources */ = {isa = PBXBuildFile; fileRef = 063204FB250B6DD2001561EC /* fanfare.caf */; };
+		06D7A1B12EB0C0DE00A1B2C3 /* SoundUrlProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D7A1B02EB0C0DE00A1B2C3 /* SoundUrlProcessor.swift */; };
 		06D69E412C11983E00161A35 /* CallProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06D69E402C11983E00161A35 /* CallProcessor.swift */; };
 		06E62C112D670F62004DC82B /* PushToCurrentIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E62C102D670F5D004DC82B /* PushToCurrentIntent.swift */; };
 		06E944682C06E40600AC86AB /* NotificationContentProcessor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */; };
@@ -528,6 +529,7 @@
 		06CF784421C7A50300A052D7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		06CF784B21C7A51200A052D7 /* NotificationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		06D47E572F8A1C0000BEEF01 /* Date+Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Shared.swift"; sourceTree = "<group>"; };
+		06D7A1B02EB0C0DE00A1B2C3 /* SoundUrlProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundUrlProcessor.swift; sourceTree = "<group>"; };
 		06D69E402C11983E00161A35 /* CallProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallProcessor.swift; sourceTree = "<group>"; };
 		06E62C102D670F5D004DC82B /* PushToCurrentIntent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushToCurrentIntent.swift; sourceTree = "<group>"; };
 		06E944672C06E40600AC86AB /* NotificationContentProcessor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationContentProcessor.swift; sourceTree = "<group>"; };
@@ -983,6 +985,7 @@
 				06E944772C0701F300AC86AB /* IconProcessor.swift */,
 				06E9447B2C07052F00AC86AB /* ImageProcessor.swift */,
 				06D69E402C11983E00161A35 /* CallProcessor.swift */,
+				06D7A1B02EB0C0DE00A1B2C3 /* SoundUrlProcessor.swift */,
 				06E944792C0704E500AC86AB /* ImageDownloader.swift */,
 				06BCAE5A2CDB25120092867A /* MuteProcessor.swift */,
 				069C6CA32ED03C72007244BB /* MarkdownProcessor.swift */,
@@ -1963,6 +1966,7 @@
 				06BBB89125650CCF0076F63E /* ArchiveSettingManager.swift in Sources */,
 				069332232E6A8E3100F9387F /* String+Extension.swift in Sources */,
 				06D69E412C11983E00161A35 /* CallProcessor.swift in Sources */,
+				06D7A1B12EB0C0DE00A1B2C3 /* SoundUrlProcessor.swift in Sources */,
 				06B11591247BC132006D91FB /* Message.swift in Sources */,
 				06E9447C2C07052F00AC86AB /* ImageProcessor.swift in Sources */,
 				06E9446A2C06E4A200AC86AB /* CiphertextProcessor.swift in Sources */,

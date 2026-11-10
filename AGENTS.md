@@ -52,6 +52,7 @@ bundle exec fastlane beta
      - `ArchiveProcessor` - saves message to Realm database
      - `MuteProcessor` - handles group muting
      - `CallProcessor` - plays repeating sound for 30 seconds
+     - `SoundUrlProcessor` - downloads a sound from the `soundUrl` parameter (e.g. TTS clip) and uses it as the notification sound
      - `ImageProcessor` - downloads and attaches images
      - `IconProcessor` - sets custom notification icon (iOS 15+, runs last as it may timeout)
 
