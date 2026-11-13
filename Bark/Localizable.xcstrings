@@ -2905,6 +2905,41 @@
         }
       }
     },
+    "muteGroup10Minutes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute this group for 10 Minutes"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silenzia questo gruppo per 10 minuti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このグループを10分間ミュート"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bu grubu 10 dakikalığına sessize alın"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "10分钟内不再提醒此分组"
+          }
+        }
+      }
+    },
     "muteGroup1Hour" : {
       "extractionState" : "manual",
       "localizations" : {

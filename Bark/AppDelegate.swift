@@ -55,6 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         ]
         if #available(iOSApplicationExtension 15.0, *) {
             actions.append(UNNotificationAction(identifier: "mute", title: "muteGroup1Hour".localized, options: UNNotificationActionOptions.foreground))
+            actions.append(UNNotificationAction(identifier: "mute10Minutes", title: "muteGroup10Minutes".localized, options: UNNotificationActionOptions.foreground))
         }
         UNUserNotificationCenter.current().setNotificationCategories([
             // customDismissAction 会在 clear 推送时，调起APP，这时可以顺便更新下 DeviceToken，防止过期。
