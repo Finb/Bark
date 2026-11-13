@@ -2905,6 +2905,41 @@
         }
       }
     },
+    "muteGroup15Minutes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute this group for 15 Minutes"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silenzia questo gruppo per 15 minuti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このグループを15分間ミュート"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bu grubu 15 dakikalığına sessize alın"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "15分钟内不再提醒此分组"
+          }
+        }
+      }
+    },
     "muteGroup1Hour" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -2936,6 +2971,41 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1小时内不再提醒此分组"
+          }
+        }
+      }
+    },
+    "muteGroup5Minutes" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mute this group for 5 Minutes"
+          }
+        },
+        "it" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Silenzia questo gruppo per 5 minuti"
+          }
+        },
+        "ja" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "このグループを5分間ミュート"
+          }
+        },
+        "tr" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bu grubu 5 dakikalığına sessize alın"
+          }
+        },
+        "zh-Hans" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "5分钟内不再提醒此分组"
           }
         }
       }

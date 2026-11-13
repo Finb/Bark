@@ -65,7 +65,11 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
         case "copy":
             self.copyAction(response, completionHandler: completion)
         case "mute":
-            self.muteAction(response, completionHandler: completion)
+            self.muteAction(response, duration: 60 * 60, completionHandler: completion)
+        case "mute15Minutes":
+            self.muteAction(response, duration: 15 * 60, completionHandler: completion)
+        case "mute5Minutes":
+            self.muteAction(response, duration: 5 * 60, completionHandler: completion)
         default:
             completion(.dismiss)
         }
@@ -100,10 +104,9 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     }
 
     /// 静音分组
-    func muteAction(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
+    func muteAction(_ response: UNNotificationResponse, duration: TimeInterval, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         let groupName = response.notification.request.content.threadIdentifier
-        // 静音一小时
-        GroupMuteSettingManager().settings[groupName] = Date() + 60 * 60
+        GroupMuteSettingManager().settings[groupName] = Date() + duration
 
         showTips(text: String(format: "groupMuted".localized, groupName.isEmpty ? "default".localized : groupName))
         completion(.doNotDismiss)
