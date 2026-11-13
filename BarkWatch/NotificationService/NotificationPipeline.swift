@@ -1,5 +1,4 @@
 import Foundation
-import UniformTypeIdentifiers
 import UserNotifications
 
 enum NotificationPipeline {
@@ -40,6 +39,9 @@ enum NotificationPipeline {
     }
 
     static func attachImage(to content: UNMutableNotificationContent) async -> UNMutableNotificationContent {
+        // 每次推送都顺带清理过期缓存
+        WatchImageCache.cleanupCache()
+
         guard let image = stringValue(content.userInfo["image"]),
               let url = URL(string: image),
               let scheme = url.scheme?.lowercased(),
@@ -48,29 +50,20 @@ enum NotificationPipeline {
             return content
         }
 
-        var request = URLRequest(url: url)
-        request.timeoutInterval = 5
-
-        guard let (data, response) = try? await URLSession.shared.data(for: request),
-              let http = response as? HTTPURLResponse,
-              (200..<300).contains(http.statusCode),
-              !data.isEmpty,
-              data.count <= 5 * 1024 * 1024
+        guard let cached = await WatchImageCache.downloadIfNeeded(url),
+              let attachmentUrl = WatchImageCache.copyForAttachment(cached)
         else {
             return content
         }
 
-        let fileExtension = http.mimeType.flatMap { UTType(mimeType: $0)?.preferredFilenameExtension }
-            ?? (url.pathExtension.isEmpty ? "png" : url.pathExtension)
-        let fileURL = FileManager.default.temporaryDirectory
-            .appendingPathComponent(UUID().uuidString)
-            .appendingPathExtension(fileExtension)
-
-        guard (try? data.write(to: fileURL)) != nil,
-              let attachment = try? UNNotificationAttachment(identifier: "image", url: fileURL, options: nil)
-        else {
+        guard let attachment = try? UNNotificationAttachment(identifier: "image", url: attachmentUrl, options: nil) else {
+            // 创建失败时这份副本不会交给系统，主动删除。
+            try? FileManager.default.removeItem(at: attachmentUrl)
             return content
         }
+
+        // 新写入的图片可能让缓存超限，淘汰时保护刚下载的文件。
+        WatchImageCache.cleanupCache(keeping: cached)
 
         content.attachments = [attachment]
         return content

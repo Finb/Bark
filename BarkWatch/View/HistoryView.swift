@@ -238,16 +238,7 @@ private struct MessageDetailView: View {
                 }
 
                 if let image = message.image, let url = URL(string: image) {
-                    AsyncImage(url: url) { phase in
-                        if let image = phase.image {
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .clipShape(RoundedRectangle(cornerRadius: 8))
-                        } else if phase.error == nil {
-                            ProgressView()
-                        }
-                    }
+                    WatchCachedImage(url: url, cornerRadius: 8)
                 }
 
                 if let link = message.url, let url = URL(string: link) {

@@ -49,16 +49,7 @@ struct NotificationView: View {
 
                     if let image = content.userInfo["image"] as? String,
                        let url = URL(string: image) {
-                        AsyncImage(url: url) { phase in
-                            if let image = phase.image {
-                                image
-                                    .resizable()
-                                    .scaledToFit()
-                                    .clipShape(RoundedRectangle(cornerRadius: 6))
-                            } else if phase.error == nil {
-                                ProgressView()
-                            }
-                        }
+                        WatchCachedImage(url: url, cornerRadius: 6)
                     }
                 }
             }
