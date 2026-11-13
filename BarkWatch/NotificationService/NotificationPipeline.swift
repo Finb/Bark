@@ -1,4 +1,5 @@
 import Foundation
+import Intents
 import UserNotifications
 
 enum NotificationPipeline {
@@ -67,6 +68,80 @@ enum NotificationPipeline {
 
         content.attachments = [attachment]
         return content
+    }
+
+    /// 通过 Communication Notifications 把通知图标替换为 `icon` 参数指定的图片。
+    static func attachIcon(to content: UNMutableNotificationContent) async -> UNMutableNotificationContent {
+        guard let icon = stringValue(content.userInfo["icon"]),
+              let url = URL(string: icon),
+              let scheme = url.scheme?.lowercased(),
+              scheme == "http" || scheme == "https",
+              let cached = await WatchImageCache.downloadIfNeeded(url),
+              let data = try? Data(contentsOf: cached)
+        else {
+            return content
+        }
+
+        var nameComponents = PersonNameComponents()
+        nameComponents.nickname = content.title
+
+        let avatar = INImage(imageData: data)
+        let sender = INPerson(
+            personHandle: INPersonHandle(value: "", type: .unknown),
+            nameComponents: nameComponents,
+            displayName: nameComponents.nickname,
+            image: avatar,
+            contactIdentifier: nil,
+            customIdentifier: nil,
+            isMe: false,
+            suggestionType: .none
+        )
+        let me = INPerson(
+            personHandle: INPersonHandle(value: "", type: .unknown),
+            nameComponents: nil,
+            displayName: nil,
+            image: nil,
+            contactIdentifier: nil,
+            customIdentifier: nil,
+            isMe: true,
+            suggestionType: .none
+        )
+        // 必须两个接收者，才能显示 subtitle。
+        let placeholder = INPerson(
+            personHandle: INPersonHandle(value: "", type: .unknown),
+            nameComponents: nameComponents,
+            displayName: nameComponents.nickname,
+            image: avatar,
+            contactIdentifier: nil,
+            customIdentifier: nil
+        )
+
+        let intent = INSendMessageIntent(
+            recipients: [me, placeholder],
+            outgoingMessageType: .outgoingMessageText,
+            content: content.body,
+            speakableGroupName: INSpeakableString(spokenPhrase: content.subtitle),
+            conversationIdentifier: content.threadIdentifier,
+            serviceName: nil,
+            sender: sender,
+            attachments: nil
+        )
+        intent.setImage(avatar, forParameterNamed: \.speakableGroupName)
+
+        let interaction = INInteraction(intent: intent, response: nil)
+        interaction.direction = .incoming
+
+        do {
+            try await interaction.donate()
+            // 新写入的图标可能让缓存超限，淘汰时保护刚下载的文件。
+            WatchImageCache.cleanupCache(keeping: cached)
+            guard let updated = try? content.updating(from: intent) else {
+                return content
+            }
+            return updated.mutableCopy() as? UNMutableNotificationContent ?? content
+        } catch {
+            return content
+        }
     }
 }
 

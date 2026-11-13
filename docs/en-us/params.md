@@ -72,7 +72,7 @@ You can also long press or pull down the notification banner to mute a group; a 
 #### icon
 Custom notification icon, set to an image URL, replacing the default Bark icon in the notification.<br>
 The icon is cached on the device and the same URL is downloaded only once, so it still shows after the image URL becomes unavailable; if the first download takes more than 10 seconds, the default icon is used.<br>
-Requires iOS 15 or above.<br>
+Requires iOS 15 or above; the watchOS app requires watchOS 11 or above.<br>
 <img src="../_media/icon-example.jpg" width=428 />
 
 #### image

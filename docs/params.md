@@ -72,7 +72,7 @@ key 数组，一次推送给多台设备，仅支持 JSON 请求，示例见[批
 #### icon
 自定义通知图标，填图片 URL，设置后会替换通知里默认的 Bark 图标。<br>
 图标会自动缓存在本机，同一个 URL 只会下载一次，之后即使图片地址不可用也能正常显示；首次下载超过 10 秒会退回默认图标。<br>
-需要 iOS 15 及以上。<br>
+需要 iOS 15 及以上；watchOS 版需要 watchOS 11 及以上。<br>
 <img src="../_media/icon-example.jpg" width=428 />
 
 #### image

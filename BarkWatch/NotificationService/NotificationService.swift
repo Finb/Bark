@@ -25,7 +25,10 @@ final class NotificationService: UNNotificationServiceExtension {
             let withImage = await NotificationPipeline.attachImage(to: prepared)
             publish(withImage)
 
-            deliver(withImage)
+            let withIcon = await NotificationPipeline.attachIcon(to: withImage)
+            publish(withIcon)
+
+            deliver(withIcon)
         }
     }
 
