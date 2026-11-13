@@ -2905,37 +2905,37 @@
         }
       }
     },
-    "muteGroup15Minutes" : {
+    "muteGroup10Minutes" : {
       "extractionState" : "manual",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Mute this group for 15 Minutes"
+            "value" : "Mute this group for 10 Minutes"
           }
         },
         "it" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Silenzia questo gruppo per 15 minuti"
+            "value" : "Silenzia questo gruppo per 10 minuti"
           }
         },
         "ja" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "このグループを15分間ミュート"
+            "value" : "このグループを10分間ミュート"
           }
         },
         "tr" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "bu grubu 15 dakikalığına sessize alın"
+            "value" : "bu grubu 10 dakikalığına sessize alın"
           }
         },
         "zh-Hans" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "15分钟内不再提醒此分组"
+            "value" : "10分钟内不再提醒此分组"
           }
         }
       }
@@ -2971,41 +2971,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "1小时内不再提醒此分组"
-          }
-        }
-      }
-    },
-    "muteGroup5Minutes" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Mute this group for 5 Minutes"
-          }
-        },
-        "it" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Silenzia questo gruppo per 5 minuti"
-          }
-        },
-        "ja" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "このグループを5分間ミュート"
-          }
-        },
-        "tr" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "bu grubu 5 dakikalığına sessize alın"
-          }
-        },
-        "zh-Hans" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "5分钟内不再提醒此分组"
           }
         }
       }

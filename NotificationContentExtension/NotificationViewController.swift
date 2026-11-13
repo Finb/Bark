@@ -66,10 +66,8 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
             self.copyAction(response, completionHandler: completion)
         case "mute":
             self.muteAction(response, duration: 60 * 60, completionHandler: completion)
-        case "mute15Minutes":
-            self.muteAction(response, duration: 15 * 60, completionHandler: completion)
-        case "mute5Minutes":
-            self.muteAction(response, duration: 5 * 60, completionHandler: completion)
+        case "mute10Minutes":
+            self.muteAction(response, duration: 10 * 60, completionHandler: completion)
         default:
             completion(.dismiss)
         }
