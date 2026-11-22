@@ -26,9 +26,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let splitViewController = BarkSplitViewController(style: .doubleColumn)
             window.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
         } else {
-            let tabBarController = BarkTabBarController()
-            tabBarController.prefersSidebar = true
-            window.rootViewController = BarkSnackbarController(rootViewController: tabBarController)
+            window.rootViewController = BarkSnackbarController(
+                rootViewController: BarkTabBarController(prefersSidebar: true)
+            )
         }
 
         self.window = window

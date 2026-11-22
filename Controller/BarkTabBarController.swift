@@ -13,9 +13,21 @@ import UIKit
 class BarkTabBarController: StateRestoringTabBarContr {
     /// Show a sidebar instead of the tab bar when the width allows it (iOS 27+).
     /// Off when embedded as the compact column of `BarkSplitViewController`, which owns its own sidebar.
-    var prefersSidebar = false
+    private let prefersSidebar: Bool
 
     private var messageGroupsToken: NotificationToken?
+
+    // UITabBarController loads its view inside init, so configuration read by
+    // viewDidLoad must be set before calling super.
+    init(prefersSidebar: Bool = false) {
+        self.prefersSidebar = prefersSidebar
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 
     deinit {
         messageGroupsToken?.invalidate()
