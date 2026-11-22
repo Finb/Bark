@@ -318,13 +318,10 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
                 self?.clearAlert(.allTime)
             }))
             alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                alertController.modalPresentationStyle = .popover
-                if #available(iOS 16.0, *) {
-                    alertController.popoverPresentationController?.sourceItem = self.deleteButton
-                } else {
-                    alertController.popoverPresentationController?.barButtonItem = self.deleteButton
-                }
+            if #available(iOS 16.0, *) {
+                alertController.popoverPresentationController?.sourceItem = self.deleteButton
+            } else {
+                alertController.popoverPresentationController?.barButtonItem = self.deleteButton
             }
             self.navigationController?.present(alertController, animated: true, completion: nil)
         }).disposed(by: rx.disposeBag)
@@ -372,11 +369,8 @@ class MessageListViewController: BaseViewController<MessageListViewModel> {
         // 取消
         alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: { _ in }))
         
-        if UIDevice.current.userInterfaceIdiom == .pad {
-            alertController.popoverPresentationController?.sourceView = sourceView.superview
-            alertController.popoverPresentationController?.sourceRect = sourceView.frame
-            alertController.modalPresentationStyle = .popover
-        }
+        alertController.popoverPresentationController?.sourceView = sourceView.superview
+        alertController.popoverPresentationController?.sourceRect = sourceView.frame
         
         self.navigationController?.present(alertController, animated: true, completion: nil)
     }

@@ -198,7 +198,7 @@ extension MessageItemView {
                 }
                 
                 // 获取系统是否是夜间模式
-                let isDarkMode = UIScreen.main.traitCollection.userInterfaceStyle == .dark
+                let isDarkMode = self.traitCollection.userInterfaceStyle == .dark
                 var options: [ImageViewerOption] = [
                     .closeIcon(UIImage(named: "back")!),
                     .theme(isDarkMode ? .dark : .light),
@@ -222,22 +222,21 @@ extension MessageItemView {
     
     func layoutImageView(image: UIImage) {
         let scale = image.size.height / image.size.width
-        // iPad 下，图片宽度不超过 500。如果图片尺寸小于控件宽度，则以实际图片尺寸作为宽度
-        var width = min(min(500, UIScreen.main.bounds.width - 32 - 24), image.width)
-        var height = width * scale
-        
-        if height > 400 {
-            width = 400 / scale
-            height = 400
-        }
-        
-        remakeImageViewConstraints(width: width, height: height)
+        // 图片宽度不超过 500、高度不超过 400，且不超过实际尺寸；
+        // 再由约束限制在卡片内容宽度内，适配分栏、折叠屏等任意宽度。
+        let width = min(500, image.width, 400 / scale)
+        remakeImageViewConstraints(width: width, height: width * scale)
     }
-    
+
     func remakeImageViewConstraints(width: CGFloat, height: CGFloat) {
         imageView.snp.remakeConstraints { make in
-            make.width.equalTo(width)
-            make.height.equalTo(height)
+            make.width.lessThanOrEqualTo(contentStackView)
+            make.width.equalTo(width).priority(.high)
+            if width > 0 {
+                make.height.equalTo(imageView.snp.width).multipliedBy(height / width)
+            } else {
+                make.height.equalTo(0)
+            }
         }
     }
 }
