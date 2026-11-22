@@ -7,6 +7,7 @@
 //
 
 import Material
+import RealmSwift
 import UIKit
 
 class BarkTabBarController: StateRestoringTabBarContr {
@@ -14,20 +15,26 @@ class BarkTabBarController: StateRestoringTabBarContr {
     /// Off when embedded as the compact column of `BarkSplitViewController`, which owns its own sidebar.
     var prefersSidebar = false
 
+    private var messageGroupsToken: NotificationToken?
+
+    deinit {
+        messageGroupsToken?.invalidate()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBar.tintColor = BKColor.grey.darken4
-        
-        let viewControllers: [UIViewController] = [
-            BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel())),
-            BarkNavigationController(rootViewController: MessageListViewController(viewModel: MessageListViewModel())),
-            BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
-        ]
-        let tabBarItems: [(title: String, image: UIImage?)] = [
-            ("service".localized, UIImage(named: "baseline_gite_black_24pt")),
-            ("historyMessage".localized, Icon.history),
-            ("settings".localized, UIImage(named: "baseline_manage_accounts_black_24pt"))
-        ]
+
+        let homeTitle = "service".localized
+        let homeImage = UIImage(named: "baseline_gite_black_24pt")
+        let historyTitle = "historyMessage".localized
+        let historyImage = Icon.history
+        let settingsTitle = "settings".localized
+        let settingsImage = UIImage(named: "baseline_manage_accounts_black_24pt")
+
+        let homeController = BarkNavigationController(rootViewController: HomeViewController(viewModel: HomeViewModel()))
+        let messageListController = MessageListViewController(viewModel: MessageListViewModel())
+        let settingsController = BarkNavigationController(rootViewController: MessageSettingsViewController(viewModel: MessageSettingsViewModel()))
 
         if #available(iOS 27.0, *), prefersSidebar {
             // One set of pages for every width: a foldable switching between its
@@ -35,15 +42,78 @@ class BarkTabBarController: StateRestoringTabBarContr {
             // display gets a sidebar instead of a stretched tab bar.
             self.mode = .tabSidebar
             self.sidebar.preferredPlacement = .sidebar
-            self.tabs = zip(viewControllers, tabBarItems).enumerated().map { index, pair in
-                let (viewController, item) = pair
-                return UITab(title: item.title, image: item.image, identifier: "\(index)") { _ in viewController }
-            }
+            self.delegate = self
+
+            // The sidebar lists message groups under History, so a wide display
+            // shows groups on the left and the selected group's messages on the right.
+            let historyGroup = UITabGroup(
+                title: historyTitle,
+                image: historyImage,
+                identifier: "\(TabPage.messageHistory.rawValue)",
+                children: []
+            ) { _ in messageListController }
+            historyGroup.isSidebarDestination = true
+            historyGroup.managingNavigationController = BarkNavigationController()
+
+            self.tabs = [
+                UITab(title: homeTitle, image: homeImage, identifier: "\(TabPage.service.rawValue)") { _ in homeController },
+                historyGroup,
+                UITab(title: settingsTitle, image: settingsImage, identifier: "\(TabPage.settings.rawValue)") { _ in settingsController }
+            ]
+            observeMessageGroups(historyGroup)
         } else {
-            self.viewControllers = viewControllers
-            for (index, viewController) in viewControllers.enumerated() {
-                viewController.tabBarItem = UITabBarItem(title: tabBarItems[index].title, image: tabBarItems[index].image, tag: index)
-            }
+            let historyController = BarkNavigationController(rootViewController: messageListController)
+            homeController.tabBarItem = UITabBarItem(title: homeTitle, image: homeImage, tag: 0)
+            historyController.tabBarItem = UITabBarItem(title: historyTitle, image: historyImage, tag: 1)
+            settingsController.tabBarItem = UITabBarItem(title: settingsTitle, image: settingsImage, tag: 2)
+            self.viewControllers = [homeController, historyController, settingsController]
         }
+    }
+
+    /// Keeps one sidebar child per message group, most recently active first.
+    @available(iOS 27.0, *)
+    private func observeMessageGroups(_ historyGroup: UITabGroup) {
+        let groups = try! Realm()
+            .objects(Message.self)
+            .sorted(byKeyPath: "createDate", ascending: false)
+            .distinct(by: ["group"])
+
+        messageGroupsToken = groups.observe { [weak historyGroup] _ in
+            guard let historyGroup else { return }
+            let existing = Dictionary(uniqueKeysWithValues: historyGroup.children.map { ($0.identifier, $0) })
+            let children: [UITab] = groups.map { message in
+                let group = message.group
+                let identifier = "group.\(group ?? "")"
+                if let tab = existing[identifier] {
+                    return tab
+                }
+                let tab = UITab(title: group ?? "default".localized, image: UIImage(systemName: "number"), identifier: identifier) { _ in
+                    MessageListViewController(viewModel: MessageListViewModel(sourceType: .group(group)))
+                }
+                tab.preferredPlacement = .sidebarOnly
+                return tab
+            }
+            if let selected = historyGroup.selectedChild, !children.contains(where: { $0 === selected }) {
+                historyGroup.selectedChild = nil
+            }
+            historyGroup.children = children
+        }
+    }
+}
+
+@available(iOS 27.0, *)
+extension BarkTabBarController {
+    /// With the sidebar showing, a group's messages replace the full history list
+    /// instead of being pushed on top of it; in a tab bar they stay pushed so
+    /// the back button returns to all messages.
+    func tabBarController(
+        _ tabBarController: UITabBarController,
+        displayedViewControllersFor tab: UITab,
+        proposedViewControllers: [UIViewController]
+    ) -> [UIViewController] {
+        if let group = tab as? UITabGroup, group.selectedChild != nil, sidebar.isAvailable, !sidebar.isHidden {
+            return []
+        }
+        return proposedViewControllers
     }
 }
