@@ -193,12 +193,10 @@ class ServerListViewController: BaseViewController<ServerListViewModel> {
 
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
                 
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    if let cell = self.tableView.cellForRow(at: indexPath) {
-                        alertController.popoverPresentationController?.sourceView = self.tableView
-                        alertController.popoverPresentationController?.sourceRect = cell.frame
-                        alertController.modalPresentationStyle = .popover
-                    }
+                // Regular width (iPad, iPhone Duo inner display) presents action sheets as popovers.
+                if let cell = self.tableView.cellForRow(at: indexPath) {
+                    alertController.popoverPresentationController?.sourceView = self.tableView
+                    alertController.popoverPresentationController?.sourceRect = cell.frame
                 }
                 self.navigationController?.present(alertController, animated: true, completion: nil)
 

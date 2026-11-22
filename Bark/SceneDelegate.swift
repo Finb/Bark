@@ -27,7 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             window.rootViewController = BarkSnackbarController(rootViewController: splitViewController)
         } else {
             window.rootViewController = BarkSnackbarController(
-                rootViewController: BarkTabBarController()
+                rootViewController: BarkTabBarController(prefersSidebar: true)
             )
         }
 

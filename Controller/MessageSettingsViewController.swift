@@ -134,12 +134,9 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
                 }))
 
                 alertController.addAction(UIAlertAction(title: "Cancel".localized, style: .cancel, handler: nil))
-                if UIDevice.current.userInterfaceIdiom == .pad {
-                    if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
-                        alertController.popoverPresentationController?.sourceView = strongSelf.tableView
-                        alertController.popoverPresentationController?.sourceRect = cell.frame
-                        alertController.modalPresentationStyle = .popover
-                    }
+                if let cell = strongSelf.tableView.cellForRow(at: indexPath) {
+                    alertController.popoverPresentationController?.sourceView = strongSelf.tableView
+                    alertController.popoverPresentationController?.sourceRect = cell.frame
                 }
                 strongSelf.present(alertController, animated: true, completion: nil)
 
@@ -272,10 +269,8 @@ class MessageSettingsViewController: BaseViewController<MessageSettingsViewModel
             }
             
             let activityController = UIActivityViewController(activityItems: [linkURL], applicationActivities: nil)
-            if UIDevice.current.userInterfaceIdiom == .pad {
-                activityController.popoverPresentationController?.sourceView = self?.view
-                activityController.popoverPresentationController?.sourceRect = self?.view.frame ?? .zero
-            }
+            activityController.popoverPresentationController?.sourceView = self?.view
+            activityController.popoverPresentationController?.sourceRect = self?.view.bounds ?? .zero
             self?.navigationController?.present(activityController, animated: true, completion: nil)
             
         }.disposed(by: rx.disposeBag)
